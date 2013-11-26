@@ -37,8 +37,8 @@
 \newenvironment{einspiel}[1]{%
  \small
  \begin{tabbing}
-  mmmmmm\=mm\=\kill
-  \textsl{#1}
+	mmmmmm\=mm\=\kill
+	\textsl{#1}
 }{%
  \end{tabbing}
 }
@@ -64,7 +64,7 @@
 
 
 \title{Das \paket{basis}-Paket}
-\subtitle{Ein \LaTeX{}-Stil mit Basisanpassungen -- Version 0.3$^\alpha$}
+\subtitle{Ein \LaTeX{}-Stil mit Basisanpassungen -- Version 0.3}
 \author{Ekkart Kleinod}
 \strasse{Richard-Sorge-Straße~76}
 \plz{10249}
@@ -75,7 +75,7 @@
 % Eigentliches Dokument
 \begin{document}
 
-  \DocInput{basis.dtx}
-  %\PrintIndex
+	\DocInput{basis.dtx}
+	%\PrintIndex
 
 \end{document}
