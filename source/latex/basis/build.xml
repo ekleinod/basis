@@ -14,7 +14,7 @@
 	<property name="file:log" value="build.log" />                  <!-- Log-Datei -->
 	<property name="count:runs" value="1" />                        <!-- LaTeX-Durchlaufzähler -->
 
-	<property name="path:latex:base" value="../../../" /> <!-- LaTeX-base-Pfad -->
+	<property name="path:latex:base" value="../../../texmf/" /> <!-- LaTeX-base-Pfad -->
 	<property name="path:latex:doc" value="doc/latex/" /> <!-- LaTeX-doc-Pfad -->
 	<property name="path:latex:tex" value="tex/latex/" /> <!-- LaTeX-tex-Pfad -->
 	<property name="path:latex:makeindex" value="makeindex/latex/" /> <!-- Makeindex-Pfad -->
