@@ -1,42 +1,7 @@
-%%
-%% This is file `artikel.tex',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% basis.dtx  (with options: `vorlage:artikel')
-%% 
-%% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
-%% (c) 2006-2011 Ekkart Kleinod
-%% Informationen: www.ekkart.de
-%% 
- % Projekt: ...
+\documentclass[ngerman]{scrartcl}
 
- % Optionen:
- % 11pt - 11-Punkt-Schrift
- % a4paper - A4-Papier
- % bigheadings - große Überschriften
- % twoside - zweiseitiges Layout
- % titlepage - extra Titelseite
- % halfparskip - Absatz ohne Einzug, halbe Zeile Abstand
- % tocleft - Inhaltsverzeichnis linksbündig
- % cleardoubleempty - leere Seiten bei cleardoublepage
- % noonelinecaption - alle captions linksbündig
- % origlongtable - captions von longtable übernehmen
- % german - Spracheinstellung für babel
- %
- % Dokumentklasse: scrartcl für Artikel; scrbook für Bücher
-\documentclass[11pt, a4paper, bigheadings, twoside,
- titlepage, halfparskip, tocleft, cleardoubleempty,
- noonelinecaption, origlongtable, german]{scrartcl}
+\usepackage[draft, nohyper, hypercolor=green, bewerbung, font=original|times|mathpazo|hfold|charter]{basis}
 
- % im Basis-Layout setzen
- % Optionen: draft, index, nojura, nohyper, hypercolor,
- %           bewerbung, onehalfspacing, noonelinecaption
- %           font=[original|times|mathpazo|hfold|charter]
-\usepackage{basis}
-
- % Metainformationen über das Dokument
 \title[Kurzform]{Dokumenttitel} % Kurzform optional
 \subtitle{Untertitel} % kann weggelassen werden
 \author{Autorname} % Autor ist Pflicht für die Titelseite
@@ -48,7 +13,6 @@
 \adresszusatz{Adresszusatz} % optional
 \titelzusatz{Titelzusatz} % optional
 
- % ab hier beginnt der Inhalt
 \begin{document}
 
  \maketitle
@@ -57,11 +21,9 @@
  \cleardoublepage
 
  \section{Kapitel 1}
+ \label{sec:kap1}
 
  Hier sollte richtiger Inhalt stehen.
 
 \end{document}
-%% 
-%% (c) 2006-2011 Ekkart Kleinod
-%%
-%% End of file `artikel.tex'.
+
