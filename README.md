@@ -1,4 +1,3 @@
-basis
-=====
+# Der Basis-Stil
 
-Basis-Stil mit Templates für LaTeX-Dokumente und -Briefe.
+Der Basis-Stil ist ein LaTeX-Stil mit Definitionen und Templates für LaTeX-Dokumente, -Präsentationen und -Briefe.
