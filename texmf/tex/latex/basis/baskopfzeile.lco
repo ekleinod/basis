@@ -1,0 +1,46 @@
+%%
+%% This is file `baskopfzeile.lco',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% basis.dtx  (with options: `lco:kopfzeile')
+%% 
+%% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
+%% (c) 2006-2011 Ekkart Kleinod
+%% Informationen: www.ekkart.de
+%% 
+\ProvidesFile{baskopfzeile.lco}[2007/01/15 v0.3 Basis-Brief: Kopfzeilenlayout]
+\newkomavar{headseparator}
+\setkomavar{headseparator}{~\ensuremath{\cdot}~}
+\@setplength{firstheadvpos}{15mm}
+\setkomafont{fromname}{\sffamily\small}
+\setkomafont{fromaddress}{\sffamily\footnotesize}
+\firsthead{%
+ \centering
+ {\usekomafont{fromname}%
+\usekomavar{fromname}%
+\ifthenelse{\isundefined{\BAS@strasse}}%
+ {}%
+ {\usekomavar{headseparator}\BAS@strasse}%
+\ifthenelse{\isundefined{\BAS@plz}}%
+ {}%
+ {\usekomavar{headseparator}\BAS@plz~\BAS@ort}%
+ }\\
+ {\usekomafont{fromaddress}%
+\ifthenelse{\isundefined{\BAS@telefon}}%
+ {}%
+ {\BAS@telefon}%
+\ifthenelse{\isundefined{\BAS@email}}%
+ {}%
+ {\usekomavar{headseparator}\BAS@email}%
+ }\\[-.5\baselineskip]%
+ \rule{\textwidth}{\BAS@linienbreite}%
+}
+\setkomavar{backaddressseparator}{~--~}
+\ohead{Seite~\pagemark}
+\setheadsepline{\BAS@linienbreite}
+%% 
+%% (c) 2006-2011 Ekkart Kleinod
+%%
+%% End of file `baskopfzeile.lco'.

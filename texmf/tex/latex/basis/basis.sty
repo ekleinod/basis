@@ -1,0 +1,546 @@
+%%
+%% This is file `basis.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% basis.dtx  (with options: `basis')
+%% 
+%% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
+%% (c) 2006-2011 Ekkart Kleinod
+%% Informationen: www.ekkart.de
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{basis}
+[2011/08/11 v0.3 Basis-Layout]
+\typeout{*** basis-Stil 2011/08/11 v0.3 alpha ***}
+\RequirePackage{xkeyval}
+\RequirePackage{xifthen}
+\RequirePackage{ifpdf}
+\newboolean{BAS@optionbewerbung}
+\setboolean{BAS@optionbewerbung}{false}
+\DeclareOptionX{bewerbung}{
+ \setboolean{BAS@optionbewerbung}{true}
+ \typeout{Basis-Option 'bewerbung'}
+}
+\newboolean{BAS@optiondraft}
+\setboolean{BAS@optiondraft}{false}
+\DeclareOptionX{draft}{
+ \setboolean{BAS@optiondraft}{true}
+ \typeout{Basis-Option 'draft'}
+ \PackageWarning{basis}{Entwurfsmodus eingeschaltet}
+}
+\DeclareOptionX{fixme}{
+ \ifthenelse{\equal{\@empty}{#1}}
+{\newcommand{\BAS@fixme}{final}}
+{\newcommand{\BAS@fixme}{#1}}
+ \typeout{Basis-Option 'fixme=\BAS@fixme'}
+ \PackageWarning{basis}{FixMe eingeschaltet}
+}
+\newcommand{\BAS@font}{times}
+\DeclareOptionX{font}{
+ \ifthenelse{\equal{\@empty}{#1}}
+{}
+{
+ \ifthenelse{
+\equal{#1}{charter}\or
+\equal{#1}{hfold}\or
+\equal{#1}{mathpazo}\or
+\equal{#1}{original}\or
+\equal{#1}{times}
+ }
+{\renewcommand{\BAS@font}{#1}}
+{\PackageWarning{basis}{Font '#1' unbekannt, nutze 'times'}}
+}
+ \typeout{Basis-Option 'font=\BAS@font'}
+}
+\newcommand{\BAS@hypercolor}{blue}
+\DeclareOptionX{hypercolor}{
+ \ifthenelse{\equal{\@empty}{#1}}
+{}
+{\renewcommand{\BAS@hypercolor}{#1}}
+ \typeout{Basis-Option 'hypercolor=\BAS@hypercolor'}}
+\newcommand{\BAS@hyperdriver}{ps2pdf}
+\ifpdf
+ \renewcommand{\BAS@hyperdriver}{pdftex}
+\fi
+\DeclareOptionX{hyperdriver}{
+ \ifthenelse{\equal{\@empty}{#1}}
+{}
+{\renewcommand{\BAS@hyperdriver}{#1}}
+ \typeout{Basis-Option 'hyperdriver=\BAS@hyperdriver'}}
+\newcommand{\BAS@layout}{infospalte}
+\DeclareOptionX{layout}{
+ \ifthenelse{\equal{\@empty}{#1}}
+{}
+{
+ \ifthenelse{
+\equal{#1}{bewerbung}\or
+\equal{#1}{kopfzeile}\or
+\equal{#1}{infospalte}
+ }
+{\renewcommand{\BAS@layout}{#1}}
+{\PackageWarning{basis}{Layout '#1' unbekannt, nutze 'infospalte'}}
+}
+ \typeout{Basis-Option 'layout=\BAS@layout'}
+}
+\newboolean{BAS@optionindex}
+\setboolean{BAS@optionindex}{false}
+\DeclareOptionX{index}{
+ \setboolean{BAS@optionindex}{true}
+ \typeout{Basis-Option 'index'}}
+\newboolean{BAS@optionnohyper}
+\setboolean{BAS@optionnohyper}{false}
+\DeclareOptionX{nohyper}{
+ \setboolean{BAS@optionnohyper}{true}
+ \typeout{Basis-Option 'nohyper'}}
+\newboolean{BAS@optionnojura}
+\setboolean{BAS@optionnojura}{false}
+\DeclareOptionX{nojura}{
+ \setboolean{BAS@optionnojura}{true}
+ \typeout{Basis-Option 'nojura'}}
+\newboolean{BAS@optionnoonelinecaption}
+\setboolean{BAS@optionnoonelinecaption}{false}
+\DeclareOptionX{noonelinecaption}{
+ \setboolean{BAS@optionnoonelinecaption}{true}
+ \typeout{Basis-Option 'noonelinecaption'}}
+\newboolean{BAS@optiononehalfspacing}
+\setboolean{BAS@optiononehalfspacing}{false}
+\DeclareOptionX{onehalfspacing}{
+ \setboolean{BAS@optiononehalfspacing}{true}
+ \typeout{Basis-Option 'onehalfspacing'}}
+\ProcessOptionsX
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{babel}
+\useshorthands{"}
+\AtEndOfClass{\shorthandon{"}}
+\RequirePackage[T1]{fontenc}
+\ifthenelse{\equal{\BAS@font}{charter}}
+ {
+\RequirePackage{charter}
+\RequirePackage[scaled=.95]{helvet}
+\RequirePackage[scaled]{luximono}
+ }{}
+\ifthenelse{\equal{\BAS@font}{hfold}}
+ {\RequirePackage{hfoldsty}}
+ {}
+\ifthenelse{\equal{\BAS@font}{mathpazo}}
+ {
+\RequirePackage[osf, slantedGreek]{mathpazo}
+\RequirePackage[scaled=.95]{helvet}
+\RequirePackage[scaled]{luximono}
+ }{}
+\ifthenelse{\equal{\BAS@font}{original}}
+ {}{}
+\ifthenelse{\equal{\BAS@font}{times}}
+ {
+\RequirePackage{mathptmx}
+\RequirePackage[scaled]{helvet}
+\RequirePackage[scaled]{luximono}
+ }{}
+\RequirePackage{graphicx}
+\RequirePackage{microtype}
+\RequirePackage{marvosym}
+\mathchardef\Rightarrow="3229
+\RequirePackage{scrpage2}
+\ifthenelse{\boolean{BAS@optionnojura}}
+ {}
+ {\RequirePackage{jurabib}}
+\RequirePackage{longtable}
+\RequirePackage{array}
+\RequirePackage{booktabs}
+\ifthenelse{\boolean{BAS@optionnohyper}}
+ {}
+ {
+\RequirePackage[
+ \BAS@hyperdriver,
+ a4paper,
+ breaklinks,
+ colorlinks,
+ linkcolor=\BAS@hypercolor,
+ citecolor=\BAS@hypercolor,
+ urlcolor=\BAS@hypercolor,
+ bookmarks,
+ bookmarksopen,
+ bookmarksnumbered,
+ pdfpagemode=UseNone,
+ pdfstartview=Fit
+]{hyperref}
+\AtBeginDocument{
+\ifthenelse{\isundefined{\BAS@subtitle}}
+ {\hypersetup{pdftitle=\@title}}
+ {\hypersetup{pdftitle={\@title{} - \BAS@subtitle}}}
+ \hypersetup{pdfauthor=\@author}
+ \hypersetup{pdfsubject=\@title}
+ \hypersetup{pdfcreator=LaTeX}
+ \hypersetup{pdfkeywords=\@title}
+}
+\iflanguage{german}{
+ \AtBeginDocument{
+\def\equationautorefname{For\-mel}
+\def\footnoteautorefname{Fu\ss \-no\-te}
+\def\itemautorefname{Punkt}
+\def\figureautorefname{Ab\-bil\-dung}
+\def\subfigureautorefname{\figureautorefname}
+\def\tableautorefname{Ta\-bel\-le}
+\def\partautorefname{Teil}
+\def\appendixautorefname{An\-hang}
+\def\chapterautorefname{Ka\-pi\-tel}
+\def\sectionautorefname{\chapterautorefname}
+\def\subsectionautorefname{Ab\-schnitt}
+\def\subsubsectionautorefname{\subsectionautorefname}
+\def\paragraphautorefname{Ab\-satz}
+\def\subparagraphautorefname{\paragraphautorefname}
+\def\FancyVerbLineautorefname{Zei\-le}
+\def\theoremautorefname{The\-o\-rem}
+ }
+}{}
+\iflanguage{ngerman}{
+ \AtBeginDocument{
+\def\equationautorefname{For\-mel}
+\def\footnoteautorefname{Fu\ss \-no\-te}
+\def\itemautorefname{Punkt}
+\def\figureautorefname{Ab\-bil\-dung}
+\def\subfigureautorefname{\figureautorefname}
+\def\tableautorefname{Ta\-bel\-le}
+\def\partautorefname{Teil}
+\def\appendixautorefname{An\-hang}
+\def\chapterautorefname{Ka\-pi\-tel}
+\def\sectionautorefname{\chapterautorefname}
+\def\subsectionautorefname{Ab\-schnitt}
+\def\subsubsectionautorefname{\subsectionautorefname}
+\def\paragraphautorefname{Ab\-satz}
+\def\subparagraphautorefname{\paragraphautorefname}
+\def\FancyVerbLineautorefname{Zei\-le}
+\def\theoremautorefname{The\-o\-rem}
+ }
+}{}
+\iflanguage{english}{
+ \AtBeginDocument{
+\def\equationautorefname{equa\-tion}
+\def\footnoteautorefname{foot\-note}
+\def\itemautorefname{item}
+\def\figureautorefname{fig\-ure}
+\def\subfigureautorefname{\figureautorefname}
+\def\tableautorefname{table}
+\def\partautorefname{part}
+\def\appendixautorefname{ap\-pen\-dix}
+\def\chapterautorefname{chap\-ter}
+\def\sectionautorefname{sec\-tion}
+\def\subsectionautorefname{\sectionautorefname}
+\def\subsubsectionautorefname{\sectionautorefname}
+\def\paragraphautorefname{para\-graph}
+\def\subparagraphautorefname{sub\-para\-graph}
+\def\FancyVerbLineautorefname{line}
+\def\theoremautorefname{the\-orem}
+ }
+}{}
+ } % if nohyper
+\ifthenelse{\isundefined{\BAS@fixme}}
+ {}
+ {
+\RequirePackage[\BAS@fixme, inline, nomargin, silent]{fixme}
+\renewcommand\FXInline[2]{
+ \fcolorbox{red}{white}{\textbf{\textcolor{black}{#1:}}}
+ \textcolor{red}{\emph{#2}}
+}
+\renewcommand\FXFootnote[2]{
+ \footnote{\fcolorbox{red}{white}{\textbf{\textcolor{black}{#1:}}}
+ \textcolor{red}{\emph{#2}}}
+}
+\renewcommand\FXEnvBegin{\begin{quotation}\color{red}}
+\renewcommand\FXEnvEnd{\end{quotation}}
+ }
+\newcommand{\strasse}[1]{\def\BAS@strasse{#1}}
+\newcommand{\plz}[1]{\def\BAS@plz{#1}}
+\newcommand{\ort}[1]{\def\BAS@ort{#1}}
+\newcommand{\telefon}[1]{\def\BAS@telefon{#1}}
+\newcommand{\email}[1]{\def\BAS@email{#1}}
+\newcommand{\adresszusatz}[1]{\def\BAS@adresszusatz{#1}}
+\ifthenelse{\isundefined{\logo}}
+ {\newcommand{\logo}[1]{\def\BAS@logo{#1}}}
+ {\renewcommand{\logo}[1]{\def\BAS@logo{#1}}}
+\ifthenelse{\boolean{BAS@optiononehalfspacing}}
+ {\RequirePackage[onehalfspacing]{setspace}}
+ {}
+\RequirePackage{ragged2e}
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\newlength{\BAS@linienbreite}
+\setlength{\BAS@linienbreite}{.4pt}
+\newcommand{\datum}{%
+ \ifthenelse{\day<10}{0}{}\the\day.\,%
+ \ifthenelse{\month<10}{0}{}\the\month.\ %
+ \the\year%
+}
+\iflanguage{english}{
+ \renewcommand{\datum}{%
+\the\year-%
+\ifthenelse{\month<10}{0}{}\the\month-%
+\ifthenelse{\day<10}{0}{}\the\day%
+ }
+}{}
+\newcount\BAS@stunden
+\newcount\BAS@stundeninminuten
+\newcount\BAS@minuten
+\BAS@minuten = \time
+\BAS@stunden = \BAS@minuten
+\divide\BAS@stunden by 60
+\BAS@stundeninminuten = \BAS@stunden
+\multiply\BAS@stundeninminuten by 60
+\advance\BAS@minuten-\BAS@stundeninminuten
+\newcommand{\zeit}{%
+ \ifthenelse{\BAS@stunden<10}{0}{}\the\BAS@stunden:%
+ \ifthenelse{\BAS@minuten<10}{0}{}\the\BAS@minuten%
+}
+\newcommand{\zeitstempel}[1][\datum\ \zeit]{%
+ \def\BAS@zeitstempel{#1}
+ \cfoot{\BAS@zeitstempel}
+}
+\newcommand{\zeitspanne}[2][\@empty]{%
+ \ifthenelse{\equal{\@empty}{#1}}{}{#1\,--\,}%
+ #2%
+}
+\renewcommand{\labelitemi}{--}
+\renewcommand{\labelitemii}{\ensuremath{\cdot}}
+\renewcommand{\labelitemiii}{\ensuremath{\bullet}}
+\renewcommand{\labelitemiv}{\ensuremath{\ast}}
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\theenumii}{\roman{enumii}}
+\renewcommand{\theenumiii}{\alph{enumiii}}
+\renewcommand{\theenumiv}{\Alph{enumiv}}
+\renewcommand{\labelenumi}{\theenumi.}
+\renewcommand{\labelenumii}{\theenumii)}
+\renewcommand{\labelenumiii}{(\theenumiii)}
+\renewcommand{\labelenumiv}{\theenumiv}
+\renewcommand{\p@enumi}{}
+\renewcommand{\p@enumii}{\theenumi.}
+\renewcommand{\p@enumiii}{\theenumi.\theenumii.}
+\renewcommand{\p@enumiv}{\theenumi.\theenumii.\theenumiii.}
+\setlength{\skip\footins}{1.5\baselineskip}
+\renewcommand{\theequation}{(\thesection.\arabic{equation})}
+\@addtoreset{equation}{section}
+\renewcommand{\@eqnnum}{%
+ \hb@xt@.01\p@{}%
+ \rlap{%
+\hskip -.98\textwidth%
+{\sffamily\small\theequation}
+ }
+}
+\input{fleqn.clo}
+\AtEndOfClass{\setlength{\mathindent}{.2\textwidth}}
+\providecommand{\meta}[1]{%
+ \ensuremath\langle\textsl{#1}\ensuremath\rangle%
+}
+\ifthenelse{\isundefined{\textsubscript}}
+ {
+\DeclareRobustCommand*\textsubscript[1]{%
+ \@textsubscript{\selectfont#1}}
+\newcommand{\@textsubscript}[1]{%
+ {\m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}}}
+ }{}
+\renewcommand{\title}[2][\@empty]{
+ \ifthenelse{\equal{\@empty}{#1}}
+{\def\BAS@foottitle{#2}}
+{\def\BAS@foottitle{#1}}
+ \def\@title{#2}
+}
+\ifthenelse{\isundefined{\subtitle}}
+ {\newcommand{\subtitle}[1]{\def\BAS@subtitle{#1}}}
+ {\renewcommand{\subtitle}[1]{\def\BAS@subtitle{#1}}}
+\newcommand{\titelzusatz}[1]{\def\BAS@titelzusatz{#1}}
+\if@titlepage
+ \renewcommand\maketitle{
+\begin{titlepage}
+ \if@twoside
+\setcounter{page}{-1}
+ \else
+\setcounter{page}{0}
+ \fi
+ \sffamily
+\ifthenelse{\isundefined{\BAS@logo}}
+ {}
+ {
+\newlength{\BAS@logoheight}
+\settoheight{\BAS@logoheight}{\BAS@logo}
+\addtolength{\BAS@logoheight}{\parskip}
+\hfill\BAS@logo\par
+\vskip -\BAS@logoheight
+ }%
+ \parbox[t][0mm]{.95\textwidth}{
+\vspace*{8\baselineskip}
+{\huge\textbf{\@title}\par}
+\ifthenelse{\isundefined{\BAS@subtitle}}
+ {\vskip\baselineskip}
+ {{\LARGE\BAS@subtitle\par}}
+\vskip 10\baselineskip
+{\Large\@author}\par
+\ifthenelse{\isundefined{\BAS@email}}
+{}
+{
+\ifthenelse{\equal{\@empty}{\BAS@email}}
+{}
+{\BAS@email\par}
+}
+\vskip \baselineskip
+\ifthenelse{\isundefined{\BAS@strasse}}
+{}
+{
+\ifthenelse{\equal{\@empty}{\BAS@strasse}}
+{}
+{\BAS@strasse\par}
+}
+\ifthenelse{\isundefined{\BAS@plz}}
+{}
+{
+\ifthenelse{\equal{\@empty}{\BAS@plz}}
+{}
+{\BAS@plz
+\ifthenelse{\isundefined{\BAS@ort}}
+{\par}
+{
+\ifthenelse{\equal{\@empty}{\BAS@ort}}
+{\par}
+{\ }
+}
+}
+}
+\ifthenelse{\isundefined{\BAS@ort}}
+{}
+{
+\ifthenelse{\equal{\@empty}{\BAS@ort}}
+ {}
+ {\BAS@ort\par}
+}
+\ifthenelse{\isundefined{\BAS@telefon}}
+{}
+{
+\ifthenelse{\equal{\@empty}{\BAS@telefon}}
+ {}
+ {\Telefon\ \BAS@telefon\par}
+}
+\ifthenelse{\isundefined{\BAS@adresszusatz}}
+ {}
+ {\BAS@adresszusatz\par}
+\vskip 2\baselineskip
+\@date
+ } % end of Titel-parbox
+ \ifthenelse{\isundefined{\BAS@titelzusatz}}
+{}
+{
+ \vskip .9\textheight
+ \hfill\parbox[b][0mm]{.5\textwidth}{\BAS@titelzusatz}
+}
+\end{titlepage}
+\if@twoside
+ \cleardoublepage
+\else
+ \clearpage
+\fi
+ } % end of \renewcommand\maketitle
+\else
+ \renewcommand\maketitle{
+{\sffamily
+ \ifthenelse{\isundefined{\BAS@logo}}
+{}
+{
+ \newlength{\BAS@logoheight}
+ \settoheight{\BAS@logoheight}{\BAS@logo}
+ \addtolength{\BAS@logoheight}{\parskip}
+ \hfill\BAS@logo\par
+ \vskip -\BAS@logoheight
+}%
+ {\huge\textbf{\@title}\par}
+ \ifthenelse{\isundefined{\BAS@subtitle}}
+{}
+{{\LARGE\BAS@subtitle\par}}
+ \vskip \baselineskip
+ \@author\par
+ \ifthenelse{\isundefined{\BAS@email}}
+{}
+{\BAS@email\par}
+ \vskip \baselineskip
+ \@date
+ \vskip \baselineskip
+} % end of {\sffamily
+ } % end of \renewcommand\maketitle
+\fi % end of \if@titlepage
+\renewcommand{\@dotsep}{200}
+\renewcommand{\contentsname}{Inhalt}
+\renewcommand{\listfigurename}{Abbildungen}
+\renewcommand{\listtablename}{Tafeln}
+\renewcommand{\tablename}{Tafel}
+\renewcommand\LT@makecaption[3]{%
+ \LT@mcol{\LT@cols}{@{}l@{}}{%
+\hbox to\z@{\parbox[t]\LTcapwidth{%
+ \sbox\@tempboxa{#1{#2: }#3}%
+ \ifdim\wd\@tempboxa>\hsize
+#1{#2: }#3%
+ \else
+\ifthenelse{\boolean{BAS@optionnoonelinecaption}}
+ {\hbox to\hsize{\box\@tempboxa}}%
+ {\hbox to\hsize{\hfil\box\@tempboxa\hfil}}%
+ \fi
+\endgraf\vskip\baselineskip}%
+ }}
+}
+\renewcommand{\headfont}{\sffamily\footnotesize}
+\renewcommand{\pnumfont}{\headfont}
+\setheadsepline{\BAS@linienbreite}
+\setfootsepline{\BAS@linienbreite}
+\automark[subsection]{section}
+\ohead{\headmark}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{#1}}
+\if@twoside
+ \renewcommand{\subsectionmark}[1]{\markright{#1}}
+\fi
+\ofoot{\pagemark}
+\ifoot{\BAS@foottitle}
+\newcommand{\BAS@litstyle}{jurabib}
+\ifthenelse{\boolean{BAS@optionnojura}}
+ {\renewcommand{\BAS@litstyle}{alpha}}
+ {}
+\newcommand{\literatur}[2][\BAS@litstyle]{%
+ \bibliographystyle{#1}
+ \bibliography{#2}
+}
+\ifthenelse{\boolean{BAS@optionindex}}
+ {
+\RequirePackage{makeidx}
+\makeindex
+ }{}
+\newcommand{\nindex}[2][\@empty]{%
+ \ifthenelse{\equal{\@empty}{#1}}
+{#2\index{#2}}
+{#2\index{#1!#2}}
+}
+\newcommand{\eindex}[2][\@empty]{%
+ \ifthenelse{\equal{\@empty}{#1}}
+{#2\index{#2|emph}}
+{#2\index{#1!#2|emph}}
+}
+\newcounter{BAS@slides}
+\newcommand{\nextslidesilent}{\stepcounter{BAS@slides}}
+\newcommand{\nextslide}{%
+ \nextslidesilent%
+ \insertslide{width=.3\textwidth}{slide}%
+}
+\newcommand{\insertslide}[2]{%
+ \parpic[r]{%
+\framebox{\includegraphics[#1]{#2\theBAS@slides}}%
+ }%
+}
+\ifthenelse{\boolean{BAS@optiondraft}}
+ {
+\newcommand{\BAS@draft}{--Entwurf--}
+\iflanguage{english}{
+ \renewcommand{\BAS@draft}{---draft---}
+}{}
+\zeitstempel[\datum\ \zeit\qquad\textbf{\BAS@draft}]
+ }
+ {}
+\typearea[15mm]{default}
+%% 
+%% (c) 2006-2011 Ekkart Kleinod
+%%
+%% End of file `basis.sty'.

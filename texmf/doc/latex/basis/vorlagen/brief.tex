@@ -1,0 +1,59 @@
+%%
+%% This is file `brief.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% basis.dtx  (with options: `vorlage:brief')
+%% 
+%% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
+%% (c) 2006-2011 Ekkart Kleinod
+%% Informationen: www.ekkart.de
+%% 
+ % Optionen:
+ %  fontsize=11pt - Schriftgröße (Layouts für 11pt ausgelegt)
+ %  ngerman - Spracheinstellung für babel
+\documentclass[fontsize=11pt, ngerman]{scrlttr2}
+
+ % Optionen: draft, index, nojura, nohyper, hypercolor,
+ %           bewerbung, onehalfspacing, noonelinecaption
+ %           font=[original|times|mathpazo|hfold|charter]
+ %           layout=[kopfzeile]
+\usepackage{basbrief}
+
+\author{Autorname} % Autor ist Pflicht
+\strasse{Straße} % optional
+\plz{PLZ} % optional
+\ort{Ort} % optional
+\telefon{(030) 1\,22\,33\,44} % optional
+\email{abc@abc.de} % optional
+
+\begin{document}
+
+ % nur eine Anlage: diese Zeile entkommentieren
+ %\renewcommand{\enclname}{Anlage} % Bezeichnung für Anlagen
+
+ % hier den Empfänger (\\-getrennt) eintragen
+ \begin{letter}{Empfänger\\
+Empfängerstraße\\
+Empfängerort}
+
+
+
+
+\opening{Hallo \dots,}
+
+hier steht der Brieftext.
+
+\closing{Mit freundlichen Grüßen,}
+
+
+
+
+ \end{letter}
+
+\end{document}
+%% 
+%% (c) 2006-2011 Ekkart Kleinod
+%%
+%% End of file `brief.tex'.

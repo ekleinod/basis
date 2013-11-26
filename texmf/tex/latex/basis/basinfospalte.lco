@@ -1,0 +1,69 @@
+%%
+%% This is file `basinfospalte.lco',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% basis.dtx  (with options: `lco:infospalte')
+%% 
+%% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
+%% (c) 2006-2011 Ekkart Kleinod
+%% Informationen: www.ekkart.de
+%% 
+\ProvidesFile{basinfospalte.lco}[2007/01/15 v0.3 Basis-Brief: Infospaltenlayout]
+\setkomafont{fromname}{\scshape}
+\setkomafont{fromaddress}{\sffamily\scriptsize}
+\newlength{\infocolwidth}
+\setlength{\infocolwidth}{.16\paperwidth}
+\typearea[\infocolwidth]{default}
+\setlength{\oddsidemargin}{\useplength{toaddrhpos}}
+\addtolength{\oddsidemargin}{-1in}
+\@setplength{firstheadvpos}{20mm}
+\firsthead{%
+{%
+\usekomafont{fromname}%
+\usekomavar[\textls]{fromname}%
+}\\[-.5\baselineskip]
+\rule{\textwidth}{\BAS@linienbreite}
+ \hspace*{\fill}%
+ \begin{picture}(0,0)%
+\put(0,0){%
+ \parbox[t]{\infocolwidth}{%
+\usekomafont{fromaddress}%
+\RaggedRight%
+\vspace{\useplength{refvpos}}%
+\vspace{-\useplength{firstheadvpos}}%
+\vspace{-\baselineskip}%
+\usekomavar[\textbf]{place}\\%
+\usekomavar{date}\\%
+\vspace{2\baselineskip}%
+\usekomavar[\textbf]{fromname}\\%
+\vspace{.5\baselineskip}%
+\ifthenelse{\isundefined{\BAS@strasse}}%
+ {}%
+ {\BAS@strasse}\\%
+\ifthenelse{\isundefined{\BAS@plz}}%
+ {}%
+ {\BAS@plz~\BAS@ort}\\%
+\vspace{\baselineskip}%
+\ifthenelse{\isundefined{\BAS@telefon}}%
+ {}%
+ {\Telefon~\BAS@telefon}\\%
+\ifthenelse{\isundefined{\BAS@email}}%
+ {}%
+ {\Email~\BAS@email}%
+ }%
+}%
+ \end{picture}%
+ \hspace*{\infocolwidth}%
+}
+\setkomavar{backaddressseparator}{~$\cdot$~}
+\@addtoplength{refvpos}{-2\baselineskip}
+\l@addto@macro\@firstheadfootfield{\setkomavar{date}{}}
+\setheadwidth[0mm]{textwithmarginpar}
+\ohead{Seite~\pagemark}
+\setheadsepline{\BAS@linienbreite}
+%% 
+%% (c) 2006-2011 Ekkart Kleinod
+%%
+%% End of file `basinfospalte.lco'.

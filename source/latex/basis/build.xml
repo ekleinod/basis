@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+	Dieses Script erzeugt alle Dateien, die fuer eine neue Version des Pakets notwendig sind.
+
+	Ziele: all (default), docstrip, pdf, deploy
+-->
+
+<!-- hier aktuellen Projektnamen eintragen -->
+<project name="basis" default="all" basedir=".">
+
+	<property name="file:targetname" value="${ant.project.name}" /> <!-- zu generierender Dateiname -->
+	<property name="file:index" value="${file:targetname}.ist" />   <!-- Makeindex-Stildatei -->
+	<property name="file:log" value="build.log" />                  <!-- Log-Datei -->
+	<property name="count:runs" value="1" />                        <!-- LaTeX-Durchlaufzähler -->
+
+	<property name="path:latex:base" value="../../../" /> <!-- LaTeX-base-Pfad -->
+	<property name="path:latex:doc" value="doc/latex/" /> <!-- LaTeX-doc-Pfad -->
+	<property name="path:latex:tex" value="tex/latex/" /> <!-- LaTeX-tex-Pfad -->
+	<property name="path:latex:makeindex" value="makeindex/latex/" /> <!-- Makeindex-Pfad -->
+
+	<!-- alle Dateien erstellen -->
+	<target name="all" depends="clearLog">
+
+		<echo message="Alle Dateien erzeugen: Start."/>
+
+		<!-- Stildatei strippen -->
+		<antcall target="docstrip" />
+
+		<!-- normale Doku erzeugen -->
+		<antcall target="pdf_complete" />
+
+		<!-- Kurzdoku erzeugen -->
+		<antcall target="kurzdoku" />
+
+		<!-- Temporäre Dateien weg -->
+		<antcall target="clear" />
+
+		<echo message="Dateien erzeugt: Verteilung mit 'ant deploy'."/>
+
+		<echo message="Alle Dateien erzeugen: Stop."/>
+
+	</target>
+
+	<!-- Erzeugung gestrippte Dateien -->
+	<target name="docstrip">
+		<echo message="docstrip-Lauf -> Stildateien"/>
+		<exec executable="latex" output="build.log" append="true" resultproperty="vts.result">
+			<arg line="-interaction=nonstopmode ${file:targetname}.ins" />
+		</exec>
+		<antcall target="checkResult" />
+	</target>
+
+	<!-- Ziel: BiBTeX-Lauf -->
+	<target name="bibtex">
+		<echo message="BibTeX-Lauf"/>
+		<exec executable="bibtex" output="${file:log}" append="true" resultproperty="vts.result">
+			<arg line="${file:targetname}" />
+		</exec>
+	</target>
+
+	<!-- Ziel: MakeIndex-Aufruf mit vorherigem Check -->
+	<target name="makeindex">
+		<available file="${file:targetname}.idx" property="vts.makeindex" />
+		<antcall target="makeindex.execute" />
+	</target>
+
+	<!-- Ziel: MakeIndex-Lauf -->
+	<target name="makeindex.execute" if="vts.makeindex">
+		<echo message="MakeIndex-Lauf" />
+		<exec executable="makeindex" output="${file:log}" append="true" resultproperty="vts.result">
+			<!-- Argumente: -l Leerzeichen beim Sortieren nicht berücksichtigen
+							-c führende und schliessende Leerzeichen ignorieren
+							-g deutsche Sortierung (Umlaute)
+							-s Stildatei verwenden (zumindestens Sonderbedeutung von " aufheben, da sonst -g nicht geht -->
+
+			<arg line="-lcgs ${file:index} ${file:targetname}" />
+		</exec>
+		<antcall target="checkResult" />
+	</target>
+
+	<!-- einzelne pdf-Datei -->
+	<target name="pdf">
+		<echo message="${count:runs}. PDF-LaTeX-Lauf -> ${file:targetname}.pdf"/>
+		<exec executable="pdflatex" output="${file:log}" append="true" resultproperty="vts.result">
+			<arg line="-interaction=nonstopmode ${file:targetname}.drv" />
+		</exec>
+		<antcall target="checkResult" />
+	</target>
+
+	<!-- Ziel: alle pdf-Dateien -->
+	<target name="pdf_complete">
+		<antcall target="pdf"><param name="count:runs" value="1" /></antcall>
+		<antcall target="pdf"><param name="count:runs" value="2" /></antcall>
+		<!-- antcall target="bibtex" />
+		<antcall target="makeindex" / -->
+		<antcall target="pdf"><param name="count:runs" value="3" /></antcall>
+		<!-- antcall target="pdf"><param name="count:runs" value="4" /></antcall -->
+	</target>
+
+	<!-- Kurzdoku erstellen -->
+	<target name="kurzdoku">
+
+		<copy file="${file:targetname}.drv" tofile="${file:targetname}_short.drv" />
+		<replace file="${file:targetname}_short.drv" token="%\OnlyDescription" value="\OnlyDescription" />
+		<antcall target="pdf_complete">
+			<param name="file:targetname" value="${file:targetname}_short" />
+		</antcall>
+		<delete file="${file:targetname}_short.drv" />
+
+	</target>
+
+	<!-- Ziel: Check, ob Resultat != 0 ist (Fehler) -->
+	<target name="checkResult" description="Check, ob Resultat != 0 ist (Fehler)">
+		<condition property="vts.error">
+			<and>
+				<isset property="vts.result" />
+				<not>
+					<equals arg1="${vts.result}" arg2="0" />
+				</not>
+			</and>
+		</condition>
+		<fail message="Abbruch wegen Fehler bei Programmausführung. Fehlerlog: '${file:log}'" if="vts.error" />
+	</target>
+
+	<!-- Ziel: temporäre Dateien löschen -->
+	<target name="clear">
+		<echo message="Löschen temporärer Dateien" />
+		<defaultexcludes remove="**/*~" />
+		<delete>
+			<fileset dir="." includes="**/*.aux, **/*.bak.vthought, **/*.bak, **/*.bbl, **/*.blg, **/*.dvi, **/*.idx, **/*.ilg, **/*.ind, **/*.lof, **/*.lot, **/*.lop, **/*.nav, **/*.out, **/*.ps, **/*.snm, **/*.toc, **/*.url, **/*.*~"/>
+		</delete>
+		<defaultexcludes default="true" />
+	</target>
+
+	<!-- Ziel: log Löschen -->
+	<target name="clearLog">
+		<echo message="" file="${file:log}" />
+	</target>
+
+	<!-- Dateien verteilen -->
+	<target name="deploy">
+		<echo message="Verteilung der generierten Dateien" />
+
+		<move todir="${path:latex:base}${path:latex:tex}${file:targetname}/" failonerror="false">
+			<fileset dir="." includes="*.sty, *.lco" />
+		</move>
+
+		<move file="${file:targetname}.ist" todir="${path:latex:base}${path:latex:makeindex}${file:targetname}/" failonerror="false" />
+
+		<move file="${file:targetname}.pdf" todir="${path:latex:base}${path:latex:doc}${file:targetname}/" failonerror="false" />
+		<move file="${file:targetname}_short.pdf" todir="${path:latex:base}${path:latex:doc}${file:targetname}/" failonerror="false" />
+
+		<move file="artikel.tex" todir="${path:latex:base}${path:latex:doc}${file:targetname}/vorlagen/" failonerror="false" />
+		<move file="brief.tex" todir="${path:latex:base}${path:latex:doc}${file:targetname}/vorlagen/" failonerror="false" />
+		<move file="jurabib.cfg" todir="${path:latex:base}${path:latex:doc}${file:targetname}/vorlagen/" failonerror="false" />
+	</target>
+
+</project>

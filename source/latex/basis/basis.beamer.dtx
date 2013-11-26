@@ -1,0 +1,157 @@
+% \section{Beamer}
+%
+%    \begin{macrocode}
+%<*basis:beamer:theme>
+%    \end{macrocode}
+%
+% \subsection{Präsentationsthema}
+%
+% Das Präsentationsthema legt das gesamte Aussehen der Präsentation fest.
+%	Das Aussehen wird durch die Einbindung von vier definierenden Themen festgelegt.
+% Diese Themen sind:
+% \begin{description}
+% 	\item[color theme] benutzte Farben
+% 	\item[font theme] benutzte Fonts
+% 	\item[inner theme] Aussehen aller Inhaltselemente einer Folie
+% 	\item[outer theme] Aussehen aller äußeren Strukturelemente einer Folie
+% \end{description}
+%    \begin{macrocode}
+\usecolortheme{basis}
+\usefonttheme{basis}
+\useinnertheme{basis}
+\useoutertheme{basis}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</basis:beamer:theme>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*basis:beamer:theme:color>
+%    \end{macrocode}
+%
+% \subsection{Farbthema}
+%
+% Verlauf: oben grau, dann in weiß übergehen.
+%    \begin{macrocode}
+\usecolortheme[named=darkgray]{structure}
+\setbeamercolor{date in head/foot}{bg=}
+\setbeamercolor{title in head/foot}{bg=}
+\setbeamercolor{title}{bg=}
+\setbeamertemplate{background canvas}[vertical shading][top=gray, middle=white, bottom=white, midpoint=.8]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</basis:beamer:theme:color>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*basis:beamer:theme:font>
+%    \end{macrocode}
+%
+% \subsection{Fontthema}
+%
+% Schriftart Arev als Standard festlegen.
+% Arev ist eine Version der \emph{Bitstream Vera Sans}, die für Präsentationen entworfen wurde.
+% Gleichzeitig UTF-8 und T1-Fontencoding durchsetzen.
+%    \begin{macrocode}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{arev}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</basis:beamer:theme:font>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*basis:beamer:theme:inner>
+%    \end{macrocode}
+%
+% \subsection{Inneres Thema}
+%
+% Aufzählungen benutzen Quadrate statt Dreiecke.
+%    \begin{macrocode}
+\setbeamertemplate{itemize items}[square]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</basis:beamer:theme:inner>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*basis:beamer:theme:outer>
+%    \end{macrocode}
+%
+% \subsection{Äußeres Thema}
+%
+% Die Fußzeile enthält linksbündig den Kurztitel der Präsentation und rechtsbündig die Foliennummer sowie die Anzahl der Folien.
+% Der Code ist dem Outer-Theme "`infolines"' entlehnt.
+%    \begin{macrocode}
+\defbeamertemplate*{footline}{basis theme}{
+  \leavevmode%
+  \hbox{%
+		\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,left]{title in head/foot}%
+			\usebeamerfont{title in head/foot}%
+			\hspace*{2ex}%
+			\insertshorttitle%
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}%
+			\insertframenumber{} / \inserttotalframenumber%
+			\hspace*{2ex}%
+		\end{beamercolorbox}%
+	}%
+  \vskip0pt%
+}
+%    \end{macrocode}
+%
+% Keine Navigationssymbole.
+%    \begin{macrocode}
+\setbeamertemplate{navigation symbols}{}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</basis:beamer:theme:outer>
+%    \end{macrocode}
+%
+%
+% Schriftart Helvetica als Standard festlegen.
+%    \begin{macrocode}
+%\usepackage{calligra}
+%\renewcommand\sfdefault{phv}
+%\renewcommand\familydefault{\sfdefault}
+%    \end{macrocode}
+%
+% Pakete:
+% \begin{description}
+% 	\item[xcolor] Farbennutzung und -definition
+% 	\item[texnansi] keine Ahnung
+% 	\item[marvosym] gebräuchliche Symbole
+% \end{description}
+%    \begin{macrocode}
+%\usepackage{xcolor}
+%\usepackage{texnansi}
+%\usepackage{marvosym}
+%\definecolor{bottomcolour}{rgb}{0.32,0.3,0.38}
+%\definecolor{middlecolour}{rgb}{0.08,0.08,0.16}
+%\definecolor{topcolor}{rgb}{1, 1, 1}
+%\definecolor{middlecolor}{rgb}{1, 1, 1}
+%\definecolor{bottomcolor}{rgb}{1, 1, 1}
+%\setbeamerfont{title}{size=\Large}
+%\setbeamercolor{structure}{fg=gray}
+%\setbeamertemplate{frametitle}[default]%[center]
+%\setbeamercolor{normal text}{bg=white, fg=black}
+%\setbeamertemplate{background canvas}[vertical shading][bottom=bottomcolor, middle=middlecolor, top=topcolor]
+%\setbeamertemplate{items}[circle]
+%\setbeamerfont{frametitle}{size=\Large}
+%\setbeamertemplate{navigation symbols}{} %no nav symbols
+%    \end{macrocode}
+%
+%
+%\Finale
+\endinput
