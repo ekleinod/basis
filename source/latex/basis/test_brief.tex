@@ -1,101 +1,44 @@
 \documentclass[fontsize=11pt, ngerman]{scrlttr2}
 
-\usepackage{kleinod}
-%\usepackage[font=original]{kleinod}
-%\usepackage[font=mathpazo]{kleinod}
-%\usepackage[font=hfold]{kleinod}
-%\usepackage[font=charter]{kleinod}
-%\usepackage[font=times]{kleinod}
-%\usepackage[edgesoft]{kleinod}
-%\usepackage[ekkart]{kleinod}
-%\usepackage[ilka]{kleinod}
-%\usepackage[ekkart, layout=bewerbung, font=charter]{kleinod}
-%\usepackage[ekkart, layout=kopfzeile]{kleinod}
+\usepackage[draft, nohyper, hypercolor=green, bewerbung, font=original|times|mathpazo|hfold|charter, layout=kopfzeile]{basbrief}
+
+\author{Autorname} % Autor ist Pflicht
+\strasse{Straße} % optional
+\plz{PLZ} % optional
+\ort{Ort} % optional
+\telefon{(030) 1\,22\,33\,44} % optional
+\email{abc@abc.de} % optional
 
 \begin{document}
 
- % nur eine Anlage: diese Zeile entkommentieren
- %\renewcommand{\enclname}{Anlage} % Bezeichnung für Anlagen
+	%\renewcommand{\enclname}{Anlage} % Standard: Anlagen, wenn nur eine Anlage gemeint ist: diese Zeile entkommentieren
 
- % hier den Empfänger
- \begin{letter}{Empfänger\\
-  Empfängerstraße\\
-  00000 Empfängerort}
+	% hier den Empfänger (\\-getrennt) eintragen
+	\begin{letter}{Empfänger\\Empfängerstraße\\Empfängerort}
 
-  \setkomavar{subject}{Interessantes Thema des Briefes}
-  %\setkomavar{date}{} % Datum (default: aktuelles Datum)
-  %\setkomavar{signature}{} % Unterschrift (default: Autor)
+		%\setkomavar{subject}{Betreff} % Betreff
+		%\setkomavar{date}{27.\ November 2013} % Datum (default: aktuelles Datum)
+		%\setkomavar{signature}{} % Unterschrift (default: Name)
 
-  %\setkomavar{yourref}{} % Geschäftszeile: Ihr Zeichen
-  %\setkomavar{yourmail}{} % Geschäftszeile: Ihr Schreiben vom
-  %\setkomavar{myref}{} % Geschäftszeile: Unser Zeichen
-  %\setkomavar{invoice}{} % Geschäftszeile: Rechnungsnummer
+		%\setkomavar{yourref}{} % Geschäftszeile: Ihr Zeichen
+		%\setkomavar{yourmail}{} % Geschäftszeile: Ihr Schreiben vom
+		%\setkomavar{myref}{} % Geschäftszeile: Unser Zeichen
+		%\setkomavar{invoice}{} % Geschäftszeile: Rechnungsnummer
 
-  %\newkomavar*[Bezeichnung]{id} % Geschäftszeile: neues Feld
-  %\setkomavar{id}{Inhalt} % Geschäftszeile: neues Feld
+		%\newkomavar*[Meins]{myadd} % Geschäftszeile: neues Feld myadd mit Titel "Meins"
+		%\setkomavar{myadd}{Inhalt} % Geschäftszeile: neues Feld
 
-  % Anrede
-  \opening{Hallo \dots,}
+		\opening{Hallo \dots,}
 
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. a a a a hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
+			hier steht der Brieftext.
 
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
+		\closing{Mit freundlichen Grüßen,}
 
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
+		%\ps % Post-Scriptum
+		%\encl{} % Anlage(n)
+		%\cc{} % Verteiler
 
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-  hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext. hier steht der Brieftext.
-
-  % Grußfloskel
-  \closing{Mit freundlichen Grüßen,}
-
-  % Post-Scriptum
-  %\ps
-
-  % Anlagen
-  %\vspace*{2ex}
-  \vfill
-  \encl{}%{Anlage 1\\Anlage 2}
-
-  % Verteiler
-  %\cc{}
-
- \end{letter}
+	\end{letter}
 
 \end{document}
+

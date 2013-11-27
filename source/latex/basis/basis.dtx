@@ -1,4 +1,4 @@
-% \CheckSum{1206}
+% \CheckSum{1121}
 %
 %^^A --------------------------------------------------------------------------
 %
@@ -13,7 +13,7 @@
 % \tableofcontents
 % \cleardoublepage
 %
-% \input{basis.userdoc}
+% ^^A \input{basis.userdoc}
 %
 %
 %^^A --------------------------------------------------------------------------
@@ -308,7 +308,7 @@
 \RequirePackage[T1]{fontenc}
 %    \end{macrocode}
 %
-% \option{charter}: Serifenschrift \schrift{Charter}, serifenlose Schrift \schrift{Helvetica}, Schreibmaschinenschrift \schrift{Luxi Mono}
+% \option{charter}: Serifenschrift \emph{Charter}, serifenlose Schrift \emph{Helvetica}, Schreibmaschinenschrift \emph{Luxi Mono}
 %    \begin{macrocode}
 \ifthenelse{\equal{\BAS@font}{charter}}
  {
@@ -318,14 +318,14 @@
  }{}
 %    \end{macrocode}
 %
-% \option{hfold}: Serifenschrift \schrift{hfold}
+% \option{hfold}: Serifenschrift \emph{hfold}
 %    \begin{macrocode}
 \ifthenelse{\equal{\BAS@font}{hfold}}
  {\RequirePackage{hfoldsty}}
  {}
 %    \end{macrocode}
 %
-% \option{mathpazo}: Serifenschrift \schrift{Palatino}, serifenlose Schrift \schrift{Helvetica}, Schreibmaschinenschrift \schrift{Luxi Mono}
+% \option{mathpazo}: Serifenschrift \emph{Palatino}, serifenlose Schrift \emph{Helvetica}, Schreibmaschinenschrift \emph{Luxi Mono}
 %    \begin{macrocode}
 \ifthenelse{\equal{\BAS@font}{mathpazo}}
  {
@@ -341,7 +341,7 @@
  {}{}
 %    \end{macrocode}
 %
-% \option{times}: Serifenschrift \schrift{Times}, serifenlose Schrift \schrift{Helvetica}, Schreibmaschinenschrift \schrift{Luxi Mono}
+% \option{times}: Serifenschrift \emph{Times}, serifenlose Schrift \emph{Helvetica}, Schreibmaschinenschrift \emph{Luxi Mono}
 %    \begin{macrocode}
 \ifthenelse{\equal{\BAS@font}{times}}
  {
@@ -1728,210 +1728,6 @@
 %    \begin{macrocode}
 %</lco:bewerbung>
 %    \end{macrocode}
-%
-%^^A --------------------------------------------------------------------------
-%
-% \section{Makeindex-Stildatei}
-%
-%    \begin{macrocode}
-%<*makeindex>
-%    \end{macrocode}
-%
-% Sonderbedeutung von \verb#"# aufheben und \verb#=# zuweisen, damit deutsche Umlaute bei der
-% Sortierung möglich sind.
-%    \begin{macrocode}
-quote '='
-%    \end{macrocode}
-%
-% Jeder neue Abschnitt beginnt mit einem Großbuchstaben.
-% Die Buchstaben sind fett, nach dem Buchstaben darf keine neue Seite beginnen.
-%    \begin{macrocode}
-headings_flag 1
-heading_prefix "{\\bfseries "
-heading_suffix "}\\nopagebreak\n"
-%    \end{macrocode}
-%
-% Bezeichner für Symbole und Zahlen festlegen.
-%    \begin{macrocode}
-symhead_positive "Symbole"
-numhead_positive "Zahlen"
-%    \end{macrocode}
-%
-% Zwischen Einträgen und Seitenzahlen steht ein Leerzeichen.
-%    \begin{macrocode}
-delim_0 "\\quad"
-delim_1 "\\quad"
-delim_2 "\\quad"
-%    \end{macrocode}
-%
-% Bei Folgeseiten f. bzw. ff. schreiben.
-%    \begin{macrocode}
-suffix_2p "~f."
-suffix_mp "~ff."
-%    \end{macrocode}
-%^^A " (Syntaxhighlighting)
-%
-%    \begin{macrocode}
-%</makeindex>
-%    \end{macrocode}
-%
-%^^A --------------------------------------------------------------------------
-%
-%	\cleardoublepage
-% \section{Vorlagen}
-%
-%
-% Diese Vorlagen sollen die Nutzung von \LaTeX{} bzw.\ von diesem Stil erleichtern.
-% Sie sind allerdings mit Nachdenken anzuwenden.
-%
-% \subsection{Vorlage für einen Artikel oder ein Buch}
-%
-%    \begin{macrocode}
-%<*vorlage:artikel>
- % Projekt: ...
-
- % Optionen:
- % 11pt - 11-Punkt-Schrift
- % a4paper - A4-Papier
- % bigheadings - große Überschriften
- % twoside - zweiseitiges Layout
- % titlepage - extra Titelseite
- % halfparskip - Absatz ohne Einzug, halbe Zeile Abstand
- % tocleft - Inhaltsverzeichnis linksbündig
- % cleardoubleempty - leere Seiten bei cleardoublepage
- % noonelinecaption - alle captions linksbündig
- % origlongtable - captions von longtable übernehmen
- % german - Spracheinstellung für babel
- %
- % Dokumentklasse: scrartcl für Artikel; scrbook für Bücher
-\documentclass[11pt, a4paper, bigheadings, twoside,
- titlepage, halfparskip, tocleft, cleardoubleempty,
- noonelinecaption, origlongtable, german]{scrartcl}
-
- % im Basis-Layout setzen
- % Optionen: draft, index, nojura, nohyper, hypercolor,
- %           bewerbung, onehalfspacing, noonelinecaption
- %           font=[original|times|mathpazo|hfold|charter]
-\usepackage{basis}
-
- % Metainformationen über das Dokument
-\title[Kurzform]{Dokumenttitel} % Kurzform optional
-\subtitle{Untertitel} % kann weggelassen werden
-\author{Autorname} % Autor ist Pflicht für die Titelseite
-\strasse{Straße} % optional
-\plz{PLZ} % optional
-\ort{Ort} % optional
-\telefon{(030) 1\,22\,33\,44} % optional
-\email{abc@abc.de} % optional
-\adresszusatz{Adresszusatz} % optional
-\titelzusatz{Titelzusatz} % optional
-
- % ab hier beginnt der Inhalt
-\begin{document}
-
- \maketitle
-
- \tableofcontents
- \cleardoublepage
-
- \section{Kapitel 1}
-
- Hier sollte richtiger Inhalt stehen.
-
-\end{document}
-%</vorlage:artikel>
-%    \end{macrocode}
-%
-% \subsection{Vorlage für einen Brief}
-%
-%    \begin{macrocode}
-%<*vorlage:brief>
- % Optionen:
- %  fontsize=11pt - Schriftgröße (Layouts für 11pt ausgelegt)
- %  ngerman - Spracheinstellung für babel
-\documentclass[fontsize=11pt, ngerman]{scrlttr2}
-
- % Optionen: draft, index, nojura, nohyper, hypercolor,
- %           bewerbung, onehalfspacing, noonelinecaption
- %           font=[original|times|mathpazo|hfold|charter]
- %           layout=[kopfzeile]
-\usepackage{basbrief}
-
-\author{Autorname} % Autor ist Pflicht
-\strasse{Straße} % optional
-\plz{PLZ} % optional
-\ort{Ort} % optional
-\telefon{(030) 1\,22\,33\,44} % optional
-\email{abc@abc.de} % optional
-
-\begin{document}
-
- % nur eine Anlage: diese Zeile entkommentieren
- %\renewcommand{\enclname}{Anlage} % Bezeichnung für Anlagen
-
- % hier den Empfänger (\\-getrennt) eintragen
- \begin{letter}{Empfänger\\
-	Empfängerstraße\\
-	Empfängerort}
-
-	%\setkomavar{subject}{Betreff} % Betreff
-	%\setkomavar{date}{} % Datum (default: aktuelles Datum)
-	%\setkomavar{signature}{} % Unterschrift (default: Autor)
-
-	%\setkomavar{yourref}{} % Geschäftszeile: Ihr Zeichen
-	%\setkomavar{yourmail}{} % Geschäftszeile: Ihr Schreiben vom
-	%\setkomavar{myref}{} % Geschäftszeile: Unser Zeichen
-	%\setkomavar{invoice}{} % Geschäftszeile: Rechnungsnummer
-
-	%\newkomavar*[Bezeichnung]{id} % Geschäftszeile: neues Feld
-	%\setkomavar{id}{Inhalt} % Geschäftszeile: neues Feld
-
-	% Anrede
-	\opening{Hallo \dots,}
-
-	hier steht der Brieftext.
-
-	% Grußfloskel
-	\closing{Mit freundlichen Grüßen,}
-
-	% Post-Scriptum
-	%\ps
-
-	% Anlagen
-	%\encl{Anlage 1\\Anlage 2}
-
-	% Verteiler
-	%\cc{}
-
- \end{letter}
-
-\end{document}
-%</vorlage:brief>
-%    \end{macrocode}
-%
-%^^A --------------------------------------------------------------------------
-%
-% \subsection{Vorlage für eine Jurabib-Konfiguration}
-%
-%    \begin{macrocode}
-%<*vorlage:jurabib>
- % diese Datei anpassen und in Projektordner legen
-
- % Klassenoptionen
-\jurabibsetup{
-	authorformat=smallcaps,
-	ibidem,
-	bibformat=ibidem
-}
- % sonstige Befehle
-\renewcommand*{\biblnfont}{\textsc}
-\renewcommand*{\bibfnfont}{\textsc}
-\renewcommand*{\bibelnfont}{\textsc}
-\renewcommand*{\bibefnfont}{\textsc}
-%</vorlage:jurabib>
-%    \end{macrocode}
-%
-%^^A --------------------------------------------------------------------------
 %
 %\Finale
 \endinput

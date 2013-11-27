@@ -1,21 +1,8 @@
 \documentclass[ngerman]{scrartcl}
 
-\usepackage{basis}
-%\usepackage[hypercolor=red]{basis}
-%\usepackage[hypercolor]{kleinod}
-%\usepackage[draft]{kleinod}
-%\usepackage[nojura]{basis}
-%\usepackage[nohyper]{basis}
-%\usepackage[onehalfspacing]{basis}
-%\usepackage[font=times]{basis}
-%\usepackage[font=mathpazo]{basis}
-%\usepackage[font=hfold]{basis}
-%\usepackage[bewerbung]{basis}
-%\usepackage[fixme]{basis}
-%\usepackage[fixme=draft]{basis}
+\usepackage[draft, nohyper, hypercolor=green, bewerbung, font=original|times|mathpazo|hfold|charter]{basis}
 
- % Metainformationen über das Dokument
-\title{Test}
+\title[Kurzform]{Dokumenttitel} % Kurzform optional
 \subtitle{Untertitel} % kann weggelassen werden
 \author{Autorname} % Autor ist Pflicht für die Titelseite
 \strasse{Straße} % optional
@@ -26,53 +13,17 @@
 \adresszusatz{Adresszusatz} % optional
 \titelzusatz{Titelzusatz} % optional
 
- % ab hier beginnt der Inhalt
 \begin{document}
 
-	\maketitle
+ \maketitle
 
-	\section{eins}\label{eins}
+ \tableofcontents
+ \cleardoublepage
 
-	eins zwei \autoref{eins} drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
+ \section{Kapitel 1}
+ \label{sec:kap1}
 
-	eins \textsubscript{zwei} drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-
-	1234567890
-
-	$\alpha \beta \gamma$
-
-	$a+2b=c^2$
-
-	\texttt{abcdef 12345}
-
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-	eins zwei drei eins zwei drei eins zwei drei eins zwei drei eins zwei drei
-
-	%\literatur
+ Hier sollte richtiger Inhalt stehen.
 
 \end{document}
+

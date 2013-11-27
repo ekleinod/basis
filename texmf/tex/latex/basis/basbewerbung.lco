@@ -7,14 +7,14 @@
 %% basis.dtx  (with options: `lco:bewerbung')
 %% 
 %% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
-%% (c) 2006-2011 Ekkart Kleinod
-%% Informationen: www.ekkart.de
+%% (c) 2006-2013 Ekkart Kleinod
+%% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
 %% 
 \ProvidesFile{basbewerbung.lco}[2007/01/18 v0.3 Basis-Brief: Bewerbungslayout]
 \LoadLetterOption{basinfospalte}
 \KOMAoptions{backaddress=off, foldmarks=off}
 \setkomavar{enclseparator}{~}
 %% 
-%% (c) 2006-2011 Ekkart Kleinod
+%% (c) 2006-2013 Ekkart Kleinod
 %%
 %% End of file `basbewerbung.lco'.

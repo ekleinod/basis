@@ -1,81 +1,63 @@
-%%%
-%
-% Treiberdatei für Basis-Paket
-%
-%
-
 % Artikel-Klasse
-%
-% Voreingestellt: 11pt, a4paper, bigheadings
-% twoside - zweiseitiges Layout
-% titlepage - Titelseite kreieren
-% halfparskip - neuer Absatz ohne Einzug mit halber Zeile Abstand
-% tocleft - Inhaltsverzeichnis nicht eingerückt, sondern linksbündig
-% cleardoubleempty - cleardoublepage erzeugt ganz leere Seiten (ohne Seitennummer)
-% noonelinecaption - alle Tabellen- und Abbildungsbezeichnungen linksbündig
-% origlongtable - caption-Befehl der longtable-Klasse nutzen
-% ngerman - Spracheinstellung für babel
-\documentclass[twoside, a4paper, titlepage, halfparskip, tocleft, cleardoubleempty, noonelinecaption, origlongtable, ngerman]{scrartcl}
+\documentclass[ngerman]{scrartcl}
 
 % Doc-Paket
 \usepackage{doc}
 
 % im Basis-Layout setzen
 \usepackage[font=charter]{basis}
-%\usepackage{basis}
 
-% voller Index
-\EnableCrossrefs
+% schönere Tabellen
+\usepackage{booktabs}
 
-% Angabe nach Zeilennummern
+% Angabe von Zeilennummern
 \CodelineIndex
 
 % nur Beschreibungsteil ausgeben
 %\OnlyDescription
 
-% Umgebung für Einsatz und Beispiel
-\newenvironment{einspiel}[1]{%
- \small
- \begin{tabbing}
-	mmmmmm\=mm\=\kill
-	\textsl{#1}
+% example environment
+\newenvironment{nutzung}{
+	\small
+	\begin{tabbing}
+		m\=\kill
+		\aufruf
 }{%
- \end{tabbing}
+	\end{tabbing}
+}
+\newcommand{\aufruf}{
+	\textsl{Aufruf}\\
+}
+\newcommand{\beispiel}{
+	\textsl{Beispiel}\\
 }
 
-% Formatierungsbefehle
+% Formatierung Pakete und Optionen
 \newcommand{\paket}[1]{\textsl{#1}}
 \newcommand{\option}[1]{\texttt{#1}}
-\newcommand{\schrift}[1]{\textsl{#1}}
+\newcommand{\datei}[1]{\texttt{#1}}
+\newcommand{\befehl}[1]{\texttt{\textbackslash{}#1}}
+\newcommand{\umgebung}[1]{\texttt{#1}}
 
-% Makroüberschriften
+% Überdefinition der doc-Makros, Auszeichnung im Fließtext
 \makeatletter
-\def\Describe@Macro#1{%
- \endgroup%
- \fbox{\PrintDescribeMacro{#1}}\par%
- \SpecialUsageIndex{#1}\@esphack\ignorespaces%
-}
-\def\Describe@Env#1{%
- \endgroup%
- \fbox{\PrintDescribeEnv{#1}}\par%
- \SpecialEnvIndex{#1}\@esphack\ignorespaces
-}
+\def\Describe@Env#1{\endgroup%
+							\fbox{\PrintDescribeEnv{#1}}\par%
+							\SpecialEnvIndex{#1}\@esphack\ignorespaces}
+\def\Describe@Macro#1{\endgroup%
+							\fbox{\PrintDescribeMacro{#1}}\par%
+							\SpecialUsageIndex{#1}\@esphack\ignorespaces}
 \makeatother
-
 
 \title{Das \paket{basis}-Paket}
 \subtitle{Ein \LaTeX{}-Stil mit Basisanpassungen -- Version 0.4$\alpha$}
 \author{Ekkart Kleinod}
-\strasse{Richard-Sorge-Straße~76}
-\plz{10249}
-\ort{Berlin}
-\telefon{(030) 4\,27\,74\,79}
-\email{ekkart@ekkart.de}
+\email{ekleinod@edgesoft.de}
+\logo{testlogo}
 
 % Eigentliches Dokument
 \begin{document}
 
 	\DocInput{basis.dtx}
-	%\PrintIndex
 
 \end{document}

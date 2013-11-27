@@ -7,8 +7,8 @@
 %% basis.dtx  (with options: `lco:kopfzeile')
 %% 
 %% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
-%% (c) 2006-2011 Ekkart Kleinod
-%% Informationen: www.ekkart.de
+%% (c) 2006-2013 Ekkart Kleinod
+%% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
 %% 
 \ProvidesFile{baskopfzeile.lco}[2007/01/15 v0.3 Basis-Brief: Kopfzeilenlayout]
 \newkomavar{headseparator}
@@ -41,6 +41,6 @@
 \ohead{Seite~\pagemark}
 \setheadsepline{\BAS@linienbreite}
 %% 
-%% (c) 2006-2011 Ekkart Kleinod
+%% (c) 2006-2013 Ekkart Kleinod
 %%
 %% End of file `baskopfzeile.lco'.

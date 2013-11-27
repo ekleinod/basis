@@ -146,14 +146,8 @@
 			<fileset dir="." includes="*.sty, *.lco" />
 		</move>
 
-		<move file="${file:targetname}.ist" todir="${path:latex:base}${path:latex:makeindex}${file:targetname}/" failonerror="false" />
-
 		<move file="${file:targetname}.pdf" todir="${path:latex:base}${path:latex:doc}${file:targetname}/" failonerror="false" />
 		<move file="${file:targetname}_short.pdf" todir="${path:latex:base}${path:latex:doc}${file:targetname}/" failonerror="false" />
-
-		<move file="artikel.tex" todir="${path:latex:base}${path:latex:doc}${file:targetname}/vorlagen/" failonerror="false" />
-		<move file="brief.tex" todir="${path:latex:base}${path:latex:doc}${file:targetname}/vorlagen/" failonerror="false" />
-		<move file="jurabib.cfg" todir="${path:latex:base}${path:latex:doc}${file:targetname}/vorlagen/" failonerror="false" />
 	</target>
 
 </project>
