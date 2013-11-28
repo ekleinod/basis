@@ -128,14 +128,14 @@ Dokumentation der Pakete selbst zu finden.
 \end{description}
 
 \subsection{Optionen}
-\label{sec:Optionen}
+\label{sec:user:options}
 
 Die Optionen des \paket{basis}-Pakets werden zunächst einzeln erläutert, sie können
 auch beliebig kombiniert werden, die geschieht durch Trennung mit Kommata.
 
 \verb#\usepackage[draft, index]{basis}#
 
-Mögliche Optionen: \option{bewerbung}, \option{draft}, \option{fixme}, \option{font}, \option{hypercolor}, \option{hyperdriver}, \option{index}, \option{layout}, \option{nohyper}, \option{nojura}, \option{noonelinecaption} und \option{onehalfspacing}-Option.
+Mögliche Optionen: \option{bewerbung}, \option{draft}, \option{font}, \option{hypercolor}, \option{hyperdriver}, \option{layout}, \option{notitlepage}, \option{oneside}
 
 \minisec{bewerbung}
 
@@ -149,17 +149,6 @@ Die \option{draft}-Option bewirkt, dass das Dokument als Entwurfsdokument gekenn
 Das bedeutet einen fetten Schriftzug "`Entwurf"' und einen Zeitstempel in der Fußzeile.
 
 \verb#\usepackage[draft]{basis}#
-
-\minisec{fixme}
-
-Die \option{fixme}-Option sorgt für die Einbindung des \paket{fixme}-Pakets und definiert dessen Layout sinnvoll.
-Der Option können die Werte \option{draft} und \option{final} übergeben werden, die an das Paket weitergeleitet werden.
-Wird nichts angegeben, gilt die Option \option{final} als gewählt.
-
-\verb#\usepackage[fixme]{basis}#\\
-\verb#\usepackage[fixme=draft]{basis}#
-
-Benutzbare \paket{fixme}-Befehle: \verb#\fixme#, \verb#\fxnote#, \verb#\fxwarning#, \verb#\fxerror#
 
 \minisec{font}
 
@@ -175,21 +164,6 @@ Die Option \option{hypercolor} färbt Links in der gewünschten Farbe statt defa
 
 \verb#\usepackage[hypercolor=black]{basis}#
 
-\minisec{hyperdriver}
-
-Die \option{hyperdriver}-Option stellt den Treiber des \paket{hyperref}-Pakets ein statt \verb#ps2pdf#.
-
-\verb#\usepackage[hyperdriver=pdftex]{fhg_article}#
-
-\minisec{index}
-
-Die \option{index}-Option bewirkt, dass Befehle zur Indexierung vorbereitet
-werden und die \verb#makeindex#-Umgebung mit Hilfe des Pakets \paket{makeidx}
-geladen wird.
-Die neuen Befehle werden im entsprechenden Abschnitt~\ref{sec:New:Index} vorgestellt.
-
-\verb#\usepackage[index]{basis}#
-
 \minisec{layout}
 
 Die \option{layout}-Option sorgt für die Einstellung eines bestimmten Brieflayouts.
@@ -203,33 +177,6 @@ Mögliche Schemas: \option{bewerbung}, \option{kopfzeile}, \option{infospalte} (
 		\item [kopfzeile] Adressangaben in Kopfzeile
 		\item [infospalte] Adressangaben in separater Spalte
 \end{description}
-
-\minisec{nohyper}
-
-Die Option \option{nohyper} verhindert das Einbinden des \paket{hyperref}-Pakets.
-
-\verb#\usepackage[nohyper]{basis}#
-
-\minisec{nojura}
-
-Die Option \option{nojura} verhindert das Einbinden des \paket{jurabib}-Pakets.
-
-\verb#\usepackage[nojura]{basis}#
-
-\minisec{noonelinecaption}
-
-Die \option{noonelinecaption}-Option ist aus dem Koma-Script-Paket entlehnt.
-Sie braucht nicht extra angegeben werden, da sie von den globalen Optionen übernommen wird und redefiniert die Tabellenüberschriften von \paket{longtable}-Tabellen.
-Sie wirkt nur bei Angabe der \option{origlongtable}-Option.
-
-\verb#\documentclass[noonelinecaption, origlongtable]{scrartcl}#\\
-\verb#\usepackage{basis}#
-
-\minisec{onehalfspacing}
-
-Die Option \option{onehalfspacing} setzt Text anderthalbzeilig.
-
-\verb#\usepackage[onehalfspacing]{basis}#
 
 \subsection{Neue bzw.\ geänderte Befehle und Umgebungen}
 \label{sec:New}
