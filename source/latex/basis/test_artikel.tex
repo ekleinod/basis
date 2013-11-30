@@ -1,17 +1,27 @@
 \documentclass[ngerman]{scrartcl}
 
-\usepackage[draft, nohyper, hypercolor=green, bewerbung, font=original|times|mathpazo|hfold|charter]{basis}
+\usepackage{basis}
+%\usepackage[bewerbung, draft|final, font=charter|hfold|mathpazo|original|times, hypercolor=blue, hyperdriver=pdftex, notitlepage, oneside, protokoll, pagestyle=beides|fuss|leer]{basis}
 
-\title[Kurzform]{Dokumenttitel} % Kurzform optional
-\subtitle{Untertitel} % kann weggelassen werden
-\author{Autorname} % Autor ist Pflicht für die Titelseite
-\strasse{Straße} % optional
-\plz{PLZ} % optional
-\ort{Ort} % optional
-\telefon{(030) 1\,22\,33\,44} % optional
-\email{abc@abc.de} % optional
-\adresszusatz{Adresszusatz} % optional
-\titelzusatz{Titelzusatz} % optional
+\title{Dokumenttitel}
+%\title[Kurzform]{Dokumenttitel}
+%\subtitle{Untertitel}
+
+%\version{Version 1.0}
+%\date{Datum}
+
+\author{Autorname}
+
+%\strasse{Straße}
+%\plz{PLZ}
+%\ort{Ort}
+%\telefon{(030) 1\,22\,33\,44}
+%\email{abc@abc.de}
+%\adresszusatz{Adresszusatz}
+
+%\titelzusatz{Titelzusatz}
+
+\usepackage{lipsum}
 
 \begin{document}
 
@@ -23,7 +33,7 @@
  \section{Kapitel 1}
  \label{sec:kap1}
 
- Hier sollte richtiger Inhalt stehen.
+ \lipsum
 
 \end{document}
 
