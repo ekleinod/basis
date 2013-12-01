@@ -699,14 +699,14 @@
 %    \begin{macrocode}
 \deftripstyle{BASbeides}[2pt][.4pt]%
 	{\headmark}{}{}%
-	{}{}{\thepage\,|\,\pageref{LastPage}}
+	{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}{}{\thepage\,|\,\pageref{LastPage}}
 %    \end{macrocode}
 %
 % Eigener Seitenstil: nur Fußzeile.
 %    \begin{macrocode}
 \deftripstyle{BASfuss}[2pt][.4pt]%
 	{}{}{}%
-	{\headmark}{}{\thepage\,|\,\pageref{LastPage}}
+	{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}{\headmark}{\thepage\,|\,\pageref{LastPage}}
 %    \end{macrocode}
 %
 % Standard: beides, Fußnotenschriftgröße.
@@ -835,20 +835,12 @@
 %    \begin{macrocode}
 \renewcommand{\title}[2][\@empty]{
 	\ifthenelse{\equal{\@empty}{#1}}
-		{\def\BAS@foottitle{#2}}
-		{\def\BAS@foottitle{#1}}
+		{}{\def\BAS@shorttitle{#1}}
 	\def\@title{#2}
 	\def\BAS@title{#2}
 }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\subtitle}
-% Dieser Befehl ermöglicht es dem Nutzer, einen Untertitel anzugeben.
-%    \begin{macrocode}
-\ifthenelse{\isundefined{\subtitle}}
-	{\newcommand{\subtitle}[1]{\def\BAS@subtitle{#1}}}
-	{\renewcommand{\subtitle}[1]{\def\BAS@subtitle{#1}}}
+\ifthenelse{\isundefined\BAS@title}
+	{\def\BAS@title{---}}{}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -913,6 +905,7 @@
 %
 % Der Dokumenttitel.
 %    \begin{macrocode}
+			\vskip 15\parskip
 			\textbf{\Huge%
 				\ifthenelse{\isundefined\BAS@title}
 					{---}
@@ -922,10 +915,13 @@
 %
 % Der Untertitel.
 %    \begin{macrocode}
-			\vskip 3mm
 			\ifthenelse{\equal{\@subtitle}{\@empty}}
 				{}
-				{{\huge\@subtitle}\par}
+				{
+					\vskip \parskip
+					{\huge\@subtitle}
+					\par
+				}
 %    \end{macrocode}
 %
 % Die Version.
@@ -1038,8 +1034,10 @@
 		\ifthenelse{\isundefined\BAS@logo}
 			{}%
 			{%
-				\setlength{\unitlength}{1mm}%
-				\begin{picture}(0,0)(-106.6,-3.1)%
+				\newlength{\BAS@len@logo}
+				\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+				\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+				\begin{picture}(0,0)(-1,0)%
 					\put(0,0){\includegraphics{\BAS@logo}}%
 				\end{picture}%
 			}%
