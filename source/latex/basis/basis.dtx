@@ -923,22 +923,20 @@
 % Der Untertitel.
 %    \begin{macrocode}
 			\ifthenelse{\equal{\@subtitle}{\@empty}}
-				{}
+				{\vskip 2\parskip}
 				{
 					\vskip \parskip
 					{\huge\@subtitle}
 					\par
 				}
+			\vskip 2\parskip
 %    \end{macrocode}
 %
 % Die Version.
 %    \begin{macrocode}
 			\ifthenelse{\isundefined\BAS@version}
 				{}
-				{
-					\vskip 3ex
-					\BAS@version\par
-				}
+				{\BAS@version\\}
 %    \end{macrocode}
 %
 % Das Datum.
@@ -974,7 +972,7 @@
 				{
 					\ifthenelse{\equal{\@empty}{\BAS@strasse}}
 						{}
-						{\BAS@strasse\par}
+						{\Letter \BAS@strasse\par}
 				}
 			\ifthenelse{\isundefined{\BAS@plz}}
 				{}
