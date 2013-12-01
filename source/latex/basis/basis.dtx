@@ -902,8 +902,10 @@
 			\ifthenelse{\isundefined\BAS@logo}%
 				{}%
 				{%
-					\setlength{\unitlength}{1mm}%
-					\begin{picture}(0,0)(-106.6,-3.1)%
+					\newlength{\BAS@len@logo}
+					\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+					\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+					\begin{picture}(0,0)(-1,0)%
 						\put(0,0){\includegraphics{\BAS@logo}}%
 					\end{picture}%
 				}%
