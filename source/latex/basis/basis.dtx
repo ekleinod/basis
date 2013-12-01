@@ -942,25 +942,25 @@
 % Das Datum.
 %    \begin{macrocode}
 			\@date\par
+			\vskip 2\parskip
 %    \end{macrocode}
 %
 % Autor\_in.
 %    \begin{macrocode}
 			\newboolean{BAS@title@hasauthor}
 			\setboolean{BAS@title@hasauthor}{true}
-			\ifthenelse{\isundefined\BAS@author}
+			\ifthenelse{\isundefined\@author}
 				{\setboolean{BAS@title@hasauthor}{false}}
 				{
-					\ifthenelse{\equal{\BAS@author}{\@empty}}
+					\ifthenelse{\equal{\@author}{\@empty}}
 						{\setboolean{BAS@title@hasauthor}{false}}
 						{}
 				}
 			\ifthenelse{\boolean{BAS@title@hasauthor}}
 				{
-					\vskip 8mm
 					\ifthenelse{\isundefined\BAS@email}
-						{\textbf{\BAS@author}\par\vskip 6mm}
-						{\textbf{\BAS@author}\par\Email\ \texttt{\href{mailto:\BAS@email}{\BAS@email}}\par}
+						{\textbf{\@author}\par}
+						{\textbf{\@author}\\\Email\ \texttt{\href{mailto:\BAS@email}{\BAS@email}}\par}
 				}
 				{}
 %    \end{macrocode}
@@ -1079,10 +1079,10 @@
 %    \begin{macrocode}
 		\newboolean{BAS@title@hasauthor}
 		\setboolean{BAS@title@hasauthor}{true}
-		\ifthenelse{\isundefined\BAS@author}
+		\ifthenelse{\isundefined\@author}
 			{\setboolean{BAS@title@hasauthor}{false}}
 			{
-				\ifthenelse{\equal{\BAS@author}{\@empty}}
+				\ifthenelse{\equal{\@author}{\@empty}}
 					{\setboolean{BAS@title@hasauthor}{false}}
 					{}
 			}
@@ -1090,8 +1090,8 @@
 			{
 				\vskip 2mm
 				\ifthenelse{\isundefined\BAS@email}
-					{\BAS@author}
-					{\BAS@author\\\texttt{\href{mailto:\BAS@email}{\BAS@email}}}
+					{\@author}
+					{\@author\\\texttt{\href{mailto:\BAS@email}{\BAS@email}}}
 				\par
 			}
 			{}
