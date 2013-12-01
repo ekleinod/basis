@@ -654,6 +654,13 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\handy}
+% Adressteil: Handynummer.
+%    \begin{macrocode}
+\newcommand{\handy}[1]{\def\BAS@handy{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\email}
 % Adressteil: Email.
 %    \begin{macrocode}
@@ -955,7 +962,7 @@
 					\vskip 8mm
 					\ifthenelse{\isundefined\BAS@email}
 						{\textbf{\BAS@author}\par\vskip 6mm}
-						{\textbf{\BAS@author}\par\texttt{\href{mailto:\BAS@email}{\BAS@email}}\par}
+						{\textbf{\BAS@author}\par\Email\ \texttt{\href{mailto:\BAS@email}{\BAS@email}}\par}
 				}
 				{}
 %    \end{macrocode}
@@ -997,6 +1004,13 @@
 					\ifthenelse{\equal{\@empty}{\BAS@telefon}}
 					 {}
 					 {\Telefon\ \BAS@telefon\par}
+				}
+			\ifthenelse{\isundefined{\BAS@handy}}
+				{}
+				{
+					\ifthenelse{\equal{\@empty}{\BAS@handy}}
+					 {}
+					 {\Mobilefone\ \BAS@handy\par}
 				}
 %    \end{macrocode}
 % Eventuell vorhandenen Adresszusatz ausgeben.
