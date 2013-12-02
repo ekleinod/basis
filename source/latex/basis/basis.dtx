@@ -947,15 +947,29 @@
 %
 % Autor\_in.
 %    \begin{macrocode}
+			\ifthenelse{\isundefined\@author}
+				{}
+				{
+					\ifthenelse{\equal{\@author}{\@empty}}
+						{}
+						{
+							\textbf{\@author}\par
+							\vskip \parskip
+						}
+				}
+%    \end{macrocode}
+%
+% Adresse.
+%    \begin{macrocode}
 			\newboolean{BAS@title@hasauthor}
 			\setboolean{BAS@title@hasauthor}{true}
 			\ifthenelse{\isundefined\@author}
+			{\setboolean{BAS@title@hasauthor}{false}}
+			{
+				\ifthenelse{\equal{\@author}{\@empty}}
 				{\setboolean{BAS@title@hasauthor}{false}}
-				{
-					\ifthenelse{\equal{\@author}{\@empty}}
-						{\setboolean{BAS@title@hasauthor}{false}}
-						{}
-				}
+				{}
+			}
 			\ifthenelse{\boolean{BAS@title@hasauthor}}
 				{
 					\ifthenelse{\isundefined\BAS@email}
