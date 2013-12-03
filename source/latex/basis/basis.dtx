@@ -915,11 +915,7 @@
 % Die \befehl{mbox} ist nötig, damit der Abstand auch bei fehlendem Logo gesetzt wird.
 %    \begin{macrocode}
 			\mbox{}\vskip 15\parskip
-			\textbf{\Huge%
-				\ifthenelse{\isundefined\BAS@title}
-					{---}
-					{\BAS@title}
-			}\par
+			\textbf{\Huge\BAS@title}\par
 %    \end{macrocode}
 %
 % Der Untertitel.
@@ -1049,6 +1045,7 @@
 					\begin{tabbing}
 						\Letter{}x\=\kill
 %    \end{macrocode}
+%
 % E-Mail.
 %    \begin{macrocode}
 						\ifthenelse{\isundefined\BAS@email}%
@@ -1059,7 +1056,6 @@
 									{\Email\>\texttt{\href{mailto:\BAS@email}{\BAS@email}}\\[\parskip]}%
 							}%
 %    \end{macrocode}
-%
 %
 % Telefone.
 %    \begin{macrocode}
@@ -1155,7 +1151,7 @@
 %
 % Kopfzeile ausblenden.
 %    \begin{macrocode}
-		\thispagestyle{BASFoot}
+		\thispagestyle{BASfuss}
 %    \end{macrocode}
 %
 % Das Logo einzeichnen.
@@ -1174,61 +1170,55 @@
 %
 % Der Dokumenttitel.
 %    \begin{macrocode}
-		\textbf{\huge%
-			\ifthenelse{\isundefined\BAS@title}
-				{---}
-				{\BAS@title}
-		}\par
+		\textbf{\huge\BAS@title}\par
 %    \end{macrocode}
 %
 % Der Untertitel.
 %    \begin{macrocode}
 		\ifthenelse{\equal{\@subtitle}{\@empty}}
 			{}
-			{
-				\vskip 2mm
-				\Large\@subtitle
-				\par
-			}
-%    \end{macrocode}
-%
-% Autor\_in.
-%    \begin{macrocode}
-		\newboolean{BAS@title@hasauthor}
-		\setboolean{BAS@title@hasauthor}{true}
-		\ifthenelse{\isundefined\@author}
-			{\setboolean{BAS@title@hasauthor}{false}}
-			{
-				\ifthenelse{\equal{\@author}{\@empty}}
-					{\setboolean{BAS@title@hasauthor}{false}}
-					{}
-			}
-		\ifthenelse{\boolean{BAS@title@hasauthor}}
-			{
-				\vskip 2mm
-				\ifthenelse{\isundefined\BAS@email}
-					{\@author}
-					{\@author\\\texttt{\href{mailto:\BAS@email}{\BAS@email}}}
-				\par
-			}
-			{}
-%    \end{macrocode}
-%
-% Das Datum.
-%    \begin{macrocode}
-		\@date\par
+			{{\huge\@subtitle}\par}
+		\vskip \parskip
 %    \end{macrocode}
 %
 % Die Version.
 %    \begin{macrocode}
 		\ifthenelse{\isundefined\BAS@version}
 			{}
-			{\BAS@version\par}
-		\vspace*{5ex}
+			{\BAS@version\\}
+%    \end{macrocode}
+%
+% Das Datum.
+%    \begin{macrocode}
+		\@date\par
+		\vskip \parskip
+%    \end{macrocode}
+%
+% Autor\_in.
+%    \begin{macrocode}
+		\ifthenelse{\isundefined\@author}
+			{}
+			{
+				\ifthenelse{\equal{\@author}{\@empty}}
+					{}
+					{\@author\\}
+			}
+%    \end{macrocode}
+%
+% E-Mail.
+%    \begin{macrocode}
+		\ifthenelse{\isundefined\BAS@email}%
+			{}%
+			{%
+				\ifthenelse{\equal{\BAS@email}{\@empty}}%
+					{}%
+					{\Email\ \texttt{\href{mailto:\BAS@email}{\BAS@email}}\par}%
+			}%
 %    \end{macrocode}
 %
 % Ende der laufenden Titelseite.
 %    \begin{macrocode}
+		\vskip 3\parskip
 	\fi % end of \if@titlepage
 %    \end{macrocode}
 %
