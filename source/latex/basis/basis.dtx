@@ -911,8 +911,10 @@
 %    \end{macrocode}
 %
 % Der Dokumenttitel.
+%
+% Die \befehl{mbox} ist nötig, damit der Abstand auch bei fehlendem Logo gesetzt wird.
 %    \begin{macrocode}
-			\vskip 15\parskip
+			\mbox{}\vskip 15\parskip
 			\textbf{\Huge%
 				\ifthenelse{\isundefined\BAS@title}
 					{---}
