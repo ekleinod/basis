@@ -704,16 +704,16 @@
 %
 % Eigener Seitenstil: normales Layout (Kopf- und Fußzeile).
 %    \begin{macrocode}
-\deftripstyle{BASbeides}[2pt][.4pt]%
+\deftripstyle{BASbeides}[0pt][.4pt]%
 	{\headmark}{}{}%
-	{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}{}{\thepage\,|\,\pageref{LastPage}}
+	{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}{}{Seite \thepage\ von \pageref{LastPage}}
 %    \end{macrocode}
 %
 % Eigener Seitenstil: nur Fußzeile.
 %    \begin{macrocode}
-\deftripstyle{BASfuss}[2pt][.4pt]%
+\deftripstyle{BASfuss}[0pt][.4pt]%
 	{}{}{}%
-	{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}{\headmark}{\thepage\,|\,\pageref{LastPage}}
+	{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}{\headmark}{Seite \thepage\ von \pageref{LastPage}}
 %    \end{macrocode}
 %
 % Standard: beides, Fußnotenschriftgröße.
