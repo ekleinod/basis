@@ -959,36 +959,42 @@
 				}
 %    \end{macrocode}
 %
-% Telefone.
-%    \begin{macrocode}
-			\ifthenelse{\isundefined{\BAS@telefon}}
-				{}
-				{%
-					\ifthenelse{\equal{\@empty}{\BAS@telefon}}
-						{}
-						{\Telefon\>\BAS@telefon\\}
-				}
-			\ifthenelse{\isundefined{\BAS@handy}}
-				{}
-				{%
-					\ifthenelse{\equal{\@empty}{\BAS@handy}}
-						{}
-						{\Mobilefone\>\BAS@handy\\}
-				}
-%    \end{macrocode}
-%
 % Adresse: E-Mail, Straße, PLZ, Ort, Handy, Telefon, Adresszusatz.
 %    \begin{macrocode}
 			\newboolean{BAS@title@hasaddress}
 			\setboolean{BAS@title@hasaddress}{false}
 			\newboolean{BAS@title@hassnail}
 			\setboolean{BAS@title@hassnail}{false}
+			\newboolean{BAS@title@hasphone}
+			\setboolean{BAS@title@hasphone}{false}
+			\newboolean{BAS@title@hascityline}
+			\setboolean{BAS@title@hascityline}{false}
 			\ifthenelse{\isundefined\BAS@email}
 				{}
 				{
 					\ifthenelse{\equal{\BAS@email}{\@empty}}
 						{}
 						{\setboolean{BAS@title@hasaddress}{true}}
+				}
+			\ifthenelse{\isundefined\BAS@telefon}
+				{}
+				{
+					\ifthenelse{\equal{\BAS@telefon}{\@empty}}
+						{}
+						{
+							\setboolean{BAS@title@hasaddress}{true}
+							\setboolean{BAS@title@hasphone}{true}
+						}
+				}
+			\ifthenelse{\isundefined\BAS@handy}
+				{}
+				{
+					\ifthenelse{\equal{\BAS@handy}{\@empty}}
+						{}
+						{
+							\setboolean{BAS@title@hasaddress}{true}
+							\setboolean{BAS@title@hasphone}{true}
+						}
 				}
 			\ifthenelse{\isundefined\BAS@strasse}
 				{}
@@ -1008,6 +1014,7 @@
 						{
 							\setboolean{BAS@title@hasaddress}{true}
 							\setboolean{BAS@title@hassnail}{true}
+							\setboolean{BAS@title@hascityline}{true}
 						}
 				}
 			\ifthenelse{\isundefined\BAS@ort}
@@ -1018,28 +1025,18 @@
 						{
 							\setboolean{BAS@title@hasaddress}{true}
 							\setboolean{BAS@title@hassnail}{true}
+							\setboolean{BAS@title@hascityline}{true}
 						}
-				}
-			\ifthenelse{\isundefined\BAS@telefon}
-				{}
-				{
-					\ifthenelse{\equal{\BAS@telefon}{\@empty}}
-						{}
-						{\setboolean{BAS@title@hasaddress}{true}}
-				}
-			\ifthenelse{\isundefined\BAS@handy}
-				{}
-				{
-					\ifthenelse{\equal{\BAS@handy}{\@empty}}
-						{}
-						{\setboolean{BAS@title@hasaddress}{true}}
 				}
 			\ifthenelse{\isundefined\BAS@adresszusatz}
 				{}
 				{
 					\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}
 						{}
-						{\setboolean{BAS@title@hasaddress}{true}}
+						{
+							\setboolean{BAS@title@hasaddress}{true}
+							\setboolean{BAS@title@hassnail}{true}
+						}
 				}
 %    \end{macrocode}
 %
@@ -1050,64 +1047,90 @@
 					\begin{tabbing}
 						\Letter{}x\=\kill
 %    \end{macrocode}
-%
 % E-Mail.
 %    \begin{macrocode}
-						\ifthenelse{\isundefined\BAS@email}
-							{}
+						\ifthenelse{\isundefined\BAS@email}%
+							{}%
 							{%
-								\ifthenelse{\equal{\BAS@email}{\@empty}}
-									{}
-									{\Email\>\texttt{\href{mailto:\BAS@email}{\BAS@email}}\\}
-							}
+								\ifthenelse{\equal{\BAS@email}{\@empty}}%
+									{}%
+									{\Email\>\texttt{\href{mailto:\BAS@email}{\BAS@email}}\\[\parskip]}%
+							}%
+%    \end{macrocode}
+%
+%
+% Telefone.
+%    \begin{macrocode}
+						\ifthenelse{\isundefined{\BAS@telefon}}%
+							{}%
+							{%
+								\ifthenelse{\equal{\@empty}{\BAS@telefon}}%
+								{}%
+								{\Telefon\>\BAS@telefon\\}%
+							}%
+						\ifthenelse{\isundefined{\BAS@handy}}%
+							{}%
+							{%
+								\ifthenelse{\equal{\@empty}{\BAS@handy}}%
+								{}%
+								{\Mobilefone\>\BAS@handy\\}%
+							}%
+						\ifthenelse{\boolean{BAS@title@hasphone}}%
+							{\\[-\parskip]}%
+							{}%
 %    \end{macrocode}
 %
 % Postadresse.
 %    \begin{macrocode}
-						\ifthenelse{\boolean{BAS@title@hassnail}}
+						\ifthenelse{\boolean{BAS@title@hassnail}}%
 							{%
-								\Letter\>
-								\ifthenelse{\isundefined\BAS@strasse}
-									{}
+								\Letter%
+								\ifthenelse{\isundefined\BAS@strasse}%
+									{}%
 									{%
-										\ifthenelse{\equal{\BAS@strasse}{\@empty}}
-											{}
-											{\BAS@strasse\\\>}
-									}
-								\ifthenelse{\isundefined\BAS@plz}
-									{}
+										\ifthenelse{\equal{\BAS@strasse}{\@empty}}%
+											{}%
+											{\>\BAS@strasse\\}%
+									}%
+								\ifthenelse{\boolean{BAS@title@hascityline}}%
 									{%
-										\ifthenelse{\equal{\BAS@plz}{\@empty}}
-											{}
-											{\BAS@plz}
-									}
-								\ifthenelse{\isundefined\BAS@ort}
-									{}
-									{%
-										\ifthenelse{\equal{\BAS@ort}{\@empty}}
-											{}
-											{\BAS@ort}
-									}
-								\\
-							}{}
+										\>%
+										\ifthenelse{\isundefined\BAS@plz}%
+											{}%
+											{%
+												\ifthenelse{\equal{\BAS@plz}{\@empty}}%
+													{}%
+													{\BAS@plz\ }%
+											}%
+										\ifthenelse{\isundefined\BAS@ort}%
+											{}%
+											{%
+												\ifthenelse{\equal{\BAS@ort}{\@empty}}%
+													{}%
+													{\BAS@ort}%
+											}%
+										\\%
+									}%
+									{}%
 %    \end{macrocode}
 %
 % Eventuell vorhandenen Adresszusatz ausgeben.
 %    \begin{macrocode}
-						\ifthenelse{\isundefined\BAS@adresszusatz}
-							{}
-							{%
-								\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}
-									{}
-									{\>\BAS@adresszusatz\\}
-							}
+								\ifthenelse{\isundefined\BAS@adresszusatz}%
+									{}%
+									{%
+										\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}%
+											{}%
+											{\>\BAS@adresszusatz\\}%
+									}%
+							}{}%
 %    \end{macrocode}
 %
 % Ende Adresse in tabbing-Umgebung.
 %    \begin{macrocode}
 					\end{tabbing}
 				}
-				{}
+				{\vskip 2\parskip}
 %    \end{macrocode}
 %
 % Zusatztext.
