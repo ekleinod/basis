@@ -1,11 +1,15 @@
 \documentclass[ngerman]{scrartcl}
 
-%\usepackage{basis}
+\usepackage{basis}
+
+%\usepackage[draft]{basis}
+%\usepackage[final]{basis}
+
 %\usepackage[font=charter]{basis}
 %\usepackage[notitlepage]{basis}
 %\usepackage[notitlepage, oneside]{basis}
 
-\usepackage[pagestyle=beides]{basis}
+%\usepackage[pagestyle=beides]{basis}
 %\usepackage[pagestyle=fuss]{basis}
 %\usepackage[pagestyle=leer]{basis}
 %\usepackage[notitlepage, pagestyle=leer]{basis}
@@ -37,28 +41,69 @@
 
 \begin{document}
 
- \maketitle
+	\maketitle
 
- %\tableofcontents
- %\cleardoublepage
+	%\tableofcontents
+	%\cleardoublepage
 
- \section{section}
- \lipsum[1-5]
+	\section{Inhalte}
+	\label{sec:sec}
 
- \section{section}
- \lipsum[1-5]
+	Text.
 
- \section{section}
- \lipsum[1-5]
+	\subsection{Bilder}
+	\label{subsec:subsec}
 
- \section{section}
- \lipsum[1-5]
+	\begin{figure}[htb]
+		\caption{Bild}
+		\label{fig:fig}
+		\includegraphics{testlogo}
+	\end{figure}
 
- \section{section}
- \lipsum[1-5]
+	\subsection{Referenzen}
 
- \section{section}
- \lipsum[1-25]
+	Siehe fig \autoref{fig:fig}.
+
+	Siehe sec \autoref{sec:sec}.
+
+	Siehe subsec \autoref{subsec:subsec}.
+
+	\subsection{Symbole}
+
+	\subsubsection{marvosym}
+
+	Telefon \Telefon{}
+	WashCotton \WashCotton{}
+	Virgo \Virgo{}
+
+	\subsubsection{wasysym}
+
+	phone \phone{}
+	virgo \virgo{}
+	frownie \frownie{}
+
+	\subsubsection{hologo}
+
+	\hologo{XeLaTeX}
+	\hologo{METAPOST}
+	\hologo{LaTeXe}
+	\hologo{pdfLaTeX}
+
+
+	\section{section}
+	\lipsum[1-5]
+
+	\section{section}
+	\lipsum[1-5]
+
+	\section{section}
+	\lipsum[1-5]
+
+	\section{section}
+	\lipsum[1-5]
+
+	\section{section}
+	\lipsum[1-25]
 
 \end{document}
 
