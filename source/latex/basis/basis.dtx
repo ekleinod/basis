@@ -705,21 +705,21 @@
 % Eigener Seitenstil: normales Layout (Kopf- und Fußzeile).
 %    \begin{macrocode}
 \deftripstyle{BASbeides}[0pt][.4pt]%
-	{\headmark}{}{}%
-	{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}{}{Seite \thepage\ von \pageref{LastPage}}
+	{\leftmark}{}{}%
+	{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}{}{Seite \pagemark\ von \pageref{LastPage}}
 %    \end{macrocode}
 %
 % Eigener Seitenstil: nur Fußzeile.
 %    \begin{macrocode}
 \deftripstyle{BASfuss}[0pt][.4pt]%
 	{}{}{}%
-	{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}{\headmark}{Seite \thepage\ von \pageref{LastPage}}
+	{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}{}{Seite \pagemark\ von \pageref{LastPage}}
 %    \end{macrocode}
 %
 % Standard: beides, Fußnotenschriftgröße.
 %    \begin{macrocode}
 \pagestyle{BASbeides}
-\setkomafont{pageheadfoot}{\normalfont\footnotesize}
+\setkomafont{pageheadfoot}{\normalfont\sffamily\footnotesize}
 %    \end{macrocode}
 %
 % \subsection{Abkürzungen}
