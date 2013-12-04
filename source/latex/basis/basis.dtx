@@ -704,16 +704,35 @@
 %
 % Eigener Seitenstil: normales Layout (Kopf- und Fußzeile).
 %    \begin{macrocode}
-\deftripstyle{BASbeides}[0pt][.4pt]%
-	{\leftmark}{}{}%
-	{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}{}{Seite \pagemark\ von \pageref{LastPage}}
+\defpagestyle{BASbeides}
+	{
+		{\hfill\leftmark}
+		{\leftmark}
+		{\leftmark}
+		(\textwidth,.4pt)
+	}
+	{
+		(\textwidth,.4pt)
+		{Seite \pagemark\ von \pageref{LastPage}\hfill\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}
+		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
+		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
+	}
 %    \end{macrocode}
 %
 % Eigener Seitenstil: nur Fußzeile.
 %    \begin{macrocode}
-\deftripstyle{BASfuss}[0pt][.4pt]%
-	{}{}{}%
-	{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}{}{Seite \pagemark\ von \pageref{LastPage}}
+\defpagestyle{BASfuss}
+	{
+		{}
+		{}
+		{}
+	}
+	{
+		(\textwidth,.4pt)
+		{Seite \pagemark\ von \pageref{LastPage}\hfill\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}
+		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
+		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
+	}
 %    \end{macrocode}
 %
 % Standard: beides, Fußnotenschriftgröße.
