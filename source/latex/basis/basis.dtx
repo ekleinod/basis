@@ -329,9 +329,7 @@
 	draft=\BAS@opt@draft,
 	fontsize=11pt,
 	footnotes=multiple,
-	footsepline=on,
 	headings=big,
-	headsepline=off,
 	numbers=noendperiod,
 	paper=a4,
 	parskip=half,
@@ -697,9 +695,12 @@
 % Wir verwenden lebende Kolumnentitel, daher wird die Option \option{automark} genutzt.
 %
 % Des Weiteren benutzen wir \paket{lastpage} für die Anzahl der Seiten.
+%
+% Die Schriftgröße wird auf Fußnotenschriftgröße festgelegt.
 %    \begin{macrocode}
 \RequirePackage[automark]{scrpage2}
 \RequirePackage{lastpage}
+\setkomafont{pageheadfoot}{\normalfont\sffamily\footnotesize}
 %    \end{macrocode}
 %
 % Eigener Seitenstil: normales Layout (Kopf- und Fußzeile).
@@ -735,10 +736,17 @@
 	}
 %    \end{macrocode}
 %
-% Standard: beides, Fußnotenschriftgröße.
+% Seitenstil auswählen, Fußnotenschriftgröße.
 %    \begin{macrocode}
-\pagestyle{BASbeides}
-\setkomafont{pageheadfoot}{\normalfont\sffamily\footnotesize}
+\ifthenelse{\equal{\BAS@opt@pagestyle}{beides}}
+	{\pagestyle{BASbeides}}
+	{}
+\ifthenelse{\equal{\BAS@opt@pagestyle}{fuss}}
+	{\pagestyle{BASfuss}}
+	{}
+\ifthenelse{\equal{\BAS@opt@pagestyle}{leer}}
+	{\pagestyle{empty}}
+	{}
 %    \end{macrocode}
 %
 % \subsection{Abkürzungen}
@@ -1170,7 +1178,9 @@
 %
 % Kopfzeile ausblenden.
 %    \begin{macrocode}
-		\thispagestyle{BASfuss}
+		\ifthenelse{\equal{\BAS@opt@pagestyle}{leer}}
+			{}
+			{\thispagestyle{BASfuss}}
 %    \end{macrocode}
 %
 % Das Logo einzeichnen.
