@@ -804,21 +804,8 @@
 % Die Gleichungsnummern enthalten Kapitel und Gleichungsnummer.
 % Dabei wird die Gleichungsnummer pro Kapitel neu gezählt.
 %    \begin{macrocode}
-\renewcommand{\theequation}{(\thesection.\arabic{equation})}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
 \@addtoreset{equation}{section}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@eqnnum}
-% Die Gleichungsnummern werden serifenlos in den Rand gesetzt.
-%    \begin{macrocode}
-\renewcommand{\@eqnnum}{%
-	\hb@xt@.01\p@{}%
-	\rlap{%
-		\hskip -.98\textwidth%
-		{\sffamily\small\theequation}
-	}
-}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -828,7 +815,7 @@
 % Dies muss am Ende erfolgen, da ein entsprechender Befehl in \datei{fleqn.clo} steht und überdefiniert werden muss.
 %    \begin{macrocode}
 \input{fleqn.clo}
-\AtEndOfClass{\setlength{\mathindent}{.2\textwidth}}
+\AtEndOfClass{\setlength{\mathindent}{0mm}}
 %    \end{macrocode}
 %
 % \subsection{Hilfreiches Kleinzeugs}
