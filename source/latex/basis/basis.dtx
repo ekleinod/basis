@@ -879,29 +879,290 @@
 %
 % Die Titelseite wird serifenlos gesetzt.
 %    \begin{macrocode}
-	\sffamily
+	{
+		\sffamily
 %    \end{macrocode}
 %
 % Die Titelseiten unterscheiden sich nach gewählter \option{titlepage}-Option,
 % Zunächst wird die Generierung einer extra Titelseite definiert.
 %    \begin{macrocode}
-	\if@titlepage
+		\if@titlepage
 %    \end{macrocode}
 %
 % Es wird eine extra Titelseite begonnen.
 % Die Titelseite wird auf den Pagecounter~\texttt{-1} bzw.\ \texttt{0} gesetzt, das Inhaltsverzeichnis beginnt dann automatisch mit Seite~1, das verhindert die Warnung von \hologo{pdfLaTeX}, dass zwei erste Seiten existieren.
 %    \begin{macrocode}
-		\begin{titlepage}
-			\if@twoside
-				\setcounter{page}{-1}
-			\else
-				\setcounter{page}{0}
-			\fi
+			\begin{titlepage}
+				\if@twoside
+					\setcounter{page}{-1}
+				\else
+					\setcounter{page}{0}
+				\fi
 %    \end{macrocode}
 %
 % Das Logo.
 %    \begin{macrocode}
-			\ifthenelse{\isundefined\BAS@logo}%
+				\ifthenelse{\isundefined\BAS@logo}%
+					{}%
+					{%
+						\newlength{\BAS@len@logo}
+						\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+						\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+						\begin{picture}(0,0)(-1,0)%
+							\put(0,0){\includegraphics{\BAS@logo}}%
+						\end{picture}%
+					}%
+%    \end{macrocode}
+%
+% Der Dokumenttitel.
+%
+% Die \befehl{mbox} ist nötig, damit der Abstand auch bei fehlendem Logo gesetzt wird.
+%    \begin{macrocode}
+				\mbox{}\vskip 15\parskip
+				\textbf{\Huge\BAS@title}\par
+%    \end{macrocode}
+%
+% Der Untertitel.
+%    \begin{macrocode}
+				\ifthenelse{\equal{\@subtitle}{\@empty}}
+					{\vskip 2\parskip}
+					{
+						\vskip \parskip
+						{\huge\@subtitle}
+						\par
+					}
+				\vskip 2\parskip
+%    \end{macrocode}
+%
+% Die Version.
+%    \begin{macrocode}
+				\ifthenelse{\isundefined\BAS@version}
+					{}
+					{\BAS@version\\}
+%    \end{macrocode}
+%
+% Das Datum.
+%    \begin{macrocode}
+				\@date\par
+				\vskip 2\parskip
+%    \end{macrocode}
+%
+% Autor\_in.
+%    \begin{macrocode}
+				\ifthenelse{\isundefined\@author}
+					{}
+					{
+						\ifthenelse{\equal{\@author}{\@empty}}
+							{}
+							{
+								\textbf{\@author}\par
+								\vskip \parskip
+							}
+					}
+%    \end{macrocode}
+%
+% Adresse: E-Mail, Straße, PLZ, Ort, Handy, Telefon, Adresszusatz.
+%    \begin{macrocode}
+				\newboolean{BAS@title@hasaddress}
+				\setboolean{BAS@title@hasaddress}{false}
+				\newboolean{BAS@title@hassnail}
+				\setboolean{BAS@title@hassnail}{false}
+				\newboolean{BAS@title@hasphone}
+				\setboolean{BAS@title@hasphone}{false}
+				\newboolean{BAS@title@hascityline}
+				\setboolean{BAS@title@hascityline}{false}
+				\ifthenelse{\isundefined\BAS@email}
+					{}
+					{
+						\ifthenelse{\equal{\BAS@email}{\@empty}}
+							{}
+							{\setboolean{BAS@title@hasaddress}{true}}
+					}
+				\ifthenelse{\isundefined\BAS@telefon}
+					{}
+					{
+						\ifthenelse{\equal{\BAS@telefon}{\@empty}}
+							{}
+							{
+								\setboolean{BAS@title@hasaddress}{true}
+								\setboolean{BAS@title@hasphone}{true}
+							}
+					}
+				\ifthenelse{\isundefined\BAS@handy}
+					{}
+					{
+						\ifthenelse{\equal{\BAS@handy}{\@empty}}
+							{}
+							{
+								\setboolean{BAS@title@hasaddress}{true}
+								\setboolean{BAS@title@hasphone}{true}
+							}
+					}
+				\ifthenelse{\isundefined\BAS@strasse}
+					{}
+					{
+						\ifthenelse{\equal{\BAS@strasse}{\@empty}}
+							{}
+							{
+								\setboolean{BAS@title@hasaddress}{true}
+								\setboolean{BAS@title@hassnail}{true}
+							}
+					}
+				\ifthenelse{\isundefined\BAS@plz}
+					{}
+					{
+						\ifthenelse{\equal{\BAS@plz}{\@empty}}
+							{}
+							{
+								\setboolean{BAS@title@hasaddress}{true}
+								\setboolean{BAS@title@hassnail}{true}
+								\setboolean{BAS@title@hascityline}{true}
+							}
+					}
+				\ifthenelse{\isundefined\BAS@ort}
+					{}
+					{
+						\ifthenelse{\equal{\BAS@ort}{\@empty}}
+							{}
+							{
+								\setboolean{BAS@title@hasaddress}{true}
+								\setboolean{BAS@title@hassnail}{true}
+								\setboolean{BAS@title@hascityline}{true}
+							}
+					}
+				\ifthenelse{\isundefined\BAS@adresszusatz}
+					{}
+					{
+						\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}
+							{}
+							{
+								\setboolean{BAS@title@hasaddress}{true}
+								\setboolean{BAS@title@hassnail}{true}
+							}
+					}
+%    \end{macrocode}
+%
+% Adresse in tabbing-Umgebung setzen.
+%    \begin{macrocode}
+				\ifthenelse{\boolean{BAS@title@hasaddress}}
+					{
+						\begin{tabbing}
+							\Letter{}x\=\kill
+%    \end{macrocode}
+%
+% E-Mail.
+%    \begin{macrocode}
+							\ifthenelse{\isundefined\BAS@email}%
+								{}%
+								{%
+									\ifthenelse{\equal{\BAS@email}{\@empty}}%
+										{}%
+										{\Email\>\texttt{\href{mailto:\BAS@email}{\BAS@email}}\\[\parskip]}%
+								}%
+%    \end{macrocode}
+%
+% Telefone.
+%    \begin{macrocode}
+							\ifthenelse{\isundefined{\BAS@telefon}}%
+								{}%
+								{%
+									\ifthenelse{\equal{\@empty}{\BAS@telefon}}%
+									{}%
+									{\Telefon\>\BAS@telefon\\}%
+								}%
+							\ifthenelse{\isundefined{\BAS@handy}}%
+								{}%
+								{%
+									\ifthenelse{\equal{\@empty}{\BAS@handy}}%
+									{}%
+									{\Mobilefone\>\BAS@handy\\}%
+								}%
+							\ifthenelse{\boolean{BAS@title@hasphone}}%
+								{\\[-\parskip]}%
+								{}%
+%    \end{macrocode}
+%
+% Postadresse.
+%    \begin{macrocode}
+							\ifthenelse{\boolean{BAS@title@hassnail}}%
+								{%
+									\Letter%
+									\ifthenelse{\isundefined\BAS@strasse}%
+										{}%
+										{%
+											\ifthenelse{\equal{\BAS@strasse}{\@empty}}%
+												{}%
+												{\>\BAS@strasse\\}%
+										}%
+									\ifthenelse{\boolean{BAS@title@hascityline}}%
+										{%
+											\>%
+											\ifthenelse{\isundefined\BAS@plz}%
+												{}%
+												{%
+													\ifthenelse{\equal{\BAS@plz}{\@empty}}%
+														{}%
+														{\BAS@plz\ }%
+												}%
+											\ifthenelse{\isundefined\BAS@ort}%
+												{}%
+												{%
+													\ifthenelse{\equal{\BAS@ort}{\@empty}}%
+														{}%
+														{\BAS@ort}%
+												}%
+											\\%
+										}%
+										{}%
+%    \end{macrocode}
+%
+% Eventuell vorhandenen Adresszusatz ausgeben.
+%    \begin{macrocode}
+									\ifthenelse{\isundefined\BAS@adresszusatz}%
+										{}%
+										{%
+											\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}%
+												{}%
+												{\>\BAS@adresszusatz\\}%
+										}%
+								}{}%
+%    \end{macrocode}
+%
+% Ende Adresse in tabbing-Umgebung.
+%    \begin{macrocode}
+						\end{tabbing}
+					}
+					{\vskip 2\parskip}
+%    \end{macrocode}
+%
+% Zusatztext.
+%    \begin{macrocode}
+				\ifthenelse{\isundefined\BAS@titelzusatz}
+					{}
+					{\BAS@titelzusatz}
+%    \end{macrocode}
+%
+% Ende der Titelseite: Leerseite einfügen, Titelseite insgesamt beenden.
+%    \begin{macrocode}
+				\cleardoublepage
+			\end{titlepage}
+%    \end{macrocode}
+%
+% Generierung einer laufenden Titelseite.
+%    \begin{macrocode}
+		\else
+%    \end{macrocode}
+%
+% Kopfzeile ausblenden.
+%    \begin{macrocode}
+			\ifthenelse{\equal{\BAS@opt@pagestyle}{leer}}
+				{}
+				{\thispagestyle{BASfuss}}
+%    \end{macrocode}
+%
+% Das Logo einzeichnen.
+%    \begin{macrocode}
+			\ifthenelse{\isundefined\BAS@logo}
 				{}%
 				{%
 					\newlength{\BAS@len@logo}
@@ -914,23 +1175,16 @@
 %    \end{macrocode}
 %
 % Der Dokumenttitel.
-%
-% Die \befehl{mbox} ist nötig, damit der Abstand auch bei fehlendem Logo gesetzt wird.
 %    \begin{macrocode}
-			\mbox{}\vskip 15\parskip
-			\textbf{\Huge\BAS@title}\par
+			\textbf{\huge\BAS@title}\par
 %    \end{macrocode}
 %
 % Der Untertitel.
 %    \begin{macrocode}
 			\ifthenelse{\equal{\@subtitle}{\@empty}}
-				{\vskip 2\parskip}
-				{
-					\vskip \parskip
-					{\huge\@subtitle}
-					\par
-				}
-			\vskip 2\parskip
+				{}
+				{{\huge\@subtitle}\par}
+			\vskip \parskip
 %    \end{macrocode}
 %
 % Die Version.
@@ -943,7 +1197,7 @@
 % Das Datum.
 %    \begin{macrocode}
 			\@date\par
-			\vskip 2\parskip
+			\vskip \parskip
 %    \end{macrocode}
 %
 % Autor\_in.
@@ -953,312 +1207,60 @@
 				{
 					\ifthenelse{\equal{\@author}{\@empty}}
 						{}
-						{
-							\textbf{\@author}\par
-							\vskip \parskip
-						}
+						{\@author\\}
 				}
-%    \end{macrocode}
-%
-% Adresse: E-Mail, Straße, PLZ, Ort, Handy, Telefon, Adresszusatz.
-%    \begin{macrocode}
-			\newboolean{BAS@title@hasaddress}
-			\setboolean{BAS@title@hasaddress}{false}
-			\newboolean{BAS@title@hassnail}
-			\setboolean{BAS@title@hassnail}{false}
-			\newboolean{BAS@title@hasphone}
-			\setboolean{BAS@title@hasphone}{false}
-			\newboolean{BAS@title@hascityline}
-			\setboolean{BAS@title@hascityline}{false}
-			\ifthenelse{\isundefined\BAS@email}
-				{}
-				{
-					\ifthenelse{\equal{\BAS@email}{\@empty}}
-						{}
-						{\setboolean{BAS@title@hasaddress}{true}}
-				}
-			\ifthenelse{\isundefined\BAS@telefon}
-				{}
-				{
-					\ifthenelse{\equal{\BAS@telefon}{\@empty}}
-						{}
-						{
-							\setboolean{BAS@title@hasaddress}{true}
-							\setboolean{BAS@title@hasphone}{true}
-						}
-				}
-			\ifthenelse{\isundefined\BAS@handy}
-				{}
-				{
-					\ifthenelse{\equal{\BAS@handy}{\@empty}}
-						{}
-						{
-							\setboolean{BAS@title@hasaddress}{true}
-							\setboolean{BAS@title@hasphone}{true}
-						}
-				}
-			\ifthenelse{\isundefined\BAS@strasse}
-				{}
-				{
-					\ifthenelse{\equal{\BAS@strasse}{\@empty}}
-						{}
-						{
-							\setboolean{BAS@title@hasaddress}{true}
-							\setboolean{BAS@title@hassnail}{true}
-						}
-				}
-			\ifthenelse{\isundefined\BAS@plz}
-				{}
-				{
-					\ifthenelse{\equal{\BAS@plz}{\@empty}}
-						{}
-						{
-							\setboolean{BAS@title@hasaddress}{true}
-							\setboolean{BAS@title@hassnail}{true}
-							\setboolean{BAS@title@hascityline}{true}
-						}
-				}
-			\ifthenelse{\isundefined\BAS@ort}
-				{}
-				{
-					\ifthenelse{\equal{\BAS@ort}{\@empty}}
-						{}
-						{
-							\setboolean{BAS@title@hasaddress}{true}
-							\setboolean{BAS@title@hassnail}{true}
-							\setboolean{BAS@title@hascityline}{true}
-						}
-				}
-			\ifthenelse{\isundefined\BAS@adresszusatz}
-				{}
-				{
-					\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}
-						{}
-						{
-							\setboolean{BAS@title@hasaddress}{true}
-							\setboolean{BAS@title@hassnail}{true}
-						}
-				}
-%    \end{macrocode}
-%
-% Adresse in tabbing-Umgebung setzen.
-%    \begin{macrocode}
-			\ifthenelse{\boolean{BAS@title@hasaddress}}
-				{
-					\begin{tabbing}
-						\Letter{}x\=\kill
 %    \end{macrocode}
 %
 % E-Mail.
 %    \begin{macrocode}
-						\ifthenelse{\isundefined\BAS@email}%
-							{}%
-							{%
-								\ifthenelse{\equal{\BAS@email}{\@empty}}%
-									{}%
-									{\Email\>\texttt{\href{mailto:\BAS@email}{\BAS@email}}\\[\parskip]}%
-							}%
-%    \end{macrocode}
-%
-% Telefone.
-%    \begin{macrocode}
-						\ifthenelse{\isundefined{\BAS@telefon}}%
-							{}%
-							{%
-								\ifthenelse{\equal{\@empty}{\BAS@telefon}}%
-								{}%
-								{\Telefon\>\BAS@telefon\\}%
-							}%
-						\ifthenelse{\isundefined{\BAS@handy}}%
-							{}%
-							{%
-								\ifthenelse{\equal{\@empty}{\BAS@handy}}%
-								{}%
-								{\Mobilefone\>\BAS@handy\\}%
-							}%
-						\ifthenelse{\boolean{BAS@title@hasphone}}%
-							{\\[-\parskip]}%
-							{}%
-%    \end{macrocode}
-%
-% Postadresse.
-%    \begin{macrocode}
-						\ifthenelse{\boolean{BAS@title@hassnail}}%
-							{%
-								\Letter%
-								\ifthenelse{\isundefined\BAS@strasse}%
-									{}%
-									{%
-										\ifthenelse{\equal{\BAS@strasse}{\@empty}}%
-											{}%
-											{\>\BAS@strasse\\}%
-									}%
-								\ifthenelse{\boolean{BAS@title@hascityline}}%
-									{%
-										\>%
-										\ifthenelse{\isundefined\BAS@plz}%
-											{}%
-											{%
-												\ifthenelse{\equal{\BAS@plz}{\@empty}}%
-													{}%
-													{\BAS@plz\ }%
-											}%
-										\ifthenelse{\isundefined\BAS@ort}%
-											{}%
-											{%
-												\ifthenelse{\equal{\BAS@ort}{\@empty}}%
-													{}%
-													{\BAS@ort}%
-											}%
-										\\%
-									}%
-									{}%
-%    \end{macrocode}
-%
-% Eventuell vorhandenen Adresszusatz ausgeben.
-%    \begin{macrocode}
-								\ifthenelse{\isundefined\BAS@adresszusatz}%
-									{}%
-									{%
-										\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}%
-											{}%
-											{\>\BAS@adresszusatz\\}%
-									}%
-							}{}%
-%    \end{macrocode}
-%
-% Ende Adresse in tabbing-Umgebung.
-%    \begin{macrocode}
-					\end{tabbing}
-				}
-				{\vskip 2\parskip}
-%    \end{macrocode}
-%
-% Zusatztext.
-%    \begin{macrocode}
-			\ifthenelse{\isundefined\BAS@titelzusatz}
-				{}
-				{\BAS@titelzusatz}
-%    \end{macrocode}
-%
-% Ende der Titelseite: Leerseite einfügen, Titelseite insgesamt beenden.
-%    \begin{macrocode}
-			\cleardoublepage
-		\end{titlepage}
-%    \end{macrocode}
-%
-% Generierung einer laufenden Titelseite.
-%    \begin{macrocode}
-	\else
-%    \end{macrocode}
-%
-% Kopfzeile ausblenden.
-%    \begin{macrocode}
-		\ifthenelse{\equal{\BAS@opt@pagestyle}{leer}}
-			{}
-			{\thispagestyle{BASfuss}}
-%    \end{macrocode}
-%
-% Das Logo einzeichnen.
-%    \begin{macrocode}
-		\ifthenelse{\isundefined\BAS@logo}
-			{}%
-			{%
-				\newlength{\BAS@len@logo}
-				\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
-				\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
-				\begin{picture}(0,0)(-1,0)%
-					\put(0,0){\includegraphics{\BAS@logo}}%
-				\end{picture}%
-			}%
-%    \end{macrocode}
-%
-% Der Dokumenttitel.
-%    \begin{macrocode}
-		\textbf{\huge\BAS@title}\par
-%    \end{macrocode}
-%
-% Der Untertitel.
-%    \begin{macrocode}
-		\ifthenelse{\equal{\@subtitle}{\@empty}}
-			{}
-			{{\huge\@subtitle}\par}
-		\vskip \parskip
-%    \end{macrocode}
-%
-% Die Version.
-%    \begin{macrocode}
-		\ifthenelse{\isundefined\BAS@version}
-			{}
-			{\BAS@version\\}
-%    \end{macrocode}
-%
-% Das Datum.
-%    \begin{macrocode}
-		\@date\par
-		\vskip \parskip
-%    \end{macrocode}
-%
-% Autor\_in.
-%    \begin{macrocode}
-		\ifthenelse{\isundefined\@author}
-			{}
-			{
-				\ifthenelse{\equal{\@author}{\@empty}}
-					{}
-					{\@author\\}
-			}
-%    \end{macrocode}
-%
-% E-Mail.
-%    \begin{macrocode}
-		\ifthenelse{\isundefined\BAS@email}%
-			{}%
-			{%
-				\ifthenelse{\equal{\BAS@email}{\@empty}}%
-					{}%
-					{\Email\ \texttt{\href{mailto:\BAS@email}{\BAS@email}}\par}%
-			}%
+			\ifthenelse{\isundefined\BAS@email}%
+				{}%
+				{%
+					\ifthenelse{\equal{\BAS@email}{\@empty}}%
+						{}%
+						{\Email\ \texttt{\href{mailto:\BAS@email}{\BAS@email}}\par}%
+				}%
 %    \end{macrocode}
 %
 % Ende der laufenden Titelseite.
 %    \begin{macrocode}
-		\vskip 3\parskip
-	\fi % end of \if@titlepage
+			\vskip 3\parskip
+		\fi % end of \if@titlepage
 %    \end{macrocode}
 %
 % Aufräumcode, direkt entnommen aus \datei{scrartcl.cls}.
 %    \begin{macrocode}
-	\let\thanks\relax
-	\let\maketitle\relax
-	\let\@maketitle\relax
-	\global\let\@thanks\@empty
-	\global\let\@author\@empty
-	\global\let\@date\@empty
-	\global\let\@title\@empty
-	\global\let\@subtitle\@empty
-	\global\let\@extratitle\@empty
-	\global\let\@titlehead\@empty
-	\global\let\@subject\@empty
-	\global\let\@publishers\@empty
-	\global\let\@uppertitleback\@empty
-	\global\let\@lowertitleback\@empty
-	\global\let\@dedication\@empty
-	\global\let\author\relax
-	\global\let\title\relax
-	\global\let\extratitle\relax
-	\global\let\titlehead\relax
-	\global\let\subject\relax
-	\global\let\publishers\relax
-	\global\let\uppertitleback\relax
-	\global\let\lowertitleback\relax
-	\global\let\dedication\relax
-	\global\let\date\relax
-	\global\let\and\relax
+		\let\thanks\relax
+		\let\maketitle\relax
+		\let\@maketitle\relax
+		\global\let\@thanks\@empty
+		\global\let\@author\@empty
+		\global\let\@date\@empty
+		\global\let\@title\@empty
+		\global\let\@subtitle\@empty
+		\global\let\@extratitle\@empty
+		\global\let\@titlehead\@empty
+		\global\let\@subject\@empty
+		\global\let\@publishers\@empty
+		\global\let\@uppertitleback\@empty
+		\global\let\@lowertitleback\@empty
+		\global\let\@dedication\@empty
+		\global\let\author\relax
+		\global\let\title\relax
+		\global\let\extratitle\relax
+		\global\let\titlehead\relax
+		\global\let\subject\relax
+		\global\let\publishers\relax
+		\global\let\uppertitleback\relax
+		\global\let\lowertitleback\relax
+		\global\let\dedication\relax
+		\global\let\date\relax
+		\global\let\and\relax
 %    \end{macrocode}
 %
 % Ende der Titelseitendefinition.
 %    \begin{macrocode}
+	} % end of sffamily scope
 } % end of \renewcommand\maketitle
 %    \end{macrocode}
 % \end{macro}
