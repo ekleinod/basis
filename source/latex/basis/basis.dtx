@@ -790,11 +790,9 @@
 % \subsection{Fußnoten}
 % \label{sec:Fussnoten}
 %
-% Fußnoten werden mit 1,5~Zeilen Abstand vom unteren Textrand gesetzt.
-% Die Länge \verb#\skip\footins# ist von \LaTeX{} für den Abstand
-% Text--Fußnote vorgegeben und braucht nur angepasst zu werden.
+% Die Fußnotenzeichen werden linksbündig hochgestellt gesetzt.
 %    \begin{macrocode}
-\setlength{\skip\footins}{1.5\baselineskip}
+\deffootnote{1.5em}{1em}{\makebox[1.5em][l]{\textsuperscript\thefootnotemark}}
 %    \end{macrocode}
 %
 % \subsection{Mathematische Gleichungen}
@@ -835,7 +833,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% Ende der gemeinsamen Definitionen für Nücher, Artikel und Briefe.
+% Ende der gemeinsamen Definitionen für Bücher, Artikel und Briefe.
 %
 %    \begin{macrocode}
 %</basis,basbrief>
