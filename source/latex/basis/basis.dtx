@@ -502,11 +502,12 @@
 %
 % \subsection{Tabellen}
 %
-% Für lange Tabellen wird \paket{longtable} verwendet, nützliche Erweiterungen für Spaltendefinitionen sind in \paket{array}.
+% Für lange Tabellen wird \paket{tabu} bzw.\ \paket{longtable} verwendet, nützliche Erweiterungen für Spaltendefinitionen sind in \paket{array}.
 % Für gut anzusehende Linien sorgt \paket{booktabs}.
 %    \begin{macrocode}
 \RequirePackage{longtable}
 \RequirePackage{array}
+\RequirePackage{tabu}
 \RequirePackage{booktabs}
 %    \end{macrocode}
 %
@@ -1332,22 +1333,25 @@
 %    \end{macrocode}
 %
 % \begin{macro}{\LT@makecaption}
-% Die Definition ist aus \texttt{longtable.sty} entnommen.
-% Der Aufruf von \verb#\hss# wurde herausgenommen.
+% Die Definition ist aus \paket{longtable.sty} entnommen.
+% Der Aufruf von \befehl{hss} wurde herausgenommen, ebenso \befehl{hfill} und die zentrierte Anordnung der Überschrift..
 % ^^A @todo
 %    \begin{macrocode}
-%\renewcommand\LT@makecaption[3]{%
-% \LT@mcol{\LT@cols}{@{}l@{}}{%
-%	\hbox to\z@{\parbox[t]\LTcapwidth{%
-%	 \sbox\@tempboxa{#1{#2: }#3}%
-%	 \ifdim\wd\@tempboxa>\hsize
-%		#1{#2: }#3%
-%	 \else
-%		 {\hbox to\hsize{\box\@tempboxa}}%
-%	 \fi
-%	\endgraf\vskip\baselineskip}%
-% }}
-%}
+\renewcommand\LT@makecaption[3]{%
+	\LT@mcol{\LT@cols}{@{}l@{}@{}}{%
+		\hbox to\z@{%
+			\parbox[t]\LTcapwidth{%
+				\sbox\@tempboxa{#1{#2: }#3}%
+				\ifdim\wd\@tempboxa>\hsize%
+					#1{#2: }#3%
+				\else%
+					{\hbox to\hsize{\box\@tempboxa}}%
+				\fi%
+				\endgraf\vskip\baselineskip%
+			}%
+		}%
+	}%
+}
 %    \end{macrocode}
 % \end{macro}
 %

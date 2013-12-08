@@ -43,8 +43,8 @@
 
 	\maketitle
 
-	%\tableofcontents
-	%\cleardoublepage
+	\tableofcontents
+	\cleardoublepage
 
 	\section{Inhalte}
 	\label{sec:sec}
@@ -91,9 +91,9 @@
 
 	\subsection{Tabellen}
 
-	\begin{longtable}[l]{lcr}
+	\begin{longtabu}[l]{@{}lcr@{}}
 		\toprule
-		\caption{Tabelle über mehrere Seiten}\\
+		\captionabove{Tabelle über mehrere Seiten}\\
 		\midrule
 		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
 		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
@@ -162,7 +162,23 @@
 		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
 		Zelle & Zelle & Zelle\\
 		\bottomrule
-	\end{longtable}
+	\end{longtabu}
+
+
+
+
+	\addsec{Unnumeriert}
+
+	\lipsum[1-1]
+
+	\subsection*{Zwischenüberschrift}
+
+	\lipsum[1-1]
+
+	\subsubsection*{Unterzwischenüberschrift}
+
+	\lipsum[1-1]
+
 
 
 	\section{section}
