@@ -16,8 +16,6 @@
 
 \begin{document}
 
-	%\renewcommand{\enclname}{Anlage} % Standard: Anlagen, wenn nur eine Anlage gemeint ist: diese Zeile entkommentieren
-
 	% hier den Empfänger (\\-getrennt) eintragen
 	\begin{letter}{Empfänger\\Empfängerstraße\\Empfängerort}
 
@@ -39,9 +37,10 @@
 
 		\closing{Mit freundlichen Grüßen,}
 
-		%\ps % Post-Scriptum
-		%\encl{} % Anlage(n)
-		%\cc{} % Verteiler
+		\ps PS: Post-Scriptum
+		% \setkomavar*{enclseparator}{Anlage} % für genau eine Anlage
+		\encl{Anlage 1, Anlage 2\\Anlage 3}
+		\cc{Empfänger 1, Empfänger 2\\Empfänger 3}
 
 	\end{letter}
 

@@ -1355,7 +1355,7 @@
 %
 % \begin{macro}{\nextslidesilent}
 % Der Befehl \befehl{nextslidesilent} erhöht den Folienzähler um eins, ohne die entsprechende Folie auszugeben.
-% Damit können z.\,B.\ für die Dokumentation unwichtige Folien übersprungen werden.
+% Damit können \zB für die Dokumentation unwichtige Folien übersprungen werden.
 % Dafür wird zunächst der Folienzähler definiert und danach das Makro.
 %
 %    \begin{macrocode}
@@ -1432,17 +1432,6 @@
 \LoadLetterOption{bas\BAS@opt@layout}
 %    \end{macrocode}
 %
-% Zunächst müssen die Briefoptionen gesetzt werden.
-% Damit müssen beim Aufruf von \paket{scrlttr} keine schlimmen Optionen mehr gesetzt werden.
-% Gesetzt werden müssen: Sprache und Schriftgröße.
-% Die voreingestellte Schriftgröße ist 12~Punkt.
-% \begin{description}
-%		\item [parskip=half] kein Einzug bei Absatzanfang, sondern halbe Trennzeile
-% \end{description}
-%    \begin{macrocode}
-\KOMAoptions{parskip=half}
-%    \end{macrocode}
-%
 % Briefe sind im Flattersatz zu setzen.
 %    \begin{macrocode}
 \AtBeginDocument{\RaggedRight}
@@ -1453,9 +1442,9 @@
 \renewcommand{\raggedsignature}{\raggedright}
 %    \end{macrocode}
 %
-% Die Bezeichnung für Anlagen soll "`Anlagen"' sein.
+% Die Bezeichnung für Anlagen soll "`Anlagen"' sein (statt default "`Anlage(n)"'.
 %    \begin{macrocode}
-\AtBeginDocument{\renewcommand{\enclname}{Anlagen}}
+\setkomavar*{enclseparator}{Anlagen}
 %    \end{macrocode}
 %
 % \subsubsection{Erste Seite}
