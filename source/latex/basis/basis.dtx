@@ -676,6 +676,13 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\homepage}
+% Adressteil: URL.
+%    \begin{macrocode}
+\newcommand{\homepage}[1]{\def\BAS@url{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\adresszusatz}
 % Adressteil: zusätzliche Angaben.
 %    \begin{macrocode}
@@ -1466,24 +1473,48 @@
 		{}%
 		{\BAS@ort}%
 }
-\setkomavar{backaddress}{%
-	\usekomavar{fromname}%
+\setkomavar{fromaddress}{%
 	\ifthenelse{\isundefined{\BAS@strasse}}%
 		{}%
-		{\\\BAS@strasse}%
+		{\BAS@strasse}%
 	\ifthenelse{\boolean{BAS@hascityline}}%
 		{%
-			\\%
+			\ifthenelse{\isundefined{\BAS@strasse}}%
+				{}%
+				{\\}%
 			\ifthenelse{\isundefined{\BAS@plz}}%
 				{}%
-				{\BAS@plz~}%
+				{%
+					\BAS@plz%
+					\ifthenelse{\isundefined\BAS@ort}%
+						{}%
+						{~}%
+				}%
 			\ifthenelse{\isundefined\BAS@ort}%
 				{}%
 				{\BAS@ort}%
 		}{}%
 }
-\setkomavar{location}{%
-	\usekomavar{fromlogo}%
+\setkomavar{backaddress}{%
+	\usekomavar{fromname}%
+	\ifkomavarempty{fromaddress}%
+		{}%
+		{\\\usekomavar{fromaddress}}%
+}
+\setkomavar{fromphone}{%
+	\ifthenelse{\isundefined{\BAS@telefon}}%
+		{}%
+		{\BAS@telefon}%
+}
+\setkomavar{fromemail}{%
+	\ifthenelse{\isundefined{\BAS@email}}%
+		{}%
+		{\BAS@email}%
+}
+\setkomavar{fromurl}{%
+	\ifthenelse{\isundefined{\BAS@url}}%
+		{}%
+		{\BAS@url}%
 }
 %    \end{macrocode}
 %
@@ -1495,10 +1526,9 @@
 % \subsubsection{Folgeseiten}
 %
 % Die Kopfzeile (und damit auch Fußzeile) der Folgeseiten ist normal serifenlos zu setzen.
-% Da die Koma-Befehle \emph{\textbackslash setkomafont\{pagehead\}} und \emph{\textbackslash setkomafont\{pagenumber\}} Warnungen erzeugen, und das laut Markus Kohm so gewollt ist, werden die Fontbefehle direkt umdefiniert.
 %    \begin{macrocode}
-\renewcommand{\headfont}{\sffamily\footnotesize}
-\renewcommand{\pnumfont}{\headfont}
+\setkomafont{pageheadfoot}{\sffamily\footnotesize}
+\setkomafont{pagenumber}{\sffamily\footnotesize}
 %    \end{macrocode}
 %
 % Ende des Brief-Stils.
@@ -1517,7 +1547,7 @@
 %
 % Informationen über die Datei.
 %    \begin{macrocode}
-\ProvidesFile{baskopfzeile.lco}[2007/01/15 v0.3 Basis-Brief: Kopfzeilenlayout]
+\ProvidesFile{baskopfzeile.lco}[2013/12/10 v0.4 Basis-Brief: Kopfzeilenlayout]
 %    \end{macrocode}
 %
 % In der Kopfzeile werden die Angaben durch "`~\ensuremath{\cdot}~"' getrennt.
@@ -1532,26 +1562,28 @@
 \@setplength{firstheadvpos}{15mm}
 \setkomafont{fromname}{\sffamily\small}
 \setkomafont{fromaddress}{\sffamily\footnotesize}
-\firsthead{%
- \centering
- {\usekomafont{fromname}%
-	\usekomavar{fromname}%
-	\ifthenelse{\isundefined{\BAS@strasse}}%
-	 {}%
-	 {\usekomavar{headseparator}\BAS@strasse}%
-	\ifthenelse{\isundefined{\BAS@plz}}%
-	 {}%
-	 {\usekomavar{headseparator}\BAS@plz~\BAS@ort}%
- }\\
- {\usekomafont{fromaddress}%
+\setkomavar{firsthead}{%
+	\centering%
+	{%
+		\usekomafont{fromname}%
+		\usekomavar{fromname}%
+		% \def\\{\usekomavar{backaddressseparator}\@ogobble}
+		\ifthenelse{\isundefined{\BAS@strasse}}%
+		{}%
+		{\usekomavar{headseparator}\BAS@strasse}%
+		\ifthenelse{\isundefined{\BAS@plz}}%
+		{}%
+		{\usekomavar{headseparator}\BAS@plz~\BAS@ort}%
+	}\\%
+	{\usekomafont{fromaddress}%
 	\ifthenelse{\isundefined{\BAS@telefon}}%
-	 {}%
-	 {\BAS@telefon}%
+	{}%
+	{\BAS@telefon}%
 	\ifthenelse{\isundefined{\BAS@email}}%
-	 {}%
-	 {\usekomavar{headseparator}\BAS@email}%
- }\\[-.5\baselineskip]%
- \rule{\textwidth}{\BAS@linienbreite}%
+	{}%
+	{\usekomavar{headseparator}\BAS@email}%
+	}\\[-.5\baselineskip]%
+	\rule{\textwidth}{\BAS@linienbreite}%
 }
 %    \end{macrocode}
 %
