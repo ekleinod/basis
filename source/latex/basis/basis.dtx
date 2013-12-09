@@ -692,6 +692,89 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% Auswertung einiger Angaben im Vorfeld.
+%    \begin{macrocode}
+\AtBeginDocument{
+	\newboolean{BAS@hasaddress}
+	\setboolean{BAS@hasaddress}{false}
+	\newboolean{BAS@hassnail}
+	\setboolean{BAS@hassnail}{false}
+	\newboolean{BAS@hasphone}
+	\setboolean{BAS@hasphone}{false}
+	\newboolean{BAS@hascityline}
+	\setboolean{BAS@hascityline}{false}
+	\ifthenelse{\isundefined\BAS@email}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@email}{\@empty}}
+				{}
+				{\setboolean{BAS@hasaddress}{true}}
+		}
+	\ifthenelse{\isundefined\BAS@telefon}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@telefon}{\@empty}}
+				{}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hasphone}{true}
+				}
+		}
+	\ifthenelse{\isundefined\BAS@handy}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@handy}{\@empty}}
+				{}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hasphone}{true}
+				}
+		}
+	\ifthenelse{\isundefined\BAS@strasse}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@strasse}{\@empty}}
+				{}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hassnail}{true}
+				}
+		}
+	\ifthenelse{\isundefined\BAS@plz}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@plz}{\@empty}}
+				{}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hassnail}{true}
+					\setboolean{BAS@hascityline}{true}
+				}
+		}
+	\ifthenelse{\isundefined\BAS@ort}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@ort}{\@empty}}
+				{}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hassnail}{true}
+					\setboolean{BAS@hascityline}{true}
+				}
+		}
+	\ifthenelse{\isundefined\BAS@adresszusatz}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}
+				{}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hassnail}{true}
+				}
+		}
+}
+%    \end{macrocode}
+%
 % \subsubsection{Flattersatz}
 %
 % Das Paket \paket{ragged2e} verbessert den Flattersatz, durch die Option \option{newcommands} werden die Original-\hologo{LaTeX}-Befehle überschrieben.
@@ -980,90 +1063,9 @@
 					}
 %    \end{macrocode}
 %
-% Adresse: E-Mail, Straße, PLZ, Ort, Handy, Telefon, Adresszusatz.
-%    \begin{macrocode}
-				\newboolean{BAS@title@hasaddress}
-				\setboolean{BAS@title@hasaddress}{false}
-				\newboolean{BAS@title@hassnail}
-				\setboolean{BAS@title@hassnail}{false}
-				\newboolean{BAS@title@hasphone}
-				\setboolean{BAS@title@hasphone}{false}
-				\newboolean{BAS@title@hascityline}
-				\setboolean{BAS@title@hascityline}{false}
-				\ifthenelse{\isundefined\BAS@email}
-					{}
-					{
-						\ifthenelse{\equal{\BAS@email}{\@empty}}
-							{}
-							{\setboolean{BAS@title@hasaddress}{true}}
-					}
-				\ifthenelse{\isundefined\BAS@telefon}
-					{}
-					{
-						\ifthenelse{\equal{\BAS@telefon}{\@empty}}
-							{}
-							{
-								\setboolean{BAS@title@hasaddress}{true}
-								\setboolean{BAS@title@hasphone}{true}
-							}
-					}
-				\ifthenelse{\isundefined\BAS@handy}
-					{}
-					{
-						\ifthenelse{\equal{\BAS@handy}{\@empty}}
-							{}
-							{
-								\setboolean{BAS@title@hasaddress}{true}
-								\setboolean{BAS@title@hasphone}{true}
-							}
-					}
-				\ifthenelse{\isundefined\BAS@strasse}
-					{}
-					{
-						\ifthenelse{\equal{\BAS@strasse}{\@empty}}
-							{}
-							{
-								\setboolean{BAS@title@hasaddress}{true}
-								\setboolean{BAS@title@hassnail}{true}
-							}
-					}
-				\ifthenelse{\isundefined\BAS@plz}
-					{}
-					{
-						\ifthenelse{\equal{\BAS@plz}{\@empty}}
-							{}
-							{
-								\setboolean{BAS@title@hasaddress}{true}
-								\setboolean{BAS@title@hassnail}{true}
-								\setboolean{BAS@title@hascityline}{true}
-							}
-					}
-				\ifthenelse{\isundefined\BAS@ort}
-					{}
-					{
-						\ifthenelse{\equal{\BAS@ort}{\@empty}}
-							{}
-							{
-								\setboolean{BAS@title@hasaddress}{true}
-								\setboolean{BAS@title@hassnail}{true}
-								\setboolean{BAS@title@hascityline}{true}
-							}
-					}
-				\ifthenelse{\isundefined\BAS@adresszusatz}
-					{}
-					{
-						\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}
-							{}
-							{
-								\setboolean{BAS@title@hasaddress}{true}
-								\setboolean{BAS@title@hassnail}{true}
-							}
-					}
-%    \end{macrocode}
-%
 % Adresse in tabbing-Umgebung setzen.
 %    \begin{macrocode}
-				\ifthenelse{\boolean{BAS@title@hasaddress}}
+				\ifthenelse{\boolean{BAS@hasaddress}}
 					{
 						\begin{tabbing}
 							\Letter{}x\=\kill
@@ -1096,14 +1098,14 @@
 									{}%
 									{\Mobilefone\>\BAS@handy\\}%
 								}%
-							\ifthenelse{\boolean{BAS@title@hasphone}}%
+							\ifthenelse{\boolean{BAS@hasphone}}%
 								{\\[-\parskip]}%
 								{}%
 %    \end{macrocode}
 %
 % Postadresse.
 %    \begin{macrocode}
-							\ifthenelse{\boolean{BAS@title@hassnail}}%
+							\ifthenelse{\boolean{BAS@hassnail}}%
 								{%
 									\Letter%
 									\ifthenelse{\isundefined\BAS@strasse}%
@@ -1113,7 +1115,7 @@
 												{}%
 												{\>\BAS@strasse\\}%
 										}%
-									\ifthenelse{\boolean{BAS@title@hascityline}}%
+									\ifthenelse{\boolean{BAS@hascityline}}%
 										{%
 											\>%
 											\ifthenelse{\isundefined\BAS@plz}%
@@ -1451,27 +1453,38 @@
 %
 % Setzen der Variablen mit den oben definierten personengebundenen Werten.
 %    \begin{macrocode}
-\setkomavar{fromname}{\@author}
-\setkomavar{fromlogo}{
- \ifthenelse{\isundefined{\BAS@logo}}
-	{}
-	{\BAS@logo}
+\setkomavar{fromname}{%
+	\@author%
+}
+\setkomavar{fromlogo}{%
+	\ifthenelse{\isundefined{\BAS@logo}}%
+		{}%
+		{\BAS@logo}%
 }
 \setkomavar{place}{%
- \ifthenelse{\isundefined{\BAS@ort}}%
-	{}%
-	{\BAS@ort}%
+	\ifthenelse{\isundefined{\BAS@ort}}%
+		{}%
+		{\BAS@ort}%
 }
 \setkomavar{backaddress}{%
- \usekomavar{fromname}\\%
- \ifthenelse{\isundefined{\BAS@strasse}}
-	{}
-	{\BAS@strasse\\}%
- \ifthenelse{\isundefined{\BAS@plz}}
-	{}
-	{\BAS@plz~\BAS@ort}%
+	\usekomavar{fromname}%
+	\ifthenelse{\isundefined{\BAS@strasse}}%
+		{}%
+		{\\\BAS@strasse}%
+	\ifthenelse{\boolean{BAS@hascityline}}%
+		{%
+			\\%
+			\ifthenelse{\isundefined{\BAS@plz}}%
+				{}%
+				{\BAS@plz~}%
+			\ifthenelse{\isundefined\BAS@ort}%
+				{}%
+				{\BAS@ort}%
+		}{}%
 }
-\setkomavar{location}{\usekomavar{fromlogo}}
+\setkomavar{location}{%
+	\usekomavar{fromlogo}%
+}
 %    \end{macrocode}
 %
 % Der Betreff ist serifenlos zu setzen.
