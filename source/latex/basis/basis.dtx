@@ -314,23 +314,42 @@
 %
 %    \begin{macrocode}
 \KOMAoptions{
-	captions=nooneline,
 	cleardoublepage=empty,
 	draft=\BAS@opt@draft,
 	fontsize=11pt,
 	footnotes=multiple,
-	headings=big,
-	numbers=noendperiod,
 	paper=a4,
 	parskip=half,
-	titlepage=\BAS@opt@titlepage,
-	toc=flat,
 	twocolumn=off,
 	twoside=\BAS@opt@twoside
 }
 %    \end{macrocode}
 %
-% Klassenoptionen nur für \paket{scrbook} und \paket{scrreprt}
+% Klassenoptionen nicht bzw. nur für \paket{scrlttr2}.
+%
+% \begin{description}
+% 	\item[open] Beginn neuer Kapitel, immer auf der rechten Seite (nur für \paket{scrbook} und \paket{scrreprt})
+% \end{description}
+%
+%
+%    \begin{macrocode}
+\ifthenelse{\equal{\KOMAClassName}{scrlttr2}}
+	{
+		\KOMAoptions{
+		}
+	}
+	{
+		\KOMAoptions{
+			captions=nooneline,
+			headings=big,
+			numbers=noendperiod,
+			titlepage=\BAS@opt@titlepage,
+			toc=flat
+		}
+	}
+%    \end{macrocode}
+%
+% Klassenoptionen nur für \paket{scrbook} und \paket{scrreprt}.
 %
 % \begin{description}
 % 	\item[open] Beginn neuer Kapitel, immer auf der rechten Seite (nur für \paket{scrbook} und \paket{scrreprt})
