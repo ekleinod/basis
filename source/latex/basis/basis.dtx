@@ -312,14 +312,8 @@
 %
 % An dieser Stelle werden zentral einige Maße festgelegt.
 %    \begin{macrocode}
-\newlength{\BAS@len@bas@footrule}
-\setlength{\BAS@len@bas@footrule}{.4pt}
-\newlength{\BAS@len@bas@headrule}
-\setlength{\BAS@len@bas@headrule}{\BAS@len@bas@footrule}
-\newlength{\BAS@len@ltr@footrule}
-\setlength{\BAS@len@ltr@footrule}{\BAS@len@bas@footrule}
-\newlength{\BAS@len@ltr@headrule}
-\setlength{\BAS@len@ltr@headrule}{\BAS@len@bas@headrule}
+\newlength{\BAS@len@rule}
+\setlength{\BAS@len@rule}{.4pt}
 %    \end{macrocode}
 %
 % \subsection{KOMA-Klassenoptionen setzen}
@@ -844,10 +838,10 @@
 		{\hfill\leftmark}
 		{\leftmark\hfill}
 		{\leftmark\hfill}
-		(\textwidth,\BAS@len@bas@headrule)
+		(\textwidth,\BAS@len@rule)
 	}
 	{
-		(\textwidth,\BAS@len@bas@footrule)
+		(\textwidth,\BAS@len@rule)
 		{Seite \pagemark\ von \pageref{LastPage}\hfill\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}
 		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
 		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
@@ -863,7 +857,7 @@
 		{}
 	}
 	{
-		(\textwidth,\BAS@len@bas@footrule)
+		(\textwidth,\BAS@len@rule)
 		{Seite \pagemark\ von \pageref{LastPage}\hfill\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}
 		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
 		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
@@ -1490,6 +1484,11 @@
 \setkomavar*{enclseparator}{Anlagen}
 %    \end{macrocode}
 %
+% Die Dokumenttitel festlegen.
+%    \begin{macrocode}
+\def\BAS@title{Brief}
+%    \end{macrocode}
+%
 % \subsubsection{Erste Seite}
 %
 % Setzen der Variablen mit den oben definierten personengebundenen Werten.
@@ -1535,17 +1534,23 @@
 		{}%
 		{\\\usekomavar{fromaddress}}%
 }
-\setkomavar{fromphone}{%
+\setkomavar{fromphone}[\Telefon~]{%
 	\ifthenelse{\isundefined{\BAS@telefon}}%
 		{}%
 		{\BAS@telefon}%
 }
-\setkomavar{fromemail}{%
+\newkomavar*[\Mobilefone~]{frommobile}
+\setkomavar{frommobile}{%
+	\ifthenelse{\isundefined{\BAS@handy}}%
+		{}%
+		{\BAS@handy}%
+}
+\setkomavar{fromemail}[\Email~]{%
 	\ifthenelse{\isundefined{\BAS@email}}%
 		{}%
 		{\BAS@email}%
 }
-\setkomavar{fromurl}{%
+\setkomavar{fromurl}[\~]{%
 	\ifthenelse{\isundefined{\BAS@url}}%
 		{}%
 		{\BAS@url}%
@@ -1685,7 +1690,7 @@
 		\usekomafont{fromname}%
 		\usekomavar[\textls]{fromname}%
 	}\\[-.5\baselineskip]%
-	\rule{\textwidth}{\BAS@len@ltr@headrule}
+	\rule{\textwidth}{\BAS@len@rule}
 %    \end{macrocode}
 %
 % Die Kopfzeile der ersten Seite enthält außerdem die Infospalte (Flattersatz) rechts.
@@ -1723,13 +1728,16 @@
 %    \begin{macrocode}
 				\ifkomavarempty{fromphone}%
 					{}%
-					{\usekomavar*{fromphone}~\usekomavar{fromphone}\\}%
+					{\usekomavar*{fromphone}\usekomavar{fromphone}\\}%
+				\ifkomavarempty{frommobile}%
+					{}%
+					{\usekomavar*{frommobile}\usekomavar{frommobile}\\}%
 				\ifkomavarempty{fromemail}%
 					{}%
-					{\usekomavar*{fromemail}~\href{mailto:\usekomavar{fromemail}}{\usekomavar{fromemail}}\\}%
+					{\usekomavar*{fromemail}\texttt{\usekomavar{fromemail}}\\}%
 				\ifkomavarempty{fromurl}%
 					{}%
-					{\usekomavar*{fromurl}~\url{\usekomavar{fromurl}}\\}%
+					{\texttt{\usekomavar{fromurl}}\\}%
 			}%
 		}%
 	\end{picture}%
@@ -1759,7 +1767,7 @@
 %    \begin{macrocode}
 \setheadwidth[0mm]{textwithmarginpar}
 \ohead{Seite~\pagemark}
-\setheadsepline{\BAS@linienbreite}
+\setheadsepline{\BAS@len@rule}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -1768,3 +1776,4 @@
 %
 %\Finale
 \endinput
+
