@@ -237,6 +237,24 @@
 }
 %    \end{macrocode}
 %
+% \option{nobackaddress}-Option
+%    \begin{macrocode}
+\newcommand{\BAS@opt@backaddress}{on}
+\DeclareOptionX{nobackaddress}{
+	\renewcommand{\BAS@opt@backaddress}{off}
+	\typeout{Basis-Option 'nobackaddress'}
+}
+%    \end{macrocode}
+%
+% \option{nofoldmarks}-Option
+%    \begin{macrocode}
+\newcommand{\BAS@opt@foldmarks}{on}
+\DeclareOptionX{nofoldmarks}{
+	\renewcommand{\BAS@opt@foldmarks}{off}
+	\typeout{Basis-Option 'nofoldmarks'}
+}
+%    \end{macrocode}
+%
 % \option{notitlepage}-Option
 %    \begin{macrocode}
 \newcommand{\BAS@opt@titlepage}{on}
@@ -336,6 +354,8 @@
 \ifthenelse{\equal{\KOMAClassName}{scrlttr2}}
 	{
 		\KOMAoptions{
+			backaddress=\BAS@opt@backaddress,
+			foldmarks=\BAS@opt@foldmarks
 		}
 	}
 	{
@@ -1749,11 +1769,6 @@
 % \end{description}
 %    \begin{macrocode}
 \KOMAoptions{backaddress=off, foldmarks=off}
-%    \end{macrocode}
-%
-% Anlagen ohne Doppelpunkt.
-%    \begin{macrocode}
-\setkomavar{enclseparator}{~}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
