@@ -308,6 +308,20 @@
 \ProcessOptionsX
 %    \end{macrocode}
 %
+% \subsection{Festgelegte Längemaße}
+%
+% An dieser Stelle werden zentral einige Maße festgelegt.
+%    \begin{macrocode}
+\newlength{\BAS@len@bas@footrule}
+\setlength{\BAS@len@bas@footrule}{.4pt}
+\newlength{\BAS@len@bas@headrule}
+\setlength{\BAS@len@bas@headrule}{\BAS@len@bas@footrule}
+\newlength{\BAS@len@ltr@footrule}
+\setlength{\BAS@len@ltr@footrule}{\BAS@len@bas@footrule}
+\newlength{\BAS@len@ltr@headrule}
+\setlength{\BAS@len@ltr@headrule}{\BAS@len@bas@headrule}
+%    \end{macrocode}
+%
 % \subsection{KOMA-Klassenoptionen setzen}
 %
 % Die Klassenoptionen für KOMA-Script werden erst jetzt gesetzt, jede manuelle Änderung im Dokument muss daher nach Einbinden des Basis-Stils erfolgen.
@@ -830,10 +844,10 @@
 		{\hfill\leftmark}
 		{\leftmark\hfill}
 		{\leftmark\hfill}
-		(\textwidth,.4pt)
+		(\textwidth,\BAS@len@bas@headrule)
 	}
 	{
-		(\textwidth,.4pt)
+		(\textwidth,\BAS@len@bas@footrule)
 		{Seite \pagemark\ von \pageref{LastPage}\hfill\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}
 		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
 		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
@@ -849,7 +863,7 @@
 		{}
 	}
 	{
-		(\textwidth,.4pt)
+		(\textwidth,\BAS@len@bas@footrule)
 		{Seite \pagemark\ von \pageref{LastPage}\hfill\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}
 		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
 		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
@@ -1622,25 +1636,27 @@
 %</lco:kopfzeile>
 %    \end{macrocode}
 %
-% \subsubsection{Datei \texttt{basinfospalte.lco}}
+% \subsubsection{Layouts: Infospalte sowie Infospalte fett}
 %
-% Beginn der Datei.
+% Beginn der Layoutdefinition.
 %    \begin{macrocode}
-%<*lco:infospalte>
+%<*lco:infospalte,lco:infospaltefett>
 %    \end{macrocode}
 %
 % Informationen über die Datei.
 %    \begin{macrocode}
-\ProvidesFile{basinfospalte.lco}[2007/01/15 v0.3 Basis-Brief: Infospaltenlayout]
+%<+lco:infospalte>\ProvidesFile{basinfospalte.lco}[2013/12/10 v0.4 Basis-Brief: Infospaltenlayout]
+%<+lco:infospaltefett>\ProvidesFile{basinfospaltefett.lco}[2013/12/10 v0.4 Basis-Brief: Infospalte mit fettem Autornamen]
 %    \end{macrocode}
 %
 % Die Fonts für die Kopfzeile/Infospalte der ersten Seite.
 %    \begin{macrocode}
-\setkomafont{fromname}{\scshape}
+%<+lco:infospalte>\setkomafont{fromname}{\scshape}
+%<+lco:infospaltefett>\setkomafont{fromname}{\bfseries}
 \setkomafont{fromaddress}{\sffamily\scriptsize}
 %    \end{macrocode}
 %
-% Die Breite der Infospalte, die BAS-Variablen können noch nicht verwendet werden, da hier noch nicht definiert.
+% Die Breite der Infospalte.
 %    \begin{macrocode}
 \newlength{\infocolwidth}
 \setlength{\infocolwidth}{.16\paperwidth}
@@ -1664,59 +1680,63 @@
 %
 % Die Kopfzeile der ersten Seite enthält den gesperrten Autor und eine Linie.
 %    \begin{macrocode}
-\firsthead{%
+\setkomavar{firsthead}{%
 	{%
 		\usekomafont{fromname}%
 		\usekomavar[\textls]{fromname}%
-	}\\[-.5\baselineskip]
-	\rule{\textwidth}{\BAS@linienbreite}
+	}\\[-.5\baselineskip]%
+	\rule{\textwidth}{\BAS@len@ltr@headrule}
 %    \end{macrocode}
 %
 % Die Kopfzeile der ersten Seite enthält außerdem die Infospalte (Flattersatz) rechts.
 %    \begin{macrocode}
- \hspace*{\fill}%
- \begin{picture}(0,0)%
-	\put(0,0){%
-	 \parbox[t]{\infocolwidth}{%
-		\usekomafont{fromaddress}%
-		\RaggedRight%
+	\hspace*{\fill}%
+	\begin{picture}(0,0)%
+		\put(0,0){%
+			\parbox[t]{\infocolwidth}{%
+				\usekomafont{fromaddress}%
+				\RaggedRight%
 %    \end{macrocode}
 % Ort und Datum.
 %    \begin{macrocode}
-		\vspace{\useplength{refvpos}}%
-		\vspace{-\useplength{firstheadvpos}}%
-		\vspace{-\baselineskip}%
-		\usekomavar[\textbf]{place}\\%
-		\usekomavar{date}\\%
+				\vspace{\useplength{refvpos}}%
+				\vspace{-\useplength{firstheadvpos}}%
+				\vspace{-\baselineskip}%
+				\ifkomavarempty{place}%
+					{}%
+					{\usekomavar[\textbf]{place}\\}%
+				\usekomavar{date}\\%
 %    \end{macrocode}
 % Name und Adresse.
 %    \begin{macrocode}
-		\vspace{2\baselineskip}%
-		\usekomavar[\textbf]{fromname}\\%
-		\vspace{.5\baselineskip}%
-		\ifthenelse{\isundefined{\BAS@strasse}}%
-		 {}%
-		 {\BAS@strasse}\\%
-		\ifthenelse{\isundefined{\BAS@plz}}%
-		 {}%
-		 {\BAS@plz~\BAS@ort}\\%
+				\vspace{2\baselineskip}%
+				\usekomavar[\textbf]{fromname}\\%
+				\vspace{.5\baselineskip}%
+				\ifkomavarempty{fromaddress}%
+					{}%
+					{%
+						\usekomavar{fromaddress}\\
+						\vspace{\baselineskip}%
+					}%
 %    \end{macrocode}
 % Telefon, E-Mail.
 %    \begin{macrocode}
-		\vspace{\baselineskip}%
-		\ifthenelse{\isundefined{\BAS@telefon}}%
-		 {}%
-		 {\Telefon~\BAS@telefon}\\%
-		\ifthenelse{\isundefined{\BAS@email}}%
-		 {}%
-		 {\Email~\BAS@email}%
-	 }%
-	}%
- \end{picture}%
+				\ifkomavarempty{fromphone}%
+					{}%
+					{\usekomavar*{fromphone}~\usekomavar{fromphone}\\}%
+				\ifkomavarempty{fromemail}%
+					{}%
+					{\usekomavar*{fromemail}~\href{mailto:\usekomavar{fromemail}}{\usekomavar{fromemail}}\\}%
+				\ifkomavarempty{fromurl}%
+					{}%
+					{\usekomavar*{fromurl}~\url{\usekomavar{fromurl}}\\}%
+			}%
+		}%
+	\end{picture}%
 %    \end{macrocode}
 % Trick von Markus Kohm, damit die Spalte nicht rechts herauragt.
 %    \begin{macrocode}
- \hspace*{\infocolwidth}%
+	\hspace*{\infocolwidth}%
 }
 %    \end{macrocode}
 %
@@ -1743,28 +1763,7 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-%</lco:infospalte>
-%    \end{macrocode}
-%
-% \subsubsection{Datei \texttt{infospaltefett.lco}}
-%
-% Beginn der Datei.
-%    \begin{macrocode}
-%<*lco:infospaltefett>
-%    \end{macrocode}
-%
-% Informationen über die Datei.
-%    \begin{macrocode}
-\ProvidesFile{basinfospaltefett.lco}[2013/12/10 v0.4 Basis-Brief: Infospalte mit fettem Autornamen]
-%    \end{macrocode}
-%
-% Das Layout beruht auf dem Infospaltenlayout.
-%    \begin{macrocode}
-\LoadLetterOption{basinfospalte}
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-%</lco:infospaltefett>
+%</lco:infospalte,lco:infospaltefett>
 %    \end{macrocode}
 %
 %\Finale
