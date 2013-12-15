@@ -228,7 +228,8 @@
 			\ifthenelse{
 				\equal{#1}{bewerbung}\or
 				\equal{#1}{kopfzeile}\or
-				\equal{#1}{infospalte}
+				\equal{#1}{infospalte}\or
+				\equal{#1}{infospaltefett}
 			}
 				{\renewcommand{\BAS@opt@layout}{#1}}
 				{\PackageWarning{basis}{Layout '#1' unbekannt, nutze '\BAS@opt@layout'}}
@@ -480,7 +481,8 @@
 %
 % Das Paket \paket{microtype} setzt Text angenehmer und erzeugt optischen Randausgleich.
 %    \begin{macrocode}
-\RequirePackage{microtype}
+\RequirePackage[tracking=true]{microtype}
+\SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
 %    \end{macrocode}
 %
 % \subsubsection{Symbole}
@@ -1673,7 +1675,7 @@
 % Die Fonts für die Kopfzeile/Infospalte der ersten Seite.
 %    \begin{macrocode}
 %<+lco:infospalte>\setkomafont{fromname}{\scshape}
-%<+lco:infospaltefett>\setkomafont{fromname}{\bfseries}
+%<+lco:infospaltefett>\setkomafont{fromname}{\bfseries\sffamily}
 \setkomafont{fromaddress}{\sffamily\scriptsize}
 %    \end{macrocode}
 %
@@ -1704,7 +1706,7 @@
 \setkomavar{firsthead}{%
 	{%
 		\usekomafont{fromname}%
-		\usekomavar[\textls]{fromname}%
+		\usekomavar{fromname}%
 	}\\[-.5\baselineskip]%
 	\rule{\textwidth}{\BAS@len@rule}
 %    \end{macrocode}
