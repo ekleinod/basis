@@ -283,9 +283,11 @@
 }
 %    \end{macrocode}
 %
-% Der gewünschte Seitenstil wird gespeichert, \emph{default=beides}.
+% Der gewünschte Seitenstil wird gespeichert, \emph{default=beides} oder \emph{fussseite} bei Briefen.
 %    \begin{macrocode}
 \newcommand{\BAS@opt@pagestyle}{beides}
+\ifthenelse{\equal{\KOMAClassName}{scrlttr2}}
+	{\renewcommand{\BAS@opt@pagestyle}{fussseite}}{}
 \DeclareOptionX{pagestyle}{
 	\ifthenelse{\equal{\@empty}{#1}}
 		{}
@@ -293,6 +295,7 @@
 			\ifthenelse{
 				\equal{#1}{beides}\or
 				\equal{#1}{fuss}\or
+				\equal{#1}{fussseite}\or
 				\equal{#1}{leer}
 			}
 				{\renewcommand{\BAS@opt@pagestyle}{#1}}
@@ -864,6 +867,22 @@
 	}
 %    \end{macrocode}
 %
+% Eigener Seitenstil: nur Fußzeile (nur Seitenzahl).
+%    \begin{macrocode}
+\defpagestyle{BASfussseite}
+	{
+		{}
+		{}
+		{}
+	}
+	{
+		(\textwidth,\BAS@len@rule)
+		{Seite \pagemark\ von \pageref{LastPage}}
+		{\hfill Seite \pagemark\ von \pageref{LastPage}}
+		{\hfill Seite \pagemark\ von \pageref{LastPage}}
+	}
+%    \end{macrocode}
+%
 % Seitenstil auswählen, Fußnotenschriftgröße.
 %    \begin{macrocode}
 \ifthenelse{\equal{\BAS@opt@pagestyle}{beides}}
@@ -871,6 +890,9 @@
 	{}
 \ifthenelse{\equal{\BAS@opt@pagestyle}{fuss}}
 	{\pagestyle{BASfuss}}
+	{}
+\ifthenelse{\equal{\BAS@opt@pagestyle}{fussseite}}
+	{\pagestyle{BASfussseite}}
 	{}
 \ifthenelse{\equal{\BAS@opt@pagestyle}{leer}}
 	{\pagestyle{empty}}
@@ -1539,12 +1561,6 @@
 		{}%
 		{\BAS@telefon}%
 }
-\newkomavar*[\Mobilefone~]{frommobile}
-\setkomavar{frommobile}{%
-	\ifthenelse{\isundefined{\BAS@handy}}%
-		{}%
-		{\BAS@handy}%
-}
 \setkomavar{fromemail}[\Email~]{%
 	\ifthenelse{\isundefined{\BAS@email}}%
 		{}%
@@ -1729,9 +1745,6 @@
 				\ifkomavarempty{fromphone}%
 					{}%
 					{\usekomavar*{fromphone}\usekomavar{fromphone}\\}%
-				\ifkomavarempty{frommobile}%
-					{}%
-					{\usekomavar*{frommobile}\usekomavar{frommobile}\\}%
 				\ifkomavarempty{fromemail}%
 					{}%
 					{\usekomavar*{fromemail}\texttt{\usekomavar{fromemail}}\\}%
@@ -1761,13 +1774,6 @@
 % Trick von Markus Kohm, um das Datum im Text zu unterdrücken.
 %    \begin{macrocode}
 \l@addto@macro\@firstheadfootfield{\setkomavar{date}{}}
-%    \end{macrocode}
-%
-% Die Kopfzeile der Folgeseiten enthält außen die Seitennummer ohne Linie.
-%    \begin{macrocode}
-\setheadwidth[0mm]{textwithmarginpar}
-\ohead{Seite~\pagemark}
-\setheadsepline{\BAS@len@rule}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
