@@ -743,12 +743,17 @@
 	\setboolean{BAS@hasphone}{false}
 	\newboolean{BAS@hascityline}
 	\setboolean{BAS@hascityline}{false}
+	\newboolean{BAS@hascomm}
+	\setboolean{BAS@hascomm}{false}
 	\ifthenelse{\isundefined\BAS@email}
 		{}
 		{
 			\ifthenelse{\equal{\BAS@email}{\@empty}}
 				{}
-				{\setboolean{BAS@hasaddress}{true}}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hascomm}{true}
+				}
 		}
 	\ifthenelse{\isundefined\BAS@telefon}
 		{}
@@ -758,6 +763,7 @@
 				{
 					\setboolean{BAS@hasaddress}{true}
 					\setboolean{BAS@hasphone}{true}
+					\setboolean{BAS@hascomm}{true}
 				}
 		}
 	\ifthenelse{\isundefined\BAS@handy}
@@ -768,6 +774,7 @@
 				{
 					\setboolean{BAS@hasaddress}{true}
 					\setboolean{BAS@hasphone}{true}
+					\setboolean{BAS@hascomm}{true}
 				}
 		}
 	\ifthenelse{\isundefined\BAS@strasse}
@@ -1621,38 +1628,51 @@
 \setkomafont{fromaddress}{\sffamily\footnotesize}
 \setkomavar{firsthead}{%
 	\centering%
+	\usekomafont{fromaddress}%
 	{%
-		\usekomafont{fromname}%
 		\usekomavar{fromname}%
-		% \def\\{\usekomavar{backaddressseparator}\@ogobble}
 		\ifthenelse{\isundefined{\BAS@strasse}}%
-		{}%
-		{\usekomavar{headseparator}\BAS@strasse}%
-		\ifthenelse{\isundefined{\BAS@plz}}%
-		{}%
-		{\usekomavar{headseparator}\BAS@plz~\BAS@ort}%
+			{}%
+			{\usekomavar{headseparator}\BAS@strasse}%
+		\ifthenelse{\boolean{BAS@hascityline}}%
+			{%
+				\usekomavar{headseparator}%
+				\ifthenelse{\isundefined{\BAS@plz}}%
+					{}%
+					{%
+						\BAS@plz%
+						\ifthenelse{\isundefined\BAS@ort}%
+							{}%
+							{~}%
+					}%
+				\ifthenelse{\isundefined\BAS@ort}%
+					{}%
+					{\BAS@ort}%
+			}{}%
 	}\\%
-	{\usekomafont{fromaddress}%
-	\ifthenelse{\isundefined{\BAS@telefon}}%
-	{}%
-	{\BAS@telefon}%
-	\ifthenelse{\isundefined{\BAS@email}}%
-	{}%
-	{\usekomavar{headseparator}\BAS@email}%
-	}\\[-.5\baselineskip]%
-	\rule{\textwidth}{\BAS@linienbreite}%
+	\ifthenelse{\boolean{BAS@hascomm}}%
+		{%
+			{%
+				\ifkomavarempty{fromphone}%
+					{}%
+					{\usekomavar{fromphone}}%
+				\ifkomavarempty{fromemail}%
+					{}%
+					{%
+						\ifkomavarempty{fromphone}%
+							{}%
+							{\usekomavar{headseparator}}%
+						\usekomavar{fromemail}%
+					}%
+			}\\%
+		}{}%
+	\rule{\textwidth}{\BAS@len@rule}%
 }
 %    \end{macrocode}
 %
-% Das Trennzeichen in der Rücksendeadresse soll der mittlere Bindestrich sein.
+% Das Trennzeichen in der Rücksendeadresse soll ein kleiner Punkt sein.
 %    \begin{macrocode}
-\setkomavar{backaddressseparator}{~--~}
-%    \end{macrocode}
-%
-% Die Kopfzeile der Folgeseiten enthält außen die Seitennummer.
-%    \begin{macrocode}
-\ohead{Seite~\pagemark}
-\setheadsepline{\BAS@linienbreite}
+\setkomavar{backaddressseparator}{~\ensuremath{\cdot}~}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -1765,7 +1785,7 @@
 %
 % Das Trennzeichen in der Rücksendeadresse soll ein kleiner Punkt sein.
 %    \begin{macrocode}
-\setkomavar{backaddressseparator}{~$\cdot$~}
+\setkomavar{backaddressseparator}{~\ensuremath{\cdot}~}
 %    \end{macrocode}
 %
 % Die Anrede wird etwas höher gehoben.
