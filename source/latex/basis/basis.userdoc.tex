@@ -6,12 +6,13 @@ Dieses Paket dient dazu, einen Basis-Stil zu definieren, der Dokumente und Brief
 
 Das Paket ist zum privaten Einsatz gedacht, wer es nutzen will, sei herzlich dazu eingeladen, die Weitergabe sollte vollständig erfolgen, eigene Änderungen sollten als solche gekennzeichnet werden.
 
-Ein offenes Ohr für Verbesserungsvorschläge oder Kritik habe ich per Mail immer.
+Ein offenes Ohr für Verbesserungsvorschläge oder Kritik habe ich per E-Mail immer, Zeit nicht so oft \smiley
 
-Offizielle Lizenz ist
+Offizielle Lizenz ist Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0 International (\url{http://creativecommons.org/licenses/by-nc-sa/4.0/deed.de}).
 
 
 \cleardoublepage
+\thispagestyle{BASfuss}
 \part{Nutzerinformationen}
 \cleardoublepage
 
@@ -29,8 +30,6 @@ Folgende Dateien gehören zum Basis-Stil:
 	/doc/latex/basis/vorlagen
 		artikel.tex
 		brief.tex
-	/makeindex/latex/basis
-		basis.ist
 	/source/latex/basis
 		basis.drv
 		basis.dtx
@@ -41,420 +40,528 @@ Folgende Dateien gehören zum Basis-Stil:
 	/tex/latex/basis
 		basbrief.sty
 		basis.sty
+		baskopfzeile.lco
+		basinfospalte.lco
+		basinfospaltefett.lco
 \end{verbatim}
 }
 
 \minisec{Dokumentation}
 
-Die Datei \verb#basis_short.pdf# enthält die Nutzerdokumentation des Basis-Pakets.
-Die Datei \verb#basis.pdf# enthält die Nutzerdokumentation und den Quellcode des Basis-Pakets.
+Die Datei \datei{basis\_short.pdf} enthält die Nutzerdokumentation des Basis-Pakets.
+Die Datei \datei{basis.pdf} enthält die Nutzerdokumentation und den dokumentierten Quellcode des Basis-Pakets.
 
 \minisec{Vorlagen}
 
-Die Vorlagen sind \TeX-Dateien, die für eigene Dokumente genutzt werden können.
+Die Vorlagen sind \hologo{LaTeX}-Dateien, die für eigene Dokumente genutzt werden können.
 Sie sind einfach in das eigene Verzeichnis zu kopieren, anzupassen und fertig.
-
-\minisec{Makeindex-Stil}
-
-Die Datei \verb#basis.ist# sorgt dafür, dass der Index mit Hilfe von MakeIndex
-ordentlich formatiert wird.
-Die Datei ist beim Aufruf von MakeIndex anzugeben:
-
-\verb#makeindex -lcgs basis.ist #\meta{sourcedatei}
-
-\minisec{Quelltext}
-
-Der \verb#source#-Zweig enthält den Quelltext des Basis-Pakets.
-Alle Änderungen sind hier vorzunehmen und die anderen Dateien zu generieren.
 
 \minisec{Stildateien}
 
-Die Stildateien sind die Dateien, die beim \LaTeX-Lauf zur Formatierung genutzt werden.
+Die Stildateien sind die Dateien, die beim \hologo{LaTeX}-Lauf zur Formatierung genutzt werden.
+
+\minisec{Quelltext}
+
+Der \datei{source}-Zweig enthält den Quelltext des Basis-Pakets.
+Alle Änderungen sind hier vorzunehmen und die anderen Dateien zu generieren.
 
 
 
 \section{Die Benutzerschnittstelle des Basis-Stils}
 
-Das \paket{basis}-Paket basiert auf den KOMA-Script-Klassen.
-Daher sind diese als Dokumentklasse für Dokumente zu laden,
-bevor das \paket{basis}-Paket eingebunden wird:
-
-\verb#\documentclass{scrartcl}# bzw.\ \verb#\documentclass{scrlttr2}#
-
 \subsection{Benutzung}
 
-Um einen Text im Basis-Layout zu setzen, ist es notwendig,
-das \paket{basis}-Paket wie folgt zu benutzen:
+Das \paket{basis}-Paket basiert auf den KOMA-Script-Klassen.
+Daher sind diese als Dokumentklasse für Dokumente zu laden, bevor das \paket{basis}-Paket eingebunden wird.
+Um einen Text im Basis-Layout zu setzen, ist es notwendig, das \paket{basis}-Paket wie folgt zu benutzen:
 
-\verb#\usepackage{basis}#
+\begin{nutzung}
+		\>\befehl{usepackage[\meta{Optionen}]\{basis\}}\\
+	\beispiel
+		\>\befehl{documentclass[ngerman]\{scrartcl|scrbook|scrreprt\}}\\
+		\>\befehl{usepackage\{basis\}}\\
+		\>\befehl{begin\{document\}}\\
+		\>\texttt{\dots}\\
+		\>\befehl{end\{document\}}\\
+\end{nutzung}
 
-Dem Paket können Optionen übergeben werden, die in \autoref{sec:Optionen} erläutert werden.
+Dem Paket können Optionen übergeben werden, die in \autoref{sec:userdoc:options} erläutert werden.
 
 \subsection{Benötigte Pakete}
-\label{sec:BenoetigtePakete}
+\label{sec:userdoc:packages}
 
-Das \paket{basis}-Paket bindet die Pakete bereits ein, die entweder für das Paket notwendig sind oder für das Schreiben von Papieren hilfreich sind.
+Das \paket{basis}-Paket bindet die Pakete bereits ein, die entweder für das Paket notwendig sind oder für das Schreiben hilfreich sind.
 Die Pakete werden im folgenden kurz vorgestellt und müssen für die Nutzung des \paket{basis}-Pakets zur Verfügung stehen.
+Eine genauere Beschreibung der einzelnen Pakete ist in der Dokumentation der Pakete selbst zu finden.
 
-Das heißt, die Pakete müssen vom Anwender auf dem Rechner installiert werden, sonst gibt es Fehlermeldungen.
+Die Pakete müssen vom Anwender auf dem Rechner installiert werden, sonst gibt es Fehlermeldungen.
 
-Eine genauere Beschreibung der einzelnen Pakete ist in der
-Dokumentation der Pakete selbst zu finden.
-\begin{description}
- \item [array] Nützliche Zusatzdefinitionen für Tabellen.
- \item [babel] Das Sprachpaket von \LaTeX.
- \item [booktabs] Schöne Tabellenlinien.
- \item [fixme] fixme-Befehle, durch Option \option{fixme} einzubinden.
- \item [graphicx] Das Paket ist dafür zuständig, Grafiken auszugeben. Diese können bei der Ausgabe skaliert werden.
- \item [helvet] Helvetica-Schrift
- \item [hyperref] Inhaltsverzeichnis und navigierbare Links.
-				(Kann durch die Option \option{nohyper} ausgeschaltet werden.)
- \item [xifthen] Das Paket stellt vereinfachte boolesche Abfragen zur Verfügung.
- \item [inputenc] Das Paket definiert die direkte Eingabe von Sonderzeichen im laufenden Text.
- \item [jurabib] Dieses Paket dient zur Gestaltung von geisteswissenschaftlichen Literaturzitaten und -verzeichnissen.
-				(Kann durch die Option \option{nojura} ausgeschaltet werden.)
- \item [longtable] Große Tabellen.
- \item [luximono] Luxi-Mono-Schrift
- \item [makeidx] Dieses Paket dient zur Indexierung von Dokumenten und wird nur geladen, wenn die Option \option{index} gewählt wurde.
- \item [marvosym] Das Paket enthält viele Symbole, die in den normalen Schriftarten fehlen.
-				So wird z.\,B.\ das Euro-Zeichen (\EUR) zur Verfügung gestellt.
-				Eine Auswahl anderer nützlicher Symbole sind Telefon (\Telefon), Handy (\Mobilefone), Fax (\fax) oder auch email (\Email).
- \item [mathptmx] Times-Schrift
- \item [microtype] ausgeglichenerer Schrriftsatz incl\ Randausgleich
- \item [scrartcl/scrbook/scrreprt/scrlttr2] Die KOMA-Script-Klassen müssen zur Verfü"-gung stehen und genutzt werden, da die Definitionen im \paket{basis}-Stil darauf zurückgreifen.
- \item [scrpage2] Die KOMA-Script-Klasse für selbst definierte Kopf- bzw.\ Fußzeilen.
- \item [setspace] Einstellung eines anderen Zeilenabstands (nur bei entsprechender Option)
-\end{description}
+Die Pakete sind (alphabetisch sortiert):
+\begin{tabbing}
+	\paket{marvosym}mm\=\kill
+
+	\paket{array}\>Tabellenerweiterung\\
+	\paket{babel}\>Das Sprachpaket von \LaTeX\\
+	\paket{booktabs}\>schöne Tabellenlinien\\
+	\paket{dhua}\>Eingabe gebräuchlicher Abkürzungen\\
+	\paket{enumitem}\>einfachere Optionen für Aufzählungen und Listen\\
+	\paket{fontenc}\>erweitertes Font-Encoding\\
+	\paket{graphicx}\>Ausgabe von Grafiken\\
+	\paket{hologo}\>\hologo{LaTeX}-Logos (wenn Paket fehlt, wird eine Warnung ausgegeben)\\
+	\paket{hyperref}\>Inhaltsverzeichnis und navigierbare Links\\
+	\paket{ifpdf}\>Abfrage, ob \hologo{pdfLaTeX} zur Übersetzung genutzt wird\\
+	\paket{ifxetex}\>Abfrage, ob \hologo{XeTeX} zur Übersetzung genutzt wird\\
+	\paket{inputenc}\>direkte Eingabe von Sonderzeichen im laufenden Text\\
+	\paket{lastpage}\>Seitenzähler\\
+	\paket{longtable}\>lange Tabellen\\
+	\paket{marvosym}\>Sonderzeichen (wenn Paket fehlt, wird eine Warnung ausgegeben)\\
+	\paket{microtype}\>ausgeglichenerer Schrriftsatz incl.\ Randausgleich\\
+	\paket{pdfcolmk}\>Problemlösung bei Textfärbung\\
+	\paket{ragged2e}\>verbesserter Flattersatz\\
+	\paket{scrpage2}\>selbst definierte Kopf- bzw.\ Fußzeilen\\
+	\paket{tabu}\>Tabellenerweiterung\\
+	\paket{wasysym}\>Sonderzeichen (wenn Paket fehlt, wird eine Warnung ausgegeben)\\
+	\paket{xcolor}\>Textfärbung\\
+	\paket{xifthen}\>vereinfachte if-then-Abfragen\\
+	\paket{xkeyval}\>key-value-Optionen
+\end{tabbing}
+
+Zusätzlich werden, je nach gewählter Font-Option, bestimmte Schriftartenpakete geladen.
+\begin{tabbing}
+	\option{font=mathpazo}mm\=\kill
+
+	\option{font=charter}\>\paket{charter}, \paket{helvet}, \paket{luximono}\\
+	\option{font=hfold}\>\paket{hfoldsty}\\
+	\option{font=mathpazo}\>\paket{mathpazo}, \paket{helvet}, \paket{luximono}\\
+	\option{font=original}\>keine Zusatzklassen\\
+	\option{font=times}\>\paket{mathptmx}, \paket{helvet}, \paket{luximono}
+\end{tabbing}
+
 
 \subsection{Optionen}
-\label{sec:user:options}
+\label{sec:userdoc:options}
 
-Die Optionen des \paket{basis}-Pakets werden zunächst einzeln erläutert, sie können
-auch beliebig kombiniert werden, die geschieht durch Trennung mit Kommata.
+Die Optionen des \paket{basis}-Pakets werden einzeln erläutert, sie können auch beliebig kombiniert werden, die geschieht durch Trennung mit Kommata.
 
-\verb#\usepackage[draft, index]{basis}#
+\begin{nutzung}
+		\>\befehl{usepackage[\meta{Optionen}]\{basis\}}\\
+	\beispiel
+		\>\befehl{usepackage[draft]\{basis\}}\\
+		\>\befehl{usepackage[draft, font=charter]\{basis\}}
+\end{nutzung}
 
 Mögliche Optionen: \option{draft}, \option{final}, \option{font}, \option{hypercolor}, \option{hyperdriver}, \option{layout}, \option{nobackaddress}, \option{nofoldmarks}, \option{notitlepage}, \option{oneside}, \option{protokoll}, \option{pagestyle}
 
-\minisec{bewerbung}
+\subsubsection{draft}
 
-Die \option{bewerbung}-Option stellt den Bewerbungsstil ein.
+Die \option{draft}-Option setzt das Dokument als Entwurfsdokument.
+Die Option wird lediglich an die Dokumentklasse sowie Pakete \paket{graphicx} und \paket{hyperref} weitergegeben.
 
-\verb#\usepackage[bewerbung]{basis}#
+\begin{nutzung}
+		\>\befehl{usepackage[draft]\{basis\}}\\
+\end{nutzung}
 
-\minisec{draft}
+\subsubsection{final}
 
-Die \option{draft}-Option bewirkt, dass das Dokument als Entwurfsdokument gekennzeichnet wird.
-Das bedeutet einen fetten Schriftzug "`Entwurf"' und einen Zeitstempel in der Fußzeile.
+Die \option{final}-Option setzt das Dokument als fertiges Dokument.
+Die Option wird lediglich an die Pakete \paket{graphicx} und \paket{hyperref} weitergegeben.
 
-\verb#\usepackage[draft]{basis}#
+\begin{nutzung}
+		\>\befehl{usepackage[final]\{basis\}}\\
+\end{nutzung}
 
-\minisec{font}
+\subsubsection{font}
 
 Die \option{font}-Option sorgt für die Einstellung eines bestimmten Fontschemas.
-Mögliche Schemas: \option{charter}, \option{hfold}, \option{mathpazo}, \option{original}, \option{times} (default)
+Die konkret geladenen Schriften sind in \autoref{sec:userdoc:packages} dokumentiert.
 
-\verb#\usepackage[font=\meta{Schema}]{basis}#\\
-\verb#\usepackage[font=mathpazo]{basis}#
+Standard: \option{times}
 
-\minisec{hypercolor}
+\begin{nutzung}
+		\>\befehl{usepackage[font=\meta{charter|hfold|mathpazo|original|times}]\{basis\}}\\
+	\beispiel
+		\>\befehl{usepackage[font=charter]\{basis\}}\\
+		\>\befehl{usepackage[font=times]\{basis\}}
+\end{nutzung}
 
-Die Option \option{hypercolor} färbt Links in der gewünschten Farbe statt defaultmäßig blau.
+\subsubsection{hypercolor}
 
-\verb#\usepackage[hypercolor=black]{basis}#
+Die Option \option{hypercolor} färbt Referenzen in der gewünschten Farbe.
+Die verfügbaren Farbnamen sind in der Dokumentation des Pakets \paket{xcolor} zu finden.
 
-\minisec{layout}
+Standard: \option{schwarz}
+
+\begin{nutzung}
+		\>\befehl{usepackage[hypercolor=\meta{Farbe}]\{basis\}}\\
+	\beispiel
+		\>\befehl{usepackage[hypercolor=blue]\{basis\}}\\
+		\>\befehl{usepackage[hypercolor=green]\{basis\}}
+\end{nutzung}
+
+\subsubsection{hyperdriver}
+
+Die Option \option{hyperdriver} setzt den durch \paket{hyperref} genutzten Treiber.
+
+Standard: \hologo{LaTeX}: \option{ps2pdf}; \hologo{pdfLaTeX}: \option{pdftex}; \hologo{XeTeX}: \option{xetex}
+
+\begin{nutzung}
+		\>\befehl{usepackage[hyperdriver=\meta{Treibername}]\{basis\}}\\
+	\beispiel
+		\>\befehl{usepackage[hyperdriver=dvips]\{basis\}}
+\end{nutzung}
+
+
+\subsubsection{layout}
 
 Die \option{layout}-Option sorgt für die Einstellung eines bestimmten Brieflayouts.
-Mögliche Schemas: \option{bewerbung}, \option{kopfzeile}, \option{infospalte} (default)
+Die Option wird nur bei Briefen ausgewertet.
 
-\verb#\usepackage[layout=\meta{Schema}]{basbrief}#\\
-\verb#\usepackage[layout=kopfzeile]{basbrief}#
+Standard: \option{infospalte}
 
-\begin{description}
-		\item [bewerbung] wie \option{infospalte} ohne Falzmarken und Rücksendeadresse
-		\item [kopfzeile] Adressangaben in Kopfzeile
-		\item [infospalte] Adressangaben in separater Spalte
-\end{description}
+\begin{nutzung}
+		\>\befehl{usepackage[layout=\meta{kopfzeile|infospalte|infospaltefett}]\{basis\}}\\
+	\beispiel
+		\>\befehl{usepackage[layout=kopfzeile]\{basis\}}\\
+		\>\befehl{usepackage[layout=infospaltefett]\{basis\}}
+\end{nutzung}
+
+\begin{tabbing}
+	\option{infospaltefett}mm\=\kill
+
+	\option{kopfzeile}\>Adressangaben in Kopfzeile\\
+	\option{infospalte}\>Adressangaben in separater Spalte, Autor oben in Kapitälchen\\
+	\option{infospaltefett}\>wie \option{infospalte}, Autor oben in Fettdruck
+\end{tabbing}
+
+\subsubsection{nobackaddress}
+
+Die \option{nobackaddress}-Option verhindert die Anzeige der Rücksendeadresse im Adressfeld.
+Die Option wird nur bei Briefen ausgewertet.
+
+\begin{nutzung}
+		\>\befehl{usepackage[nobackaddress]\{basis\}}\\
+\end{nutzung}
+
+\subsubsection{nofoldmarks}
+
+Die \option{nofoldmarks}-Option verhindert die Anzeige der Falzmarken.
+Die Option wird nur bei Briefen ausgewertet.
+
+\begin{nutzung}
+		\>\befehl{usepackage[nofoldmarks]\{basis\}}\\
+\end{nutzung}
+
+\subsubsection{notitlepage}
+
+Die \option{notitlepage}-Option unterdrückt eine separate Titelseite und setzt stattdessen eine laufende Titelseite im Fließtext.
+Die Option wird nur bei Artikeln oder Büchern ausgewertet.
+Die Titelseite muss wie üblich im Text mit \befehl{titlepage} gesetzt werden.
+
+\begin{nutzung}
+		\>\befehl{usepackage[notitlepage]\{basis\}}\\
+\end{nutzung}
+
+\subsubsection{oneside}
+
+Die \option{oneside}-Option setzt den Text einseitig,
+
+\begin{nutzung}
+		\>\befehl{usepackage[oneside]\{basis\}}\\
+\end{nutzung}
+
+\subsubsection{protokoll}
+
+Die \option{protokoll}-Option nimmt Änderungen für Protokolle vor.
+Die Option wird nur bei Artikeln oder Büchern ausgewertet.
+
+Die Änderungen sind:
+\begin{itemize}
+	\item Inhaltsverzeichnis heißt "`Tagesordnung"'
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{usepackage[protokoll]\{basis\}}\\
+\end{nutzung}
+
+
 
 \subsection{Neue bzw.\ geänderte Befehle und Umgebungen}
-\label{sec:New}
 
-Dieser Abschnitt führt alle Befehle und Umgebungen, die neu hinzugekommen sind oder die sich in der Bedienung geändert haben, auf und erläutert sie.
-
-\subsubsection{Allgemeine Befehle bzw.\ Änderungen}
-\label{sec:New:Allgemein}
-
-\DescribeMacro{\EUR}
-Der Befehl \verb#\EUR# gibt das Euro-Symbol (\EUR) aus.
-Der Befehl stammt aus dem \paket{marvosym}-Paket.
-\begin{einspiel}{Einsatz}
- \>\verb#\EUR#\\
- \>\verb#\EUR{}#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#Das neue Währungssymbol ist \EUR.#\\
- \>\verb#Das Symbol \EUR{} ist nicht schön.#
-\end{einspiel}
-
-\DescribeMacro{\EURdig}
-Der Befehl \verb#\EURdig# gibt das Euro-Symbol in der Breite der Zahlen des
-Fonts (15~\EURdig) aus.
-Der Befehl stammt aus dem \paket{marvosym}-Paket und
-soll die Formatierung von Symbol und Zahlen in Tabellen erleichtern.
-\begin{einspiel}{Einsatz}
- \>\verb#\EURdig#\\
- \>\verb#\EURdig{}#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#Du hast 15 \EURdig.#\\
- \>\verb#Ich bekomme 15 \EURdig{} von Dir.#
-\end{einspiel}
-
-\DescribeMacro{\meta}
-Der Befehl \verb#\meta# setzt den übergebenen Text als \meta{Metatext}.
-Das
-bedeutet, dass spitze Klammern um den schräg gestellten Text geschrieben werden.
-\begin{einspiel}{Einsatz}
- \>\verb#\meta{#\meta{Text}\verb#}#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#\meta{Metatext}#
-\end{einspiel}
-
-\DescribeMacro{\textsubscript}
-Der Befehl \verb#\textsubscript# setzt den übergebenen Text \textsubscript{tiefergestellt}.
-Er ist das Pendant zu dem von \LaTeX\ bereitgestellten \verb#\textsuperscript#-Befehl.
-\begin{einspiel}{Einsatz}
- \>\verb#\textsubscript{#\meta{Text}\verb#}#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#CO\textsubscript{2}#
-\end{einspiel}
-
-\subsubsection{Zeitangaben}
-\label{sec:New:Zeitangaben}
-
-\DescribeMacro{\datum}
-Dieser Befehl gibt das Datum in der Form \emph{tt.\,mm.\ jjjj} aus.
-\begin{einspiel}{Einsatz}
- \>\verb#\datum#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#Heute ist der \datum.#
-\end{einspiel}
-
-\DescribeMacro{\zeit}
-Dieser Befehl gibt die Zeit in der Form \emph{hh:mm} aus.
-\begin{einspiel}{Einsatz}
- \>\verb#\zeit#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#Es ist \zeit\ Uhr.#
-\end{einspiel}
-
-\DescribeMacro{\zeitstempel}
-Dieser Befehl sorgt dafür, dass in der Fußzeile ein Zeitstempel eingebracht
-wird.
-Der optionale Parameter dient zur Eingabe eigener Texte, die
-in die Fußzeile gebracht werden sollen.
-\begin{einspiel}{Einsatz}
- \>\verb#\zeitstempel#\\
- \>\verb#\zeitstempel[#\meta{text}\verb#]#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#\zeitstempel#\\
- \>\verb#\zeitstempel[Uhrzeit: \zeit]#\\
-\end{einspiel}
-
-\DescribeMacro{\zeitspanne}
-Dieser Befehl gibt die übergebenen Parameter als Zeitspanne aus.
-Der optionale Parameter dient zur Eingabe des Beginns der Zeitspanne, der obligatorische Parameter enthält das Ende der Zeitspanne.
-\begin{einspiel}{Einsatz}
- \>\verb#\zeitspanne[#\meta{start}\verb#]{#\meta{ende}\verb#}#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#\zeitspanne{seit 2009}#\\
- \>\verb#\zeitspanne[2008]{2009}#\\
-\end{einspiel}
-
-\subsubsection{Die Titelseite}
-\label{sec:New:Titelseite}
+\subsubsection{Dokumentinformationen}
 
 \DescribeMacro{\title}
-Der Befehl \verb#\title# gibt den angegebenen Text als Titel des Haupttitels
-auf dem Titelblatt aus.
-Die Angabe ist optional und wird bei \verb#\maketitle#
-benutzt.
-Zusätzlich zu dem normalen \verb#\title#-Befehl von \LaTeX\ kann ein
-optionaler Parameter angegeben werden, der einen Kurztext enthält, der
-in die Fußzeile eingetragen wird.
-\begin{einspiel}{Einsatz}
- \>\verb#\title{#\meta{text}\verb#}#\\
- \>\verb#\title[#\meta{kurztext}\verb#]{#\meta{text}\verb#}#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#\title{Der basis-Stil}#\\
- \>\verb#\title[Mein Stil]{Der basis-Stil}#
-\end{einspiel}
+Angabe des Dokumenttitels.
+
+Optionales Argument: Kurztitel.
+
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+	\item Fußzeile (Kurztitel, wenn angegeben) (Artikel, Bücher)
+	\item Dokumenteigenschaften (Artikel, Bücher, Briefe)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{title[\meta{Kurztitel}]\{\meta{Titel}\}}\\
+	\beispiel
+		\>\befehl{title\{Das basis-Paket\}}\\
+		\>\befehl{title[basis-Paket]\{Das basis-Paket\}}
+\end{nutzung}
 
 \DescribeMacro{\subtitle}
-Der Befehl \verb#\subtitle# gibt den angegebenen Text als Untertitel des
-Haupttitels auf dem Titelblatt aus.
-Die Angabe ist optional und
-wird bei \verb#\maketitle# benutzt.
-\begin{einspiel}{Einsatz}
- \>\verb#\subtitle{#\meta{text}\verb#}#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#\subtitle{Ein \LaTeX{}-Stil angepasst}#
-\end{einspiel}
+Angabe des Dokumentuntertitels.
+
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+	\item Dokumenteigenschaften (Artikel, Bücher, Briefe)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{subtitle\{\meta{Untertitel}\}}\\
+	\beispiel
+		\>\befehl{subtitle\{Ein LaTeX-Stil mit Basisanpassungen\}}
+\end{nutzung}
+
+\DescribeMacro{\version}
+Angabe der Dokumentversion.
+
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{version\{\meta{Version}\}}\\
+	\beispiel
+		\>\befehl{version\{Version 0.4\}}
+\end{nutzung}
+
+\DescribeMacro{\date}
+Angabe des Dokumentdatums.
+
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{date\{\meta{Datum}\}}\\
+	\beispiel
+		\>\befehl{date\{16. Dezember 2013\}}\\
+		\>\befehl{date\{\befehl{today}\}}
+\end{nutzung}
+
+\DescribeMacro{\author}
+Angabe des Autors.
+
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+	\item Dokumenteigenschaften (Artikel, Bücher, Briefe)
+	\item Absendername (Briefe)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{author\{\meta{Autor}\}}\\
+	\beispiel
+		\>\befehl{author\{Ekkart Kleinod\}}
+\end{nutzung}
 
 \DescribeMacro{\strasse}
-Der Befehl \verb#\strasse# gibt den angegebenen Text als Straße auf dem
-Titelblatt aus.
-Die Angabe ist optional und wird bei \verb#\maketitle#
-benutzt.
-Die Ausgabe auf der Titelseite erfolgt nur bei gewählter
-\verb#titlepage#-Option, d.\,h.\ bei einer extra Titelseite.
-\begin{einspiel}{Einsatz}
- \>\verb#\strasse{#\meta{text}\verb#}#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#\strasse{Richard-Sorge-Straße~76}#
-\end{einspiel}
+Angabe der Straße des Autors.
+
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+	\item Absenderinformationen (Briefe)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{strasse\{\meta{Straße}\}}\\
+	\beispiel
+		\>\befehl{strasse\{Musterstraße 23\}}
+\end{nutzung}
 
 \DescribeMacro{\plz}
-Der Befehl \verb#\plz# ist analog zum Befehl \verb#\strasse#.
+Angabe der PLZ des Autors.
+
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+	\item Absenderinformationen (Briefe)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{plz\{\meta{PLZ}\}}\\
+	\beispiel
+		\>\befehl{plz\{10001\}}
+\end{nutzung}
 
 \DescribeMacro{\ort}
-Der Befehl \verb#\ort# ist analog zum Befehl \verb#\strasse#.
+Angabe des Orts des Autors.
+
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+	\item Absenderinformationen (Briefe)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{ort\{\meta{Ort}\}}\\
+	\beispiel
+		\>\befehl{ort\{Musterort\}}
+\end{nutzung}
 
 \DescribeMacro{\telefon}
-Der Befehl \verb#\telefon# ist analog zum Befehl \verb#\strasse#.
+Angabe der Telefonnummer des Autors.
+
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+	\item Absenderinformationen (Briefe)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{telefon\{\meta{Telefonnummer}\}}\\
+	\beispiel
+		\>\befehl{telefon\{030 123456\}}
+\end{nutzung}
+
+\DescribeMacro{\handy}
+Angabe der Handynummer des Autors.
+
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+	\item Absenderinformationen (Briefe)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{handy\{\meta{Handynummer}\}}\\
+	\beispiel
+		\>\befehl{handy\{0175 123456\}}
+\end{nutzung}
 
 \DescribeMacro{\email}
-Der Befehl \verb#\email# gibt den angegebenen Text als email-Adresse
-auf dem Titelblatt aus.
-Die Angabe ist optional und wird bei \verb#\maketitle# benutzt.
-\begin{einspiel}{Einsatz}
- \>\verb#\email{#\meta{mailadresse}\verb#}#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#\email{ekkart@ekkart.de}#
-\end{einspiel}
+Angabe der E-Mail-Adresse des Autors.
+
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+	\item Absenderinformationen (Briefe)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{email\{\meta{E-Mail-Adresse}\}}\\
+	\beispiel
+		\>\befehl{email\{ekleinod@edgesoft.de\}}
+\end{nutzung}
+
+\DescribeMacro{\homepage}
+Angabe der Homepage des Autors.
+
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+	\item Absenderinformationen (Briefe)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{homepage\{\meta{URL}\}}\\
+	\beispiel
+		\>\befehl{homepage\{https://github.com/ekleinod/basis\}}
+\end{nutzung}
 
 \DescribeMacro{\adresszusatz}
-Der Befehl \verb#\adresszusatz# ist analog zum Befehl \verb#\strasse#.
+Angabe eines Adresszusatztexts.
+
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+	\item Absenderinformationen (Briefe)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{adresszusatz\{\meta{Zusatztext}\}}\\
+	\beispiel
+		\>\befehl{adresszusatz\{Bevorzugt per E-Mail.\}}
+\end{nutzung}
 
 \DescribeMacro{\titelzusatz}
-Der Befehl \verb#\titelzusatz# setzt den übergebenen Text in
-die rechte untere Ecke der Titelseite.
+Angabe eines Titelzusatztexts.
 
-\subsubsection{Literaturverzeichnis}
-\label{sec:New:Literatur}
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+\end{itemize}
 
-Das Literaturverzeichnis wurde derart umgestaltet, dass die Überschrift numeriert ist.
-Weiterhin wird die Überschrift in die Kopfzeile eingetragen.
-Außerdem wird ein Label \verb#sec:Literatur# angelegt,
-das auf das Literaturverzeichnis verweist.
+\begin{nutzung}
+		\>\befehl{titelzusatz\{\meta{Zusatztext}\}}\\
+	\beispiel
+		\>\befehl{titelzusatz\{Selbst geschrieben.\}}
+\end{nutzung}
 
-\DescribeMacro{\literatur}
-Zur Vereinfachung wurde das Makro
-\verb#literatur# angelegt, das den Aufruf der entsprechenden \LaTeX-Befehle kapselt.
-Der zu übergebende Parameter bezeichnet die Datei, die die Literaturangaben
-enthält, ohne Dateiendung.
-Als Stildatei wird \verb#jurabib.bst# oder der optionale Parameter angenommen.
-\begin{einspiel}{Einsatz}
- \>\verb#\literatur{#\meta{dateiname}\verb#}#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#\literatur{kleinod}#
-\end{einspiel}
+\DescribeMacro{\logo}
+Angabe eines Logos (Dateiname ohne Endung).
 
-\subsubsection{Index}
-\label{sec:New:Index}
+Nutzung:
+\begin{itemize}
+	\item Titelseite (Artikel, Bücher)
+	\item Kopfzeile (Briefe)
+\end{itemize}
 
-Der Index wurde analog zum Literaturverzeichnis derart umgestaltet,
-dass die Überschrift numeriert ist.
-Weiterhin wird die Überschrift in die Kopfzeile eingetragen.
-Außerdem wird ein Label \verb#sec:Index# angelegt, das auf den Index verweist.
+\begin{nutzung}
+		\>\befehl{logo\{\meta{Dateiname}\}}\\
+	\beispiel
+		\>\befehl{logo\{testlogo\}}
+\end{nutzung}
 
-Wenn die Option \option{index} angegeben wurde, wird das Paket \paket{makeidx}
-geladen, der Befehl \verb#makeindex# bereitet die Indexierung vor und die
-Befehle \verb#nindex# sowie \verb#eindex# werden definiert, um die Anwendung
-des Index einfach zu gestalten.
-Der Index wird wie gewohnt mit \verb#printindex# ausgegeben.
 
-Die Befehle \verb#nindex# und \verb#eindex# sollen die Erstellung
-eines Index vereinfachen.
-Die originale Indexierung mit Hilfe des \verb#index#-Befehls kann
-weiterhin verwendet werden.
+\subsubsection{Sonstiges}
 
-\DescribeMacro{\nindex}
-Der Befehl \verb#nindex#, \emph{normal index}, trägt den angegebenen Parameter als
-Schlagwort in den Index ein und gibt das Wort anstelle des Befehls im Text aus.
-
-Der optionale Parameter dient dazu, den nichtoptionalen Parameter als Unterpunkt
-des optionalen Parameters zu kennzeichnen.
-\begin{einspiel}{Einsatz}
- \>\verb#\nindex{#\meta{begriff}\verb#}#\\
- \>\verb#\nindex[#\meta{oberbegriff}\verb#]{#\meta{begriff}\verb#}#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#\nindex{LaTeX}#\\
- \>\verb#\nindex[Textverarbeitung]{LaTeX}#
-\end{einspiel}
-
-\DescribeMacro{\eindex}
-Der Befehl \verb#eindex#, \emph{emphasized index},  trägt den angegebenen Parameter
-als Schlagwort in den Index ein und gibt das Wort anstelle des Befehls im Text aus.
-Außerdem hebt er die Seitenzahl im Index mittels \verb#emph# hervor.
-
-Der optionale Parameter dient dazu, den nichtoptionalen Parameter als
-Unterpunkt des optionalen Parameters zu kennzeichnen.
-\begin{einspiel}{Einsatz}
- \>\verb#\eindex{#\meta{begriff}\verb#}#\\
- \>\verb#\eindex[#\meta{oberbegriff}\verb#]{#\meta{begriff}\verb#}#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#\eindex{LaTeX}#\\
- \>\verb#\eindex[Textverarbeitung]{LaTeX}#
-\end{einspiel}
+\DescribeMacro{\meta}
+Der Befehl \befehl{meta} setzt den übergebenen Text als \meta{Metatext}.
+Das bedeutet, dass spitze Klammern um den schräg gestellten Text geschrieben werden.
+\begin{nutzung}
+		\>\befehl{meta\{\meta{Metatext}\}}\\
+	\beispiel
+		\>\befehl{meta\{Metatext\}}
+\end{nutzung}
 
 \subsubsection{Vortragsdokumentation}
-\label{sec:New:Vortragsdokumentation}
+
+Diese Befehle sind noch experimentell.
 
 \DescribeMacro{\insertslide}
-Der Befehl \verb#insertslide# fügt das Bild einer Folie ein.
+Der Befehl \befehl{insertslide} fügt das Bild einer Folie ein.
 Genau gesagt, wird ein Bild rechtsseitig gerahmt mit einer anzugebenden Skalierung eingebunden.
-Die Einbindung erfolgt über den \verb#includegraphics#-Befehl, die Skalierungsangabe ist dementsprechend zu wählen.
+Die Einbindung erfolgt über \befehl{includegraphics}, die Skalierungsangabe ist dementsprechend zu wählen.
 Die Skalierung ist der erste Parameter, der Präfix des Bildnamens der zweite.
 
-\begin{einspiel}{Einsatz}
- \>\verb#\insertslide{#\meta{skalierung}\verb#}{#\meta{präfix}\verb#}#
-\end{einspiel}
-\begin{einspiel}{Beispiel}
- \>\verb#\insertslide{width=.3\textwidth}{slide}#\\
- \>\verb#\insertslide{angle=45,width=.2\textwidth}{img}#\\
-\end{einspiel}
+\begin{nutzung}
+		\>\befehl{insertslide\{\meta{Skalierung}\}\{\meta{Präfix}\}}\\
+	\beispiel
+		\>\befehl{insertslide\{width=.3\befehl{textwidth}\}\{slide\}}\\
+		\>\befehl{insertslide\{angle=45,width=.2\befehl{textwidth}\}\{img\}}
+\end{nutzung}
 
 \DescribeMacro{\nextslide}
-Der Befehl \verb#nextslide# kapselt den Aufruf von \verb#insertslide# mit für OpenOffice"=Folien günstigen Werten.
-Die Skalierung wird auf 30\,der Textbreite gesetzt, die Dateien müssen mit \emph{slide} beginnen.
+Der Befehl \befehl{nextslide} kapselt den Aufruf von \befehl{insertslide} mit für OpenOffice"=Folien günstigen Werten.
+Die Skalierung wird auf 30\,\% der Textbreite gesetzt, die Dateien müssen mit \emph{slide} beginnen.
 Außerdem wird der Folienzähler um eins erhöht.
 
-\begin{einspiel}{Einsatz}
- \>\verb#\nextslide#
-\end{einspiel}
+\begin{nutzung}
+		\>\befehl{nextslide}
+\end{nutzung}
 
 \DescribeMacro{\nextslidesilent}
-Der Befehl \verb#nextslidesilent# erhöht den Folienzähler um eins, ohne die entsprechende Folie auszugeben.
-Damit können z.\,B.\ für die Dokumentation unwichtige Folien übersprungen werden.
+Der Befehl \befehl{nextslidesilent} erhöht den Folienzähler um eins, ohne die entsprechende Folie auszugeben.
+Damit können \zB für die Dokumentation unwichtige Folien übersprungen werden.
 
-\begin{einspiel}{Einsatz}
- \>\verb#\nextslidesilent#
-\end{einspiel}
+\begin{nutzung}
+		\>\befehl{nextslidesilent}
+\end{nutzung}
 
 %^^A Ende Nutzerdokumentation
 

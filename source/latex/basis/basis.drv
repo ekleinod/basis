@@ -50,9 +50,15 @@
 \makeatother
 
 \title{Das \paket{basis}-Paket}
-\subtitle{Ein \LaTeX{}-Stil mit Basisanpassungen -- Version 0.4$\alpha$}
+\subtitle{Ein \hologo{LaTeX}-Stil mit Basisanpassungen}
+
 \author{Ekkart Kleinod}
 \email{ekleinod@edgesoft.de}
+\homepage{https://github.com/ekleinod/basis}
+
+\date{16.\ Dezember~2013}
+\version{Version 0.4$^\alpha$}
+
 \logo{testlogo}
 
 % Eigentliches Dokument

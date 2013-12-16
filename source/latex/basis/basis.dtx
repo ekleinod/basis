@@ -31,12 +31,12 @@
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
-% ^^A\maketitle
+% \maketitle
 %
 % \tableofcontents
 % \cleardoublepage
 %
-% ^^A\input{basis.userdoc}
+% \input{basis.userdoc}
 %
 %
 %^^A --------------------------------------------------------------------------
@@ -104,6 +104,7 @@
 %^^A --------------------------------------------------------------------------
 %
 %	\cleardoublepage
+% \thispagestyle{BASfuss}
 % \part{Der Programmcode des Basis-Stils}
 %	\cleardoublepage
 %
@@ -143,7 +144,7 @@
 \RequirePackage{ifpdf}
 %    \end{macrocode}
 %
-% Die Beschreibung der Optionen steht in \autoref{sec:user:options}.
+% Die Beschreibung der Optionen steht in \autoref{sec:userdoc:options}.
 % Die meisten Optionen werden einfach gespeichert, Optionen mit Wertübergabe speichern auch den übergebenen Wert sowie den \emph{default}-Wert.
 %
 % Die Definition erfolgt in alphabetischer Reihenfolge.
