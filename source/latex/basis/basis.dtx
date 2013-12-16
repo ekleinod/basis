@@ -1,12 +1,35 @@
-% \CheckSum{1206}
+% \CheckSum{1484}
 %
-%^^A --------------------------------------------------------------------------
+% \iffalse meta-comment
 %
-% \IndexPrologue{
-%   \section*{Index}
-%   Kursive Zahlen verweisen auf die Seite, auf der ein Eintrag beschrieben ist,
-%   unterstrichene Zahlen verweisen auf die Definition, alle anderen auf die Verwendung.
-% }
+%  Copyright (C) 2006-2013
+%  Ekkart Kleinod (ekleinod@edgesoft.de)
+% --------------------------------------------------------------------------
+%
+% \fi
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \changes{v0.1}{2006/05/14}{Initiale Version}
+% \changes{v0.2}{2007/01/16}{Mehr Optionen, Schriften}
+% \changes{v0.3}{2013/11/26}{UTF-8}
+% \changes{v0.4}{2013/12/16}{Redesign, Überarbeitung der Optionen und Templates}
+% \GetFileInfo{basis.dtx}
+% \RecordChanges
 %
 % \maketitle
 %
@@ -23,18 +46,13 @@
 %	\cleardoublepage
 % \section{Versionen}
 %
-%	\subsection{TODO}
-%
-%	\begin{itemize}
-%		\item Schrift bei dvi$\to$ps$\to$pdf in Acrobat nicht schön
-%   \item encoding als Parameter einstellen
-%	\end{itemize}
-%
 %	\subsection{Version 0.4}
 %
-%	Datum: 26.\,11.~2013
+%	Datum: 16.\,12.~2013
 %
 %	\begin{itemize}
+%		\item Redesign des Programmcodes
+%		\item Entfernen überflüssiger/obsoleter Optionen
 %   \item verbesserte Templates
 %	\end{itemize}
 %
@@ -86,529 +104,569 @@
 %^^A --------------------------------------------------------------------------
 %
 %	\cleardoublepage
+% \thispagestyle{BASfuss}
 % \part{Der Programmcode des Basis-Stils}
 %	\cleardoublepage
 %
 %
 % \section{Allgemeine Definitionen}
-% \label{sec:AllgemeineDefinitionen}
-%
-% \subsection{Paketinfo und Optionen}
-% \label{sec:PaketinfoUndOptionen}
 %
 % Definitionen für Basis- und Briefstil.
 %    \begin{macrocode}
 %<*basis,basbrief>
 %    \end{macrocode}
 %
-% Zunächst legen wir die benötigte \LaTeX-Version auf \LaTeXe{} fest
-% und geben Name, Datum und Version des Pakets zurück.
+% Zunächst legen wir die benötigte \hologo{LaTeX}-Version auf \hologo{LaTeXe} fest und geben Name, Datum und Version des Pakets zurück.
 %
 % Außerdem werden einige Ausgaben auf die Konsole gegeben.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 %<+basis>\ProvidesPackage{basis}
 %<+basbrief>\ProvidesPackage{basbrief}
-[2013/11/27 v0.4 alpha Basis-Layout]
-\typeout{*** basis-Stil 2013/11/27 v0.4 alpha ***}
+[2013/12/16 v0.4 alpha Basis-Layout]
+\typeout{*** basis-Stil 2013/12/16 v0.4 alpha ***}
 %    \end{macrocode}
 %
-% Das Paket \paket{xkeyval} ist für die Eingabe von Optionen mit Werteübergabe zuständig.
-% Das Paket \paket{xifthen} stellt die für die Optionen genutzten booleschen Variablen zur Verfügung.
-% Das \paket{ifpdf}-Paket dient der Abfrage, ob \emph{pdf} oder \emph{dvi} erzeugt wird.
+% \subsection{Optionen}
+%
+% Vor der Optionsdefinition müssen dafür verwendete Pakete geladen werden.
+%
+% \begin{description}
+% 	\item[xkeyval] Eingabe von Optionen mit Werteübergabe
+% 	\item[xifthen] verbesserte boolsche Operationen und Abfragen
+% 	\item[ifxetex] Abfrage, ob für die Übersetzung \hologo{XeTeX} oder ein anderes Programm genutzt wird
+% 	\item[ifpdf] Abfrage, ob für die Übersetzung \hologo{pdfLaTeX} oder ein anderes Programm genutzt wird
+% \end{description}
 %    \begin{macrocode}
 \RequirePackage{xkeyval}
 \RequirePackage{xifthen}
+\RequirePackage{ifxetex}
 \RequirePackage{ifpdf}
 %    \end{macrocode}
 %
-% \minisec{Optionen}
+% Die Beschreibung der Optionen steht in \autoref{sec:userdoc:options}.
+% Die meisten Optionen werden einfach gespeichert, Optionen mit Wertübergabe speichern auch den übergebenen Wert sowie den \emph{default}-Wert.
 %
-% \option{bewerbung}-Option, \emph{default=false}
-%    \begin{macrocode}
-\newboolean{BAS@optionbewerbung}
-\setboolean{BAS@optionbewerbung}{false}
-\DeclareOptionX{bewerbung}{
- \setboolean{BAS@optionbewerbung}{true}
- \typeout{Basis-Option 'bewerbung'}
-}
-%    \end{macrocode}
+% Die Definition erfolgt in alphabetischer Reihenfolge.
 %
-% \option{draft}-Option, \emph{default=false}
+% \option{draft}-Option, \emph{default=off}
 %    \begin{macrocode}
-\newboolean{BAS@optiondraft}
-\setboolean{BAS@optiondraft}{false}
+\newcommand{\BAS@opt@draft}{off}
 \DeclareOptionX{draft}{
- \setboolean{BAS@optiondraft}{true}
- \typeout{Basis-Option 'draft'}
- \PackageWarning{basis}{Entwurfsmodus eingeschaltet}
+	\renewcommand{\BAS@opt@draft}{on}
+	\PassOptionsToPackage{draft}{graphicx}
+	\PassOptionsToPackage{draft}{hyperref}
+	\typeout{Basis-Option 'draft=\BAS@opt@draft'}
+	\PackageWarning{basis}{Entwurfsmodus eingeschaltet}
 }
 %    \end{macrocode}
 %
-% \option{fixme}-Option, \emph{default=final}
+% \option{final}-Option
 %    \begin{macrocode}
-\DeclareOptionX{fixme}{
- \ifthenelse{\equal{\@empty}{#1}}
-	{\newcommand{\BAS@fixme}{final}}
-	{\newcommand{\BAS@fixme}{#1}}
- \typeout{Basis-Option 'fixme=\BAS@fixme'}
- \PackageWarning{basis}{FixMe eingeschaltet}
+\DeclareOptionX{final}{
+	\PassOptionsToPackage{final}{graphicx}
+	\PassOptionsToPackage{final}{hyperref}
+	\typeout{Basis-Option 'final'}
 }
 %    \end{macrocode}
 %
-% Der gewünschte Font wird gespeichert, \emph{default=times}.
+% \option{font}-Option, \emph{default=times}.
 %    \begin{macrocode}
-\newcommand{\BAS@font}{times}
+\newcommand{\BAS@opt@font}{times}
 \DeclareOptionX{font}{
- \ifthenelse{\equal{\@empty}{#1}}
-	{}
-	{
-	 \ifthenelse{
-		\equal{#1}{charter}\or
-		\equal{#1}{hfold}\or
-		\equal{#1}{mathpazo}\or
-		\equal{#1}{original}\or
-		\equal{#1}{times}
-	 }
-		{\renewcommand{\BAS@font}{#1}}
-		{\PackageWarning{basis}{Font '#1' unbekannt, nutze 'times'}}
-	}
- \typeout{Basis-Option 'font=\BAS@font'}
+	\ifthenelse{\equal{\@empty}{#1}}
+		{}
+		{
+			\ifthenelse{
+				\equal{#1}{charter}\or
+				\equal{#1}{hfold}\or
+				\equal{#1}{mathpazo}\or
+				\equal{#1}{original}\or
+				\equal{#1}{times}
+			}
+				{\renewcommand{\BAS@opt@font}{#1}}
+				{\PackageWarning{basis}{Font '#1' unbekannt, nutze '\BAS@opt@font'}}
+		}
+	\typeout{Basis-Option 'font=\BAS@opt@font'}
 }
 %    \end{macrocode}
 %
-% Die Farbe der Hyperlinks wird gespeichert, \emph{default=blue}.
+% \option{hypercolor}-Option, \emph{default=black}.
 %    \begin{macrocode}
-\newcommand{\BAS@hypercolor}{blue}
+\newcommand{\BAS@opt@hypercolor}{black}
 \DeclareOptionX{hypercolor}{
- \ifthenelse{\equal{\@empty}{#1}}
-	{}
-	{\renewcommand{\BAS@hypercolor}{#1}}
- \typeout{Basis-Option 'hypercolor=\BAS@hypercolor'}}
+	\ifthenelse{\equal{\@empty}{#1}}
+		{}
+		{\renewcommand{\BAS@opt@hypercolor}{#1}}
+	\typeout{Basis-Option 'hypercolor=\BAS@opt@hypercolor'}
+}
 %    \end{macrocode}
 %
-% Der Hypertreiber wird gespeichert, \emph{default=ps2pdf}.
+% \option{hyperdriver}-Option, \emph{default=ps2pdf}, \texttt{pdftex} bzw.\ \texttt{xetex} bei Übersetzung mit \hologo{pdfLaTeX} bzw.\ \hologo{XeTeX}
 %    \begin{macrocode}
-\newcommand{\BAS@hyperdriver}{ps2pdf}
+\newcommand{\BAS@opt@hyperdriver}{ps2pdf}
 \ifpdf
- \renewcommand{\BAS@hyperdriver}{pdftex}
+	\renewcommand{\BAS@opt@hyperdriver}{pdftex}
+\fi
+\ifxetex
+	\renewcommand{\BAS@opt@hyperdriver}{xetex}
 \fi
 \DeclareOptionX{hyperdriver}{
- \ifthenelse{\equal{\@empty}{#1}}
-	{}
-	{\renewcommand{\BAS@hyperdriver}{#1}}
- \typeout{Basis-Option 'hyperdriver=\BAS@hyperdriver'}}
+	\ifthenelse{\isempty{#1}}
+		{}
+		{\renewcommand{\BAS@opt@hyperdriver}{#1}}
+	\typeout{Basis-Option 'hyperdriver=\BAS@opt@hyperdriver'}
+}
 %    \end{macrocode}
 %
 % Das gewünschte Layout wird gespeichert, \emph{default=infospalte}.
 %    \begin{macrocode}
-\newcommand{\BAS@layout}{infospalte}
+\newcommand{\BAS@opt@layout}{infospalte}
 \DeclareOptionX{layout}{
- \ifthenelse{\equal{\@empty}{#1}}
-	{}
-	{
-	 \ifthenelse{
-		\equal{#1}{bewerbung}\or
-		\equal{#1}{kopfzeile}\or
-		\equal{#1}{infospalte}
-	 }
-		{\renewcommand{\BAS@layout}{#1}}
-		{\PackageWarning{basis}{Layout '#1' unbekannt, nutze 'infospalte'}}
-	}
- \typeout{Basis-Option 'layout=\BAS@layout'}
+	\ifthenelse{\equal{\@empty}{#1}}
+		{}
+		{
+			\ifthenelse{
+				\equal{#1}{bewerbung}\or
+				\equal{#1}{kopfzeile}\or
+				\equal{#1}{infospalte}\or
+				\equal{#1}{infospaltefett}
+			}
+				{\renewcommand{\BAS@opt@layout}{#1}}
+				{\PackageWarning{basis}{Layout '#1' unbekannt, nutze '\BAS@opt@layout'}}
+		}
+	\typeout{Basis-Option 'layout=\BAS@opt@layout'}
 }
 %    \end{macrocode}
 %
-% \option{index}-Option, \emph{default=false}
+% \option{nobackaddress}-Option
 %    \begin{macrocode}
-\newboolean{BAS@optionindex}
-\setboolean{BAS@optionindex}{false}
-\DeclareOptionX{index}{
- \setboolean{BAS@optionindex}{true}
- \typeout{Basis-Option 'index'}}
+\newcommand{\BAS@opt@backaddress}{on}
+\DeclareOptionX{nobackaddress}{
+	\renewcommand{\BAS@opt@backaddress}{off}
+	\typeout{Basis-Option 'nobackaddress'}
+}
 %    \end{macrocode}
 %
-% \option{nohyper}-Option, \emph{default=false}
+% \option{nofoldmarks}-Option
 %    \begin{macrocode}
-\newboolean{BAS@optionnohyper}
-\setboolean{BAS@optionnohyper}{false}
-\DeclareOptionX{nohyper}{
- \setboolean{BAS@optionnohyper}{true}
- \typeout{Basis-Option 'nohyper'}}
+\newcommand{\BAS@opt@foldmarks}{on}
+\DeclareOptionX{nofoldmarks}{
+	\renewcommand{\BAS@opt@foldmarks}{off}
+	\typeout{Basis-Option 'nofoldmarks'}
+}
 %    \end{macrocode}
 %
-% \option{nojura}-Option, \emph{default=false}
+% \option{notitlepage}-Option
 %    \begin{macrocode}
-\newboolean{BAS@optionnojura}
-\setboolean{BAS@optionnojura}{false}
-\DeclareOptionX{nojura}{
- \setboolean{BAS@optionnojura}{true}
- \typeout{Basis-Option 'nojura'}}
+\newcommand{\BAS@opt@titlepage}{on}
+\DeclareOptionX{notitlepage}{
+	\renewcommand{\BAS@opt@titlepage}{off}
+	\typeout{Basis-Option 'notitlepage'}
+}
 %    \end{macrocode}
 %
-% \option{noonelinecaption}-Option, \emph{default=false}
+% \option{oneside}-Option
 %    \begin{macrocode}
-\newboolean{BAS@optionnoonelinecaption}
-\setboolean{BAS@optionnoonelinecaption}{false}
-\DeclareOptionX{noonelinecaption}{
- \setboolean{BAS@optionnoonelinecaption}{true}
- \typeout{Basis-Option 'noonelinecaption'}}
+\newcommand{\BAS@opt@twoside}{on}
+\DeclareOptionX{oneside}{
+	\renewcommand{\BAS@opt@twoside}{off}
+	\typeout{Basis-Option 'oneside'}
+}
 %    \end{macrocode}
 %
-% \option{onehalfspacing}-Option, \emph{default=false}
+% \option{protocol}-Option
 %    \begin{macrocode}
-\newboolean{BAS@optiononehalfspacing}
-\setboolean{BAS@optiononehalfspacing}{false}
-\DeclareOptionX{onehalfspacing}{
- \setboolean{BAS@optiononehalfspacing}{true}
- \typeout{Basis-Option 'onehalfspacing'}}
+\newboolean{BAS@opt@protocol}
+\setboolean{BAS@opt@protocol}{false}
+\DeclareOptionX{protokoll}{
+	\setboolean{BAS@opt@protocol}{true}
+	\typeout{Basis-Option 'protokoll'}
+}
+%    \end{macrocode}
+%
+% Der gewünschte Seitenstil wird gespeichert, \emph{default=beides} oder \emph{fussseite} bei Briefen.
+%    \begin{macrocode}
+\newcommand{\BAS@opt@pagestyle}{beides}
+\ifthenelse{\equal{\KOMAClassName}{scrlttr2}}
+	{\renewcommand{\BAS@opt@pagestyle}{fussseite}}{}
+\DeclareOptionX{pagestyle}{
+	\ifthenelse{\equal{\@empty}{#1}}
+		{}
+		{
+			\ifthenelse{
+				\equal{#1}{beides}\or
+				\equal{#1}{fuss}\or
+				\equal{#1}{fussseite}\or
+				\equal{#1}{leer}
+			}
+				{\renewcommand{\BAS@opt@pagestyle}{#1}}
+				{\PackageWarning{basis}{Seitenstil '#1' unbekannt, nutze '\BAS@opt@pagestyle'}}
+		}
+	\typeout{Basis-Option 'pagestyle=\BAS@opt@pagestyle'}
+}
 %    \end{macrocode}
 %
 % Ausführung des Optionenbearbeitens.
-% Das muß auch für die Briefklasse erfolgen, da \LaTeX{} sonst einen Fehler meldet.
+% Das muß auch für die Briefklasse erfolgen, da \hologo{LaTeX} sonst einen Fehler meldet.
 %    \begin{macrocode}
 \ProcessOptionsX
 %    \end{macrocode}
 %
-% \subsection{Externe Pakete}
-% \label{sec:ExternePakete}
+% \subsection{Festgelegte Längemaße}
 %
-% \minisec{Eingabe von Sonderzeichen}
-%
-% Das Paket \paket{inputenc} ist für die Direkteingabe von Sonderzeichen zuständig.
-% Die Kodierung \option{utf8} sorgt für Kompatibilität zwischen Windows und anderen Betriebssystemen (theoretisch).
-% Damit wird TeXnicCenter als Editor ausgeschlossen, er kann kein UTF-8.
+% An dieser Stelle werden zentral einige Maße festgelegt.
 %    \begin{macrocode}
-\RequirePackage[utf8]{inputenc}
+\newlength{\BAS@len@rule}
+\setlength{\BAS@len@rule}{.4pt}
 %    \end{macrocode}
 %
-% \minisec{Deutsche Sprache}
+% \subsection{KOMA-Klassenoptionen setzen}
+%
+% Die Klassenoptionen für KOMA-Script werden erst jetzt gesetzt, jede manuelle Änderung im Dokument muss daher nach Einbinden des Basis-Stils erfolgen.
+%
+% \begin{description}
+% 	\item[captions] Bild- und Tabellenunterschriften nicht zentrieren
+% 	\item[cleardoublepage] Seitenstil leerer Seiten (Vakatseiten), leere Seiten
+% 	\item[draft] Entwurfsmodus, durch Option einstellbar (default = off)
+% 	\item[fontsize] Schriftgröße, 11~Punkt
+% 	\item[footnotes] Fußnotenzeichen im Text, mehrere Fußnoten getrennt durch Trennzeichen
+% 	\item[footsepline] Linie unter Kopfzeile, eingeschaltet
+% 	\item[headings] Größe und Abstand der Überschriften, groß
+% 	\item[headsepline] Linie unter Kopfzeile, ausgeschaltet
+% 	\item[numbers] Nummer nach Numerierungszeichen, keine Nummer
+% 	\item[paper] Papierformat, A4
+% 	\item[parskip] Abstand zwischen zwei Absätzen, ein halbes \befehl{parskip}
+% 	\item[titlepage] Titelseite, durch Option einstellbar (default = extra Titelseite (on))
+% 	\item[toc] Inhaltsverzeichnis, linksbündig setzen (ohne Einrückung der einzelnen Gliederungsebenen)
+% 	\item[twocolumn] Spaltenanzahl, einspaltig
+% 	\item[twoside] Ein- oder zweiseitig, durch Option einstellbar (default = zweiseitig (on))
+% \end{description}
+%
+%    \begin{macrocode}
+\KOMAoptions{
+	cleardoublepage=empty,
+	draft=\BAS@opt@draft,
+	fontsize=11pt,
+	footnotes=multiple,
+	paper=a4,
+	parskip=half,
+	twocolumn=off,
+	twoside=\BAS@opt@twoside
+}
+%    \end{macrocode}
+%
+% Klassenoptionen nicht bzw. nur für \paket{scrlttr2}.
+%
+% \begin{description}
+% 	\item[open] Beginn neuer Kapitel, immer auf der rechten Seite (nur für \paket{scrbook} und \paket{scrreprt})
+% \end{description}
+%
+%
+%    \begin{macrocode}
+\ifthenelse{\equal{\KOMAClassName}{scrlttr2}}
+	{
+		\KOMAoptions{
+			backaddress=\BAS@opt@backaddress,
+			foldmarks=\BAS@opt@foldmarks
+		}
+	}
+	{
+		\KOMAoptions{
+			captions=nooneline,
+			headings=big,
+			numbers=noendperiod,
+			titlepage=\BAS@opt@titlepage,
+			toc=flat
+		}
+	}
+%    \end{macrocode}
+%
+% Klassenoptionen nur für \paket{scrbook} und \paket{scrreprt}.
+%
+% \begin{description}
+% 	\item[open] Beginn neuer Kapitel, immer auf der rechten Seite (nur für \paket{scrbook} und \paket{scrreprt})
+% \end{description}
+%
+%
+%    \begin{macrocode}
+\ifthenelse{\equal{\KOMAClassName}{scrbook} OR \equal{\KOMAClassName}{scrreprt}}
+	{
+		\KOMAoptions{
+			open=right
+		}
+	}
+	{}
+%    \end{macrocode}
+%
+% \subsection{Eingabe von Sonderzeichen}
+%
+% Das Paket \paket{inputenc} ist für die Direkteingabe von Sonderzeichen zuständig, als Kodierung wird \option{utf8} gewählt.
+% Damit werden etliche Editoren (Notepad, TeXnicCenter) in früheren Versionen ausgeschlossen.
+% Für das korrekte Schrift-Encoding wird \option{T1} verwendet.
+%
+% Für XeTeX dürfen die Pakete nicht geladen werden, XeTeX verwendet standardmäßig \option{utf8} und benötigt keine speziellen Schrift-Encoding-Befehle..
+%
+%    \begin{macrocode}
+\ifxetex\else
+	\RequirePackage[utf8]{inputenc}
+	\RequirePackage[T1]{fontenc}
+\fi
+%    \end{macrocode}
+%
+% \subsection{Sprachen}
 %
 % Das \paket{babel}-Paket wird zur Spracheinstellung benutzt.
 %    \begin{macrocode}
 \RequirePackage{babel}
 %    \end{macrocode}
 %
-% Der \verb#\shorthandon#-Befehl schaltet die Umdefinition der \verb#"#-Befehle
-% bereits am Ende des Basis-Stils ein.
-% \paket{babel} macht das aus Sicherheitsgründen erst am Dokumentanfang (falls
-% Pakete die Sonderbedeutung der Anführungszeichen nicht umsetzen), dadurch
-% kann man aber im Titel, Autor usw.\ keine Umlaute usw.\ direkt eingeben.
+% Die Anführungszeichen müssen aktiv gemacht werden.
 %    \begin{macrocode}
 \useshorthands{"}
+%    \end{macrocode}
+%
+% Der \befehl{shorthandon}-Befehl schaltet die Umdefinition der \verb#"#-Befehle bereits am Ende des Basis-Stils ein.
+% \paket{babel} macht das aus Sicherheitsgründen erst am Dokumentanfang (falls Pakete die Sonderbedeutung der Anführungszeichen nicht umsetzen), dadurch kann man aber im Titel, Autor usw.\ keine Umlaute usw.\ direkt eingeben.
+%    \begin{macrocode}
 \AtEndOfClass{\shorthandon{"}}
 %    \end{macrocode}
-%^^A " (Syntaxhighlighting)
 %
-% \minisec{Schriftarten}
 %
-% Das Paket \paket{fontenc} gibt die Art der verwendeten Fonts vor.
-% Wir verwenden \option{T1}-Fonts.
+% \subsection{Schriftarten}
+%
+% \option{charter}: Serifenschrift \emph{Charter}, serifenlose Schrift \emph{Helvetica}, Schreibmaschinenschrift \emph{Luxi Mono}
 %    \begin{macrocode}
-\RequirePackage[T1]{fontenc}
+\ifthenelse{\equal{\BAS@opt@font}{charter}}
+	{
+		\RequirePackage{charter}
+		\RequirePackage[scaled=.95]{helvet}
+		\RequirePackage[scaled]{luximono}
+	}{}
 %    \end{macrocode}
 %
-% \option{charter}: Serifenschrift \schrift{Charter}, serifenlose Schrift \schrift{Helvetica}, Schreibmaschinenschrift \schrift{Luxi Mono}
+% \option{hfold}: Serifenschrift \emph{hfold}
 %    \begin{macrocode}
-\ifthenelse{\equal{\BAS@font}{charter}}
- {
-	\RequirePackage{charter}
-	\RequirePackage[scaled=.95]{helvet}
-	\RequirePackage[scaled]{luximono}
- }{}
+\ifthenelse{\equal{\BAS@opt@font}{hfold}}
+	{
+		\RequirePackage{hfoldsty}
+	}
+	{}
 %    \end{macrocode}
 %
-% \option{hfold}: Serifenschrift \schrift{hfold}
+% \option{mathpazo}: Serifenschrift \emph{Palatino}, serifenlose Schrift \emph{Helvetica}, Schreibmaschinenschrift \emph{Luxi Mono}
 %    \begin{macrocode}
-\ifthenelse{\equal{\BAS@font}{hfold}}
- {\RequirePackage{hfoldsty}}
- {}
-%    \end{macrocode}
-%
-% \option{mathpazo}: Serifenschrift \schrift{Palatino}, serifenlose Schrift \schrift{Helvetica}, Schreibmaschinenschrift \schrift{Luxi Mono}
-%    \begin{macrocode}
-\ifthenelse{\equal{\BAS@font}{mathpazo}}
- {
-	\RequirePackage[osf, slantedGreek]{mathpazo}
-	\RequirePackage[scaled=.95]{helvet}
-	\RequirePackage[scaled]{luximono}
- }{}
+\ifthenelse{\equal{\BAS@opt@font}{mathpazo}}
+	{
+		\RequirePackage[osf, slantedGreek]{mathpazo}
+		\RequirePackage[scaled=.95]{helvet}
+		\RequirePackage[scaled]{luximono}
+	}{}
 %    \end{macrocode}
 %
 % \option{original}: Standard-\LaTeX
 %    \begin{macrocode}
-\ifthenelse{\equal{\BAS@font}{original}}
- {}{}
+\ifthenelse{\equal{\BAS@opt@font}{original}}
+	{}{}
 %    \end{macrocode}
 %
-% \option{times}: Serifenschrift \schrift{Times}, serifenlose Schrift \schrift{Helvetica}, Schreibmaschinenschrift \schrift{Luxi Mono}
+% \option{times}: Serifenschrift \emph{Times}, serifenlose Schrift \emph{Helvetica}, Schreibmaschinenschrift \emph{Luxi Mono}
 %    \begin{macrocode}
-\ifthenelse{\equal{\BAS@font}{times}}
- {
-	\RequirePackage{mathptmx}
-	\RequirePackage[scaled]{helvet}
-	\RequirePackage[scaled]{luximono}
- }{}
+\ifthenelse{\equal{\BAS@opt@font}{times}}
+	{
+		\RequirePackage{mathptmx}
+		\RequirePackage[scaled]{helvet}
+		\RequirePackage[scaled]{luximono}
+	}{}
 %    \end{macrocode}
 %
-% \minisec{Grafiken}
+% Das Paket \paket{microtype} setzt Text angenehmer und erzeugt optischen Randausgleich.
+%    \begin{macrocode}
+\RequirePackage[tracking=true]{microtype}
+\SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
+%    \end{macrocode}
 %
-% Das Paket \paket{graphicx} ist zur Anzeige der Grafiken notwendig.
+% \subsubsection{Symbole}
+%
+% Die MarVo-Symbolschrift ist u.~a.\ zur Anzeige des Euro-Zeichens~(\EUR) notwendig.
+% Die Symbole in der MarVo-Symbolschrift können \zB in der Dokumentation des Pakets nachgelesen werden.
+%
+% Die Neudefinition des \befehl{Rightarrow}-Befehls hat sich als notwendig herausgestellt, da dieser durch \paket{marvosym} umdefiniert wird und daher im mathematischen Modus nicht korrekt angezeigt wird.
+% Die Neudefinition macht den gleichnamigen Befehl des Pakets unbenutzbar.
+%    \begin{macrocode}
+\ifxetex
+\else
+	\IfFileExists{marvosym.sty}{
+		\RequirePackage{marvosym}
+		\mathchardef\Rightarrow="3229
+	}{
+		\ClassWarning{basis}{marvosym.sty nicht vorhanden}
+	}
+\fi
+%    \end{macrocode}
+%
+% Die WaSy-Symbolschrift ist definiert weitere Symbole, insbesondere Checkboxen für Formulare oder die Anzeige für Auswahlen.
+% Die Symbole in der WaSy-Symbolschrift können \zB in der Dokumentation des Pakets nachgelesen werden.
+%    \begin{macrocode}
+\ifxetex
+\else
+	\IfFileExists{wasysym.sty}{
+		\RequirePackage{wasysym}
+	}{
+		\ClassWarning{basis}{wasysym.sty nicht vorhanden}
+	}
+\fi
+%    \end{macrocode}
+%
+% \minisec{\hologo{TeX}-Symbole}
+%
+% Um alle möglichen \hologo{TeX}-Symbole einzubinden, wird das \paket{hologo}-Paket eingebunden.
+%    \begin{macrocode}
+\IfFileExists{hologo.sty}{
+	\RequirePackage{hologo}
+}{
+	\ClassWarning{basis}{hologo.sty nicht vorhanden}
+}
+%    \end{macrocode}
+%
+% \subsection{Grafiken, Farben}
+%
+% Das Paket \paket{graphicx} ist zur Anzeige von Grafiken notwendig.
 %    \begin{macrocode}
 \RequirePackage{graphicx}
 %    \end{macrocode}
 %
-% \minisec{Schriftsatz}
-%
-% Das Paket \paket{microtype} setzt Text angenehmer und erzeugt optischen Randausgleich.
+% Das Paket \paket{xcolor} ist zur Einfärbung von Texten usw.\ gedacht.
+% Das Paket \paket{pdfcolmk} löst Probleme von farbigen Texten bei Seitenumbruch.
 %    \begin{macrocode}
-\RequirePackage{microtype}
+\RequirePackage{xcolor}
+\RequirePackage{pdfcolmk}
 %    \end{macrocode}
 %
-% \minisec{Symbole}
+% \subsection{Tabellen}
 %
-% Das Paket \paket{marvosym} ist u.\,a.\ zur Anzeige des Euro-Zeichens (\EUR) notwendig.
-% Das Zeichen kann im Text mit \verb#\EUR# oder \verb#\EUR{}# eingefügt werden.
-% Die Formatierung in Zahlenbreite erfolgt über \verb#\EURdig#.
-% Die sonstigen Symbole in \paket{marvosym} können in der
-% Dokumentation des Pakets nachgelesen werden.
-%
-% Die Neudefinition des \verb#Rightarrow#-Befehls ist notwendig, da dieser
-% durch \paket{marvosym} umdefiniert wird und daher im mathematischen Modus nicht
-% korrekt angezeigt wird.
-% Die Neudefinition macht den gleichnamigen Befehl des Pakets unbenutzbar.
-%    \begin{macrocode}
-\RequirePackage{marvosym}
-\mathchardef\Rightarrow="3229
-%    \end{macrocode}
-%^^A " (Syntaxhighlighting)
-%
-% \minisec{Kopf- und Fußzeilen}
-%
-% Das Paket \paket{scrpage2} ist für die komfortable Definition von
-% Kopf- und Fußzeilen notwendig.
-%    \begin{macrocode}
-\RequirePackage{scrpage2}
-%    \end{macrocode}
-%
-% \minisec{Literaturzitate und -verzeichnisse}
-%
-% Diese Definitionen gelten nur für das \paket{basis}-Paket,
-% für Briefe sind sie nicht erforderlich.
-%
-%    \begin{macrocode}
-%<*basis>
-%    \end{macrocode}
-%
-% Das Paket \paket{jurabib} sorgt für geisteswissenschaftliche
-% Literaturzitate.
-%
-% Der Autor wird im Zitat mit Kapitälchen geschrieben (\verb#authorformat#), bei Literaturangaben aus gleichen Büchern kommt a.a.O.
-% Autor und Herausgeber werden im Literaturverzeichnis ebenfalls mit
-% Kapitälchen geschrieben (Fontbefehle für Vor- und Zuname getrennt).
-%
-% Alle Definitionen werden nicht für Briefe vorgenommen.
-%    \begin{macrocode}
-\ifthenelse{\boolean{BAS@optionnojura}}
- {}
- {\RequirePackage{jurabib}}
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-%</basis>
-%    \end{macrocode}
-%
-% \minisec{Tabellen}
-%
-% Für lange Tabellen wird \paket{longtable} verwendet, nützliche
-% Erweiterungen für Spaltendefinitionen sind in \paket{array}.
+% Für lange Tabellen wird \paket{tabu} bzw.\ \paket{longtable} verwendet, nützliche Erweiterungen für Spaltendefinitionen sind in \paket{array}.
 % Für gut anzusehende Linien sorgt \paket{booktabs}.
 %    \begin{macrocode}
 \RequirePackage{longtable}
 \RequirePackage{array}
+\RequirePackage{tabu}
 \RequirePackage{booktabs}
 %    \end{macrocode}
 %
-% \minisec{Hyperreferenzen}
+% \subsection{Verlinkung innerhalb des Dokuments}
 %
 % Das Paket \paket{hyperref} ist für die Erstellung von Hyperreferenzen zuständig.
-%
-% Es wird bei entsprechender Option eingebunden und mit sinnvollen Optionen belegt.
 % \begin{description}
-% 	\item [BAS@hyperdriver] PDF-Treiber (default=ps2pdf)
-% 	\item [a4paper] muss explizit angegeben werden, da die Papiergröße sonst nicht erkannt wird
-% 	\item [breaklinks] Zeilenumbruch in Links erlaubt
-% 	\item [colorlinks] Links farbig, nicht mit Kasten drumrum
-% 	\item [linkcolor=BAS@hypercolor] Textlinks in Farbe (default=blue)
-% 	\item [citecolor=BAS@hypercolor] Literaturreferenzen in Farbe (default=blue)
-% 	\item [urlcolor=BAS@hypercolor] URLs in Farbe (default=blue)
-% 	\item [bookmarks] Lesezeichen (Bookmarks) erzeugen
-% 	\item [bookmarksopen] Lesezeichenhierarchie beim Öffnen ganz öffnen
-% 	\item [bookmarksnumbered] Gliederungsnummerierung in Lesezeichen übernehmen
-% 	\item [pdfpagemode=UseNone] beim Offnen nur Dokument anzeigen, Lesezeichen verstecken
-% 	\item [pdfstartview=FitH] beim Offnen auf Dokumentbreite zoomen
+%   \item [\befehl{BAS@opt@hyperdriver}] \paket{hyperref}-Treiber.
+%   \item [allcolors=\befehl{BAS@opt@hypercolor}] Farbe aller Links
+%   \item [bookmarks] Lesezeichen (Bookmarks) erzeugen
+%   \item [bookmarksnumbered] Gliederungsnummerierung in Lesezeichen übernehmen
+%   \item [bookmarksopen] Lesezeichenhierarchie beim Öffnen ganz öffnen
+%   \item [breaklinks] Zeilenumbruch in Links erlaubt
+%   \item [colorlinks] Links farbig, nicht mit Kasten drumrum
 % \end{description}
-% Probleme:
-% \begin{itemize}
-% 	\item Umlaute werden in PDF seltsam angezeigt aber richtig gedruckt
-% \end{itemize}
 %    \begin{macrocode}
-\ifthenelse{\boolean{BAS@optionnohyper}}
- {}
- {
-	\RequirePackage[
-	 \BAS@hyperdriver,
-	 a4paper,
-	 breaklinks,
-	 colorlinks,
-	 linkcolor=\BAS@hypercolor,
-	 citecolor=\BAS@hypercolor,
-	 urlcolor=\BAS@hypercolor,
-	 bookmarks,
-	 bookmarksopen,
-	 bookmarksnumbered,
-	 pdfpagemode=UseNone,
-	 pdfstartview=Fit
-	]{hyperref}
+\RequirePackage[
+	\BAS@opt@hyperdriver,
+	allcolors=\BAS@opt@hypercolor,
+	bookmarks=true,
+	bookmarksnumbered=true,
+	bookmarksopen=true,
+	breaklinks=true,
+	colorlinks=true
+]{hyperref}
 %    \end{macrocode}
-% Jetzt die Einstellungen, die am Anfang des Dokuments vorgenommen werden,
-% da hier die entsprechenden Informationen vorliegen sollten.
+%
+% Jetzt die Einstellungen, die am Anfang des Dokuments vorgenommen werden, da erst hier die entsprechenden Informationen vorliegen sollten.
 % \begin{description}
-% 	\item [pdftitle] Titel, wird in Dokumenteigenschaften angezeigt
-% 	\item [pdfauthor] Autor, wird in Dokumenteigenschaften angezeigt
-% 	\item [pdfsubject] Thema, wird in Dokumenteigenschaften angezeigt
-% 	\item [pdfcreator] Anwendung, wird in Dokumenteigenschaften angezeigt
-% 	\item [pdfkeywords] Stichwörter, wird in Dokumenteigenschaften angezeigt
+%   \item [pdftitle] Titel, wird in den Dokumenteigenschaften angezeigt.
+%         Der eingetragene Titel setzt sich aus dem Dokumenttitel und, falls vorhanden, dem Untertitel zusammen.
+%   \item [pdfauthor] Autor, wird in den Dokumenteigenschaften angezeigt.
+%   \item [pdfsubject] Thema, wird in den Dokumenteigenschaften angezeigt.
+%   \item [pdfcreator] Anwendung, wird in den Dokumenteigenschaften angezeigt.
+%   \item [pdfkeywords] Stichwörter, wird in den Dokumenteigenschaften angezeigt.
 % \end{description}
 %    \begin{macrocode}
-	\AtBeginDocument{
-		\ifthenelse{\isundefined{\BAS@subtitle}}
-		 {\hypersetup{pdftitle=\@title}}
-		 {\hypersetup{pdftitle={\@title{} - \BAS@subtitle}}}
-	 \hypersetup{pdfauthor=\@author}
-	 \hypersetup{pdfsubject=\@title}
-	 \hypersetup{pdfcreator=LaTeX}
-	 \hypersetup{pdfkeywords=\@title}
+\AtBeginDocument{
+	\hypersetup{pdftitle=\BAS@title%
+		\ifx\undefined\@subtitle\else%
+			\ifx\empty\@subtitle\else%
+				{ - \@subtitle}%
+			\fi
+		\fi%
 	}
+	\hypersetup{pdfauthor=\@author}
+	\hypersetup{pdfsubject=\BAS@title}
+	\hypersetup{pdfcreator=LaTeX}
+	\hypersetup{pdfkeywords=\BAS@title}
+}
 %    \end{macrocode}
 %
-% Der \verb#autoref#-Befehl ermittelt selbst die Art der Referenz und
-% setzt den entsprechenden Text (z.\,B.\ Abbildung, Kapitel) selbst ein.
-% Die von \paket{hyperref} vorgegebenen Texte sind nicht ausreichend bzw.\
-% treffen nicht die bei uns üblichen Bezeichnungen.
+% Der \befehl{autoref}-Befehl ermittelt selbst die Art der Referenz und setzt den entsprechenden Text (\zB Abbildung, Kapitel) selbst ein.
+% Die von \paket{hyperref} vorgegebenen Texte sind nicht ausreichend bzw.\ treffen nicht die üblichen Bezeichnungen.
 % Daher werden die Bezeichnungen hier festgelegt.
 %
-% Die deutschen Angaben müssen mit Trennungsregeln eingegeben werden, da \LaTeX\ die Trennung sonst nicht durchführt.
-% Die Trennungsangaben für die englischen Texte wurden nur hinzugefügt, um den Bug im \paket{hyperref}-Paket bei Nichtverwendung von \verb#pdftex# zu fixen.
+% Die deutschen Angaben müssen mit Trennungsregeln eingegeben werden, da \hologo{LaTeX} die Trennung sonst nicht durchführt.
+% Die Trennungsangaben für die englischen Texte wurden nur hinzugefügt, um den Bug im \paket{hyperref}-Paket bei Nichtverwendung von \hologo{pdfLaTeX} zu fixen.
 %
 %    \begin{macrocode}
-	\iflanguage{german}{
-	 \AtBeginDocument{
-		\def\equationautorefname{For\-mel}
-		\def\footnoteautorefname{Fu\ss \-no\-te}
-		\def\itemautorefname{Punkt}
-		\def\figureautorefname{Ab\-bil\-dung}
-		\def\subfigureautorefname{\figureautorefname}
-		\def\tableautorefname{Ta\-bel\-le}
-		\def\partautorefname{Teil}
-		\def\appendixautorefname{An\-hang}
-		\def\chapterautorefname{Ka\-pi\-tel}
-		\def\sectionautorefname{\chapterautorefname}
-		\def\subsectionautorefname{Ab\-schnitt}
-		\def\subsubsectionautorefname{\subsectionautorefname}
-		\def\paragraphautorefname{Ab\-satz}
-		\def\subparagraphautorefname{\paragraphautorefname}
-		\def\FancyVerbLineautorefname{Zei\-le}
-		\def\theoremautorefname{The\-o\-rem}
-	 }
-	}{}
-	\iflanguage{ngerman}{
-	 \AtBeginDocument{
-		\def\equationautorefname{For\-mel}
-		\def\footnoteautorefname{Fu\ss \-no\-te}
-		\def\itemautorefname{Punkt}
-		\def\figureautorefname{Ab\-bil\-dung}
-		\def\subfigureautorefname{\figureautorefname}
-		\def\tableautorefname{Ta\-bel\-le}
-		\def\partautorefname{Teil}
-		\def\appendixautorefname{An\-hang}
-		\def\chapterautorefname{Ka\-pi\-tel}
-		\def\sectionautorefname{\chapterautorefname}
-		\def\subsectionautorefname{Ab\-schnitt}
-		\def\subsubsectionautorefname{\subsectionautorefname}
-		\def\paragraphautorefname{Ab\-satz}
-		\def\subparagraphautorefname{\paragraphautorefname}
-		\def\FancyVerbLineautorefname{Zei\-le}
-		\def\theoremautorefname{The\-o\-rem}
-	 }
-	}{}
-	\iflanguage{english}{
-	 \AtBeginDocument{
-		\def\equationautorefname{equa\-tion}
-		\def\footnoteautorefname{foot\-note}
-		\def\itemautorefname{item}
-		\def\figureautorefname{fig\-ure}
-		\def\subfigureautorefname{\figureautorefname}
-		\def\tableautorefname{table}
-		\def\partautorefname{part}
-		\def\appendixautorefname{ap\-pen\-dix}
-		\def\chapterautorefname{chap\-ter}
-		\def\sectionautorefname{sec\-tion}
-		\def\subsectionautorefname{\sectionautorefname}
-		\def\subsubsectionautorefname{\sectionautorefname}
-		\def\paragraphautorefname{para\-graph}
-		\def\subparagraphautorefname{sub\-para\-graph}
-		\def\FancyVerbLineautorefname{line}
-		\def\theoremautorefname{the\-orem}
-	 }
-	}{}
- } % if nohyper
-%    \end{macrocode}
-%
-% \minisec{FixMes}
-%
-% Das Paket \paket{fixme} stellt Befehle zur Verfügung, um fixme-Informationen in das Dokument einzugeben.
-% Es wird bei entsprechender Option eingebunden und mit sinnvollen Optionen belegt:
-% \begin{description}
-%   \item [\textbackslash BAS@fixme] Verhalten des Pakets bei im Dokument vorkommenden fixme-Angaben.
-%          \option{final} gibt Fehler aus, \option{draft} nicht
-%
-%          Voreingestellt: \option{final}
-%   \item [inline] Anmerkungen im Text ausgeben
-%   \item [nomargin] Anmerkungen nicht in den Rand legen
-%   \item [silent] keine Ausgabe im normalen \TeX-log
-% \end{description}
-% Folgende Definitionen werden getroffen (FXMargin, FXMarginClue und FXFootnote werden nicht umdefiniert, da nur inline-Fixmes erlaubt sind):
-% \begin{description}
-%   \item [\textbackslash FXInline] Fixme-Titel schwarze Schrift rot umrandet auf weißem Hintergrund, Fixme-Text rot und hervorgehoben. Diese Definition betrifft die Inline-Fixmes und den Titel aller Fixmes.
-%   \item [\textbackslash FXFootnote] in einer Fußnote: Fixme-Titel schwarze Schrift rot umrandet auf weißem Hintergrund, Fixme-Text rot und hervorgehoben.
-%   \item [\textbackslash FXEnv*] Fixme-Text rot. Diese Definition betrifft die Fixme-Umgebungen.
-% \end{description}
-%    \begin{macrocode}
-\ifthenelse{\isundefined{\BAS@fixme}}
- {}
- {
-	\RequirePackage[\BAS@fixme, inline, nomargin, silent]{fixme}
-	\renewcommand\FXInline[2]{
-	 \fcolorbox{red}{white}{\textbf{\textcolor{black}{#1:}}}
-	 \textcolor{red}{\emph{#2}}
-	}
-	\renewcommand\FXFootnote[2]{
-	 \footnote{\fcolorbox{red}{white}{\textbf{\textcolor{black}{#1:}}}
-	 \textcolor{red}{\emph{#2}}}
-	}
-	\renewcommand\FXEnvBegin{\begin{quotation}\color{red}}
-	\renewcommand\FXEnvEnd{\end{quotation}}
- }
+\addto\extrasngerman{\def\equationautorefname{For\-mel}}
+\addto\extrasngerman{\def\footnoteautorefname{Fu\ss \-no\-te}}
+\addto\extrasngerman{\def\itemautorefname{Punkt}}
+\addto\extrasngerman{\def\figureautorefname{Ab\-bil\-dung}}
+\addto\extrasngerman{\def\subfigureautorefname{\figureautorefname}}
+\addto\extrasngerman{\def\tableautorefname{Ta\-bel\-le}}
+\addto\extrasngerman{\def\partautorefname{Teil}}
+\addto\extrasngerman{\def\appendixautorefname{An\-hang}}
+\addto\extrasngerman{\def\chapterautorefname{Ka\-pi\-tel}}
+\addto\extrasngerman{\def\sectionautorefname{\chapterautorefname}}
+\addto\extrasngerman{\def\subsectionautorefname{Ab\-schnitt}}
+\addto\extrasngerman{\def\subsubsectionautorefname{\subsectionautorefname}}
+\addto\extrasngerman{\def\paragraphautorefname{Ab\-satz}}
+\addto\extrasngerman{\def\subparagraphautorefname{Un\-ter\-ab\-satz}}
+\addto\extrasngerman{\def\FancyVerbLineautorefname{Zei\-le}}
+\addto\extrasngerman{\def\theoremautorefname{The\-o\-rem}}
+
+\addto\extrasgerman{\def\equationautorefname{For\-mel}}
+\addto\extrasgerman{\def\footnoteautorefname{Fu\ss \-no\-te}}
+\addto\extrasgerman{\def\itemautorefname{Punkt}}
+\addto\extrasgerman{\def\figureautorefname{Ab\-bil\-dung}}
+\addto\extrasgerman{\def\subfigureautorefname{\figureautorefname}}
+\addto\extrasgerman{\def\tableautorefname{Ta\-bel\-le}}
+\addto\extrasgerman{\def\partautorefname{Teil}}
+\addto\extrasgerman{\def\appendixautorefname{An\-hang}}
+\addto\extrasgerman{\def\chapterautorefname{Ka\-pi\-tel}}
+\addto\extrasgerman{\def\sectionautorefname{\chapterautorefname}}
+\addto\extrasgerman{\def\subsectionautorefname{Ab\-schnitt}}
+\addto\extrasgerman{\def\subsubsectionautorefname{\subsectionautorefname}}
+\addto\extrasgerman{\def\paragraphautorefname{Ab\-satz}}
+\addto\extrasgerman{\def\subparagraphautorefname{Un\-ter\-ab\-satz}}
+\addto\extrasgerman{\def\FancyVerbLineautorefname{Zei\-le}}
+\addto\extrasgerman{\def\theoremautorefname{The\-o\-rem}}
+
+\addto\extrasenglish{\def\equationautorefname{For\-mu\-la}}
+\addto\extrasenglish{\def\footnoteautorefname{Foot\-note}}
+\addto\extrasenglish{\def\itemautorefname{Item}}
+\addto\extrasenglish{\def\figureautorefname{Fig\-ure}}
+\addto\extrasenglish{\def\subfigureautorefname{\figureautorefname}}
+\addto\extrasenglish{\def\tableautorefname{Table}}
+\addto\extrasenglish{\def\partautorefname{Part}}
+\addto\extrasenglish{\def\appendixautorefname{Ap\-pen\-dix}}
+\addto\extrasenglish{\def\chapterautorefname{Chap\-ter}}
+\addto\extrasenglish{\def\sectionautorefname{Sec\-tion}}
+\addto\extrasenglish{\def\subsectionautorefname{\sectionautorefname}}
+\addto\extrasenglish{\def\subsubsectionautorefname{\sectionautorefname}}
+\addto\extrasenglish{\def\paragraphautorefname{Para\-graph}}
+\addto\extrasenglish{\def\subparagraphautorefname{Sub\-para\-graph}}
+\addto\extrasenglish{\def\FancyVerbLineautorefname{Line}}
+\addto\extrasenglish{\def\theoremautorefname{The\-orem}}
 %    \end{macrocode}
 %
 % \subsection{Personendaten}
 % \label{sec:Personendaten}
 %
-% Die Personendaten werden zentral in Makros verwaltet, die dann an gegebener
-% Stelle eingesetzt werden.
-%
-% \minisec{Definitionen}
+% Die Personendaten werden zentral in Makros verwaltet, die dann an gegebener Stelle eingesetzt werden.
 %
 % \begin{macro}{\strasse}
 % Adressteil: Straße.
@@ -638,10 +696,24 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\handy}
+% Adressteil: Handynummer.
+%    \begin{macrocode}
+\newcommand{\handy}[1]{\def\BAS@handy{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\email}
 % Adressteil: Email.
 %    \begin{macrocode}
 \newcommand{\email}[1]{\def\BAS@email{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\homepage}
+% Adressteil: URL.
+%    \begin{macrocode}
+\newcommand{\homepage}[1]{\def\BAS@url{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -656,175 +728,230 @@
 % Adressteil: Logodatei
 %    \begin{macrocode}
 \ifthenelse{\isundefined{\logo}}
- {\newcommand{\logo}[1]{\def\BAS@logo{#1}}}
- {\renewcommand{\logo}[1]{\def\BAS@logo{#1}}}
+	{\newcommand{\logo}[1]{\def\BAS@logo{#1}}}
+	{\renewcommand{\logo}[1]{\def\BAS@logo{#1}}}
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{Seitenlayout}
-% \label{sec:Seitenlayout}
-%
-% \subsubsection{Zeilenabstand}
-% \label{sec:Zeilenabstand}
-%
-% Falls gewünscht, wird der Zeilenabstand auf anderthalb Zeilen festgelegt.
-% Danach muss der Satzspiegel neu berechnet werden, um die Änderung zu berücksichtigen.
+% Auswertung einiger Angaben im Vorfeld.
 %    \begin{macrocode}
-\ifthenelse{\boolean{BAS@optiononehalfspacing}}
- {\RequirePackage[onehalfspacing]{setspace}}
- {}
+\AtBeginDocument{
+	\newboolean{BAS@hasaddress}
+	\setboolean{BAS@hasaddress}{false}
+	\newboolean{BAS@hassnail}
+	\setboolean{BAS@hassnail}{false}
+	\newboolean{BAS@hasphone}
+	\setboolean{BAS@hasphone}{false}
+	\newboolean{BAS@hascityline}
+	\setboolean{BAS@hascityline}{false}
+	\newboolean{BAS@hascomm}
+	\setboolean{BAS@hascomm}{false}
+	\ifthenelse{\isundefined\BAS@email}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@email}{\@empty}}
+				{}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hascomm}{true}
+				}
+		}
+	\ifthenelse{\isundefined\BAS@telefon}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@telefon}{\@empty}}
+				{}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hasphone}{true}
+					\setboolean{BAS@hascomm}{true}
+				}
+		}
+	\ifthenelse{\isundefined\BAS@handy}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@handy}{\@empty}}
+				{}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hasphone}{true}
+					\setboolean{BAS@hascomm}{true}
+				}
+		}
+	\ifthenelse{\isundefined\BAS@strasse}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@strasse}{\@empty}}
+				{}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hassnail}{true}
+				}
+		}
+	\ifthenelse{\isundefined\BAS@plz}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@plz}{\@empty}}
+				{}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hassnail}{true}
+					\setboolean{BAS@hascityline}{true}
+				}
+		}
+	\ifthenelse{\isundefined\BAS@ort}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@ort}{\@empty}}
+				{}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hassnail}{true}
+					\setboolean{BAS@hascityline}{true}
+				}
+		}
+	\ifthenelse{\isundefined\BAS@adresszusatz}
+		{}
+		{
+			\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}
+				{}
+				{
+					\setboolean{BAS@hasaddress}{true}
+					\setboolean{BAS@hassnail}{true}
+				}
+		}
+}
 %    \end{macrocode}
 %
 % \subsubsection{Flattersatz}
-% \label{sec:Flattersatz}
 %
-% Flattersatz wird mit dem \paket{ragged2e}-Paket gesetzt, da es Trennungen bei Flattersatz erlaubt.
-% Die Optionen \option{newcommands} und \option{document} dürfen nicht genutzt werden, da die Ragged-Befehle anscheinend nicht sehr ausgereift sind und bei kleinen Texten untervolle Boxen produzieren, sowie Fehler erzeugen.
-% Das erzeugt beispielsweise in alle Kopf- und Fußzeilen Probleme.
-%
-% Daher wird nur der \verb#\RaggedRight#-Befehl, wenn nötig, am Anfang des Dokuments ausgeführt.
+% Das Paket \paket{ragged2e} verbessert den Flattersatz, durch die Option \option{newcommands} werden die Original-\hologo{LaTeX}-Befehle überschrieben.
 %    \begin{macrocode}
-\RequirePackage{ragged2e}
+\RequirePackage[newcommands]{ragged2e}
 %    \end{macrocode}
 %
 % \subsubsection{Kopf- und Fußzeilen}
 %
-% Als Seitenstil wird \verb#headings# festgelegt.
-% Alle default-Einstellungen werden gelöscht.
+% Für die Kopf- und Fußzeile benötigen wir das Paket \paket{scrpage2}.
+% Wir verwenden lebende Kolumnentitel, daher wird die Option \option{automark} genutzt.
+%
+% Des Weiteren benutzen wir \paket{lastpage} für die Anzahl der Seiten.
+%
+% Die Schriftgröße wird auf Fußnotenschriftgröße festgelegt.
 %    \begin{macrocode}
-\pagestyle{scrheadings}
-\clearscrheadfoot
+\RequirePackage[automark]{scrpage2}
+\RequirePackage{lastpage}
+\setkomafont{pageheadfoot}{\normalfont\sffamily\footnotesize}
 %    \end{macrocode}
 %
-% Die Breite von Trennlinien wird auf 0,4~pt festgelegt.
+% Eigener Seitenstil: normales Layout (Kopf- und Fußzeile).
 %    \begin{macrocode}
-\newlength{\BAS@linienbreite}
-\setlength{\BAS@linienbreite}{.4pt}
+\defpagestyle{BASbeides}
+	{
+		{\hfill\leftmark}
+		{\leftmark\hfill}
+		{\leftmark\hfill}
+		(\textwidth,\BAS@len@rule)
+	}
+	{
+		(\textwidth,\BAS@len@rule)
+		{Seite \pagemark\ von \pageref{LastPage}\hfill\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}
+		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
+		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
+	}
 %    \end{macrocode}
 %
-% \subsection{Zeitangaben}
-% \label{sec:Zeitangaben}
-%
-% Als weitere vorbereitende Maßnahme werden Makros erzeugt,
-% die Datum und Uhrzeit, auch getrennt, ausgeben können.
-%
-% \begin{macro}{\datum}
-% Dieser Befehl gibt das Datum in der Form \emph{tt.\,mm.\ jjjj} aus.
+% Eigener Seitenstil: nur Fußzeile.
 %    \begin{macrocode}
-\newcommand{\datum}{%
- \ifthenelse{\day<10}{0}{}\the\day.\,%
- \ifthenelse{\month<10}{0}{}\the\month.\ %
- \the\year%
-}
-\iflanguage{english}{
- \renewcommand{\datum}{%
-	\the\year-%
-	\ifthenelse{\month<10}{0}{}\the\month-%
-	\ifthenelse{\day<10}{0}{}\the\day%
- }
-}{}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\zeit}
-% Dieser Befehl gibt die Zeit in der Form \emph{hh:mm} aus.
-% Die vielen Zähler und Berechnungen sind nötig, da der \TeX-Befehl
-% \verb#\time# die Zeit in Minuten des Tages ausgibt und diese
-% erst einmal umgerechnet werden müssen.
-%    \begin{macrocode}
-\newcount\BAS@stunden
-\newcount\BAS@stundeninminuten
-\newcount\BAS@minuten
-\BAS@minuten = \time
-\BAS@stunden = \BAS@minuten
-\divide\BAS@stunden by 60
-\BAS@stundeninminuten = \BAS@stunden
-\multiply\BAS@stundeninminuten by 60
-\advance\BAS@minuten-\BAS@stundeninminuten
-\newcommand{\zeit}{%
- \ifthenelse{\BAS@stunden<10}{0}{}\the\BAS@stunden:%
- \ifthenelse{\BAS@minuten<10}{0}{}\the\BAS@minuten%
-}
-%    \end{macrocode}
-% \end{macro}
-%
-% Ein Befehl nur für das \paket{basis}-Paket, nicht für Briefe.
-%    \begin{macrocode}
-%<*basis>
+\defpagestyle{BASfuss}
+	{
+		{}
+		{}
+		{}
+	}
+	{
+		(\textwidth,\BAS@len@rule)
+		{Seite \pagemark\ von \pageref{LastPage}\hfill\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}
+		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
+		{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
+	}
 %    \end{macrocode}
 %
-% \begin{macro}{\zeitstempel}
-% Dieser Befehl sorgt dafür, dass in der Fußzeile ein Zeitstempel eingebracht wird.
+% Eigener Seitenstil: nur Fußzeile (nur Seitenzahl).
 %    \begin{macrocode}
-\newcommand{\zeitstempel}[1][\datum\ \zeit]{%
- \def\BAS@zeitstempel{#1}
- \cfoot{\BAS@zeitstempel}
-}
+\defpagestyle{BASfussseite}
+	{
+		{}
+		{}
+		{}
+	}
+	{
+		(\textwidth,\BAS@len@rule)
+		{Seite \pagemark\ von \pageref{LastPage}}
+		{\hfill Seite \pagemark\ von \pageref{LastPage}}
+		{\hfill Seite \pagemark\ von \pageref{LastPage}}
+	}
 %    \end{macrocode}
-% \end{macro}
 %
-% \begin{macro}{\zeitspanne}
-% Dieser Befehl gibt die übergebenen Parameter als Zeitspanne aus.
-% Der optionale Parameter dient zur Eingabe des Beginns der Zeitspanne, der obligatorische Parameter enthält das Ende der Zeitspanne.
+% Seitenstil auswählen, Fußnotenschriftgröße.
 %    \begin{macrocode}
-\newcommand{\zeitspanne}[2][\@empty]{%
- \ifthenelse{\equal{\@empty}{#1}}{}{#1\,--\,}%
- #2%
-}
+\ifthenelse{\equal{\BAS@opt@pagestyle}{beides}}
+	{\pagestyle{BASbeides}}
+	{}
+\ifthenelse{\equal{\BAS@opt@pagestyle}{fuss}}
+	{\pagestyle{BASfuss}}
+	{}
+\ifthenelse{\equal{\BAS@opt@pagestyle}{fussseite}}
+	{\pagestyle{BASfussseite}}
+	{}
+\ifthenelse{\equal{\BAS@opt@pagestyle}{leer}}
+	{\pagestyle{empty}}
+	{}
 %    \end{macrocode}
-% \end{macro}
 %
+% \subsection{Abkürzungen}
+%
+% Das \paket{dhua}-Paket erleichtert die Eingabe von Abkürzungen wie \dh oder \ua
 %    \begin{macrocode}
-%</basis>
+\RequirePackage[xspace]{dhua}
 %    \end{macrocode}
 %
 % \subsection{Numerierungen und Aufzählungen}
-% \label{sec:NumerierungenUndAufzaehlungen}
 %
-% Die Gliederungszeichen von \verb#itemize#-Umgebungen werden so umdefiniert,
-% dass die erste Ebene einen Spiegelstrich enthält, die zweite einen
-% kleinen Punkt, die dritte einen großen Punkt und die vierte einen Stern.
+% Die folgenden Befehle verwenden das \paket{enumitem}-Paket.
+%
+% Zunächst werden globale Einstellungen für alle Listen getroffen.
+% Die Einrücktiefen werden auf jeweils 5~mm festgelegt (geschätzt).
+% Der obere Abstand \befehl{topsep} (zwischen erstem Listenpunkt und vorhergehendem Absatz) und der obere Abstand eines Absatzes \befehl{partopsep} (zusätzlich, wenn die Listenumgebung einen neuen Absatz beginnt) werden auf~0 gesetzt.
 %    \begin{macrocode}
-\renewcommand{\labelitemi}{--}
-\renewcommand{\labelitemii}{\ensuremath{\cdot}}
-\renewcommand{\labelitemiii}{\ensuremath{\bullet}}
-\renewcommand{\labelitemiv}{\ensuremath{\ast}}
+\RequirePackage{enumitem}
+\setlist{topsep=0mm plus .1pt, partopsep=0mm, leftmargin=5mm, noitemsep}
 %    \end{macrocode}
 %
-% Die Numerierung von \verb#enumerate#-Umgebungen wird so umdefiniert,
-% dass die erste Ebene einen arabische Zahlen enthält,
-% die zweite kleine römische, die dritte Kleinbuchstaben und die vierte Großbuchstaben.
+% Die Gliederungszeichen von \texttt{itemize}-Umgebungen werden so umdefiniert, dass die erste Ebene einen Strich enthält, die zweite einen kleinen Punkt, die dritte einen großen Punkt und die vierte einen Stern.
 %    \begin{macrocode}
-\renewcommand{\theenumi}{\arabic{enumi}}
-\renewcommand{\theenumii}{\roman{enumii}}
-\renewcommand{\theenumiii}{\alph{enumiii}}
-\renewcommand{\theenumiv}{\Alph{enumiv}}
+\setitemize[1]{label=--}
+\setitemize[2]{label=\ensuremath{\cdot}}
+\setitemize[3]{label=\ensuremath{\bullet}}
+\setitemize[4]{label=\ensuremath{\ast}}
 %    \end{macrocode}
 %
-% Die Numerierung wird durch Punkte bzw.\ ein "`)"' abgesetzt.
+% Die Nummerierung wird so umdefiniert, dass die erste Ebene arabische Zahlen enthält, die zweite kleine römische Buchstaben, die dritte Kleinbuchstaben und die vierte Großbuchstaben.
+% Die Referenzierung auf Nummerierungen wird durch Punkte abgesetzt.
+% Alle Angaben sind selbst ausgedacht.
 %    \begin{macrocode}
-\renewcommand{\labelenumi}{\theenumi.}
-\renewcommand{\labelenumii}{\theenumii)}
-\renewcommand{\labelenumiii}{(\theenumiii)}
-\renewcommand{\labelenumiv}{\theenumiv}
-%    \end{macrocode}
-%
-% Die Referenzierung auf Numerierungen wird durch Punkte und Striche abgesetzt.
-%    \begin{macrocode}
-\renewcommand{\p@enumi}{}
-\renewcommand{\p@enumii}{\theenumi.}
-\renewcommand{\p@enumiii}{\theenumi.\theenumii.}
-\renewcommand{\p@enumiv}{\theenumi.\theenumii.\theenumiii.}
+\setenumerate[1]{label=\arabic*., ref=\arabic*}
+\setenumerate[2]{label=\roman*, ref=\theenumii.\roman*}
+\setenumerate[3]{label=\alph*, ref=\theenumi.\alph*}
+\setenumerate[4]{label=\Alph*, ref=\theenumiii.\Alph*}
 %    \end{macrocode}
 %
 % \subsection{Fußnoten}
 % \label{sec:Fussnoten}
 %
-% Fußnoten werden mit 1,5~Zeilen Abstand vom unteren Textrand gesetzt.
-% Die Länge \verb#\skip\footins# ist von \LaTeX{} für den Abstand
-% Text--Fußnote vorgegeben und braucht nur angepasst zu werden.
+% Die Fußnotenzeichen werden linksbündig hochgestellt gesetzt.
 %    \begin{macrocode}
-\setlength{\skip\footins}{1.5\baselineskip}
+\deffootnote{1.5em}{1em}{\makebox[1.5em][l]{\textsuperscript\thefootnotemark}}
 %    \end{macrocode}
 %
 % \subsection{Mathematische Gleichungen}
@@ -834,34 +961,18 @@
 % Die Gleichungsnummern enthalten Kapitel und Gleichungsnummer.
 % Dabei wird die Gleichungsnummer pro Kapitel neu gezählt.
 %    \begin{macrocode}
-\renewcommand{\theequation}{(\thesection.\arabic{equation})}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
 \@addtoreset{equation}{section}
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@eqnnum}
-% Die Gleichungsnummern werden serifenlos in den Rand gesetzt.
-%    \begin{macrocode}
-\renewcommand{\@eqnnum}{%
- \hb@xt@.01\p@{}%
- \rlap{%
-	\hskip -.98\textwidth%
-	{\sffamily\small\theequation}
- }
-}
-%    \end{macrocode}
-% \end{macro}
-%
 % Die Gleichungen selbst stehen am linken Textrand.
-% Dazu wird die Option \verb#fleqno# von Hand in Form der
-% Einbindung der entsprechenden Datei ausgeführt.
-% Danach muss die Einrückung der Gleichungen \verb#\mathindent#
-% auf 0~mm gesetzt werden.
-% Dies muss am Ende erfolgen, da ein entsprechender Befehl
-% in \verb#fleqn.clo# steht und überdefiniert werden muss.
+% Dazu wird die Option \option{fleqno} von Hand in Form der Einbindung der entsprechenden Datei ausgeführt.
+% Danach muss die Einrückung der Gleichungen \befehl{mathindent} auf 0~mm gesetzt werden.
+% Dies muss am Ende erfolgen, da ein entsprechender Befehl in \datei{fleqn.clo} steht und überdefiniert werden muss.
 %    \begin{macrocode}
 \input{fleqn.clo}
-\AtEndOfClass{\setlength{\mathindent}{.2\textwidth}}
+\AtEndOfClass{\setlength{\mathindent}{0mm}}
 %    \end{macrocode}
 %
 % \subsection{Hilfreiches Kleinzeugs}
@@ -869,34 +980,25 @@
 %
 % \begin{macro}{\meta}
 % Ein Befehl für Meta-Angaben.
+%
+% Die komplizierte Konstruktion ist nötig, da \zB das \paket{doc}-Paket einen \befehl{meta}-Befehl selbst definiert, der überdefiniert werden soll.
+% \befehl{providecommand} definiert bei Vorhandensein des Befehls nicht über und wird daher nicht genommen.
 %    \begin{macrocode}
-\providecommand{\meta}[1]{%
- \ensuremath\langle\textsl{#1}\ensuremath\rangle%
-}
+\ifx\undefined\meta
+	\newcommand{\meta}[1]{\ensuremath\langle\textsl{#1}\ensuremath\rangle}
+\else
+	\renewcommand{\meta}[1]{\ensuremath\langle\textsl{#1}\ensuremath\rangle}
+\fi
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\textsubscript}
-% Der Befehl \verb#\textsubscript# setzt den übergebenen Text \textsubscript{tiefergestellt}.
-% Er ist das Pendant zu dem von \LaTeX\ bereitgestellten \verb#\textsuperscript#-Befehl.
-% Der Code ist aus \LaTeX-FAQ 8.5.17 entnommen.
-%    \begin{macrocode}
-\ifthenelse{\isundefined{\textsubscript}}
- {
-	\DeclareRobustCommand*\textsubscript[1]{%
-	 \@textsubscript{\selectfont#1}}
-	\newcommand{\@textsubscript}[1]{%
-	 {\m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}}}
- }{}
-%    \end{macrocode}
-% \end{macro}
+% Ende der gemeinsamen Definitionen für Bücher, Artikel und Briefe.
 %
 %    \begin{macrocode}
 %</basis,basbrief>
 %    \end{macrocode}
 %
 % \section{Definitionen für \texttt{scrartcl}, \texttt{scrbook}}
-% \label{sec:ScrartclScrbook}
 %
 % Beginn des Basis-Stils, der für Bücher und Artikel zuständig ist.
 %    \begin{macrocode}
@@ -904,31 +1006,20 @@
 %    \end{macrocode}
 %
 % \subsection{Die Titelseite}
-% \label{sec:DieTitelseite}
 %
 % \begin{macro}{\title}
-% Der Befehl definiert das Anzeigemakro \verb#\@title#,
-% das zur Anzeige des Titels benutzt wird.
-% Dabei wird der alte \verb#\title#-Befehl überschrieben und um eine
-% optionale Komponente erweitert, die eine Kurzform enthalten kann, die,
-% wenn angegeben, in der Dokumentfußzeile erscheint.
-% Diese Kurzform wird im Anzeigemakro \verb#\BAS@foottitle# gespeichert.
+% Der Befehl definiert das Anzeigemakro \befehl{@title}, das zur Anzeige des Titels benutzt wird.
+% Dabei wird der alte \befehl{title}-Befehl überschrieben und um eine optionale Komponente erweitert, die eine Kurzform enthalten kann, die, wenn angegeben, in der Dokumentfußzeile erscheint.
+% Diese Kurzform wird im Anzeigemakro \befehl{BAS@foottitle} gespeichert.
 %    \begin{macrocode}
 \renewcommand{\title}[2][\@empty]{
- \ifthenelse{\equal{\@empty}{#1}}
-	{\def\BAS@foottitle{#2}}
-	{\def\BAS@foottitle{#1}}
- \def\@title{#2}
+	\ifthenelse{\equal{\@empty}{#1}}
+		{}{\def\BAS@shorttitle{#1}}
+	\def\@title{#2}
+	\def\BAS@title{#2}
 }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\subtitle}
-% Dieser Befehl ermöglicht es dem Nutzer, einen Untertitel anzugeben.
-%    \begin{macrocode}
-\ifthenelse{\isundefined{\subtitle}}
- {\newcommand{\subtitle}[1]{\def\BAS@subtitle{#1}}}
- {\renewcommand{\subtitle}[1]{\def\BAS@subtitle{#1}}}
+\ifthenelse{\isundefined\BAS@title}
+	{\def\BAS@title{---}}{}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -939,198 +1030,326 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\version}
+% Dieser Befehl ermöglicht es dem Nutzer, eine Versionsnummer anzugeben.
+%    \begin{macrocode}
+\newcommand{\version}[1]{\def\BAS@version{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\maketitle}
-% Der Aufruf des \verb#maketitle#-Befehls ist wie der des \LaTeX-Original-Befehls.
+% Der Aufruf des \befehl{maketitle}-Befehls ist wie der des \hologo{LaTeX}-Original-Befehls.
 % Die Ausgabe der Titelseiten wird vollständig neu definiert.
 %
-% Die Titelseiten unterscheiden sich nach gewählter \option{titlepage}-Option.
+% Das \befehl{maketitle}-Kommando wird überdefiniert.
 %    \begin{macrocode}
-\if@titlepage
- \renewcommand\maketitle{
-	\begin{titlepage}
-%    \end{macrocode}
-% Die Titelseite wird auf den Pagecounter~\verb#-1# bzw.\ \verb#0# gesetzt,
-% das Inhaltsverzeichnis beginnt
-% dann automatisch mit Seite~1, das verhindert die Warnung von pdflatex, dass
-% zwei erste Seiten existieren.
-%    \begin{macrocode}
-	 \if@twoside
-		\setcounter{page}{-1}
-	 \else
-		\setcounter{page}{0}
-	 \fi
+\renewcommand\maketitle{
 %    \end{macrocode}
 %
 % Die Titelseite wird serifenlos gesetzt.
 %    \begin{macrocode}
-	 \sffamily
+	{
+		\sffamily
 %    \end{macrocode}
-% Die Logoausgabe erfolgt nur, wenn ein Logo definiert wurde.
-% Das Logo wird in die erste Zeile rechtsbündig gesetzt.
-% Die Höhe des Logos wird gespeichert und später per \verb#vskip# wieder nach oben gesetzt, um den Aufbau der Titelseite nicht zu stören.
+%
+% Die Titelseiten unterscheiden sich nach gewählter \option{titlepage}-Option,
+% Zunächst wird die Generierung einer extra Titelseite definiert.
 %    \begin{macrocode}
-		\ifthenelse{\isundefined{\BAS@logo}}
-		 {}
-		 {
-			\newlength{\BAS@logoheight}
-			\settoheight{\BAS@logoheight}{\BAS@logo}
-			\addtolength{\BAS@logoheight}{\parskip}
-			\hfill\BAS@logo\par
-			\vskip -\BAS@logoheight
-		 }%
+		\if@titlepage
 %    \end{macrocode}
-% Der obere Teil der Titelseite wird in einer \verb#parbox# gekapselt,
-% da rechts unten noch Informationen stehen sollen, deren Positionierung
-% erleichtert wird, wenn Boxen verwendet werden.
+%
+% Es wird eine extra Titelseite begonnen.
+% Die Titelseite wird auf den Pagecounter~\texttt{-1} bzw.\ \texttt{0} gesetzt, das Inhaltsverzeichnis beginnt dann automatisch mit Seite~1, das verhindert die Warnung von \hologo{pdfLaTeX}, dass zwei erste Seiten existieren.
 %    \begin{macrocode}
-	 \parbox[t][0mm]{.95\textwidth}{
+			\begin{titlepage}
+				\if@twoside
+					\setcounter{page}{-1}
+				\else
+					\setcounter{page}{0}
+				\fi
 %    \end{macrocode}
-% Etwas Abstand Seitenrand -- Titel sowie Titel ausgeben.
+%
+% Das Logo.
 %    \begin{macrocode}
-		\vspace*{8\baselineskip}
-		{\huge\textbf{\@title}\par}
+				\ifthenelse{\isundefined\BAS@logo}%
+					{}%
+					{%
+						\newlength{\BAS@len@logo}
+						\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+						\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+						\begin{picture}(0,0)(-1,0)%
+							\put(0,0){\includegraphics{\BAS@logo}}%
+						\end{picture}%
+					}%
 %    \end{macrocode}
-% Untertitel ausgeben bzw.\ etwas Abstand, wenn dieser fehlt.
+%
+% Der Dokumenttitel.
+%
+% Die \befehl{mbox} ist nötig, damit der Abstand auch bei fehlendem Logo gesetzt wird.
 %    \begin{macrocode}
-		\ifthenelse{\isundefined{\BAS@subtitle}}
-		 {\vskip\baselineskip}
-		 {{\LARGE\BAS@subtitle\par}}
+				\mbox{}\vskip 15\parskip
+				\textbf{\Huge\BAS@title}\par
 %    \end{macrocode}
-% Autor und Adresse.
+%
+% Der Untertitel.
 %    \begin{macrocode}
-		\vskip 10\baselineskip
-		{\Large\@author}\par
-		\ifthenelse{\isundefined{\BAS@email}}
-			{}
-			{
-				\ifthenelse{\equal{\@empty}{\BAS@email}}
+				\ifthenelse{\equal{\@subtitle}{\@empty}}
+					{\vskip 2\parskip}
+					{
+						\vskip \parskip
+						{\huge\@subtitle}
+						\par
+					}
+				\vskip 2\parskip
+%    \end{macrocode}
+%
+% Die Version.
+%    \begin{macrocode}
+				\ifthenelse{\isundefined\BAS@version}
 					{}
-					{\BAS@email\par}
-			}
-		\vskip \baselineskip
-		\ifthenelse{\isundefined{\BAS@strasse}}
-			{}
-			{
-				\ifthenelse{\equal{\@empty}{\BAS@strasse}}
+					{\BAS@version\\}
+%    \end{macrocode}
+%
+% Das Datum.
+%    \begin{macrocode}
+				\@date\par
+				\vskip 2\parskip
+%    \end{macrocode}
+%
+% Autor\_in.
+%    \begin{macrocode}
+				\ifthenelse{\isundefined\@author}
 					{}
-					{\BAS@strasse\par}
-			}
-		\ifthenelse{\isundefined{\BAS@plz}}
-			{}
-			{
-				\ifthenelse{\equal{\@empty}{\BAS@plz}}
-					{}
-					{\BAS@plz
-						\ifthenelse{\isundefined{\BAS@ort}}
-							{\par}
+					{
+						\ifthenelse{\equal{\@author}{\@empty}}
+							{}
 							{
-								\ifthenelse{\equal{\@empty}{\BAS@ort}}
-								{\par}
-								{\ }
+								\textbf{\@author}\par
+								\vskip \parskip
 							}
 					}
-			}
-		\ifthenelse{\isundefined{\BAS@ort}}
-			{}
-			{
-				\ifthenelse{\equal{\@empty}{\BAS@ort}}
-				 {}
-				 {\BAS@ort\par}
-			}
-		\ifthenelse{\isundefined{\BAS@telefon}}
-			{}
-			{
-				\ifthenelse{\equal{\@empty}{\BAS@telefon}}
-				 {}
-				 {\Telefon\ \BAS@telefon\par}
-			}
-%    \end{macrocode}
-% Eventuell vorhandenen Titelzusatz ausgeben.
-%    \begin{macrocode}
-		\ifthenelse{\isundefined{\BAS@adresszusatz}}
-		 {}
-		 {\BAS@adresszusatz\par}
-%    \end{macrocode}
-% Datum ausgeben.
-%    \begin{macrocode}
-		\vskip 2\baselineskip
-		\@date
-%    \end{macrocode}
-% Titelbox beenden.
-%    \begin{macrocode}
-	 } % end of Titel-parbox
-%    \end{macrocode}
-% Eventuell vorhandenen Titelzusatz ausgeben.
-% Dieser soll rechts unten auf der Seite erscheinen.
-% Die untere Kante ist durch die Texthöhe gegeben.
-%    \begin{macrocode}
-	 \ifthenelse{\isundefined{\BAS@titelzusatz}}
-		{}
-		{
-		 \vskip .9\textheight
-		 \hfill\parbox[b][0mm]{.5\textwidth}{\BAS@titelzusatz}
-		}
-%    \end{macrocode}
-% Titelseite beenden.
-%    \begin{macrocode}
-	\end{titlepage}
-%    \end{macrocode}
-% Leere Seite(n) erzeugen.
-%    \begin{macrocode}
-	\if@twoside
-	 \cleardoublepage
-	\else
-	 \clearpage
-	\fi
- } % end of \renewcommand\maketitle
-\else
- \renewcommand\maketitle{
 %    \end{macrocode}
 %
-% Die Titelseite wird serifenlos gesetzt.
+% Adresse in tabbing-Umgebung setzen.
 %    \begin{macrocode}
-	{\sffamily
+				\ifthenelse{\boolean{BAS@hasaddress}}
+					{
+						\begin{tabbing}
+							\Letter{}x\=\kill
 %    \end{macrocode}
-% Die Logoausgabe erfolgt nur, wenn ein Logo definiert wurde.
-% Das Logo wird in die erste Zeile rechtsbündig gesetzt.
-% Die Höhe des Logos wird gespeichert und später per \verb#vskip# wieder nach oben gesetzt, um den Aufbau der Titelseite nicht zu stören.
+%
+% E-Mail.
 %    \begin{macrocode}
-	 \ifthenelse{\isundefined{\BAS@logo}}
-		{}
-		{
-		 \newlength{\BAS@logoheight}
-		 \settoheight{\BAS@logoheight}{\BAS@logo}
-		 \addtolength{\BAS@logoheight}{\parskip}
-		 \hfill\BAS@logo\par
-		 \vskip -\BAS@logoheight
-		}%
+							\ifthenelse{\isundefined\BAS@email}%
+								{}%
+								{%
+									\ifthenelse{\equal{\BAS@email}{\@empty}}%
+										{}%
+										{\Email\>\texttt{\href{mailto:\BAS@email}{\BAS@email}}\\[\parskip]}%
+								}%
 %    \end{macrocode}
-% Titel und Untertitel ausgeben.
+%
+% Telefone.
 %    \begin{macrocode}
-	 {\huge\textbf{\@title}\par}
-	 \ifthenelse{\isundefined{\BAS@subtitle}}
-		{}
-		{{\LARGE\BAS@subtitle\par}}
+							\ifthenelse{\isundefined{\BAS@telefon}}%
+								{}%
+								{%
+									\ifthenelse{\equal{\@empty}{\BAS@telefon}}%
+									{}%
+									{\Telefon\>\BAS@telefon\\}%
+								}%
+							\ifthenelse{\isundefined{\BAS@handy}}%
+								{}%
+								{%
+									\ifthenelse{\equal{\@empty}{\BAS@handy}}%
+									{}%
+									{\Mobilefone\>\BAS@handy\\}%
+								}%
+							\ifthenelse{\boolean{BAS@hasphone}}%
+								{\\[-\parskip]}%
+								{}%
 %    \end{macrocode}
-% Autor und Adresse.
+%
+% Postadresse.
 %    \begin{macrocode}
-	 \vskip \baselineskip
-	 \@author\par
-	 \ifthenelse{\isundefined{\BAS@email}}
-		{}
-		{\BAS@email\par}
+							\ifthenelse{\boolean{BAS@hassnail}}%
+								{%
+									\Letter%
+									\ifthenelse{\isundefined\BAS@strasse}%
+										{}%
+										{%
+											\ifthenelse{\equal{\BAS@strasse}{\@empty}}%
+												{}%
+												{\>\BAS@strasse\\}%
+										}%
+									\ifthenelse{\boolean{BAS@hascityline}}%
+										{%
+											\>%
+											\ifthenelse{\isundefined\BAS@plz}%
+												{}%
+												{%
+													\ifthenelse{\equal{\BAS@plz}{\@empty}}%
+														{}%
+														{\BAS@plz\ }%
+												}%
+											\ifthenelse{\isundefined\BAS@ort}%
+												{}%
+												{%
+													\ifthenelse{\equal{\BAS@ort}{\@empty}}%
+														{}%
+														{\BAS@ort}%
+												}%
+											\\%
+										}%
+										{}%
 %    \end{macrocode}
-% Datum ausgeben.
+%
+% Eventuell vorhandenen Adresszusatz ausgeben.
 %    \begin{macrocode}
-	 \vskip \baselineskip
-	 \@date
-	 \vskip \baselineskip
+									\ifthenelse{\isundefined\BAS@adresszusatz}%
+										{}%
+										{%
+											\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}%
+												{}%
+												{\>\BAS@adresszusatz\\}%
+										}%
+								}{}%
 %    \end{macrocode}
-% Serifenlose Schrift beenden.
+%
+% Ende Adresse in tabbing-Umgebung.
 %    \begin{macrocode}
-	} % end of {\sffamily
- } % end of \renewcommand\maketitle
-\fi % end of \if@titlepage
+						\end{tabbing}
+					}
+					{\vskip 2\parskip}
+%    \end{macrocode}
+%
+% Zusatztext.
+%    \begin{macrocode}
+				\ifthenelse{\isundefined\BAS@titelzusatz}
+					{}
+					{\BAS@titelzusatz}
+%    \end{macrocode}
+%
+% Ende der Titelseite: Leerseite einfügen, Titelseite insgesamt beenden.
+%    \begin{macrocode}
+				\cleardoublepage
+			\end{titlepage}
+%    \end{macrocode}
+%
+% Generierung einer laufenden Titelseite.
+%    \begin{macrocode}
+		\else
+%    \end{macrocode}
+%
+% Kopfzeile ausblenden.
+%    \begin{macrocode}
+			\ifthenelse{\equal{\BAS@opt@pagestyle}{leer}}
+				{}
+				{\thispagestyle{BASfuss}}
+%    \end{macrocode}
+%
+% Das Logo einzeichnen.
+%    \begin{macrocode}
+			\ifthenelse{\isundefined\BAS@logo}
+				{}%
+				{%
+					\newlength{\BAS@len@logo}
+					\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+					\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+					\begin{picture}(0,0)(-1,0)%
+						\put(0,0){\includegraphics{\BAS@logo}}%
+					\end{picture}%
+				}%
+%    \end{macrocode}
+%
+% Der Dokumenttitel.
+%    \begin{macrocode}
+			\textbf{\huge\BAS@title}\par
+%    \end{macrocode}
+%
+% Der Untertitel.
+%    \begin{macrocode}
+			\ifthenelse{\equal{\@subtitle}{\@empty}}
+				{}
+				{{\huge\@subtitle}\par}
+			\vskip \parskip
+%    \end{macrocode}
+%
+% Die Version.
+%    \begin{macrocode}
+			\ifthenelse{\isundefined\BAS@version}
+				{}
+				{\BAS@version\\}
+%    \end{macrocode}
+%
+% Das Datum.
+%    \begin{macrocode}
+			\@date\par
+			\vskip \parskip
+%    \end{macrocode}
+%
+% Autor\_in.
+%    \begin{macrocode}
+			\ifthenelse{\isundefined\@author}
+				{}
+				{
+					\ifthenelse{\equal{\@author}{\@empty}}
+						{}
+						{\@author\\}
+				}
+%    \end{macrocode}
+%
+% E-Mail.
+%    \begin{macrocode}
+			\ifthenelse{\isundefined\BAS@email}%
+				{}%
+				{%
+					\ifthenelse{\equal{\BAS@email}{\@empty}}%
+						{}%
+						{\Email\ \texttt{\href{mailto:\BAS@email}{\BAS@email}}\par}%
+				}%
+%    \end{macrocode}
+%
+% Ende der laufenden Titelseite.
+%    \begin{macrocode}
+			\vskip 3\parskip
+		\fi % end of \if@titlepage
+%    \end{macrocode}
+%
+% Aufräumcode, direkt entnommen aus \datei{scrartcl.cls}.
+%    \begin{macrocode}
+		\let\thanks\relax
+		\let\maketitle\relax
+		\let\@maketitle\relax
+		\global\let\@thanks\@empty
+		\global\let\@author\@empty
+		\global\let\@date\@empty
+		\global\let\@title\@empty
+		\global\let\@subtitle\@empty
+		\global\let\@extratitle\@empty
+		\global\let\@titlehead\@empty
+		\global\let\@subject\@empty
+		\global\let\@publishers\@empty
+		\global\let\@uppertitleback\@empty
+		\global\let\@lowertitleback\@empty
+		\global\let\@dedication\@empty
+		\global\let\author\relax
+		\global\let\title\relax
+		\global\let\extratitle\relax
+		\global\let\titlehead\relax
+		\global\let\subject\relax
+		\global\let\publishers\relax
+		\global\let\uppertitleback\relax
+		\global\let\lowertitleback\relax
+		\global\let\dedication\relax
+		\global\let\date\relax
+		\global\let\and\relax
+%    \end{macrocode}
+%
+% Ende der Titelseitendefinition.
+%    \begin{macrocode}
+	} % end of sffamily scope
+} % end of \renewcommand\maketitle
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1142,192 +1361,70 @@
 % Inhaltsverzeichnislinie verantwortlich.
 % Dieser Abstand wird also so groß gewählt, dass keine Punkte zu sehen sind.
 % Der Wert von 200 ist durch Ausprobieren gefunden worden.
+%
+% ^^A @todo
 %    \begin{macrocode}
-\renewcommand{\@dotsep}{200}
+%\renewcommand{\@dotsep}{200}
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\contentsname}
-% Das Inhaltsverzeichnis bekommt den Titel "`Inhalt"'.
+% Inhaltsverzeichnis: "`Inhalt"' bzw. "`Tagesordnung"' für Protokolle.
 %    \begin{macrocode}
-\renewcommand{\contentsname}{Inhalt}
+\ifthenelse{\boolean{BAS@opt@protocol}}
+	{
+		\addto\captionsngerman{\renewcommand{\contentsname}{Tagesordnung}}
+		\addto\captionsgerman{\renewcommand{\contentsname}{Tagesordnung}}
+		\addto\captionsenglish{\renewcommand{\contentsname}{Agenda}}
+	}
+	{
+		\addto\captionsngerman{\renewcommand{\contentsname}{Inhalt}}
+		\addto\captionsgerman{\renewcommand{\contentsname}{Inhalt}}
+		\addto\captionsenglish{\renewcommand{\contentsname}{Contents}}
+	}
 %    \end{macrocode}
-% \end{macro}
 %
-% \begin{macro}{\listfigurename}
-% Das Abbildungsverzeichnis bekommt den Titel "`Abbildungen"'.
+% Abbildungsverzeichnis: "`Abbildungen"'.
 %    \begin{macrocode}
-\renewcommand{\listfigurename}{Abbildungen}
+\addto\captionsngerman{\renewcommand{\listfigurename}{Abbildungen}}
+\addto\captionsgerman{\renewcommand{\listfigurename}{Abbildungen}}
+\addto\captionsenglish{\renewcommand{\listfigurename}{Figures}}
 %    \end{macrocode}
-% \end{macro}
 %
-% \begin{macro}{\listtablename}
-% Das Tabellenverzeichnis bekommt den Titel "`Tafeln"'.
+% Tabellenverzeichnis: "`Tabellen"'.
 %    \begin{macrocode}
-\renewcommand{\listtablename}{Tafeln}
+\addto\captionsngerman{\renewcommand{\listtablename}{Tabellen}}
+\addto\captionsgerman{\renewcommand{\listtablename}{Tabellen}}
+\addto\captionsenglish{\renewcommand{\listtablename}{Tables}}
 %    \end{macrocode}
-% \end{macro}
-%
-% \subsection{Tafeln}
-% \label{sec:Tafeln}
-%
-% \begin{macro}{\tablename}
-% Vor Tafeln steht bei den Beschriftungen "`Tafel"', nicht "`Tabelle"'.
-%    \begin{macrocode}
-\renewcommand{\tablename}{Tafel}
-%    \end{macrocode}
-% \end{macro}
 %
 % \begin{macro}{\LT@makecaption}
-% Die Definition ist aus \texttt{longtable.sty} entnommen.
-% Der Aufruf von \verb#\hss# wurde herausgenommen.
+% Die Definition ist aus \paket{longtable.sty} entnommen.
+% Der Aufruf von \befehl{hss} wurde herausgenommen, ebenso \befehl{hfill} und die zentrierte Anordnung der Überschrift..
+% ^^A @todo
 %    \begin{macrocode}
 \renewcommand\LT@makecaption[3]{%
- \LT@mcol{\LT@cols}{@{}l@{}}{%
-	\hbox to\z@{\parbox[t]\LTcapwidth{%
-	 \sbox\@tempboxa{#1{#2: }#3}%
-	 \ifdim\wd\@tempboxa>\hsize
-		#1{#2: }#3%
-	 \else
-		\ifthenelse{\boolean{BAS@optionnoonelinecaption}}
-		 {\hbox to\hsize{\box\@tempboxa}}%
-		 {\hbox to\hsize{\hfil\box\@tempboxa\hfil}}%
-	 \fi
-	\endgraf\vskip\baselineskip}%
- }}
-}
-%    \end{macrocode}
-% \end{macro}
-%
-% \subsection{Kopf- und Fußzeilen}
-% \label{sec:KopfUndFusszeilen}
-%
-% Die Kopf- und Fußzeilenschrift sowie die Schrift für Seitennummern ist serifenlos und in Fußnotengröße.
-% Da die Koma-Befehle \emph{\textbackslash setkomafont\{pagehead\}} und \emph{\textbackslash setkomafont\{pagenumber\}} Warnungen erzeugen, und das laut Markus Kohm so gewollt ist, werden die Fontbefehle direkt umdefiniert.
-%    \begin{macrocode}
-\renewcommand{\headfont}{\sffamily\footnotesize}
-\renewcommand{\pnumfont}{\headfont}
-%    \end{macrocode}
-%
-% Die Kopf- und Fußzeile wird durch Linien vom Text getrennt.
-%    \begin{macrocode}
-\setheadsepline{\BAS@linienbreite}
-\setfootsepline{\BAS@linienbreite}
-%    \end{macrocode}
-%
-% Die Kopfzeile enthält außen die automatischen Inhalte der mark-Befehle.
-% Das sind auf linken Seiten die Kapitelüberschriften, auf der
-% rechten Seite die Unterkapitelüber"-schriften.
-%    \begin{macrocode}
-\automark[subsection]{section}
-\ohead{\headmark}
-%    \end{macrocode}
-%
-% Die Inhalte der Kopfzeile sollen ohne Numerierung gesetzt werden.
-%    \begin{macrocode}
-\renewcommand{\sectionmark}[1]{\markboth{#1}{#1}}
-\if@twoside
- \renewcommand{\subsectionmark}[1]{\markright{#1}}
-\fi
-%    \end{macrocode}
-%
-% Die Fußzeile enthält:
-% \begin{itemize}
-%		\item außen die Seitennummer.
-%		\item mittig nichts (hier kann sich der
-%					Zeitstempel (siehe \ref{sec:Zeitangaben}) eintragen.
-%		\item innen den Titel bzw.\ den optionalen Titel, falls angegeben
-% \end{itemize}
-%    \begin{macrocode}
-\ofoot{\pagemark}
-\ifoot{\BAS@foottitle}
-%    \end{macrocode}
-%
-% \subsection{Literaturverzeichnis}
-% \label{sec:Literaturverzeichnis}
-%
-% \begin{macro}{\literatur}
-% Zur Vereinfachung des Einsatzes von Literaturverzeichnissen wurde
-% dieses Makro angelegt, das den Aufruf der entsprechenden \LaTeX-Befehle kapselt.
-% Der zu übergebende Parameter bezeichnet die Datei, die
-% die Literaturangaben enthält, ohne Dateiendung.
-% Als Stildatei wird \emph{jurabib}, \emph{alpha} oder der optionale Parameter angenommen.
-%    \begin{macrocode}
-\newcommand{\BAS@litstyle}{jurabib}
-\ifthenelse{\boolean{BAS@optionnojura}}
- {\renewcommand{\BAS@litstyle}{alpha}}
- {}
-\newcommand{\literatur}[2][\BAS@litstyle]{%
- \bibliographystyle{#1}
- \bibliography{#2}
-}
-%    \end{macrocode}
-% \end{macro}
-%
-% \subsection{Index}
-% \label{sec:Index}
-%
-% Wenn die Option \verb#index# angegeben wurde, wird das Paket
-% \paket{makeidx} geladen, der Befehl \verb#makeindex# bereitet die
-% Indexierung vor und diverse Makros werden definiert,
-% um die Anwendung des Index\rq\ einfach zu gestalten.
-% Der Index wird wie gewohnt mit \verb#printindex# ausgegeben.
-%
-%    \begin{macrocode}
-\ifthenelse{\boolean{BAS@optionindex}}
- {
-	\RequirePackage{makeidx}
-	\makeindex
- }{}
-%    \end{macrocode}
-%
-% Die nachfolgenden Befehle \verb#nindex# und \verb#eindex# sollen
-% die Erstellung eines Index vereinfachen.
-% Die originale Indexierung mit Hilfe des \verb#index#-Befehls
-% kann weiterhin verwendet werden.
-%
-% \begin{macro}{\nindex}
-% Der Befehl \verb#nindex#, \emph{normal index}, trägt den
-% angegebenen Parameter als Schlagwort in den Index ein
-% und gibt das Wort anstelle des Befehls im Text aus.
-%
-% Der optionale Parameter dient dazu, den nichtoptionalen
-% Parameter als Unterpunkt des optionalen Parameters zu kennzeichnen.
-%    \begin{macrocode}
-\newcommand{\nindex}[2][\@empty]{%
- \ifthenelse{\equal{\@empty}{#1}}
-	{#2\index{#2}}
-	{#2\index{#1!#2}}
-}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\eindex}
-% Der Befehl \verb#eindex#, \emph{emphasized index},
-% trägt den angegebenen Parameter als Schlagwort in den Index
-% ein und gibt das Wort anstelle des Befehls im Text aus.
-% Außerdem hebt er die Seitenzahl im Index mittels \verb#emph# hervor.
-%
-% Der optionale Parameter dient dazu, den nichtoptionalen Parameter
-% als Unterpunkt des optionalen Parameters zu kennzeichnen.
-%
-% Achtung: ein Befehl, der im Makro erscheint (z.\,B.\ \verb#\eindex{MiK\TeX}#)
-% erzeugt einen Fehler.
-%    \begin{macrocode}
-\newcommand{\eindex}[2][\@empty]{%
- \ifthenelse{\equal{\@empty}{#1}}
-	{#2\index{#2|emph}}
-	{#2\index{#1!#2|emph}}
+	\LT@mcol{\LT@cols}{@{}l@{}@{}}{%
+		\hbox to\z@{%
+			\parbox[t]\LTcapwidth{%
+				\sbox\@tempboxa{#1{#2: }#3}%
+				\ifdim\wd\@tempboxa>\hsize%
+					#1{#2: }#3%
+				\else%
+					{\hbox to\hsize{\box\@tempboxa}}%
+				\fi%
+				\endgraf\vskip\baselineskip%
+			}%
+		}%
+	}%
 }
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsection{Vortragsdokumentation}
-% \label{sec:Vortragsdokumentation}
 %
 % \begin{macro}{\nextslidesilent}
-% Der Befehl \verb#nextslidesilent# erhöht den Folienzähler um eins, ohne die entsprechende Folie auszugeben.
-% Damit können z.\,B.\ für die Dokumentation unwichtige Folien übersprungen werden.
+% Der Befehl \befehl{nextslidesilent} erhöht den Folienzähler um eins, ohne die entsprechende Folie auszugeben.
+% Damit können \zB für die Dokumentation unwichtige Folien übersprungen werden.
 % Dafür wird zunächst der Folienzähler definiert und danach das Makro.
 %
 %    \begin{macrocode}
@@ -1337,63 +1434,32 @@
 % \end{macro}
 %
 % \begin{macro}{\nextslide}
-% Der Befehl \verb#nextslide# kapselt den Aufruf von \verb#insertslide# mit für OpenOffice"=Folien günstigen Werten.
+% Der Befehl \befehl{nextslide} kapselt den Aufruf von \verb#insertslide# mit für OpenOffice"=Folien günstigen Werten.
 % Die Skalierung wird auf 30\,% der Textbreite gesetzt, die Dateien müssen mit \emph{slide} beginnen.
 % Außerdem wird der Folienzähler um eins erhöht.
 %
 %    \begin{macrocode}
 \newcommand{\nextslide}{%
- \nextslidesilent%
- \insertslide{width=.3\textwidth}{slide}%
+	\nextslidesilent%
+	\insertslide{width=.3\textwidth}{slide}%
 }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\insertslide}
-% Der Befehl \verb#insertslide# fügt das Bild einer Folie ein.
+% Der Befehl \befehl{insertslide} fügt das Bild einer Folie ein.
 % Genau gesagt, wird ein Bild rechtsseitig gerahmt mit einer anzugebenden Skalierung eingebunden.
-% Die Einbindung erfolgt über den \verb#includegraphics#-Befehl, die Skalierungsangabe ist dementsprechend zu wählen.
+% Die Einbindung erfolgt über den \befehl{includegraphics}-Befehl, die Skalierungsangabe ist dementsprechend zu wählen.
 % Die Skalierung ist der erste Parameter, der Präfix des Bildnamens der zweite.
 %
 %    \begin{macrocode}
 \newcommand{\insertslide}[2]{%
- \parpic[r]{%
-	\framebox{\includegraphics[#1]{#2\theBAS@slides}}%
- }%
+	\parpic[r]{%
+		\framebox{\includegraphics[#1]{#2\theBAS@slides}}%
+	}%
 }
 %    \end{macrocode}
 % \end{macro}
-%
-% \subsection{Sonstiges}
-%
-% \minisec{Entwurfsdokumente}
-%
-% Die \option{draft}-Option bewirkt, dass das Dokument als Entwurfsdokument
-% gekennzeichnet wird.
-% Das bedeutet einen fetten Schriftzug "`Entwurf"' und einen
-% Zeitstempel in der Fußzeile.
-%    \begin{macrocode}
-\ifthenelse{\boolean{BAS@optiondraft}}
- {
-	\newcommand{\BAS@draft}{--Entwurf--}
-	\iflanguage{english}{
-	 \renewcommand{\BAS@draft}{---draft---}
-	}{}
-	\zeitstempel[\datum\ \zeit\qquad\textbf{\BAS@draft}]
- }
- {}
-%    \end{macrocode}
-%
-% \subsection{Satzspiegelberechnung}
-%
-% Der Satzspiegel muss neu berechnet werden.
-% Dazu wird der \paket{typearea}-Befehl genutzt.
-% Die Berechnung findet ganz am Ende statt, da hier alle Änderungen getätigt sein sollten.
-%
-% \texttt{default} besagt, dass der \emph{DIV}-Wert berechnet werden soll, die optionale Angabe ist der Bindungsrand von 15~mm.
-%    \begin{macrocode}
-\typearea[15mm]{default}
-%    \end{macrocode}
 %
 % Ende des Basis-Stils.
 %    \begin{macrocode}
@@ -1432,18 +1498,7 @@
 %
 % Spezifisches Aussehen des Briefs aus Layout-Datei einladen.
 %    \begin{macrocode}
-\LoadLetterOption{bas\BAS@layout}
-%    \end{macrocode}
-%
-% Zunächst müssen die Briefoptionen gesetzt werden.
-% Damit müssen beim Aufruf von \paket{scrlttr} keine schlimmen Optionen mehr gesetzt werden.
-% Gesetzt werden müssen: Sprache und Schriftgröße.
-% Die voreingestellte Schriftgröße ist 12~Punkt.
-% \begin{description}
-%		\item [parskip=half] kein Einzug bei Absatzanfang, sondern halbe Trennzeile
-% \end{description}
-%    \begin{macrocode}
-\KOMAoptions{parskip=half}
+\LoadLetterOption{bas\BAS@opt@layout}
 %    \end{macrocode}
 %
 % Briefe sind im Flattersatz zu setzen.
@@ -1456,36 +1511,76 @@
 \renewcommand{\raggedsignature}{\raggedright}
 %    \end{macrocode}
 %
-% Die Bezeichnung für Anlagen soll "`Anlagen"' sein.
+% Die Bezeichnung für Anlagen soll "`Anlagen"' sein (statt default "`Anlage(n)"'.
 %    \begin{macrocode}
-\AtBeginDocument{\renewcommand{\enclname}{Anlagen}}
+\setkomavar*{enclseparator}{Anlagen}
+%    \end{macrocode}
+%
+% Die Dokumenttitel festlegen.
+%    \begin{macrocode}
+\def\BAS@title{Brief}
 %    \end{macrocode}
 %
 % \subsubsection{Erste Seite}
 %
 % Setzen der Variablen mit den oben definierten personengebundenen Werten.
 %    \begin{macrocode}
-\setkomavar{fromname}{\@author}
-\setkomavar{fromlogo}{
- \ifthenelse{\isundefined{\BAS@logo}}
-	{}
-	{\BAS@logo}
+\setkomavar{fromname}{%
+	\@author%
+}
+\setkomavar{fromlogo}{%
+	\ifthenelse{\isundefined{\BAS@logo}}%
+		{}%
+		{\BAS@logo}%
 }
 \setkomavar{place}{%
- \ifthenelse{\isundefined{\BAS@ort}}%
-	{}%
-	{\BAS@ort}%
+	\ifthenelse{\isundefined{\BAS@ort}}%
+		{}%
+		{\BAS@ort}%
+}
+\setkomavar{fromaddress}{%
+	\ifthenelse{\isundefined{\BAS@strasse}}%
+		{}%
+		{\BAS@strasse}%
+	\ifthenelse{\boolean{BAS@hascityline}}%
+		{%
+			\ifthenelse{\isundefined{\BAS@strasse}}%
+				{}%
+				{\\}%
+			\ifthenelse{\isundefined{\BAS@plz}}%
+				{}%
+				{%
+					\BAS@plz%
+					\ifthenelse{\isundefined\BAS@ort}%
+						{}%
+						{~}%
+				}%
+			\ifthenelse{\isundefined\BAS@ort}%
+				{}%
+				{\BAS@ort}%
+		}{}%
 }
 \setkomavar{backaddress}{%
- \usekomavar{fromname}\\%
- \ifthenelse{\isundefined{\BAS@strasse}}
-	{}
-	{\BAS@strasse\\}%
- \ifthenelse{\isundefined{\BAS@plz}}
-	{}
-	{\BAS@plz~\BAS@ort}%
+	\usekomavar{fromname}%
+	\ifkomavarempty{fromaddress}%
+		{}%
+		{\\\usekomavar{fromaddress}}%
 }
-\setkomavar{location}{\usekomavar{fromlogo}}
+\setkomavar{fromphone}[\Telefon~]{%
+	\ifthenelse{\isundefined{\BAS@telefon}}%
+		{}%
+		{\BAS@telefon}%
+}
+\setkomavar{fromemail}[\Email~]{%
+	\ifthenelse{\isundefined{\BAS@email}}%
+		{}%
+		{\BAS@email}%
+}
+\setkomavar{fromurl}[\~]{%
+	\ifthenelse{\isundefined{\BAS@url}}%
+		{}%
+		{\BAS@url}%
+}
 %    \end{macrocode}
 %
 % Der Betreff ist serifenlos zu setzen.
@@ -1496,10 +1591,9 @@
 % \subsubsection{Folgeseiten}
 %
 % Die Kopfzeile (und damit auch Fußzeile) der Folgeseiten ist normal serifenlos zu setzen.
-% Da die Koma-Befehle \emph{\textbackslash setkomafont\{pagehead\}} und \emph{\textbackslash setkomafont\{pagenumber\}} Warnungen erzeugen, und das laut Markus Kohm so gewollt ist, werden die Fontbefehle direkt umdefiniert.
 %    \begin{macrocode}
-\renewcommand{\headfont}{\sffamily\footnotesize}
-\renewcommand{\pnumfont}{\headfont}
+\setkomafont{pageheadfoot}{\sffamily\footnotesize}
+\setkomafont{pagenumber}{\sffamily\footnotesize}
 %    \end{macrocode}
 %
 % Ende des Brief-Stils.
@@ -1518,7 +1612,7 @@
 %
 % Informationen über die Datei.
 %    \begin{macrocode}
-\ProvidesFile{baskopfzeile.lco}[2007/01/15 v0.3 Basis-Brief: Kopfzeilenlayout]
+\ProvidesFile{baskopfzeile.lco}[2013/12/16 v0.4 alpha Basis-Brief: Kopfzeilenlayout]
 %    \end{macrocode}
 %
 % In der Kopfzeile werden die Angaben durch "`~\ensuremath{\cdot}~"' getrennt.
@@ -1533,63 +1627,80 @@
 \@setplength{firstheadvpos}{15mm}
 \setkomafont{fromname}{\sffamily\small}
 \setkomafont{fromaddress}{\sffamily\footnotesize}
-\firsthead{%
- \centering
- {\usekomafont{fromname}%
-	\usekomavar{fromname}%
-	\ifthenelse{\isundefined{\BAS@strasse}}%
-	 {}%
-	 {\usekomavar{headseparator}\BAS@strasse}%
-	\ifthenelse{\isundefined{\BAS@plz}}%
-	 {}%
-	 {\usekomavar{headseparator}\BAS@plz~\BAS@ort}%
- }\\
- {\usekomafont{fromaddress}%
-	\ifthenelse{\isundefined{\BAS@telefon}}%
-	 {}%
-	 {\BAS@telefon}%
-	\ifthenelse{\isundefined{\BAS@email}}%
-	 {}%
-	 {\usekomavar{headseparator}\BAS@email}%
- }\\[-.5\baselineskip]%
- \rule{\textwidth}{\BAS@linienbreite}%
+\setkomavar{firsthead}{%
+	\centering%
+	\usekomafont{fromaddress}%
+	{%
+		\usekomavar{fromname}%
+		\ifthenelse{\isundefined{\BAS@strasse}}%
+			{}%
+			{\usekomavar{headseparator}\BAS@strasse}%
+		\ifthenelse{\boolean{BAS@hascityline}}%
+			{%
+				\usekomavar{headseparator}%
+				\ifthenelse{\isundefined{\BAS@plz}}%
+					{}%
+					{%
+						\BAS@plz%
+						\ifthenelse{\isundefined\BAS@ort}%
+							{}%
+							{~}%
+					}%
+				\ifthenelse{\isundefined\BAS@ort}%
+					{}%
+					{\BAS@ort}%
+			}{}%
+	}\\%
+	\ifthenelse{\boolean{BAS@hascomm}}%
+		{%
+			{%
+				\ifkomavarempty{fromphone}%
+					{}%
+					{\usekomavar{fromphone}}%
+				\ifkomavarempty{fromemail}%
+					{}%
+					{%
+						\ifkomavarempty{fromphone}%
+							{}%
+							{\usekomavar{headseparator}}%
+						\usekomavar{fromemail}%
+					}%
+			}\\%
+		}{}%
+	\rule{\textwidth}{\BAS@len@rule}%
 }
 %    \end{macrocode}
 %
-% Das Trennzeichen in der Rücksendeadresse soll der mittlere Bindestrich sein.
+% Das Trennzeichen in der Rücksendeadresse soll ein kleiner Punkt sein.
 %    \begin{macrocode}
-\setkomavar{backaddressseparator}{~--~}
-%    \end{macrocode}
-%
-% Die Kopfzeile der Folgeseiten enthält außen die Seitennummer.
-%    \begin{macrocode}
-\ohead{Seite~\pagemark}
-\setheadsepline{\BAS@linienbreite}
+\setkomavar{backaddressseparator}{~\ensuremath{\cdot}~}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
 %</lco:kopfzeile>
 %    \end{macrocode}
 %
-% \subsubsection{Datei \texttt{basinfospalte.lco}}
+% \subsubsection{Layouts: Infospalte sowie Infospalte fett}
 %
-% Beginn der Datei.
+% Beginn der Layoutdefinition.
 %    \begin{macrocode}
-%<*lco:infospalte>
+%<*lco:infospalte,lco:infospaltefett>
 %    \end{macrocode}
 %
 % Informationen über die Datei.
 %    \begin{macrocode}
-\ProvidesFile{basinfospalte.lco}[2007/01/15 v0.3 Basis-Brief: Infospaltenlayout]
+%<+lco:infospalte>\ProvidesFile{basinfospalte.lco}[2013/12/16 v0.4 alpha Basis-Brief: Infospaltenlayout]
+%<+lco:infospaltefett>\ProvidesFile{basinfospaltefett.lco}[2013/12/16 v0.4 alpha Basis-Brief: Infospalte mit fettem Autornamen]
 %    \end{macrocode}
 %
 % Die Fonts für die Kopfzeile/Infospalte der ersten Seite.
 %    \begin{macrocode}
-\setkomafont{fromname}{\scshape}
+%<+lco:infospalte>\setkomafont{fromname}{\scshape}
+%<+lco:infospaltefett>\setkomafont{fromname}{\bfseries\sffamily}
 \setkomafont{fromaddress}{\sffamily\scriptsize}
 %    \end{macrocode}
 %
-% Die Breite der Infospalte, die BAS-Variablen können noch nicht verwendet werden, da hier noch nicht definiert.
+% Die Breite der Infospalte.
 %    \begin{macrocode}
 \newlength{\infocolwidth}
 \setlength{\infocolwidth}{.16\paperwidth}
@@ -1613,65 +1724,69 @@
 %
 % Die Kopfzeile der ersten Seite enthält den gesperrten Autor und eine Linie.
 %    \begin{macrocode}
-\firsthead{%
+\setkomavar{firsthead}{%
 	{%
 		\usekomafont{fromname}%
-		\usekomavar[\textls]{fromname}%
-	}\\[-.5\baselineskip]
-	\rule{\textwidth}{\BAS@linienbreite}
+		\usekomavar{fromname}%
+	}\\[-.5\baselineskip]%
+	\rule{\textwidth}{\BAS@len@rule}
 %    \end{macrocode}
 %
 % Die Kopfzeile der ersten Seite enthält außerdem die Infospalte (Flattersatz) rechts.
 %    \begin{macrocode}
- \hspace*{\fill}%
- \begin{picture}(0,0)%
-	\put(0,0){%
-	 \parbox[t]{\infocolwidth}{%
-		\usekomafont{fromaddress}%
-		\RaggedRight%
+	\hspace*{\fill}%
+	\begin{picture}(0,0)%
+		\put(0,0){%
+			\parbox[t]{\infocolwidth}{%
+				\usekomafont{fromaddress}%
+				\RaggedRight%
 %    \end{macrocode}
 % Ort und Datum.
 %    \begin{macrocode}
-		\vspace{\useplength{refvpos}}%
-		\vspace{-\useplength{firstheadvpos}}%
-		\vspace{-\baselineskip}%
-		\usekomavar[\textbf]{place}\\%
-		\usekomavar{date}\\%
+				\vspace{\useplength{refvpos}}%
+				\vspace{-\useplength{firstheadvpos}}%
+				\vspace{-\baselineskip}%
+				\ifkomavarempty{place}%
+					{}%
+					{\usekomavar[\textbf]{place}\\}%
+				\usekomavar{date}\\%
 %    \end{macrocode}
 % Name und Adresse.
 %    \begin{macrocode}
-		\vspace{2\baselineskip}%
-		\usekomavar[\textbf]{fromname}\\%
-		\vspace{.5\baselineskip}%
-		\ifthenelse{\isundefined{\BAS@strasse}}%
-		 {}%
-		 {\BAS@strasse}\\%
-		\ifthenelse{\isundefined{\BAS@plz}}%
-		 {}%
-		 {\BAS@plz~\BAS@ort}\\%
+				\vspace{2\baselineskip}%
+				\usekomavar[\textbf]{fromname}\\%
+				\vspace{.5\baselineskip}%
+				\ifkomavarempty{fromaddress}%
+					{}%
+					{%
+						\usekomavar{fromaddress}\\
+						\vspace{\baselineskip}%
+					}%
 %    \end{macrocode}
 % Telefon, E-Mail.
 %    \begin{macrocode}
-		\vspace{\baselineskip}%
-		\ifthenelse{\isundefined{\BAS@telefon}}%
-		 {}%
-		 {\Telefon~\BAS@telefon}\\%
-		\ifthenelse{\isundefined{\BAS@email}}%
-		 {}%
-		 {\Email~\BAS@email}%
-	 }%
-	}%
- \end{picture}%
+				\ifkomavarempty{fromphone}%
+					{}%
+					{\usekomavar*{fromphone}\usekomavar{fromphone}\\}%
+				\ifkomavarempty{fromemail}%
+					{}%
+					{\usekomavar*{fromemail}\texttt{\usekomavar{fromemail}}\\}%
+				\ifkomavarempty{fromurl}%
+					{}%
+					{\texttt{\usekomavar{fromurl}}\\}%
+			}%
+		}%
+	\end{picture}%
 %    \end{macrocode}
 % Trick von Markus Kohm, damit die Spalte nicht rechts herauragt.
 %    \begin{macrocode}
- \hspace*{\infocolwidth}%
+	\hspace*{\infocolwidth}%
 }
 %    \end{macrocode}
 %
 % Das Trennzeichen in der Rücksendeadresse soll ein kleiner Punkt sein.
 %    \begin{macrocode}
-\setkomavar{backaddressseparator}{~$\cdot$~}
+\setkomavar{backaddressseparator}{~\ensuremath{\cdot}~}
 %    \end{macrocode}
 %
 % Die Anrede wird etwas höher gehoben.
@@ -1684,254 +1799,10 @@
 \l@addto@macro\@firstheadfootfield{\setkomavar{date}{}}
 %    \end{macrocode}
 %
-% Die Kopfzeile der Folgeseiten enthält außen die Seitennummer ohne Linie.
 %    \begin{macrocode}
-\setheadwidth[0mm]{textwithmarginpar}
-\ohead{Seite~\pagemark}
-\setheadsepline{\BAS@linienbreite}
+%</lco:infospalte,lco:infospaltefett>
 %    \end{macrocode}
-%
-%    \begin{macrocode}
-%</lco:infospalte>
-%    \end{macrocode}
-%
-% \subsubsection{Datei \texttt{basbewerbung.lco}}
-%
-% Beginn der Datei.
-%    \begin{macrocode}
-%<*lco:bewerbung>
-%    \end{macrocode}
-%
-% Informationen über die Datei.
-%    \begin{macrocode}
-\ProvidesFile{basbewerbung.lco}[2007/01/18 v0.3 Basis-Brief: Bewerbungslayout]
-%    \end{macrocode}
-%
-% Das Layout beruht auf dem Infospaltenlayout.
-%    \begin{macrocode}
-\LoadLetterOption{basinfospalte}
-%    \end{macrocode}
-%
-% \begin{description}
-%		\item [backaddress=off] keine Rücksendeadresse
-%		\item [foldmarks=off] keine Falzmarken
-% \end{description}
-%    \begin{macrocode}
-\KOMAoptions{backaddress=off, foldmarks=off}
-%    \end{macrocode}
-%
-% Anlagen ohne Doppelpunkt.
-%    \begin{macrocode}
-\setkomavar{enclseparator}{~}
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-%</lco:bewerbung>
-%    \end{macrocode}
-%
-%^^A --------------------------------------------------------------------------
-%
-% \section{Makeindex-Stildatei}
-%
-%    \begin{macrocode}
-%<*makeindex>
-%    \end{macrocode}
-%
-% Sonderbedeutung von \verb#"# aufheben und \verb#=# zuweisen, damit deutsche Umlaute bei der
-% Sortierung möglich sind.
-%    \begin{macrocode}
-quote '='
-%    \end{macrocode}
-%
-% Jeder neue Abschnitt beginnt mit einem Großbuchstaben.
-% Die Buchstaben sind fett, nach dem Buchstaben darf keine neue Seite beginnen.
-%    \begin{macrocode}
-headings_flag 1
-heading_prefix "{\\bfseries "
-heading_suffix "}\\nopagebreak\n"
-%    \end{macrocode}
-%
-% Bezeichner für Symbole und Zahlen festlegen.
-%    \begin{macrocode}
-symhead_positive "Symbole"
-numhead_positive "Zahlen"
-%    \end{macrocode}
-%
-% Zwischen Einträgen und Seitenzahlen steht ein Leerzeichen.
-%    \begin{macrocode}
-delim_0 "\\quad"
-delim_1 "\\quad"
-delim_2 "\\quad"
-%    \end{macrocode}
-%
-% Bei Folgeseiten f. bzw. ff. schreiben.
-%    \begin{macrocode}
-suffix_2p "~f."
-suffix_mp "~ff."
-%    \end{macrocode}
-%^^A " (Syntaxhighlighting)
-%
-%    \begin{macrocode}
-%</makeindex>
-%    \end{macrocode}
-%
-%^^A --------------------------------------------------------------------------
-%
-%	\cleardoublepage
-% \section{Vorlagen}
-%
-%
-% Diese Vorlagen sollen die Nutzung von \LaTeX{} bzw.\ von diesem Stil erleichtern.
-% Sie sind allerdings mit Nachdenken anzuwenden.
-%
-% \subsection{Vorlage für einen Artikel oder ein Buch}
-%
-%    \begin{macrocode}
-%<*vorlage:artikel>
- % Projekt: ...
-
- % Optionen:
- % 11pt - 11-Punkt-Schrift
- % a4paper - A4-Papier
- % bigheadings - große Überschriften
- % twoside - zweiseitiges Layout
- % titlepage - extra Titelseite
- % halfparskip - Absatz ohne Einzug, halbe Zeile Abstand
- % tocleft - Inhaltsverzeichnis linksbündig
- % cleardoubleempty - leere Seiten bei cleardoublepage
- % noonelinecaption - alle captions linksbündig
- % origlongtable - captions von longtable übernehmen
- % german - Spracheinstellung für babel
- %
- % Dokumentklasse: scrartcl für Artikel; scrbook für Bücher
-\documentclass[11pt, a4paper, bigheadings, twoside,
- titlepage, halfparskip, tocleft, cleardoubleempty,
- noonelinecaption, origlongtable, german]{scrartcl}
-
- % im Basis-Layout setzen
- % Optionen: draft, index, nojura, nohyper, hypercolor,
- %           bewerbung, onehalfspacing, noonelinecaption
- %           font=[original|times|mathpazo|hfold|charter]
-\usepackage{basis}
-
- % Metainformationen über das Dokument
-\title[Kurzform]{Dokumenttitel} % Kurzform optional
-\subtitle{Untertitel} % kann weggelassen werden
-\author{Autorname} % Autor ist Pflicht für die Titelseite
-\strasse{Straße} % optional
-\plz{PLZ} % optional
-\ort{Ort} % optional
-\telefon{(030) 1\,22\,33\,44} % optional
-\email{abc@abc.de} % optional
-\adresszusatz{Adresszusatz} % optional
-\titelzusatz{Titelzusatz} % optional
-
- % ab hier beginnt der Inhalt
-\begin{document}
-
- \maketitle
-
- \tableofcontents
- \cleardoublepage
-
- \section{Kapitel 1}
-
- Hier sollte richtiger Inhalt stehen.
-
-\end{document}
-%</vorlage:artikel>
-%    \end{macrocode}
-%
-% \subsection{Vorlage für einen Brief}
-%
-%    \begin{macrocode}
-%<*vorlage:brief>
- % Optionen:
- %  fontsize=11pt - Schriftgröße (Layouts für 11pt ausgelegt)
- %  ngerman - Spracheinstellung für babel
-\documentclass[fontsize=11pt, ngerman]{scrlttr2}
-
- % Optionen: draft, index, nojura, nohyper, hypercolor,
- %           bewerbung, onehalfspacing, noonelinecaption
- %           font=[original|times|mathpazo|hfold|charter]
- %           layout=[kopfzeile]
-\usepackage{basbrief}
-
-\author{Autorname} % Autor ist Pflicht
-\strasse{Straße} % optional
-\plz{PLZ} % optional
-\ort{Ort} % optional
-\telefon{(030) 1\,22\,33\,44} % optional
-\email{abc@abc.de} % optional
-
-\begin{document}
-
- % nur eine Anlage: diese Zeile entkommentieren
- %\renewcommand{\enclname}{Anlage} % Bezeichnung für Anlagen
-
- % hier den Empfänger (\\-getrennt) eintragen
- \begin{letter}{Empfänger\\
-	Empfängerstraße\\
-	Empfängerort}
-
-	%\setkomavar{subject}{Betreff} % Betreff
-	%\setkomavar{date}{} % Datum (default: aktuelles Datum)
-	%\setkomavar{signature}{} % Unterschrift (default: Autor)
-
-	%\setkomavar{yourref}{} % Geschäftszeile: Ihr Zeichen
-	%\setkomavar{yourmail}{} % Geschäftszeile: Ihr Schreiben vom
-	%\setkomavar{myref}{} % Geschäftszeile: Unser Zeichen
-	%\setkomavar{invoice}{} % Geschäftszeile: Rechnungsnummer
-
-	%\newkomavar*[Bezeichnung]{id} % Geschäftszeile: neues Feld
-	%\setkomavar{id}{Inhalt} % Geschäftszeile: neues Feld
-
-	% Anrede
-	\opening{Hallo \dots,}
-
-	hier steht der Brieftext.
-
-	% Grußfloskel
-	\closing{Mit freundlichen Grüßen,}
-
-	% Post-Scriptum
-	%\ps
-
-	% Anlagen
-	%\encl{Anlage 1\\Anlage 2}
-
-	% Verteiler
-	%\cc{}
-
- \end{letter}
-
-\end{document}
-%</vorlage:brief>
-%    \end{macrocode}
-%
-%^^A --------------------------------------------------------------------------
-%
-% \subsection{Vorlage für eine Jurabib-Konfiguration}
-%
-%    \begin{macrocode}
-%<*vorlage:jurabib>
- % diese Datei anpassen und in Projektordner legen
-
- % Klassenoptionen
-\jurabibsetup{
-	authorformat=smallcaps,
-	ibidem,
-	bibformat=ibidem
-}
- % sonstige Befehle
-\renewcommand*{\biblnfont}{\textsc}
-\renewcommand*{\bibfnfont}{\textsc}
-\renewcommand*{\bibelnfont}{\textsc}
-\renewcommand*{\bibefnfont}{\textsc}
-%</vorlage:jurabib>
-%    \end{macrocode}
-%
-%^^A --------------------------------------------------------------------------
 %
 %\Finale
 \endinput
+

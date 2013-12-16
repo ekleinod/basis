@@ -1,0 +1,303 @@
+\documentclass[ngerman]{scrartcl}
+
+%\usepackage{basis}
+
+%\usepackage[draft]{basis}
+%\usepackage[final]{basis}
+
+%\usepackage[font=charter]{basis}
+%\usepackage[font=hfold]{basis}
+%\usepackage[font=mathpazo]{basis}
+%\usepackage[font=original]{basis}
+%\usepackage[font=times]{basis}
+%\usepackage[font=wrong]{basis}
+
+%\usepackage[hypercolor=green]{basis}
+
+%\usepackage[hyperdriver=dvips]{basis}
+
+%\usepackage[notitlepage]{basis}
+%\usepackage[notitlepage, oneside]{basis}
+
+%\usepackage[oneside]{basis}
+
+\usepackage[protokoll]{basis}
+
+%\usepackage[pagestyle=beides]{basis}
+%\usepackage[pagestyle=fuss]{basis}
+%\usepackage[pagestyle=leer]{basis}
+%\usepackage[notitlepage, pagestyle=leer]{basis}
+%\usepackage[pagestyle=wrong]{basis}
+
+%\usepackage[draft|final, font=charter|hfold|mathpazo|original|times, hypercolor=<color>, hyperdriver=<driver>, notitlepage, oneside, protokoll, pagestyle=beides|fuss|fussseite|leer]{basis}
+
+%\title{Dokumenttitel}
+\title[Kurzform]{Dokumenttitel}
+\subtitle{Untertitel}
+
+\version{Version 1.0}
+\date{Datum}
+
+\author{Autorname}
+
+\strasse{Straße}
+\plz{PLZ}
+\ort{Ort}
+\telefon{(030) 1\,22\,33\,44}
+\handy{(0177) 1\,22\,33\,44}
+\email{abc@abc.de}
+\homepage{www.abc.de}
+\adresszusatz{Adresszusatz}
+
+\titelzusatz{Titelzusatz}
+\logo{testlogo}
+
+\usepackage{lipsum}
+
+\begin{document}
+
+	\maketitle
+
+	\tableofcontents
+	\cleardoublepage
+
+	\section{Inhalte}
+	\label{sec:sec}
+
+	Text.
+
+	Text \meta{Metatext} Text.
+
+	\subsection{Bilder}
+	\label{subsec:subsec}
+
+	\begin{figure}[htb]
+		\caption{Bild}
+		\label{fig:fig}
+		\includegraphics{testlogo}
+	\end{figure}
+
+	\subsection{Referenzen}
+
+	Siehe fig \autoref{fig:fig}.
+
+	Siehe sec \autoref{sec:sec}.
+
+	Siehe subsec \autoref{subsec:subsec}.
+
+	Siehe tab \autoref{tab:tab}.
+
+	Siehe eqn \autoref{eqn:eqn}.
+
+	\subsection{Symbole}
+
+	\subsubsection{marvosym}
+
+	Telefon \Telefon{}
+	WashCotton \WashCotton{}
+	Virgo \Virgo{}
+
+	\subsubsection{wasysym}
+
+	phone \phone{}
+	virgo \virgo{}
+	frownie \frownie{}
+
+	\subsubsection{hologo}
+
+	\hologo{XeLaTeX}
+	\hologo{METAPOST}
+	\hologo{LaTeXe}
+	\hologo{pdfLaTeX}
+
+	\subsection{Tabellen}
+
+	\begin{longtabu}[l]{@{}lcr@{}}
+		\toprule
+		\captionabove{Tabelle über mehrere Seiten}\label{tab:tab}\\
+		\midrule
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		Zelle & Zelle & Zelleninhalt einer gewissen Länge\\
+		Zelle & Zelleninhalt einer gewissen Länge & Zelle\\
+		Zelle & Zelle & Zelle\\
+		\bottomrule
+	\end{longtabu}
+
+
+	\subsection{Gleichungen}
+
+	\begin{equation}
+		a^2+b^2=c^2 \label{eqn:eqn}
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\begin{equation}
+		a^2+b^2=c^2
+	\end{equation}
+
+	\subsection{Fußnoten}
+
+	Text\footnote{Fußnote, die über mehrere Zeilen läuft, die über mehrere Zeilen läuft, die über mehrere Zeilen läuft, die über mehrere Zeilen läuft}.
+	Text\footnote{Fußnote}.
+	Text\footnote{Fußnote}.
+	Text\footnote{Fußnote}.
+	Text\footnote{Fußnote}.
+	Text\footnote{Fußnote}\multiplefootnoteseparator\footnote{Fußnote}\footnote{Fußnote}\footnote{Fußnote}.
+	Text\footnote{Fußnote}\footnote{Fußnote}.
+
+	\lipsum[1-1]
+
+
+
+	\addsec{Unnumeriert}
+
+	\lipsum[1-1]
+
+	\subsection*{Zwischenüberschrift}
+
+	\lipsum[1-1]
+
+	\subsubsection*{Unterzwischenüberschrift}
+
+	\lipsum[1-1]
+
+
+
+	\section{section}
+	\lipsum[1-5]
+
+	\section{section}
+	\lipsum[1-5]
+
+	\section{section}
+	\lipsum[1-5]
+
+	\section{section}
+	\lipsum[1-5]
+
+	\section{section}
+	\lipsum[1-25]
+
+\end{document}
+
