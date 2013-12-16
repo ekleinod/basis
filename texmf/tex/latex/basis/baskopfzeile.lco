@@ -10,36 +10,55 @@
 %% (c) 2006-2013 Ekkart Kleinod
 %% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
 %% 
-\ProvidesFile{baskopfzeile.lco}[2007/01/15 v0.3 Basis-Brief: Kopfzeilenlayout]
+\ProvidesFile{baskopfzeile.lco}[2013/12/16 v0.4 alpha Basis-Brief: Kopfzeilenlayout]
 \newkomavar{headseparator}
 \setkomavar{headseparator}{~\ensuremath{\cdot}~}
 \@setplength{firstheadvpos}{15mm}
 \setkomafont{fromname}{\sffamily\small}
 \setkomafont{fromaddress}{\sffamily\footnotesize}
-\firsthead{%
- \centering
- {\usekomafont{fromname}%
+\setkomavar{firsthead}{%
+\centering%
+\usekomafont{fromaddress}%
+{%
 \usekomavar{fromname}%
 \ifthenelse{\isundefined{\BAS@strasse}}%
- {}%
- {\usekomavar{headseparator}\BAS@strasse}%
+{}%
+{\usekomavar{headseparator}\BAS@strasse}%
+\ifthenelse{\boolean{BAS@hascityline}}%
+{%
+\usekomavar{headseparator}%
 \ifthenelse{\isundefined{\BAS@plz}}%
- {}%
- {\usekomavar{headseparator}\BAS@plz~\BAS@ort}%
- }\\
- {\usekomafont{fromaddress}%
-\ifthenelse{\isundefined{\BAS@telefon}}%
- {}%
- {\BAS@telefon}%
-\ifthenelse{\isundefined{\BAS@email}}%
- {}%
- {\usekomavar{headseparator}\BAS@email}%
- }\\[-.5\baselineskip]%
- \rule{\textwidth}{\BAS@linienbreite}%
+{}%
+{%
+\BAS@plz%
+\ifthenelse{\isundefined\BAS@ort}%
+{}%
+{~}%
+}%
+\ifthenelse{\isundefined\BAS@ort}%
+{}%
+{\BAS@ort}%
+}{}%
+}\\%
+\ifthenelse{\boolean{BAS@hascomm}}%
+{%
+{%
+\ifkomavarempty{fromphone}%
+{}%
+{\usekomavar{fromphone}}%
+\ifkomavarempty{fromemail}%
+{}%
+{%
+\ifkomavarempty{fromphone}%
+{}%
+{\usekomavar{headseparator}}%
+\usekomavar{fromemail}%
+}%
+}\\%
+}{}%
+\rule{\textwidth}{\BAS@len@rule}%
 }
-\setkomavar{backaddressseparator}{~--~}
-\ohead{Seite~\pagemark}
-\setheadsepline{\BAS@linienbreite}
+\setkomavar{backaddressseparator}{~\ensuremath{\cdot}~}
 %% 
 %% (c) 2006-2013 Ekkart Kleinod
 %%

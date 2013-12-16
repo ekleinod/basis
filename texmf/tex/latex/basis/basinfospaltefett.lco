@@ -1,17 +1,17 @@
 %%
-%% This is file `basinfospalte.lco',
+%% This is file `basinfospaltefett.lco',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
 %%
-%% basis.dtx  (with options: `lco:infospalte')
+%% basis.dtx  (with options: `lco:infospaltefett')
 %% 
 %% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
 %% (c) 2006-2013 Ekkart Kleinod
 %% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
 %% 
-\ProvidesFile{basinfospalte.lco}[2013/12/16 v0.4 alpha Basis-Brief: Infospaltenlayout]
-\setkomafont{fromname}{\scshape}
+\ProvidesFile{basinfospaltefett.lco}[2013/12/16 v0.4 alpha Basis-Brief: Infospalte mit fettem Autornamen]
+\setkomafont{fromname}{\bfseries\sffamily}
 \setkomafont{fromaddress}{\sffamily\scriptsize}
 \newlength{\infocolwidth}
 \setlength{\infocolwidth}{.16\paperwidth}
@@ -67,4 +67,4 @@
 %% 
 %% (c) 2006-2013 Ekkart Kleinod
 %%
-%% End of file `basinfospalte.lco'.
+%% End of file `basinfospaltefett.lco'.
