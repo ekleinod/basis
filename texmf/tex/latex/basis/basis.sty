@@ -7,540 +7,710 @@
 %% basis.dtx  (with options: `basis')
 %% 
 %% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
-%% (c) 2006-2011 Ekkart Kleinod
-%% Informationen: www.ekkart.de
+%% (c) 2006-2013 Ekkart Kleinod
+%% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{basis}
-[2013/11/26 v0.3 Basis-Layout]
-\typeout{*** basis-Stil 2013/11/26 v0.3 ***}
+[2013/12/16 v0.4 Basis-Layout]
+\typeout{*** basis-Stil 2013/12/16 v0.4 ***}
 \RequirePackage{xkeyval}
 \RequirePackage{xifthen}
+\RequirePackage{ifxetex}
 \RequirePackage{ifpdf}
-\newboolean{BAS@optionbewerbung}
-\setboolean{BAS@optionbewerbung}{false}
-\DeclareOptionX{bewerbung}{
- \setboolean{BAS@optionbewerbung}{true}
- \typeout{Basis-Option 'bewerbung'}
-}
-\newboolean{BAS@optiondraft}
-\setboolean{BAS@optiondraft}{false}
+\newcommand{\BAS@opt@draft}{off}
 \DeclareOptionX{draft}{
- \setboolean{BAS@optiondraft}{true}
- \typeout{Basis-Option 'draft'}
- \PackageWarning{basis}{Entwurfsmodus eingeschaltet}
+\renewcommand{\BAS@opt@draft}{on}
+\PassOptionsToPackage{draft}{graphicx}
+\PassOptionsToPackage{draft}{hyperref}
+\typeout{Basis-Option 'draft=\BAS@opt@draft'}
+\PackageWarning{basis}{Entwurfsmodus eingeschaltet}
 }
-\DeclareOptionX{fixme}{
- \ifthenelse{\equal{\@empty}{#1}}
-{\newcommand{\BAS@fixme}{final}}
-{\newcommand{\BAS@fixme}{#1}}
- \typeout{Basis-Option 'fixme=\BAS@fixme'}
- \PackageWarning{basis}{FixMe eingeschaltet}
+\DeclareOptionX{final}{
+\PassOptionsToPackage{final}{graphicx}
+\PassOptionsToPackage{final}{hyperref}
+\typeout{Basis-Option 'final'}
 }
-\newcommand{\BAS@font}{times}
+\newcommand{\BAS@opt@font}{times}
 \DeclareOptionX{font}{
- \ifthenelse{\equal{\@empty}{#1}}
+\ifthenelse{\equal{\@empty}{#1}}
 {}
 {
- \ifthenelse{
+\ifthenelse{
 \equal{#1}{charter}\or
 \equal{#1}{hfold}\or
 \equal{#1}{mathpazo}\or
 \equal{#1}{original}\or
 \equal{#1}{times}
- }
-{\renewcommand{\BAS@font}{#1}}
-{\PackageWarning{basis}{Font '#1' unbekannt, nutze 'times'}}
 }
- \typeout{Basis-Option 'font=\BAS@font'}
+{\renewcommand{\BAS@opt@font}{#1}}
+{\PackageWarning{basis}{Font '#1' unbekannt, nutze '\BAS@opt@font'}}
 }
-\newcommand{\BAS@hypercolor}{blue}
+\typeout{Basis-Option 'font=\BAS@opt@font'}
+}
+\newcommand{\BAS@opt@hypercolor}{black}
 \DeclareOptionX{hypercolor}{
- \ifthenelse{\equal{\@empty}{#1}}
+\ifthenelse{\equal{\@empty}{#1}}
 {}
-{\renewcommand{\BAS@hypercolor}{#1}}
- \typeout{Basis-Option 'hypercolor=\BAS@hypercolor'}}
-\newcommand{\BAS@hyperdriver}{ps2pdf}
+{\renewcommand{\BAS@opt@hypercolor}{#1}}
+\typeout{Basis-Option 'hypercolor=\BAS@opt@hypercolor'}
+}
+\newcommand{\BAS@opt@hyperdriver}{ps2pdf}
 \ifpdf
- \renewcommand{\BAS@hyperdriver}{pdftex}
+\renewcommand{\BAS@opt@hyperdriver}{pdftex}
+\fi
+\ifxetex
+\renewcommand{\BAS@opt@hyperdriver}{xetex}
 \fi
 \DeclareOptionX{hyperdriver}{
- \ifthenelse{\equal{\@empty}{#1}}
+\ifthenelse{\isempty{#1}}
 {}
-{\renewcommand{\BAS@hyperdriver}{#1}}
- \typeout{Basis-Option 'hyperdriver=\BAS@hyperdriver'}}
-\newcommand{\BAS@layout}{infospalte}
+{\renewcommand{\BAS@opt@hyperdriver}{#1}}
+\typeout{Basis-Option 'hyperdriver=\BAS@opt@hyperdriver'}
+}
+\newcommand{\BAS@opt@layout}{infospalte}
 \DeclareOptionX{layout}{
- \ifthenelse{\equal{\@empty}{#1}}
+\ifthenelse{\equal{\@empty}{#1}}
 {}
 {
- \ifthenelse{
+\ifthenelse{
 \equal{#1}{bewerbung}\or
 \equal{#1}{kopfzeile}\or
-\equal{#1}{infospalte}
- }
-{\renewcommand{\BAS@layout}{#1}}
-{\PackageWarning{basis}{Layout '#1' unbekannt, nutze 'infospalte'}}
+\equal{#1}{infospalte}\or
+\equal{#1}{infospaltefett}
 }
- \typeout{Basis-Option 'layout=\BAS@layout'}
+{\renewcommand{\BAS@opt@layout}{#1}}
+{\PackageWarning{basis}{Layout '#1' unbekannt, nutze '\BAS@opt@layout'}}
 }
-\newboolean{BAS@optionindex}
-\setboolean{BAS@optionindex}{false}
-\DeclareOptionX{index}{
- \setboolean{BAS@optionindex}{true}
- \typeout{Basis-Option 'index'}}
-\newboolean{BAS@optionnohyper}
-\setboolean{BAS@optionnohyper}{false}
-\DeclareOptionX{nohyper}{
- \setboolean{BAS@optionnohyper}{true}
- \typeout{Basis-Option 'nohyper'}}
-\newboolean{BAS@optionnojura}
-\setboolean{BAS@optionnojura}{false}
-\DeclareOptionX{nojura}{
- \setboolean{BAS@optionnojura}{true}
- \typeout{Basis-Option 'nojura'}}
-\newboolean{BAS@optionnoonelinecaption}
-\setboolean{BAS@optionnoonelinecaption}{false}
-\DeclareOptionX{noonelinecaption}{
- \setboolean{BAS@optionnoonelinecaption}{true}
- \typeout{Basis-Option 'noonelinecaption'}}
-\newboolean{BAS@optiononehalfspacing}
-\setboolean{BAS@optiononehalfspacing}{false}
-\DeclareOptionX{onehalfspacing}{
- \setboolean{BAS@optiononehalfspacing}{true}
- \typeout{Basis-Option 'onehalfspacing'}}
+\typeout{Basis-Option 'layout=\BAS@opt@layout'}
+}
+\newcommand{\BAS@opt@backaddress}{on}
+\DeclareOptionX{nobackaddress}{
+\renewcommand{\BAS@opt@backaddress}{off}
+\typeout{Basis-Option 'nobackaddress'}
+}
+\newcommand{\BAS@opt@foldmarks}{on}
+\DeclareOptionX{nofoldmarks}{
+\renewcommand{\BAS@opt@foldmarks}{off}
+\typeout{Basis-Option 'nofoldmarks'}
+}
+\newcommand{\BAS@opt@titlepage}{on}
+\DeclareOptionX{notitlepage}{
+\renewcommand{\BAS@opt@titlepage}{off}
+\typeout{Basis-Option 'notitlepage'}
+}
+\newcommand{\BAS@opt@twoside}{on}
+\DeclareOptionX{oneside}{
+\renewcommand{\BAS@opt@twoside}{off}
+\typeout{Basis-Option 'oneside'}
+}
+\newboolean{BAS@opt@protocol}
+\setboolean{BAS@opt@protocol}{false}
+\DeclareOptionX{protokoll}{
+\setboolean{BAS@opt@protocol}{true}
+\typeout{Basis-Option 'protokoll'}
+}
+\newcommand{\BAS@opt@pagestyle}{beides}
+\ifthenelse{\equal{\KOMAClassName}{scrlttr2}}
+{\renewcommand{\BAS@opt@pagestyle}{fussseite}}{}
+\DeclareOptionX{pagestyle}{
+\ifthenelse{\equal{\@empty}{#1}}
+{}
+{
+\ifthenelse{
+\equal{#1}{beides}\or
+\equal{#1}{fuss}\or
+\equal{#1}{fussseite}\or
+\equal{#1}{leer}
+}
+{\renewcommand{\BAS@opt@pagestyle}{#1}}
+{\PackageWarning{basis}{Seitenstil '#1' unbekannt, nutze '\BAS@opt@pagestyle'}}
+}
+\typeout{Basis-Option 'pagestyle=\BAS@opt@pagestyle'}
+}
 \ProcessOptionsX
+\newlength{\BAS@len@rule}
+\setlength{\BAS@len@rule}{.4pt}
+\KOMAoptions{
+cleardoublepage=empty,
+draft=\BAS@opt@draft,
+fontsize=11pt,
+footnotes=multiple,
+paper=a4,
+parskip=half,
+twocolumn=off,
+twoside=\BAS@opt@twoside
+}
+\ifthenelse{\equal{\KOMAClassName}{scrlttr2}}
+{
+\KOMAoptions{
+backaddress=\BAS@opt@backaddress,
+foldmarks=\BAS@opt@foldmarks
+}
+}
+{
+\KOMAoptions{
+captions=nooneline,
+headings=big,
+numbers=noendperiod,
+titlepage=\BAS@opt@titlepage,
+toc=flat
+}
+}
+\ifthenelse{\equal{\KOMAClassName}{scrbook} OR \equal{\KOMAClassName}{scrreprt}}
+{
+\KOMAoptions{
+open=right
+}
+}
+{}
+\ifxetex\else
 \RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\fi
 \RequirePackage{babel}
 \useshorthands{"}
 \AtEndOfClass{\shorthandon{"}}
-\RequirePackage[T1]{fontenc}
-\ifthenelse{\equal{\BAS@font}{charter}}
- {
+\ifthenelse{\equal{\BAS@opt@font}{charter}}
+{
 \RequirePackage{charter}
 \RequirePackage[scaled=.95]{helvet}
 \RequirePackage[scaled]{luximono}
- }{}
-\ifthenelse{\equal{\BAS@font}{hfold}}
- {\RequirePackage{hfoldsty}}
- {}
-\ifthenelse{\equal{\BAS@font}{mathpazo}}
- {
+}{}
+\ifthenelse{\equal{\BAS@opt@font}{hfold}}
+{
+\RequirePackage{hfoldsty}
+}
+{}
+\ifthenelse{\equal{\BAS@opt@font}{mathpazo}}
+{
 \RequirePackage[osf, slantedGreek]{mathpazo}
 \RequirePackage[scaled=.95]{helvet}
 \RequirePackage[scaled]{luximono}
- }{}
-\ifthenelse{\equal{\BAS@font}{original}}
- {}{}
-\ifthenelse{\equal{\BAS@font}{times}}
- {
+}{}
+\ifthenelse{\equal{\BAS@opt@font}{original}}
+{}{}
+\ifthenelse{\equal{\BAS@opt@font}{times}}
+{
 \RequirePackage{mathptmx}
 \RequirePackage[scaled]{helvet}
 \RequirePackage[scaled]{luximono}
- }{}
-\RequirePackage{graphicx}
-\RequirePackage{microtype}
+}{}
+\RequirePackage[tracking=true]{microtype}
+\SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
+\ifxetex
+\else
+\IfFileExists{marvosym.sty}{
 \RequirePackage{marvosym}
 \mathchardef\Rightarrow="3229
-\RequirePackage{scrpage2}
-\ifthenelse{\boolean{BAS@optionnojura}}
- {}
- {\RequirePackage{jurabib}}
+}{
+\ClassWarning{basis}{marvosym.sty nicht vorhanden}
+}
+\fi
+\ifxetex
+\else
+\IfFileExists{wasysym.sty}{
+\RequirePackage{wasysym}
+}{
+\ClassWarning{basis}{wasysym.sty nicht vorhanden}
+}
+\fi
+\IfFileExists{hologo.sty}{
+\RequirePackage{hologo}
+}{
+\ClassWarning{basis}{hologo.sty nicht vorhanden}
+}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage{pdfcolmk}
 \RequirePackage{longtable}
 \RequirePackage{array}
+\RequirePackage{tabu}
 \RequirePackage{booktabs}
-\ifthenelse{\boolean{BAS@optionnohyper}}
- {}
- {
 \RequirePackage[
- \BAS@hyperdriver,
- a4paper,
- breaklinks,
- colorlinks,
- linkcolor=\BAS@hypercolor,
- citecolor=\BAS@hypercolor,
- urlcolor=\BAS@hypercolor,
- bookmarks,
- bookmarksopen,
- bookmarksnumbered,
- pdfpagemode=UseNone,
- pdfstartview=Fit
+\BAS@opt@hyperdriver,
+allcolors=\BAS@opt@hypercolor,
+bookmarks=true,
+bookmarksnumbered=true,
+bookmarksopen=true,
+breaklinks=true,
+colorlinks=true
 ]{hyperref}
 \AtBeginDocument{
-\ifthenelse{\isundefined{\BAS@subtitle}}
- {\hypersetup{pdftitle=\@title}}
- {\hypersetup{pdftitle={\@title{} - \BAS@subtitle}}}
- \hypersetup{pdfauthor=\@author}
- \hypersetup{pdfsubject=\@title}
- \hypersetup{pdfcreator=LaTeX}
- \hypersetup{pdfkeywords=\@title}
+\hypersetup{pdftitle=\BAS@title%
+\ifx\undefined\@subtitle\else%
+\ifx\empty\@subtitle\else%
+{ - \@subtitle}%
+\fi
+\fi%
 }
-\iflanguage{german}{
- \AtBeginDocument{
-\def\equationautorefname{For\-mel}
-\def\footnoteautorefname{Fu\ss \-no\-te}
-\def\itemautorefname{Punkt}
-\def\figureautorefname{Ab\-bil\-dung}
-\def\subfigureautorefname{\figureautorefname}
-\def\tableautorefname{Ta\-bel\-le}
-\def\partautorefname{Teil}
-\def\appendixautorefname{An\-hang}
-\def\chapterautorefname{Ka\-pi\-tel}
-\def\sectionautorefname{\chapterautorefname}
-\def\subsectionautorefname{Ab\-schnitt}
-\def\subsubsectionautorefname{\subsectionautorefname}
-\def\paragraphautorefname{Ab\-satz}
-\def\subparagraphautorefname{\paragraphautorefname}
-\def\FancyVerbLineautorefname{Zei\-le}
-\def\theoremautorefname{The\-o\-rem}
- }
-}{}
-\iflanguage{ngerman}{
- \AtBeginDocument{
-\def\equationautorefname{For\-mel}
-\def\footnoteautorefname{Fu\ss \-no\-te}
-\def\itemautorefname{Punkt}
-\def\figureautorefname{Ab\-bil\-dung}
-\def\subfigureautorefname{\figureautorefname}
-\def\tableautorefname{Ta\-bel\-le}
-\def\partautorefname{Teil}
-\def\appendixautorefname{An\-hang}
-\def\chapterautorefname{Ka\-pi\-tel}
-\def\sectionautorefname{\chapterautorefname}
-\def\subsectionautorefname{Ab\-schnitt}
-\def\subsubsectionautorefname{\subsectionautorefname}
-\def\paragraphautorefname{Ab\-satz}
-\def\subparagraphautorefname{\paragraphautorefname}
-\def\FancyVerbLineautorefname{Zei\-le}
-\def\theoremautorefname{The\-o\-rem}
- }
-}{}
-\iflanguage{english}{
- \AtBeginDocument{
-\def\equationautorefname{equa\-tion}
-\def\footnoteautorefname{foot\-note}
-\def\itemautorefname{item}
-\def\figureautorefname{fig\-ure}
-\def\subfigureautorefname{\figureautorefname}
-\def\tableautorefname{table}
-\def\partautorefname{part}
-\def\appendixautorefname{ap\-pen\-dix}
-\def\chapterautorefname{chap\-ter}
-\def\sectionautorefname{sec\-tion}
-\def\subsectionautorefname{\sectionautorefname}
-\def\subsubsectionautorefname{\sectionautorefname}
-\def\paragraphautorefname{para\-graph}
-\def\subparagraphautorefname{sub\-para\-graph}
-\def\FancyVerbLineautorefname{line}
-\def\theoremautorefname{the\-orem}
- }
-}{}
- } % if nohyper
-\ifthenelse{\isundefined{\BAS@fixme}}
- {}
- {
-\RequirePackage[\BAS@fixme, inline, nomargin, silent]{fixme}
-\renewcommand\FXInline[2]{
- \fcolorbox{red}{white}{\textbf{\textcolor{black}{#1:}}}
- \textcolor{red}{\emph{#2}}
+\hypersetup{pdfauthor=\@author}
+\hypersetup{pdfsubject=\BAS@title}
+\hypersetup{pdfcreator=LaTeX}
+\hypersetup{pdfkeywords=\BAS@title}
 }
-\renewcommand\FXFootnote[2]{
- \footnote{\fcolorbox{red}{white}{\textbf{\textcolor{black}{#1:}}}
- \textcolor{red}{\emph{#2}}}
-}
-\renewcommand\FXEnvBegin{\begin{quotation}\color{red}}
-\renewcommand\FXEnvEnd{\end{quotation}}
- }
+\addto\extrasngerman{\def\equationautorefname{For\-mel}}
+\addto\extrasngerman{\def\footnoteautorefname{Fu\ss \-no\-te}}
+\addto\extrasngerman{\def\itemautorefname{Punkt}}
+\addto\extrasngerman{\def\figureautorefname{Ab\-bil\-dung}}
+\addto\extrasngerman{\def\subfigureautorefname{\figureautorefname}}
+\addto\extrasngerman{\def\tableautorefname{Ta\-bel\-le}}
+\addto\extrasngerman{\def\partautorefname{Teil}}
+\addto\extrasngerman{\def\appendixautorefname{An\-hang}}
+\addto\extrasngerman{\def\chapterautorefname{Ka\-pi\-tel}}
+\addto\extrasngerman{\def\sectionautorefname{\chapterautorefname}}
+\addto\extrasngerman{\def\subsectionautorefname{Ab\-schnitt}}
+\addto\extrasngerman{\def\subsubsectionautorefname{\subsectionautorefname}}
+\addto\extrasngerman{\def\paragraphautorefname{Ab\-satz}}
+\addto\extrasngerman{\def\subparagraphautorefname{Un\-ter\-ab\-satz}}
+\addto\extrasngerman{\def\FancyVerbLineautorefname{Zei\-le}}
+\addto\extrasngerman{\def\theoremautorefname{The\-o\-rem}}
+
+\addto\extrasgerman{\def\equationautorefname{For\-mel}}
+\addto\extrasgerman{\def\footnoteautorefname{Fu\ss \-no\-te}}
+\addto\extrasgerman{\def\itemautorefname{Punkt}}
+\addto\extrasgerman{\def\figureautorefname{Ab\-bil\-dung}}
+\addto\extrasgerman{\def\subfigureautorefname{\figureautorefname}}
+\addto\extrasgerman{\def\tableautorefname{Ta\-bel\-le}}
+\addto\extrasgerman{\def\partautorefname{Teil}}
+\addto\extrasgerman{\def\appendixautorefname{An\-hang}}
+\addto\extrasgerman{\def\chapterautorefname{Ka\-pi\-tel}}
+\addto\extrasgerman{\def\sectionautorefname{\chapterautorefname}}
+\addto\extrasgerman{\def\subsectionautorefname{Ab\-schnitt}}
+\addto\extrasgerman{\def\subsubsectionautorefname{\subsectionautorefname}}
+\addto\extrasgerman{\def\paragraphautorefname{Ab\-satz}}
+\addto\extrasgerman{\def\subparagraphautorefname{Un\-ter\-ab\-satz}}
+\addto\extrasgerman{\def\FancyVerbLineautorefname{Zei\-le}}
+\addto\extrasgerman{\def\theoremautorefname{The\-o\-rem}}
+
+\addto\extrasenglish{\def\equationautorefname{For\-mu\-la}}
+\addto\extrasenglish{\def\footnoteautorefname{Foot\-note}}
+\addto\extrasenglish{\def\itemautorefname{Item}}
+\addto\extrasenglish{\def\figureautorefname{Fig\-ure}}
+\addto\extrasenglish{\def\subfigureautorefname{\figureautorefname}}
+\addto\extrasenglish{\def\tableautorefname{Table}}
+\addto\extrasenglish{\def\partautorefname{Part}}
+\addto\extrasenglish{\def\appendixautorefname{Ap\-pen\-dix}}
+\addto\extrasenglish{\def\chapterautorefname{Chap\-ter}}
+\addto\extrasenglish{\def\sectionautorefname{Sec\-tion}}
+\addto\extrasenglish{\def\subsectionautorefname{\sectionautorefname}}
+\addto\extrasenglish{\def\subsubsectionautorefname{\sectionautorefname}}
+\addto\extrasenglish{\def\paragraphautorefname{Para\-graph}}
+\addto\extrasenglish{\def\subparagraphautorefname{Sub\-para\-graph}}
+\addto\extrasenglish{\def\FancyVerbLineautorefname{Line}}
+\addto\extrasenglish{\def\theoremautorefname{The\-orem}}
 \newcommand{\strasse}[1]{\def\BAS@strasse{#1}}
 \newcommand{\plz}[1]{\def\BAS@plz{#1}}
 \newcommand{\ort}[1]{\def\BAS@ort{#1}}
 \newcommand{\telefon}[1]{\def\BAS@telefon{#1}}
+\newcommand{\handy}[1]{\def\BAS@handy{#1}}
 \newcommand{\email}[1]{\def\BAS@email{#1}}
+\newcommand{\homepage}[1]{\def\BAS@url{#1}}
 \newcommand{\adresszusatz}[1]{\def\BAS@adresszusatz{#1}}
 \ifthenelse{\isundefined{\logo}}
- {\newcommand{\logo}[1]{\def\BAS@logo{#1}}}
- {\renewcommand{\logo}[1]{\def\BAS@logo{#1}}}
-\ifthenelse{\boolean{BAS@optiononehalfspacing}}
- {\RequirePackage[onehalfspacing]{setspace}}
- {}
-\RequirePackage{ragged2e}
-\pagestyle{scrheadings}
-\clearscrheadfoot
-\newlength{\BAS@linienbreite}
-\setlength{\BAS@linienbreite}{.4pt}
-\newcommand{\datum}{%
- \ifthenelse{\day<10}{0}{}\the\day.\,%
- \ifthenelse{\month<10}{0}{}\the\month.\ %
- \the\year%
+{\newcommand{\logo}[1]{\def\BAS@logo{#1}}}
+{\renewcommand{\logo}[1]{\def\BAS@logo{#1}}}
+\AtBeginDocument{
+\newboolean{BAS@hasaddress}
+\setboolean{BAS@hasaddress}{false}
+\newboolean{BAS@hassnail}
+\setboolean{BAS@hassnail}{false}
+\newboolean{BAS@hasphone}
+\setboolean{BAS@hasphone}{false}
+\newboolean{BAS@hascityline}
+\setboolean{BAS@hascityline}{false}
+\newboolean{BAS@hascomm}
+\setboolean{BAS@hascomm}{false}
+\ifthenelse{\isundefined\BAS@email}
+{}
+{
+\ifthenelse{\equal{\BAS@email}{\@empty}}
+{}
+{
+\setboolean{BAS@hasaddress}{true}
+\setboolean{BAS@hascomm}{true}
 }
-\iflanguage{english}{
- \renewcommand{\datum}{%
-\the\year-%
-\ifthenelse{\month<10}{0}{}\the\month-%
-\ifthenelse{\day<10}{0}{}\the\day%
- }
-}{}
-\newcount\BAS@stunden
-\newcount\BAS@stundeninminuten
-\newcount\BAS@minuten
-\BAS@minuten = \time
-\BAS@stunden = \BAS@minuten
-\divide\BAS@stunden by 60
-\BAS@stundeninminuten = \BAS@stunden
-\multiply\BAS@stundeninminuten by 60
-\advance\BAS@minuten-\BAS@stundeninminuten
-\newcommand{\zeit}{%
- \ifthenelse{\BAS@stunden<10}{0}{}\the\BAS@stunden:%
- \ifthenelse{\BAS@minuten<10}{0}{}\the\BAS@minuten%
 }
-\newcommand{\zeitstempel}[1][\datum\ \zeit]{%
- \def\BAS@zeitstempel{#1}
- \cfoot{\BAS@zeitstempel}
+\ifthenelse{\isundefined\BAS@telefon}
+{}
+{
+\ifthenelse{\equal{\BAS@telefon}{\@empty}}
+{}
+{
+\setboolean{BAS@hasaddress}{true}
+\setboolean{BAS@hasphone}{true}
+\setboolean{BAS@hascomm}{true}
 }
-\newcommand{\zeitspanne}[2][\@empty]{%
- \ifthenelse{\equal{\@empty}{#1}}{}{#1\,--\,}%
- #2%
 }
-\renewcommand{\labelitemi}{--}
-\renewcommand{\labelitemii}{\ensuremath{\cdot}}
-\renewcommand{\labelitemiii}{\ensuremath{\bullet}}
-\renewcommand{\labelitemiv}{\ensuremath{\ast}}
-\renewcommand{\theenumi}{\arabic{enumi}}
-\renewcommand{\theenumii}{\roman{enumii}}
-\renewcommand{\theenumiii}{\alph{enumiii}}
-\renewcommand{\theenumiv}{\Alph{enumiv}}
-\renewcommand{\labelenumi}{\theenumi.}
-\renewcommand{\labelenumii}{\theenumii)}
-\renewcommand{\labelenumiii}{(\theenumiii)}
-\renewcommand{\labelenumiv}{\theenumiv}
-\renewcommand{\p@enumi}{}
-\renewcommand{\p@enumii}{\theenumi.}
-\renewcommand{\p@enumiii}{\theenumi.\theenumii.}
-\renewcommand{\p@enumiv}{\theenumi.\theenumii.\theenumiii.}
-\setlength{\skip\footins}{1.5\baselineskip}
-\renewcommand{\theequation}{(\thesection.\arabic{equation})}
+\ifthenelse{\isundefined\BAS@handy}
+{}
+{
+\ifthenelse{\equal{\BAS@handy}{\@empty}}
+{}
+{
+\setboolean{BAS@hasaddress}{true}
+\setboolean{BAS@hasphone}{true}
+\setboolean{BAS@hascomm}{true}
+}
+}
+\ifthenelse{\isundefined\BAS@strasse}
+{}
+{
+\ifthenelse{\equal{\BAS@strasse}{\@empty}}
+{}
+{
+\setboolean{BAS@hasaddress}{true}
+\setboolean{BAS@hassnail}{true}
+}
+}
+\ifthenelse{\isundefined\BAS@plz}
+{}
+{
+\ifthenelse{\equal{\BAS@plz}{\@empty}}
+{}
+{
+\setboolean{BAS@hasaddress}{true}
+\setboolean{BAS@hassnail}{true}
+\setboolean{BAS@hascityline}{true}
+}
+}
+\ifthenelse{\isundefined\BAS@ort}
+{}
+{
+\ifthenelse{\equal{\BAS@ort}{\@empty}}
+{}
+{
+\setboolean{BAS@hasaddress}{true}
+\setboolean{BAS@hassnail}{true}
+\setboolean{BAS@hascityline}{true}
+}
+}
+\ifthenelse{\isundefined\BAS@adresszusatz}
+{}
+{
+\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}
+{}
+{
+\setboolean{BAS@hasaddress}{true}
+\setboolean{BAS@hassnail}{true}
+}
+}
+}
+\RequirePackage[newcommands]{ragged2e}
+\RequirePackage[automark]{scrpage2}
+\RequirePackage{lastpage}
+\setkomafont{pageheadfoot}{\normalfont\sffamily\footnotesize}
+\defpagestyle{BASbeides}
+{
+{\hfill\leftmark}
+{\leftmark\hfill}
+{\leftmark\hfill}
+(\textwidth,\BAS@len@rule)
+}
+{
+(\textwidth,\BAS@len@rule)
+{Seite \pagemark\ von \pageref{LastPage}\hfill\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}
+{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
+{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
+}
+\defpagestyle{BASfuss}
+{
+{}
+{}
+{}
+}
+{
+(\textwidth,\BAS@len@rule)
+{Seite \pagemark\ von \pageref{LastPage}\hfill\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}}
+{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
+{\ifthenelse{\isundefined\BAS@shorttitle}{\BAS@title}{\BAS@shorttitle}\hfill Seite \pagemark\ von \pageref{LastPage}}
+}
+\defpagestyle{BASfussseite}
+{
+{}
+{}
+{}
+}
+{
+(\textwidth,\BAS@len@rule)
+{Seite \pagemark\ von \pageref{LastPage}}
+{\hfill Seite \pagemark\ von \pageref{LastPage}}
+{\hfill Seite \pagemark\ von \pageref{LastPage}}
+}
+\ifthenelse{\equal{\BAS@opt@pagestyle}{beides}}
+{\pagestyle{BASbeides}}
+{}
+\ifthenelse{\equal{\BAS@opt@pagestyle}{fuss}}
+{\pagestyle{BASfuss}}
+{}
+\ifthenelse{\equal{\BAS@opt@pagestyle}{fussseite}}
+{\pagestyle{BASfussseite}}
+{}
+\ifthenelse{\equal{\BAS@opt@pagestyle}{leer}}
+{\pagestyle{empty}}
+{}
+\RequirePackage[xspace]{dhua}
+\RequirePackage{enumitem}
+\setlist{topsep=0mm plus .1pt, partopsep=0mm, leftmargin=5mm, noitemsep}
+\setitemize[1]{label=--}
+\setitemize[2]{label=\ensuremath{\cdot}}
+\setitemize[3]{label=\ensuremath{\bullet}}
+\setitemize[4]{label=\ensuremath{\ast}}
+\setenumerate[1]{label=\arabic*., ref=\arabic*}
+\setenumerate[2]{label=\roman*, ref=\theenumii.\roman*}
+\setenumerate[3]{label=\alph*, ref=\theenumi.\alph*}
+\setenumerate[4]{label=\Alph*, ref=\theenumiii.\Alph*}
+\deffootnote{1.5em}{1em}{\makebox[1.5em][l]{\textsuperscript\thefootnotemark}}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
 \@addtoreset{equation}{section}
-\renewcommand{\@eqnnum}{%
- \hb@xt@.01\p@{}%
- \rlap{%
-\hskip -.98\textwidth%
-{\sffamily\small\theequation}
- }
-}
 \input{fleqn.clo}
-\AtEndOfClass{\setlength{\mathindent}{.2\textwidth}}
-\providecommand{\meta}[1]{%
- \ensuremath\langle\textsl{#1}\ensuremath\rangle%
-}
-\ifthenelse{\isundefined{\textsubscript}}
- {
-\DeclareRobustCommand*\textsubscript[1]{%
- \@textsubscript{\selectfont#1}}
-\newcommand{\@textsubscript}[1]{%
- {\m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}}}
- }{}
+\AtEndOfClass{\setlength{\mathindent}{0mm}}
+\ifx\undefined\meta
+\newcommand{\meta}[1]{\ensuremath\langle\textsl{#1}\ensuremath\rangle}
+\else
+\renewcommand{\meta}[1]{\ensuremath\langle\textsl{#1}\ensuremath\rangle}
+\fi
 \renewcommand{\title}[2][\@empty]{
- \ifthenelse{\equal{\@empty}{#1}}
-{\def\BAS@foottitle{#2}}
-{\def\BAS@foottitle{#1}}
- \def\@title{#2}
+\ifthenelse{\equal{\@empty}{#1}}
+{}{\def\BAS@shorttitle{#1}}
+\def\@title{#2}
+\def\BAS@title{#2}
 }
-\ifthenelse{\isundefined{\subtitle}}
- {\newcommand{\subtitle}[1]{\def\BAS@subtitle{#1}}}
- {\renewcommand{\subtitle}[1]{\def\BAS@subtitle{#1}}}
+\ifthenelse{\isundefined\BAS@title}
+{\def\BAS@title{---}}{}
 \newcommand{\titelzusatz}[1]{\def\BAS@titelzusatz{#1}}
+\newcommand{\version}[1]{\def\BAS@version{#1}}
+\renewcommand\maketitle{
+{
+\sffamily
 \if@titlepage
- \renewcommand\maketitle{
 \begin{titlepage}
- \if@twoside
+\if@twoside
 \setcounter{page}{-1}
- \else
+\else
 \setcounter{page}{0}
- \fi
- \sffamily
-\ifthenelse{\isundefined{\BAS@logo}}
- {}
- {
-\newlength{\BAS@logoheight}
-\settoheight{\BAS@logoheight}{\BAS@logo}
-\addtolength{\BAS@logoheight}{\parskip}
-\hfill\BAS@logo\par
-\vskip -\BAS@logoheight
- }%
- \parbox[t][0mm]{.95\textwidth}{
-\vspace*{8\baselineskip}
-{\huge\textbf{\@title}\par}
-\ifthenelse{\isundefined{\BAS@subtitle}}
- {\vskip\baselineskip}
- {{\LARGE\BAS@subtitle\par}}
-\vskip 10\baselineskip
-{\Large\@author}\par
-\ifthenelse{\isundefined{\BAS@email}}
-{}
-{
-\ifthenelse{\equal{\@empty}{\BAS@email}}
-{}
-{\BAS@email\par}
-}
-\vskip \baselineskip
-\ifthenelse{\isundefined{\BAS@strasse}}
-{}
-{
-\ifthenelse{\equal{\@empty}{\BAS@strasse}}
-{}
-{\BAS@strasse\par}
-}
-\ifthenelse{\isundefined{\BAS@plz}}
-{}
-{
-\ifthenelse{\equal{\@empty}{\BAS@plz}}
-{}
-{\BAS@plz
-\ifthenelse{\isundefined{\BAS@ort}}
-{\par}
-{
-\ifthenelse{\equal{\@empty}{\BAS@ort}}
-{\par}
-{\ }
-}
-}
-}
-\ifthenelse{\isundefined{\BAS@ort}}
-{}
-{
-\ifthenelse{\equal{\@empty}{\BAS@ort}}
- {}
- {\BAS@ort\par}
-}
-\ifthenelse{\isundefined{\BAS@telefon}}
-{}
-{
-\ifthenelse{\equal{\@empty}{\BAS@telefon}}
- {}
- {\Telefon\ \BAS@telefon\par}
-}
-\ifthenelse{\isundefined{\BAS@adresszusatz}}
- {}
- {\BAS@adresszusatz\par}
-\vskip 2\baselineskip
-\@date
- } % end of Titel-parbox
- \ifthenelse{\isundefined{\BAS@titelzusatz}}
-{}
-{
- \vskip .9\textheight
- \hfill\parbox[b][0mm]{.5\textwidth}{\BAS@titelzusatz}
-}
-\end{titlepage}
-\if@twoside
- \cleardoublepage
-\else
- \clearpage
 \fi
- } % end of \renewcommand\maketitle
-\else
- \renewcommand\maketitle{
-{\sffamily
- \ifthenelse{\isundefined{\BAS@logo}}
-{}
-{
- \newlength{\BAS@logoheight}
- \settoheight{\BAS@logoheight}{\BAS@logo}
- \addtolength{\BAS@logoheight}{\parskip}
- \hfill\BAS@logo\par
- \vskip -\BAS@logoheight
+\ifthenelse{\isundefined\BAS@logo}%
+{}%
+{%
+\newlength{\BAS@len@logo}
+\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+\begin{picture}(0,0)(-1,0)%
+\put(0,0){\includegraphics{\BAS@logo}}%
+\end{picture}%
 }%
- {\huge\textbf{\@title}\par}
- \ifthenelse{\isundefined{\BAS@subtitle}}
+\mbox{}\vskip 15\parskip
+\textbf{\Huge\BAS@title}\par
+\ifthenelse{\equal{\@subtitle}{\@empty}}
+{\vskip 2\parskip}
+{
+\vskip \parskip
+{\huge\@subtitle}
+\par
+}
+\vskip 2\parskip
+\ifthenelse{\isundefined\BAS@version}
 {}
-{{\LARGE\BAS@subtitle\par}}
- \vskip \baselineskip
- \@author\par
- \ifthenelse{\isundefined{\BAS@email}}
+{\BAS@version\\}
+\@date\par
+\vskip 2\parskip
+\ifthenelse{\isundefined\@author}
 {}
-{\BAS@email\par}
- \vskip \baselineskip
- \@date
- \vskip \baselineskip
-} % end of {\sffamily
- } % end of \renewcommand\maketitle
+{
+\ifthenelse{\equal{\@author}{\@empty}}
+{}
+{
+\textbf{\@author}\par
+\vskip \parskip
+}
+}
+\ifthenelse{\boolean{BAS@hasaddress}}
+{
+\begin{tabbing}
+\Letter{}x\=\kill
+\ifthenelse{\isundefined\BAS@email}%
+{}%
+{%
+\ifthenelse{\equal{\BAS@email}{\@empty}}%
+{}%
+{\Email\>\texttt{\href{mailto:\BAS@email}{\BAS@email}}\\[\parskip]}%
+}%
+\ifthenelse{\isundefined{\BAS@telefon}}%
+{}%
+{%
+\ifthenelse{\equal{\@empty}{\BAS@telefon}}%
+{}%
+{\Telefon\>\BAS@telefon\\}%
+}%
+\ifthenelse{\isundefined{\BAS@handy}}%
+{}%
+{%
+\ifthenelse{\equal{\@empty}{\BAS@handy}}%
+{}%
+{\Mobilefone\>\BAS@handy\\}%
+}%
+\ifthenelse{\boolean{BAS@hasphone}}%
+{\\[-\parskip]}%
+{}%
+\ifthenelse{\boolean{BAS@hassnail}}%
+{%
+\Letter%
+\ifthenelse{\isundefined\BAS@strasse}%
+{}%
+{%
+\ifthenelse{\equal{\BAS@strasse}{\@empty}}%
+{}%
+{\>\BAS@strasse\\}%
+}%
+\ifthenelse{\boolean{BAS@hascityline}}%
+{%
+\>%
+\ifthenelse{\isundefined\BAS@plz}%
+{}%
+{%
+\ifthenelse{\equal{\BAS@plz}{\@empty}}%
+{}%
+{\BAS@plz\ }%
+}%
+\ifthenelse{\isundefined\BAS@ort}%
+{}%
+{%
+\ifthenelse{\equal{\BAS@ort}{\@empty}}%
+{}%
+{\BAS@ort}%
+}%
+\\%
+}%
+{}%
+\ifthenelse{\isundefined\BAS@adresszusatz}%
+{}%
+{%
+\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}%
+{}%
+{\>\BAS@adresszusatz\\}%
+}%
+}{}%
+\end{tabbing}
+}
+{\vskip 2\parskip}
+\ifthenelse{\isundefined\BAS@titelzusatz}
+{}
+{\BAS@titelzusatz}
+\cleardoublepage
+\end{titlepage}
+\else
+\ifthenelse{\equal{\BAS@opt@pagestyle}{leer}}
+{}
+{\thispagestyle{BASfuss}}
+\ifthenelse{\isundefined\BAS@logo}
+{}%
+{%
+\newlength{\BAS@len@logo}
+\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+\begin{picture}(0,0)(-1,0)%
+\put(0,0){\includegraphics{\BAS@logo}}%
+\end{picture}%
+}%
+\textbf{\huge\BAS@title}\par
+\ifthenelse{\equal{\@subtitle}{\@empty}}
+{}
+{{\huge\@subtitle}\par}
+\vskip \parskip
+\ifthenelse{\isundefined\BAS@version}
+{}
+{\BAS@version\\}
+\@date\par
+\vskip \parskip
+\ifthenelse{\isundefined\@author}
+{}
+{
+\ifthenelse{\equal{\@author}{\@empty}}
+{}
+{\@author\\}
+}
+\ifthenelse{\isundefined\BAS@email}%
+{}%
+{%
+\ifthenelse{\equal{\BAS@email}{\@empty}}%
+{}%
+{\Email\ \texttt{\href{mailto:\BAS@email}{\BAS@email}}\par}%
+}%
+\vskip 3\parskip
 \fi % end of \if@titlepage
-\renewcommand{\@dotsep}{200}
-\renewcommand{\contentsname}{Inhalt}
-\renewcommand{\listfigurename}{Abbildungen}
-\renewcommand{\listtablename}{Tafeln}
-\renewcommand{\tablename}{Tafel}
+\let\thanks\relax
+\let\maketitle\relax
+\let\@maketitle\relax
+\global\let\@thanks\@empty
+\global\let\@author\@empty
+\global\let\@date\@empty
+\global\let\@title\@empty
+\global\let\@subtitle\@empty
+\global\let\@extratitle\@empty
+\global\let\@titlehead\@empty
+\global\let\@subject\@empty
+\global\let\@publishers\@empty
+\global\let\@uppertitleback\@empty
+\global\let\@lowertitleback\@empty
+\global\let\@dedication\@empty
+\global\let\author\relax
+\global\let\title\relax
+\global\let\extratitle\relax
+\global\let\titlehead\relax
+\global\let\subject\relax
+\global\let\publishers\relax
+\global\let\uppertitleback\relax
+\global\let\lowertitleback\relax
+\global\let\dedication\relax
+\global\let\date\relax
+\global\let\and\relax
+} % end of sffamily scope
+} % end of \renewcommand\maketitle
+\ifthenelse{\boolean{BAS@opt@protocol}}
+{
+\addto\captionsngerman{\renewcommand{\contentsname}{Tagesordnung}}
+\addto\captionsgerman{\renewcommand{\contentsname}{Tagesordnung}}
+\addto\captionsenglish{\renewcommand{\contentsname}{Agenda}}
+}
+{
+\addto\captionsngerman{\renewcommand{\contentsname}{Inhalt}}
+\addto\captionsgerman{\renewcommand{\contentsname}{Inhalt}}
+\addto\captionsenglish{\renewcommand{\contentsname}{Contents}}
+}
+\addto\captionsngerman{\renewcommand{\listfigurename}{Abbildungen}}
+\addto\captionsgerman{\renewcommand{\listfigurename}{Abbildungen}}
+\addto\captionsenglish{\renewcommand{\listfigurename}{Figures}}
+\addto\captionsngerman{\renewcommand{\listtablename}{Tabellen}}
+\addto\captionsgerman{\renewcommand{\listtablename}{Tabellen}}
+\addto\captionsenglish{\renewcommand{\listtablename}{Tables}}
 \renewcommand\LT@makecaption[3]{%
- \LT@mcol{\LT@cols}{@{}l@{}}{%
-\hbox to\z@{\parbox[t]\LTcapwidth{%
- \sbox\@tempboxa{#1{#2: }#3}%
- \ifdim\wd\@tempboxa>\hsize
+\LT@mcol{\LT@cols}{@{}l@{}@{}}{%
+\hbox to\z@{%
+\parbox[t]\LTcapwidth{%
+\sbox\@tempboxa{#1{#2: }#3}%
+\ifdim\wd\@tempboxa>\hsize%
 #1{#2: }#3%
- \else
-\ifthenelse{\boolean{BAS@optionnoonelinecaption}}
- {\hbox to\hsize{\box\@tempboxa}}%
- {\hbox to\hsize{\hfil\box\@tempboxa\hfil}}%
- \fi
-\endgraf\vskip\baselineskip}%
- }}
-}
-\renewcommand{\headfont}{\sffamily\footnotesize}
-\renewcommand{\pnumfont}{\headfont}
-\setheadsepline{\BAS@linienbreite}
-\setfootsepline{\BAS@linienbreite}
-\automark[subsection]{section}
-\ohead{\headmark}
-\renewcommand{\sectionmark}[1]{\markboth{#1}{#1}}
-\if@twoside
- \renewcommand{\subsectionmark}[1]{\markright{#1}}
-\fi
-\ofoot{\pagemark}
-\ifoot{\BAS@foottitle}
-\newcommand{\BAS@litstyle}{jurabib}
-\ifthenelse{\boolean{BAS@optionnojura}}
- {\renewcommand{\BAS@litstyle}{alpha}}
- {}
-\newcommand{\literatur}[2][\BAS@litstyle]{%
- \bibliographystyle{#1}
- \bibliography{#2}
-}
-\ifthenelse{\boolean{BAS@optionindex}}
- {
-\RequirePackage{makeidx}
-\makeindex
- }{}
-\newcommand{\nindex}[2][\@empty]{%
- \ifthenelse{\equal{\@empty}{#1}}
-{#2\index{#2}}
-{#2\index{#1!#2}}
-}
-\newcommand{\eindex}[2][\@empty]{%
- \ifthenelse{\equal{\@empty}{#1}}
-{#2\index{#2|emph}}
-{#2\index{#1!#2|emph}}
+\else%
+{\hbox to\hsize{\box\@tempboxa}}%
+\fi%
+\endgraf\vskip\baselineskip%
+}%
+}%
+}%
 }
 \newcounter{BAS@slides}
 \newcommand{\nextslidesilent}{\stepcounter{BAS@slides}}
 \newcommand{\nextslide}{%
- \nextslidesilent%
- \insertslide{width=.3\textwidth}{slide}%
+\nextslidesilent%
+\insertslide{width=.3\textwidth}{slide}%
 }
 \newcommand{\insertslide}[2]{%
- \parpic[r]{%
+\parpic[r]{%
 \framebox{\includegraphics[#1]{#2\theBAS@slides}}%
- }%
+}%
 }
-\ifthenelse{\boolean{BAS@optiondraft}}
- {
-\newcommand{\BAS@draft}{--Entwurf--}
-\iflanguage{english}{
- \renewcommand{\BAS@draft}{---draft---}
-}{}
-\zeitstempel[\datum\ \zeit\qquad\textbf{\BAS@draft}]
- }
- {}
-\typearea[15mm]{default}
 %% 
-%% (c) 2006-2011 Ekkart Kleinod
+%% (c) 2006-2013 Ekkart Kleinod
 %%
 %% End of file `basis.sty'.

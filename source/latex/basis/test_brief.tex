@@ -1,0 +1,78 @@
+\documentclass[ngerman]{scrlttr2}
+
+%\usepackage{basbrief}
+
+%\usepackage[font=charter]{basbrief}
+%\usepackage[font=hfold]{basbrief}
+%\usepackage[font=mathpazo]{basbrief}
+%\usepackage[font=original]{basbrief}
+%\usepackage[font=times]{basbrief}
+%\usepackage[font=wrong]{basbrief}
+
+%\usepackage[hypercolor=green]{basbrief}
+%\usepackage[hyperdriver=dvips]{basbrief}
+
+\usepackage[layout=kopfzeile]{basbrief}
+%\usepackage[layout=infospalte]{basbrief}
+%\usepackage[layout=infospaltefett]{basbrief}
+%\usepackage[layout=wrong]{basbrief}
+
+%\usepackage[nobackaddress]{basbrief}
+%\usepackage[nofoldmarks]{basbrief}
+%\usepackage[nobackaddress, nofoldmarks]{basbrief}
+
+%\usepackage[oneside]{basbrief}
+
+%\usepackage[pagestyle=beides]{basbrief}
+%\usepackage[pagestyle=fuss]{basbrief}
+%\usepackage[pagestyle=fussseite]{basbrief}
+%\usepackage[pagestyle=leer]{basbrief}
+%\usepackage[pagestyle=wrong]{basbrief}
+
+%\usepackage[draft|final, font=charter|hfold|mathpazo|original|times, hypercolor=<color>, hyperdriver=<driver>, layout=kopfzeile|infospalte|infospaltefett, nobackaddress, nofoldmarks, oneside, pagestyle=beides|fuss|fussseite|leer]{basbrief}
+
+\author{Autorname}
+
+\strasse{Straße}
+\plz{PLZ}
+\ort{Ort}
+\telefon{(030) 1\,22\,33\,44}
+%\handy{(0177) 1\,22\,33\,44}
+\email{abc@abc.de}
+\homepage{www.abc.de}
+\adresszusatz{Adresszusatz}
+
+\usepackage{lipsum}
+
+\begin{document}
+
+	% hier den Empfänger (\\-getrennt) eintragen
+	\begin{letter}{Empfänger\\Empfängerstraße\\Empfängerort}
+
+		\setkomavar{subject}{Betreff} % Betreff
+		\setkomavar{date}{27.\ November 2013} % Datum (default: aktuelles Datum)
+		%\setkomavar{signature}{} % Unterschrift (default: Name)
+
+		%\setkomavar{yourref}{} % Geschäftszeile: Ihr Zeichen
+		%\setkomavar{yourmail}{} % Geschäftszeile: Ihr Schreiben vom
+		%\setkomavar{myref}{} % Geschäftszeile: Unser Zeichen
+		%\setkomavar{invoice}{} % Geschäftszeile: Rechnungsnummer
+
+		%\newkomavar*[Meins]{myadd} % Geschäftszeile: neues Feld myadd mit Titel "Meins"
+		%\setkomavar{myadd}{Inhalt} % Geschäftszeile: neues Feld
+
+		\opening{Hallo \dots,}
+
+			\lipsum[1-9]
+
+		\closing{Mit freundlichen Grüßen,}
+
+		\ps PS: Post-Scriptum
+		% \setkomavar*{enclseparator}{Anlage} % für genau eine Anlage
+		\encl{Anlage 1, Anlage 2\\Anlage 3}
+		\cc{Empfänger 1, Empfänger 2\\Empfänger 3}
+
+	\end{letter}
+
+\end{document}
+
