@@ -1812,6 +1812,110 @@
 %</lco:infospalte,lco:infospaltefett>
 %    \end{macrocode}
 %
+% \subsection{Multi-Markdown}
+%
+% Multi-Markdown benötigt Dateien, die per \befehl{input} eingebunden werden.
+% In Wesentlichen werden die Klassen/Pakete eingebunden und dann die von \emph{mmd} gelieferten Informationen benutzt.
+%
+% \subsubsection{Klassen und Pakete}
+%
+%    \begin{macrocode}
+%<*mmd:scrartcl>
+\documentclass[english, ngerman]{scrartcl}
+%</mmd:scrartcl>
+%    \end{macrocode}
+%
+% \subsubsection{Stil}
+%
+%    \begin{macrocode}
+%<*mmd:style>
+\ifx\undefined\myoptions
+	\usepackage{basis}
+\else
+	\usepackage[\myoptions]{basis}
+\fi
+%</mmd:style>
+%    \end{macrocode}
+%
+% \subsubsection{Beginn des Dokuments}
+%
+% Übernahme aller Metadaten in eigene Befehle.
+%    \begin{macrocode}
+%<*mmd:begindoc>
+\ifthenelse{\isundefined{\mytitle}}{}
+	{
+		\ifthenelse{\equal{\mytitle}{}}{}
+			{\title{\mytitle}}
+	}
+\ifthenelse{\isundefined{\mysubtitle}}{}
+	{
+		\ifthenelse{\equal{\mysubtitle}{}}{}
+			{\subtitle{\mysubtitle}}
+	}
+\ifthenelse{\isundefined{\myauthor}}{}
+	{
+		\ifthenelse{\equal{\myauthor}{}}{}
+			{\author{\myauthor}}
+	}
+\ifthenelse{\isundefined{\myemail}}{}
+	{
+		\ifthenelse{\equal{\myemail}{}}{}
+			{\email{\myemail}}
+	}
+\ifthenelse{\isundefined{\mydate}}{}
+	{
+		\ifthenelse{\equal{\mydate}{}}{}
+			{\date{\mydate}}
+	}
+\ifthenelse{\isundefined{\mystrasse}}{}
+	{
+		\ifthenelse{\equal{\mystrasse}{}}{}
+			{\strasse{\mystrasse}}
+	}
+\ifthenelse{\isundefined{\myplz}}{}
+	{
+		\ifthenelse{\equal{\myplz}{}}{}
+			{\plz{\myplz}}
+	}
+\ifthenelse{\isundefined{\myort}}{}
+	{
+		\ifthenelse{\equal{\myort}{}}{}
+			{\ort{\myort}}
+	}
+\ifthenelse{\isundefined{\mytelefon}}{}
+	{
+		\ifthenelse{\equal{\mytelefon}{}}{}
+			{\telefon{\mytelefon}}
+	}
+\ifthenelse{\isundefined{\myhandy}}{}
+	{
+		\ifthenelse{\equal{\myhandy}{}}{}
+			{\handy{\myhandy}}
+	}
+\ifthenelse{\isundefined{\myadresszusatz}}{}
+	{
+		\ifthenelse{\equal{\myadresszusatz}{}}{}
+			{\adresszusatz{\myadresszusatz}}
+	}
+\ifthenelse{\isundefined{\mytitelzusatz}}{}
+	{
+		\ifthenelse{\equal{\mytitelzusatz}{}}{}
+			{\titelzusatz{\mytitelzusatz}}
+	}
+\ifthenelse{\isundefined{\mylogo}}{}
+	{
+		\ifthenelse{\equal{\mylogo}{}}{}
+			{\logo{\mylogo}}
+	}
+%    \end{macrocode}
+%
+% Das Dokument kann beginnen\dots
+%    \begin{macrocode}
+\begin{document}
+	\maketitle
+%</mmd:begindoc>
+%    \end{macrocode}
+%
 %\Finale
 \endinput
 
