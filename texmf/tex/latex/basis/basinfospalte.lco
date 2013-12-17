@@ -10,7 +10,7 @@
 %% (c) 2006-2013 Ekkart Kleinod
 %% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
 %% 
-\ProvidesFile{basinfospalte.lco}[2013/12/16 v0.4 Basis-Brief: Infospaltenlayout]
+\ProvidesFile{basinfospalte.lco}[2013/12/17 v0.5 Basis-Brief: Infospaltenlayout]
 \setkomafont{fromname}{\scshape}
 \setkomafont{fromaddress}{\sffamily\scriptsize}
 \newlength{\infocolwidth}

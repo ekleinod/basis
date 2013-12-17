@@ -1,4 +1,4 @@
-% \CheckSum{1484}
+% \CheckSum{1485}
 %
 % \iffalse meta-comment
 %
@@ -28,6 +28,7 @@
 % \changes{v0.2}{2007/01/16}{Mehr Optionen, Schriften}
 % \changes{v0.3}{2013/11/26}{UTF-8}
 % \changes{v0.4}{2013/12/16}{Redesign, Überarbeitung der Optionen und Templates}
+% \changes{v0.5}{2013/12/17}{Hotfix: Fußzeile auf geraden Seiten korrekt formatiert}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -45,6 +46,14 @@
 %
 %	\cleardoublepage
 % \section{Versionen}
+%
+%	\subsection{Version 0.5}
+%
+%	Datum: 17.\,12.~2013
+%
+%	\begin{itemize}
+%		\item Fußzeile auf geraden Seiten korrekt formatiert
+%	\end{itemize}
 %
 %	\subsection{Version 0.4}
 %
@@ -123,8 +132,8 @@
 \NeedsTeXFormat{LaTeX2e}
 %<+basis>\ProvidesPackage{basis}
 %<+basbrief>\ProvidesPackage{basbrief}
-[2013/12/16 v0.4 Basis-Layout]
-\typeout{*** basis-Stil 2013/12/16 v0.4 ***}
+[2013/12/17 v0.5 Basis-Layout]
+\typeout{*** basis-Stil 2013/12/17 v0.5 ***}
 %    \end{macrocode}
 %
 % \subsection{Optionen}
@@ -887,7 +896,7 @@
 	}
 	{
 		(\textwidth,\BAS@len@rule)
-		{Seite \pagemark\ von \pageref{LastPage}}
+		{Seite \pagemark\ von \pageref{LastPage}\hfill}
 		{\hfill Seite \pagemark\ von \pageref{LastPage}}
 		{\hfill Seite \pagemark\ von \pageref{LastPage}}
 	}
@@ -1612,7 +1621,7 @@
 %
 % Informationen über die Datei.
 %    \begin{macrocode}
-\ProvidesFile{baskopfzeile.lco}[2013/12/16 v0.4 Basis-Brief: Kopfzeilenlayout]
+\ProvidesFile{baskopfzeile.lco}[2013/12/17 v0.5 Basis-Brief: Kopfzeilenlayout]
 %    \end{macrocode}
 %
 % In der Kopfzeile werden die Angaben durch "`~\ensuremath{\cdot}~"' getrennt.
@@ -1689,8 +1698,8 @@
 %
 % Informationen über die Datei.
 %    \begin{macrocode}
-%<+lco:infospalte>\ProvidesFile{basinfospalte.lco}[2013/12/16 v0.4 Basis-Brief: Infospaltenlayout]
-%<+lco:infospaltefett>\ProvidesFile{basinfospaltefett.lco}[2013/12/16 v0.4 Basis-Brief: Infospalte mit fettem Autornamen]
+%<+lco:infospalte>\ProvidesFile{basinfospalte.lco}[2013/12/17 v0.5 Basis-Brief: Infospaltenlayout]
+%<+lco:infospaltefett>\ProvidesFile{basinfospaltefett.lco}[2013/12/17 v0.5 Basis-Brief: Infospalte mit fettem Autornamen]
 %    \end{macrocode}
 %
 % Die Fonts für die Kopfzeile/Infospalte der ersten Seite.
