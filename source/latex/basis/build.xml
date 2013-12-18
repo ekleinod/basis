@@ -128,14 +128,16 @@
 		<echo message="Löschen temporärer Dateien" />
 		<defaultexcludes remove="**/*~" />
 		<delete>
-			<fileset dir="." includes="**/*.aux, **/*.bak.vthought, **/*.bak, **/*.bbl, **/*.blg, **/*.dvi, **/*.idx, **/*.ilg, **/*.ind, **/*.lof, **/*.lot, **/*.lop, **/*.nav, **/*.out, **/*.ps, **/*.snm, **/*.toc, **/*.url, **/*.*~"/>
+			<fileset dir="." includes="**/*.aux, **/*.bak.vthought, **/*.bak, **/*.bbl, **/*.blg, **/*.dvi, **/*.idx, **/*.glo, **/*.ilg, **/*.ind, **/*.lof, **/*.lot, **/*.lop, **/*.nav, **/*.out, **/*.ps, **/*.snm, **/*.toc, **/*.url, **/*.*~"/>
 		</delete>
 		<defaultexcludes default="true" />
 	</target>
 
 	<!-- Ziel: log Löschen -->
 	<target name="clearLog">
-		<echo message="" file="${file:log}" />
+		<delete>
+			<fileset dir="." includes="**/*.log" />
+		</delete>
 	</target>
 
 	<!-- Dateien verteilen -->
