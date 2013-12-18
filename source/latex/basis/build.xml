@@ -145,7 +145,7 @@
 		<echo message="Verteilung der generierten Dateien" />
 
 		<move todir="${path:latex:base}${path:latex:tex}${file:targetname}/" failonerror="false">
-			<fileset dir="." includes="*.sty, *.lco" />
+			<fileset dir="." includes="*.sty, *.lco, ${file:targetname}-mmd-*.tex" />
 		</move>
 
 		<move file="${file:targetname}.pdf" todir="${path:latex:base}${path:latex:doc}${file:targetname}/" failonerror="false" />

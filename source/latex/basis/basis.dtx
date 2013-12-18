@@ -29,6 +29,7 @@
 % \changes{v0.3}{2013/11/26}{UTF-8}
 % \changes{v0.4}{2013/12/16}{Redesign, Überarbeitung der Optionen und Templates}
 % \changes{v0.5}{2013/12/17}{Hotfix: Fußzeile auf geraden Seiten korrekt formatiert}
+% \changes{v0.6}{2013/12/17}{Multimarkdown-Unterstützung}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -46,6 +47,14 @@
 %
 %	\cleardoublepage
 % \section{Versionen}
+%
+%	\subsection{Version 0.6}
+%
+%	Datum: 17.\,12.~2013
+%
+%	\begin{itemize}
+%		\item Multimarkdown-Unterstützung
+%	\end{itemize}
 %
 %	\subsection{Version 0.5}
 %
@@ -1812,12 +1821,12 @@
 %</lco:infospalte,lco:infospaltefett>
 %    \end{macrocode}
 %
-% \subsection{Multi-Markdown}
+% \subsection{Multimarkdown}
 %
-% Multi-Markdown benötigt Dateien, die per \befehl{input} eingebunden werden.
+% Multimarkdown benötigt Dateien, die per \befehl{input} eingebunden werden.
 % In Wesentlichen werden die Klassen/Pakete eingebunden und dann die von \emph{mmd} gelieferten Informationen benutzt.
 %
-% \subsubsection{Klassen und Pakete}
+% \subsubsection{Klassen}
 %
 %    \begin{macrocode}
 %<*mmd:scrartcl>
@@ -1825,12 +1834,33 @@
 %</mmd:scrartcl>
 %    \end{macrocode}
 %
+%    \begin{macrocode}
+%<*mmd:scrbook>
+\documentclass[english, ngerman]{scrbook}
+%</mmd:scrbook>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*mmd:scrreprt>
+\documentclass[english, ngerman]{scrreprt}
+%</mmd:scrreprt>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*mmd:scrlttr2>
+\documentclass[english, ngerman]{scrlttr2}
+%</mmd:scrlttr2>
+%    \end{macrocode}
+%
 % \subsubsection{Stil}
 %
 %    \begin{macrocode}
 %<*mmd:style>
 \ifx\undefined\myoptions
-	\usepackage{basis}
+	\def\myoptions{}
+\fi
+\ifx\KOMAClassName{scrlttr2}
+	\usepackage[\myoptions]{basbrief}
 \else
 	\usepackage[\myoptions]{basis}
 \fi
@@ -1852,20 +1882,25 @@
 		\ifthenelse{\equal{\mysubtitle}{}}{}
 			{\subtitle{\mysubtitle}}
 	}
-\ifthenelse{\isundefined{\myauthor}}{}
+\ifthenelse{\isundefined{\mysubtitle}}{}
 	{
-		\ifthenelse{\equal{\myauthor}{}}{}
-			{\author{\myauthor}}
+		\ifthenelse{\equal{\mysubtitle}{}}{}
+			{\subtitle{\mysubtitle}}
 	}
-\ifthenelse{\isundefined{\myemail}}{}
+\ifthenelse{\isundefined{\myversion}}{}
 	{
-		\ifthenelse{\equal{\myemail}{}}{}
-			{\email{\myemail}}
+		\ifthenelse{\equal{\myversion}{}}{}
+			{\version{\myversion}}
 	}
 \ifthenelse{\isundefined{\mydate}}{}
 	{
 		\ifthenelse{\equal{\mydate}{}}{}
 			{\date{\mydate}}
+	}
+\ifthenelse{\isundefined{\myauthor}}{}
+	{
+		\ifthenelse{\equal{\myauthor}{}}{}
+			{\author{\myauthor}}
 	}
 \ifthenelse{\isundefined{\mystrasse}}{}
 	{
@@ -1892,6 +1927,16 @@
 		\ifthenelse{\equal{\myhandy}{}}{}
 			{\handy{\myhandy}}
 	}
+\ifthenelse{\isundefined{\myemail}}{}
+	{
+		\ifthenelse{\equal{\myemail}{}}{}
+			{\email{\myemail}}
+	}
+\ifthenelse{\isundefined{\myhomepage}}{}
+	{
+		\ifthenelse{\equal{\myhomepage}{}}{}
+			{\homepage{\myhomepage}}
+	}
 \ifthenelse{\isundefined{\myadresszusatz}}{}
 	{
 		\ifthenelse{\equal{\myadresszusatz}{}}{}
@@ -1912,7 +1957,6 @@
 % Das Dokument kann beginnen\dots
 %    \begin{macrocode}
 \begin{document}
-	\maketitle
 %</mmd:begindoc>
 %    \end{macrocode}
 %
