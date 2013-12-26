@@ -1867,11 +1867,11 @@
 %</mmd:style>
 %    \end{macrocode}
 %
-% \subsubsection{Beginn des Dokuments}
+% \subsubsection{Beginn des Dokuments/Briefs}
 %
 % Übernahme aller Metadaten in eigene Befehle.
 %    \begin{macrocode}
-%<*mmd:begindoc>
+%<*mmd:begindoc,mmd:beginlttr>
 \ifthenelse{\isundefined{\mytitle}}{}
 	{
 		\ifthenelse{\equal{\mytitle}{}}{}
@@ -1952,12 +1952,47 @@
 		\ifthenelse{\equal{\mylogo}{}}{}
 			{\logo{\mylogo}}
 	}
+%</mmd:begindoc,mmd:beginlttr>
 %    \end{macrocode}
 %
 % Das Dokument kann beginnen\dots
 %    \begin{macrocode}
+%<*mmd:begindoc>
 \begin{document}
 %</mmd:begindoc>
+%    \end{macrocode}
+%
+% Der Brief kann beginnen\dots
+%    \begin{macrocode}
+%<*mmd:beginlttr>
+\begin{document}
+	\begin{letter}{Empfänger\\Empfängerstraße\\Empfängerort}
+		%\setkomavar{subject}{Betreff}
+		\setkomavar{date}{\date}
+		%\setkomavar{signature}{} % Unterschrift (default: Name)
+
+		%\setkomavar{yourref}{} % Geschäftszeile: Ihr Zeichen
+		%\setkomavar{yourmail}{} % Geschäftszeile: Ihr Schreiben vom
+		%\setkomavar{myref}{} % Geschäftszeile: Unser Zeichen
+		%\setkomavar{invoice}{} % Geschäftszeile: Rechnungsnummer
+
+		%\newkomavar*[Meins]{myadd} % Geschäftszeile: neues Feld myadd mit Titel "Meins"
+		%\setkomavar{myadd}{Inhalt} % Geschäftszeile: neues Feld
+		\opening{Hallo \dots,}
+%</mmd:beginlttr>
+%    \end{macrocode}
+%
+% Der Brief muss enden\dots
+%    \begin{macrocode}
+%<*mmd:endlttr>
+		\closing{Mit freundlichen Grüßen,}
+
+		%\ps PS: Post-Scriptum
+		% \setkomavar*{enclseparator}{Anlage} % für genau eine Anlage
+		%\encl{Anlage 1, Anlage 2\\Anlage 3}
+		%\cc{Empfänger 1, Empfänger 2\\Empfänger 3}
+	\end{letter}
+%</mmd:endlttr>
 %    \end{macrocode}
 %
 %\Finale
