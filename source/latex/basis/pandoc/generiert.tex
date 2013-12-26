@@ -1,0 +1,124 @@
+\documentclass[]{article}
+\usepackage{basis}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+	\usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+	\ifxetex
+		\usepackage{mathspec}
+		\usepackage{xltxtra,xunicode}
+	\else
+		\usepackage{fontspec}
+	\fi
+	\defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+	\newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\usepackage{longtable,booktabs}
+\ifxetex
+	\usepackage[setpagesize=false, % page size defined by xetex
+							unicode=false, % unicode breaks when used with xetex
+							xetex]{hyperref}
+\else
+	\usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+						bookmarks=true,
+						pdfauthor={},
+						pdftitle={},
+						colorlinks=true,
+						citecolor=blue,
+						urlcolor=blue,
+						linkcolor=magenta,
+						pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+\author{}
+\date{}
+
+\begin{document}
+
+
+
+Klasse: article
+Autor: 
+Basistest: 
+
+\begin{longtable}[c]{@{}l@{}}
+\hline\noalign{\medskip}
+documentclass: scrartcl
+\\\noalign{\medskip}
+author:
+\\\noalign{\medskip}
+- name: Autorname
+\\\noalign{\medskip}
+basistest: testtext
+\\\noalign{\medskip}
+\hline
+\end{longtable}
+
+latex input: basis-mmd-scrartcl MyOptions: font=charter latex input:
+basis-mmd-style Title: Dokumenttitel MySubtitle: Untertitel MyVersion:
+Version 1.0 Date: Datum Author: Autorname MyStrasse: Straße MyPLZ: PLZ
+MyOrt: Ort MyTelefon: +49 30 1223344 MyHandy: +49 177 1223344 MyEmail:
+abc@abc.de MyHomepage: www.abc.de MyAdresszusatz: Adresszusatz
+MyTitelzusatz: Titelzusatz MyLogo: testlogo Quotes Language: german Base
+Header Level: 3 latex input: basis-mmd-begin-doc
+
+\section{Überschrift}
+
+\subsection{Unterüberschrift {[}sec:unter:unter{]}}
+
+Mit etwas Text. Und noch mehr Text.
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Listenpunkt
+\item
+  Listenpunkt
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Listenpunkt
+  \item
+    Listenpunkt
+  \end{itemize}
+\item
+  Listenpunkt
+\item
+  Listenpunkt
+\end{itemize}
+
+\section{Aufzählungen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  eins
+\item
+  zwei
+\item
+  drei
+\item
+  vier
+\end{enumerate}
+
+siehe {[}{]}{[}sec:unter:unter{]}
+
+\section{Anführungszeichen}
+
+``Jawohl'', sagte er.
+
+\end{document}
