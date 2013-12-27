@@ -1998,6 +1998,11 @@
 				{\mygruss}%
 		}%
 }
+\ifthenelse{\isundefined{\myunterschrift}}{}
+	{
+		\ifthenelse{\equal{\myunterschrift}{}}{}
+			{\setkomavar{signature}{\myunterschrift}}
+	}%
 %</mmd:beginlttr>
 %    \end{macrocode}
 %
