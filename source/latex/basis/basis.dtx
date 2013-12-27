@@ -1953,6 +1953,33 @@
 		\ifthenelse{\equal{\mylogo}{}}{}
 			{\logo{\mylogo}}
 	}
+\newcommand\BASrecipient{%
+	\ifthenelse{\isundefined{\myana}}{--}%
+		{%
+			\ifthenelse{\equal{\myana}{}}{--}%
+				{\myana}%
+		}%
+	\ifthenelse{\isundefined{\myanb}}{}%
+		{%
+			\ifthenelse{\equal{\myanb}{}}{}%
+				{\\\myanb}%
+		}%
+	\ifthenelse{\isundefined{\myanc}}{}%
+		{%
+			\ifthenelse{\equal{\myanc}{}}{}%
+				{\\\myanc}%
+		}%
+	\ifthenelse{\isundefined{\myand}}{}%
+		{%
+			\ifthenelse{\equal{\myand}{}}{}%
+				{\\\myand}%
+		}%
+	\ifthenelse{\isundefined{\myane}}{}%
+		{%
+			\ifthenelse{\equal{\myane}{}}{}%
+				{\\\myane}%
+		}%
+}
 %</mmd:begindoc,mmd:beginlttr>
 %    \end{macrocode}
 %
@@ -1967,7 +1994,7 @@
 %    \begin{macrocode}
 %<*mmd:beginlttr>
 \begin{document}
-	\begin{letter}{Empfänger\\Empfängerstraße\\Empfängerort}
+	\begin{letter}{\BASrecipient}
 		%\setkomavar{subject}{Betreff}
 		\setkomavar{date}{\date}
 		%\setkomavar{signature}{} % Unterschrift (default: Name)
