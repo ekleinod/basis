@@ -1959,6 +1959,10 @@
 % Nur für Briefe.
 %    \begin{macrocode}
 %<*mmd:beginlttr>
+%    \end{macrocode}
+%
+% Empfänger ist etwas schwieriger: derzeit fünf Zeilen.
+%    \begin{macrocode}
 \newcommand\BASrecipient{%
 	\ifthenelse{\isundefined{\myana}}{--}%
 		{%
@@ -1986,11 +1990,10 @@
 				{\\\myane}%
 		}%
 }
-\ifthenelse{\isundefined{\mybetreff}}{}
-	{
-		\ifthenelse{\equal{\mybetreff}{}}{}
-			{\setkomavar{subject}{\mybetreff}}
-	}%
+%    \end{macrocode}
+%
+% Auf jeden Fall setzen, evtl. mit default-Wert.
+%    \begin{macrocode}
 \newcommand\BASclosing{%
 	\ifthenelse{\isundefined{\mygruss}}{Mit freundlichen Grüßen,}%
 		{%
@@ -1998,11 +2001,43 @@
 				{\mygruss}%
 		}%
 }
+\makeatletter
+\setkomavar{date}{\@date}
+\makeatother
+%    \end{macrocode}
+%
+% Nur setzen, wenn angegeben und ausgefüllt.
+%    \begin{macrocode}
+\ifthenelse{\isundefined{\mybetreff}}{}
+	{
+		\ifthenelse{\equal{\mybetreff}{}}{}
+			{\setkomavar{subject}{\mybetreff}}
+	}
 \ifthenelse{\isundefined{\myunterschrift}}{}
 	{
 		\ifthenelse{\equal{\myunterschrift}{}}{}
 			{\setkomavar{signature}{\myunterschrift}}
-	}%
+	}
+\ifthenelse{\isundefined{\myihrzeichen}}{}
+	{
+		\ifthenelse{\equal{\myihrzeichen}{}}{}
+			{\setkomavar{yourref}{\myihrzeichen}}
+	}
+\ifthenelse{\isundefined{\myihrschreiben}}{}
+	{
+		\ifthenelse{\equal{\myihrschreiben}{}}{}
+			{\setkomavar{yourmail}{\myihrschreiben}}
+	}
+\ifthenelse{\isundefined{\myunserzeichen}}{}
+	{
+		\ifthenelse{\equal{\myunserzeichen}{}}{}
+			{\setkomavar{myref}{\myunserzeichen}}
+	}
+\ifthenelse{\isundefined{\myrechnung}}{}
+	{
+		\ifthenelse{\equal{\myrechnung}{}}{}
+			{\setkomavar{invoice}{\myrechnung}}
+	}
 %</mmd:beginlttr>
 %    \end{macrocode}
 %
@@ -2018,16 +2053,6 @@
 %<*mmd:beginlttr>
 \begin{document}
 	\begin{letter}{\BASrecipient}
-		\setkomavar{date}{\date}
-		%\setkomavar{signature}{} % Unterschrift (default: Name)
-
-		%\setkomavar{yourref}{} % Geschäftszeile: Ihr Zeichen
-		%\setkomavar{yourmail}{} % Geschäftszeile: Ihr Schreiben vom
-		%\setkomavar{myref}{} % Geschäftszeile: Unser Zeichen
-		%\setkomavar{invoice}{} % Geschäftszeile: Rechnungsnummer
-
-		%\newkomavar*[Meins]{myadd} % Geschäftszeile: neues Feld myadd mit Titel "Meins"
-		%\setkomavar{myadd}{Inhalt} % Geschäftszeile: neues Feld
 		\opening{Hallo \dots,}
 %</mmd:beginlttr>
 %    \end{macrocode}
