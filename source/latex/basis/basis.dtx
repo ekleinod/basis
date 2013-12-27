@@ -1994,6 +1994,13 @@
 %
 % Auf jeden Fall setzen, evtl. mit default-Wert.
 %    \begin{macrocode}
+\newcommand\BASopening{%
+	\ifthenelse{\isundefined{\myanrede}}{Hallo.}%
+		{%
+			\ifthenelse{\equal{\myanrede}{}}{Hallo,}%
+				{\myanrede}%
+		}%
+}
 \newcommand\BASclosing{%
 	\ifthenelse{\isundefined{\mygruss}}{Mit freundlichen Grüßen,}%
 		{%
@@ -2053,7 +2060,7 @@
 %<*mmd:beginlttr>
 \begin{document}
 	\begin{letter}{\BASrecipient}
-		\opening{Hallo \dots,}
+		\opening{\BASopening}
 %</mmd:beginlttr>
 %    \end{macrocode}
 %
