@@ -1953,6 +1953,12 @@
 		\ifthenelse{\equal{\mylogo}{}}{}
 			{\logo{\mylogo}}
 	}
+%</mmd:begindoc,mmd:beginlttr>
+%    \end{macrocode}
+%
+% Nur für Briefe.
+%    \begin{macrocode}
+%<*mmd:beginlttr>
 \newcommand\BASrecipient{%
 	\ifthenelse{\isundefined{\myana}}{--}%
 		{%
@@ -1980,7 +1986,19 @@
 				{\\\myane}%
 		}%
 }
-%</mmd:begindoc,mmd:beginlttr>
+\ifthenelse{\isundefined{\mybetreff}}{}
+	{
+		\ifthenelse{\equal{\mybetreff}{}}{}
+			{\setkomavar{subject}{\mybetreff}}
+	}%
+\newcommand\BASclosing{%
+	\ifthenelse{\isundefined{\mygruss}}{Mit freundlichen Grüßen,}%
+		{%
+			\ifthenelse{\equal{\mygruss}{}}{Mit freundlichen Grüßen,}%
+				{\mygruss}%
+		}%
+}
+%</mmd:beginlttr>
 %    \end{macrocode}
 %
 % Das Dokument kann beginnen\dots
@@ -1995,7 +2013,6 @@
 %<*mmd:beginlttr>
 \begin{document}
 	\begin{letter}{\BASrecipient}
-		%\setkomavar{subject}{Betreff}
 		\setkomavar{date}{\date}
 		%\setkomavar{signature}{} % Unterschrift (default: Name)
 
@@ -2013,7 +2030,7 @@
 % Der Brief muss enden\dots
 %    \begin{macrocode}
 %<*mmd:endlttr>
-		\closing{Mit freundlichen Grüßen,}
+		\closing{\BASclosing}
 
 		%\ps PS: Post-Scriptum
 		% \setkomavar*{enclseparator}{Anlage} % für genau eine Anlage
