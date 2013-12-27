@@ -1859,7 +1859,8 @@
 \ifx\undefined\myoptions
 	\def\myoptions{}
 \fi
-\ifx\KOMAClassName{scrlttr2}
+\def\BASlttr{scrlttr2}
+\ifx\KOMAClassName\BASlttr
 	\usepackage[\myoptions]{basbrief}
 \else
 	\usepackage[\myoptions]{basis}
