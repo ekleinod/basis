@@ -2045,6 +2045,21 @@
 		\ifthenelse{\equal{\myrechnung}{}}{}
 			{\setkomavar{invoice}{\myrechnung}}
 	}
+\ifthenelse{\isundefined{\myps}}{}
+	{
+		\ifthenelse{\equal{\myps}{}}{}
+			{\newcommand\BASps{\myps}}
+	}
+\ifthenelse{\isundefined{\myanlage}}{}
+	{
+		\ifthenelse{\equal{\myanlage}{}}{}
+			{\newcommand\BASencl{\myanlage}}
+	}
+\ifthenelse{\isundefined{\mycc}}{}
+	{
+		\ifthenelse{\equal{\mycc}{}}{}
+			{\newcommand\BAScc{\mycc}}
+	}
 %</mmd:beginlttr>
 %    \end{macrocode}
 %
@@ -2069,10 +2084,12 @@
 %<*mmd:endlttr>
 		\closing{\BASclosing}
 
-		%\ps PS: Post-Scriptum
-		% \setkomavar*{enclseparator}{Anlage} % für genau eine Anlage
-		%\encl{Anlage 1, Anlage 2\\Anlage 3}
-		%\cc{Empfänger 1, Empfänger 2\\Empfänger 3}
+		\ifthenelse{\isundefined{\BASps}}{}
+			{\ps \BASps}
+		\ifthenelse{\isundefined{\BASencl}}{}
+			{\encl{\BASencl}}
+		\ifthenelse{\isundefined{\BAScc}}{}
+			{\cc{\BAScc}}
 	\end{letter}
 %</mmd:endlttr>
 %    \end{macrocode}
