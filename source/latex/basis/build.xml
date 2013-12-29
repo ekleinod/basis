@@ -128,14 +128,16 @@
 		<echo message="Löschen temporärer Dateien" />
 		<defaultexcludes remove="**/*~" />
 		<delete>
-			<fileset dir="." includes="**/*.aux, **/*.bak.vthought, **/*.bak, **/*.bbl, **/*.blg, **/*.dvi, **/*.idx, **/*.ilg, **/*.ind, **/*.lof, **/*.lot, **/*.lop, **/*.nav, **/*.out, **/*.ps, **/*.snm, **/*.toc, **/*.url, **/*.*~"/>
+			<fileset dir="." includes="**/*.aux, **/*.bak.vthought, **/*.bak, **/*.bbl, **/*.blg, **/*.dvi, **/*.idx, **/*.glo, **/*.ilg, **/*.ind, **/*.lof, **/*.lot, **/*.lop, **/*.nav, **/*.out, **/*.ps, **/*.snm, **/*.toc, **/*.url, **/*.*~"/>
 		</delete>
 		<defaultexcludes default="true" />
 	</target>
 
 	<!-- Ziel: log Löschen -->
 	<target name="clearLog">
-		<echo message="" file="${file:log}" />
+		<delete>
+			<fileset dir="." includes="**/*.log" />
+		</delete>
 	</target>
 
 	<!-- Dateien verteilen -->
@@ -143,7 +145,7 @@
 		<echo message="Verteilung der generierten Dateien" />
 
 		<move todir="${path:latex:base}${path:latex:tex}${file:targetname}/" failonerror="false">
-			<fileset dir="." includes="*.sty, *.lco" />
+			<fileset dir="." includes="*.sty, *.lco, ${file:targetname}-mmd-*.tex" />
 		</move>
 
 		<move file="${file:targetname}.pdf" todir="${path:latex:base}${path:latex:doc}${file:targetname}/" failonerror="false" />

@@ -1,6 +1,6 @@
 %% Diese Datei erzeugt die benötigten Dateien aus basis.dtx
 %%
-\def\filedate{2013/12/16}
+\def\filedate{2013/12/18}
 \def\batchfile{basis.ins}
 \input docstrip
 
@@ -21,18 +21,27 @@ Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe u
 \endpostamble
 
 \generate{
-		\file{basis.sty}{\from{basis.dtx}{basis}}
-		\file{basbrief.sty}{\from{basis.dtx}{basbrief}}
+	\file{basis.sty}{\from{basis.dtx}{basis}}
+	\file{basbrief.sty}{\from{basis.dtx}{basbrief}}
 %
-		\file{beamerthemebasis.sty}{\from{basis.beamer.dtx}{basis:beamer:theme}}
-		\file{beamercolorthemebasis.sty}{\from{basis.beamer.dtx}{basis:beamer:theme:color}}
-		\file{beamerfontthemebasis.sty}{\from{basis.beamer.dtx}{basis:beamer:theme:font}}
-		\file{beamerinnerthemebasis.sty}{\from{basis.beamer.dtx}{basis:beamer:theme:inner}}
-		\file{beamerouterthemebasis.sty}{\from{basis.beamer.dtx}{basis:beamer:theme:outer}}
+	\file{beamerthemebasis.sty}{\from{basis.beamer.dtx}{basis:beamer:theme}}
+	\file{beamercolorthemebasis.sty}{\from{basis.beamer.dtx}{basis:beamer:theme:color}}
+	\file{beamerfontthemebasis.sty}{\from{basis.beamer.dtx}{basis:beamer:theme:font}}
+	\file{beamerinnerthemebasis.sty}{\from{basis.beamer.dtx}{basis:beamer:theme:inner}}
+	\file{beamerouterthemebasis.sty}{\from{basis.beamer.dtx}{basis:beamer:theme:outer}}
 %
-		\file{baskopfzeile.lco}{\from{basis.dtx}{lco:kopfzeile}}
-		\file{basinfospalte.lco}{\from{basis.dtx}{lco:infospalte}}
-		\file{basinfospaltefett.lco}{\from{basis.dtx}{lco:infospaltefett}}
+	\file{baskopfzeile.lco}{\from{basis.dtx}{lco:kopfzeile}}
+	\file{basinfospalte.lco}{\from{basis.dtx}{lco:infospalte}}
+	\file{basinfospaltefett.lco}{\from{basis.dtx}{lco:infospaltefett}}
+%
+	\file{basis-mmd-scrartcl.tex}{\from{basis.dtx}{mmd:scrartcl}}
+	\file{basis-mmd-scrbook.tex}{\from{basis.dtx}{mmd:scrbook}}
+	\file{basis-mmd-scrreprt.tex}{\from{basis.dtx}{mmd:scrreprt}}
+	\file{basis-mmd-scrlttr2.tex}{\from{basis.dtx}{mmd:scrlttr2}}
+	\file{basis-mmd-style.tex}{\from{basis.dtx}{mmd:style}}
+	\file{basis-mmd-begin-doc.tex}{\from{basis.dtx}{mmd:begindoc}}
+	\file{basis-mmd-begin-lttr.tex}{\from{basis.dtx}{mmd:beginlttr}}
+	\file{basis-mmd-end-lttr.tex}{\from{basis.dtx}{mmd:endlttr}}
 }
 
 \endinput
