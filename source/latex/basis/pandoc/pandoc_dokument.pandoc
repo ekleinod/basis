@@ -1,0 +1,58 @@
+---
+documentclass: scrartcl
+author:
+	- name: Autorname
+basistest: testtext
+---
+
+latex input:				basis-mmd-scrartcl
+MyOptions:					font=charter
+latex input:				basis-mmd-style
+Title:							Dokumenttitel
+MySubtitle:					Untertitel
+MyVersion:					Version 1.0
+Date:								Datum
+Author:							Autorname
+MyStrasse:					Straße
+MyPLZ:							PLZ
+MyOrt:							Ort
+MyTelefon:					+49 30 1223344
+MyHandy:						+49 177 1223344
+MyEmail:						abc@abc.de
+MyHomepage:					www.abc.de
+MyAdresszusatz:			Adresszusatz
+MyTitelzusatz:			Titelzusatz
+MyLogo:							testlogo
+Quotes Language:		german
+Base Header Level:	3
+latex input:				basis-mmd-begin-doc
+
+<!-- \maketitle -->
+
+# Überschrift
+
+## Unterüberschrift [sec:unter:unter]
+
+Mit etwas Text.
+Und noch mehr Text.
+
+- Listenpunkt
+- Listenpunkt
+	- Listenpunkt
+	- Listenpunkt
+- Listenpunkt
+- Listenpunkt
+
+# Aufzählungen
+
+1. eins
+2. zwei
+4. drei
+4. vier
+
+siehe [][sec:unter:unter]
+
+# Anführungszeichen
+
+"Jawohl", sagte er.
+
