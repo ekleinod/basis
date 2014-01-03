@@ -1,14 +1,8 @@
-% Artikel-Klasse
 \documentclass[ngerman]{scrartcl}
 
-% Doc-Paket
 \usepackage{doc}
 
-% im Basis-Layout setzen
 \usepackage[font=charter]{basis}
-
-% schönere Tabellen
-\usepackage{booktabs}
 
 % Angabe von Zeilennummern
 \CodelineIndex
@@ -57,7 +51,7 @@
 \homepage{https://github.com/ekleinod/basis}
 
 \date{29.\ Dezember~2013}
-\version{Version 0.6}%$^alpha$}
+\version{Version 0.7\ensuremath{^alpha}}
 
 \logo{testlogo}
 
