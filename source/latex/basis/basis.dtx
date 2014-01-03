@@ -30,6 +30,7 @@
 % \changes{v0.4}{2013/12/16}{Redesign, Überarbeitung der Optionen und Templates}
 % \changes{v0.5}{2013/12/17}{Hotfix: Fußzeile auf geraden Seiten korrekt formatiert}
 % \changes{v0.6}{2013/12/29}{Multimarkdown-Unterstützung}
+% \changes{v0.7}{2013/12/29}{Einfache Gliederung für Briefe}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -47,6 +48,14 @@
 %
 %	\cleardoublepage
 % \section{Versionen}
+%
+%	\subsection{Version 0.7}
+%
+%	Datum: 29.\,12.~2013
+%
+%	\begin{itemize}
+%		\item Einfache Gliederung für Briefe
+%	\end{itemize}
 %
 %	\subsection{Version 0.6}
 %
@@ -141,8 +150,8 @@
 \NeedsTeXFormat{LaTeX2e}
 %<+basis>\ProvidesPackage{basis}
 %<+basbrief>\ProvidesPackage{basbrief}
-[2013/12/29 v0.6 Basis-Layout]
-\typeout{*** basis-Stil 2013/12/29 v0.6 ***}
+[2013/12/29 v0.7 alpha Basis-Layout]
+\typeout{*** basis-Stil 2013/12/29 v0.7 alpha ***}
 %    \end{macrocode}
 %
 % \subsection{Optionen}
@@ -1612,6 +1621,24 @@
 %    \begin{macrocode}
 \setkomafont{pageheadfoot}{\sffamily\footnotesize}
 \setkomafont{pagenumber}{\sffamily\footnotesize}
+%    \end{macrocode}
+%
+% \subsubsection{Gliederung}
+%
+% In \paket{scrlttr2} sind keine Gliederungsbefehle vorgesehen.
+% Dies ist ab und an ganz nett, daher wird der Befehl \befehl{section} zur Verfügung gestellt, dessen Definition von \befehl{minisec} übernommen wird.
+% Der Befehl wird nicht als vollwertiger Gliederungsbefehl definiert.
+%
+% Man könnte auch die Lösung aus \url{http://komascript.de/sections.lco} verwenden, die ist mir zu umfangreich.
+%    \begin{macrocode}
+\newcommand\section[1]{\@afterindentfalse \vskip 1.5ex
+	{\parindent \z@
+		\ifnum \scr@compatibility>\@nameuse{scr@v@2.96}\relax
+			\setlength{\parfillskip}{\z@ plus 1fil}\fi
+		\raggedright\normalfont\normalcolor\sffamily\bfseries\nobreak
+		#1\par\nobreak}\nobreak%
+	\@afterheading
+}
 %    \end{macrocode}
 %
 % Ende des Brief-Stils.
