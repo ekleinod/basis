@@ -2,7 +2,7 @@
 %
 % \iffalse meta-comment
 %
-%  Copyright (C) 2006-2013
+%  Copyright (C) 2006-2014
 %  Ekkart Kleinod (ekleinod@edgesoft.de)
 % --------------------------------------------------------------------------
 %
@@ -31,6 +31,7 @@
 % \changes{v0.5}{2013/12/17}{Hotfix: Fußzeile auf geraden Seiten korrekt formatiert}
 % \changes{v0.6}{2013/12/29}{Multimarkdown-Unterstützung}
 % \changes{v0.7}{2014/01/04}{Einfache Gliederung für Briefe}
+% \changes{v0.8}{2014/01/04}{Separater Text für Kopfzeile im Infospaltenlayout}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -48,6 +49,14 @@
 %
 %	\cleardoublepage
 % \section{Versionen}
+%
+%	\subsection{Version 0.8}
+%
+%	Datum: 04.\,01.~2014
+%
+%	\begin{itemize}
+%		\item Separater Text für Kopfzeile im Infospaltenlayout
+%	\end{itemize}
 %
 %	\subsection{Version 0.7}
 %
@@ -150,8 +159,8 @@
 \NeedsTeXFormat{LaTeX2e}
 %<+basis>\ProvidesPackage{basis}
 %<+basbrief>\ProvidesPackage{basbrief}
-[2014/01/04 v0.7 Basis-Layout]
-\typeout{*** basis-Stil 2014/01/04 v0.7 ***}
+[2014/01/04 v0.8 alpha Basis-Layout]
+\typeout{*** basis-Stil 2014/01/04 v0.8 alpha ***}
 %    \end{macrocode}
 %
 % \subsection{Optionen}
@@ -759,6 +768,21 @@
 	{\renewcommand{\logo}[1]{\def\BAS@logo{#1}}}
 %    \end{macrocode}
 % \end{macro}
+%
+%    \begin{macrocode}
+%<*basbrief>
+%    \end{macrocode}
+%
+% \begin{macro}{\briefkopf}
+% Nur für Briefe: Briefkopfinhalt abweichend vom Autornamen (default).
+%    \begin{macrocode}
+\newcommand{\briefkopf}[1]{\def\BAS@briefkopf{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+%</basbrief>
+%    \end{macrocode}
 %
 % Auswertung einiger Angaben im Vorfeld.
 %    \begin{macrocode}
@@ -1767,12 +1791,14 @@
 \@setplength{firstheadvpos}{20mm}
 %    \end{macrocode}
 %
-% Die Kopfzeile der ersten Seite enthält den gesperrten Autor und eine Linie.
+% Die Kopfzeile der ersten Seite enthält den Briefkopf bzw. den Autor und eine Linie.
 %    \begin{macrocode}
 \setkomavar{firsthead}{%
 	{%
 		\usekomafont{fromname}%
-		\usekomavar{fromname}%
+		\ifthenelse{\isundefined{\BAS@briefkopf}}%
+			{\usekomavar{fromname}}%
+			{\BAS@briefkopf}%
 	}\\[-.5\baselineskip]%
 	\rule{\textwidth}{\BAS@len@rule}
 %    \end{macrocode}
@@ -1929,6 +1955,11 @@
 	{
 		\ifthenelse{\equal{\myauthor}{}}{}
 			{\author{\myauthor}}
+	}
+\ifthenelse{\isundefined{\mybriefkopf}}{}
+	{
+		\ifthenelse{\equal{\mybriefkopf}{}}{}
+			{\briefkopf{\mybriefkopf}}
 	}
 \ifthenelse{\isundefined{\mystrasse}}{}
 	{
