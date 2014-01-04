@@ -12,8 +12,8 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{basbrief}
-[2014/01/04 v0.8 Basis-Layout]
-\typeout{*** basis-Stil 2014/01/04 v0.8 ***}
+[2014/01/04 v0.9 Basis-Layout]
+\typeout{*** basis-Stil 2014/01/04 v0.9 ***}
 \RequirePackage{xkeyval}
 \RequirePackage{xifthen}
 \RequirePackage{ifxetex}
@@ -308,8 +308,20 @@ colorlinks=true
 \newcommand{\homepage}[1]{\def\BAS@url{#1}}
 \newcommand{\adresszusatz}[1]{\def\BAS@adresszusatz{#1}}
 \ifthenelse{\isundefined{\logo}}
-{\newcommand{\logo}[1]{\def\BAS@logo{#1}}}
-{\renewcommand{\logo}[1]{\def\BAS@logo{#1}}}
+{
+\newcommand{\logo}[1]{
+\def\BAS@logo{#1}
+\newlength{\BAS@len@logo}
+\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+}
+}
+{
+\renewcommand{\logo}[1]{
+\def\BAS@logo{#1}
+\newlength{\BAS@len@logo}
+\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+}
+}
 \newcommand{\briefkopf}[1]{\def\BAS@briefkopf{#1}}
 \AtBeginDocument{
 \newboolean{BAS@hasaddress}
@@ -481,10 +493,10 @@ colorlinks=true
 \setkomavar{fromname}{%
 \@author%
 }
-\setkomavar{fromlogo}{%
+\AtBeginDocument{
 \ifthenelse{\isundefined{\BAS@logo}}%
 {}%
-{\BAS@logo}%
+{\setkomavar{fromlogo}{\includegraphics{\BAS@logo}}}%
 }
 \setkomavar{place}{%
 \ifthenelse{\isundefined{\BAS@ort}}%
