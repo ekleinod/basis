@@ -22,7 +22,9 @@
 \setkomavar{firsthead}{%
 {%
 \usekomafont{fromname}%
-\usekomavar{fromname}%
+\ifthenelse{\isundefined{\BAS@briefkopf}}%
+{\usekomavar{fromname}}%
+{\BAS@briefkopf}%
 }\\[-.5\baselineskip]%
 \rule{\textwidth}{\BAS@len@rule}
 \hspace*{\fill}%

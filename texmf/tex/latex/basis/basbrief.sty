@@ -12,8 +12,8 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{basbrief}
-[2014/01/04 v0.7 Basis-Layout]
-\typeout{*** basis-Stil 2014/01/04 v0.7 ***}
+[2014/01/04 v0.8 Basis-Layout]
+\typeout{*** basis-Stil 2014/01/04 v0.8 ***}
 \RequirePackage{xkeyval}
 \RequirePackage{xifthen}
 \RequirePackage{ifxetex}
@@ -310,6 +310,7 @@ colorlinks=true
 \ifthenelse{\isundefined{\logo}}
 {\newcommand{\logo}[1]{\def\BAS@logo{#1}}}
 {\renewcommand{\logo}[1]{\def\BAS@logo{#1}}}
+\newcommand{\briefkopf}[1]{\def\BAS@briefkopf{#1}}
 \AtBeginDocument{
 \newboolean{BAS@hasaddress}
 \setboolean{BAS@hasaddress}{false}
