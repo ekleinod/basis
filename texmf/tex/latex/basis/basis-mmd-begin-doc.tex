@@ -40,6 +40,11 @@
 \ifthenelse{\equal{\myauthor}{}}{}
 {\author{\myauthor}}
 }
+\ifthenelse{\isundefined{\mybriefkopf}}{}
+{
+\ifthenelse{\equal{\mybriefkopf}{}}{}
+{\briefkopf{\mybriefkopf}}
+}
 \ifthenelse{\isundefined{\mystrasse}}{}
 {
 \ifthenelse{\equal{\mystrasse}{}}{}
