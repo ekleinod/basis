@@ -1599,7 +1599,14 @@
 \AtBeginDocument{
 	\ifthenelse{\isundefined{\BAS@logo}}%
 		{}%
-		{\setkomavar{fromlogo}{\includegraphics{\BAS@logo}}}%
+		{%
+			\setkomavar{fromlogo}{%
+				\ifthenelse{\BAS@len@logo > \infocolwidth}%
+					{\setlength{\BAS@len@logo}{\infocolwidth}}%
+					{}%
+					\includegraphics[width=\BAS@len@logo]{\BAS@logo}%
+			}%
+		}%
 	}
 \setkomavar{place}{%
 	\ifthenelse{\isundefined{\BAS@ort}}%
