@@ -38,6 +38,7 @@
 {
 \ifthenelse{
 \equal{#1}{charter}\or
+\equal{#1}{droid}\or
 \equal{#1}{hfold}\or
 \equal{#1}{mathpazo}\or
 \equal{#1}{original}\or
@@ -176,6 +177,10 @@ open=right
 \RequirePackage{charter}
 \RequirePackage[scaled=.95]{helvet}
 \RequirePackage[scaled]{luximono}
+}{}
+\ifthenelse{\equal{\BAS@opt@font}{droid}}
+{
+\RequirePackage{droid}
 }{}
 \ifthenelse{\equal{\BAS@opt@font}{hfold}}
 {
@@ -496,7 +501,14 @@ colorlinks=true
 \AtBeginDocument{
 \ifthenelse{\isundefined{\BAS@logo}}%
 {}%
-{\setkomavar{fromlogo}{\includegraphics{\BAS@logo}}}%
+{%
+\setkomavar{fromlogo}{%
+\ifthenelse{\BAS@len@logo > \infocolwidth}%
+{\setlength{\BAS@len@logo}{\infocolwidth}}%
+{}%
+\includegraphics[width=\BAS@len@logo]{\BAS@logo}%
+}%
+}%
 }
 \setkomavar{place}{%
 \ifthenelse{\isundefined{\BAS@ort}}%

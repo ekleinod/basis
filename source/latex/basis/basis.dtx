@@ -1,4 +1,4 @@
-% \CheckSum{1851}
+% \CheckSum{1864}
 %
 % \iffalse meta-comment
 %
@@ -224,6 +224,7 @@
 		{
 			\ifthenelse{
 				\equal{#1}{charter}\or
+				\equal{#1}{droid}\or
 				\equal{#1}{hfold}\or
 				\equal{#1}{mathpazo}\or
 				\equal{#1}{original}\or
@@ -487,6 +488,14 @@
 		\RequirePackage{charter}
 		\RequirePackage[scaled=.95]{helvet}
 		\RequirePackage[scaled]{luximono}
+	}{}
+%    \end{macrocode}
+%
+% \option{droid}: alle Schriften \emph{Droid}
+%    \begin{macrocode}
+\ifthenelse{\equal{\BAS@opt@font}{droid}}
+	{
+		\RequirePackage{droid}
 	}{}
 %    \end{macrocode}
 %

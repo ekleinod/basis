@@ -23,26 +23,40 @@ Offizielle Lizenz ist Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell 
 Folgende Dateien gehören zum Basis-Stil:
 {\small
 \begin{verbatim}
+/source/latex/basis
+	basis.drv
+	basis.dtx
+	basis.ins
+	basis.userdoc.tex
+	build.xml
 /texmf
 	/doc/latex/basis
 		basis.pdf
 		basis_short.pdf
 	/doc/latex/basis/vorlagen
-		artikel.tex
+		brief.mmd
 		brief.tex
-	/source/latex/basis
-		basis.drv
-		basis.dtx
-		basis.ins
-		basis.tcp
-		build.xml
-		docstrip.cfg
+		dokument.mmd
+		dokument.tex
 	/tex/latex/basis
 		basbrief.sty
+		basinfospaltefett.lco
+		basinfospalte.lco
+		basis-mmd-begin-doc.tex
+		basis-mmd-begin-lttr.tex
+		basis-mmd-end-lttr.tex
+		basis-mmd-scrartcl.tex
+		basis-mmd-scrbook.tex
+		basis-mmd-scrlttr2.tex
+		basis-mmd-scrreprt.tex
+		basis-mmd-style.tex
 		basis.sty
 		baskopfzeile.lco
-		basinfospalte.lco
-		basinfospaltefett.lco
+		beamercolorthemebasis.sty
+		beamerfontthemebasis.sty
+		beamerinnerthemebasis.sty
+		beamerouterthemebasis.sty
+		beamerthemebasis.sty
 \end{verbatim}
 }
 
@@ -131,6 +145,7 @@ Zusätzlich werden, je nach gewählter Font-Option, bestimmte Schriftartenpakete
 	\option{font=mathpazo}mm\=\kill
 
 	\option{font=charter}\>\paket{charter}, \paket{helvet}, \paket{luximono}\\
+	\option{font=droid}\>\paket{droid}\\
 	\option{font=hfold}\>\paket{hfoldsty}\\
 	\option{font=mathpazo}\>\paket{mathpazo}, \paket{helvet}, \paket{luximono}\\
 	\option{font=original}\>keine Zusatzklassen\\
