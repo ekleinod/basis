@@ -1,4 +1,4 @@
-% \CheckSum{1864}
+% \CheckSum{1866}
 %
 % \iffalse meta-comment
 %
@@ -33,7 +33,7 @@
 % \changes{v0.7}{2014/01/04}{Einfache Gliederung für Briefe}
 % \changes{v0.8}{2014/01/04}{Separater Text für Kopfzeile im Infospaltenlayout}
 % \changes{v0.9}{2014/01/04}{Logo im Brief (Infospaltenlayouts)}
-% \changes{v0.10}{2014/01/10}{Font-Option droid}
+% \changes{v0.10}{2014/01/10}{Font-Option droid, bugfix Seitennummer}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -58,6 +58,7 @@
 %
 %	\begin{itemize}
 %		\item Font-Option \option{droid}
+%		\item Bugfix falsch formatierte Seitennummer
 %	\end{itemize}
 %
 %	\subsection{Version 0.9}
@@ -932,6 +933,7 @@
 \RequirePackage[automark]{scrpage2}
 \RequirePackage{lastpage}
 \setkomafont{pageheadfoot}{\normalfont\sffamily\footnotesize}
+\setkomafont{pagenumber}{\usekomafont{pageheadfoot}}
 %    \end{macrocode}
 %
 % Eigener Seitenstil: normales Layout (Kopf- und Fußzeile).

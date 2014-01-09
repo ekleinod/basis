@@ -10,7 +10,7 @@
 %% (c) 2006-2013 Ekkart Kleinod
 %% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
 %% 
-\ProvidesFile{basinfospaltefett.lco}[2014/01/04 v0.9 Basis-Brief: Infospalte mit fettem Autornamen]
+\ProvidesFile{basinfospaltefett.lco}[2014/01/10 v0.10 Basis-Brief: Infospalte mit fettem Autornamen]
 \setkomafont{fromname}{\bfseries\sffamily}
 \setkomafont{fromaddress}{\sffamily\scriptsize}
 \newlength{\infocolwidth}

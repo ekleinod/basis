@@ -12,8 +12,8 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{basis}
-[2014/01/04 v0.9 Basis-Layout]
-\typeout{*** basis-Stil 2014/01/04 v0.9 ***}
+[2014/01/10 v0.10 Basis-Layout]
+\typeout{*** basis-Stil 2014/01/10 v0.10 ***}
 \RequirePackage{xkeyval}
 \RequirePackage{xifthen}
 \RequirePackage{ifxetex}
@@ -417,6 +417,7 @@ colorlinks=true
 \RequirePackage[automark]{scrpage2}
 \RequirePackage{lastpage}
 \setkomafont{pageheadfoot}{\normalfont\sffamily\footnotesize}
+\setkomafont{pagenumber}{\usekomafont{pageheadfoot}}
 \defpagestyle{BASbeides}
 {
 {\hfill\leftmark}
