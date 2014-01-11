@@ -49,6 +49,13 @@
 }
 \typeout{Basis-Option 'font=\BAS@opt@font'}
 }
+\newcommand{\BAS@opt@fontsize}{11pt}
+\DeclareOptionX{fontsize}{
+\ifthenelse{\equal{\@empty}{#1}}
+{}
+{\renewcommand{\BAS@opt@fontsize}{#1}}
+\typeout{Basis-Option 'fontsize=\BAS@opt@fontsize'}
+}
 \newcommand{\BAS@opt@hypercolor}{black}
 \DeclareOptionX{hypercolor}{
 \ifthenelse{\equal{\@empty}{#1}}
@@ -135,7 +142,7 @@
 \KOMAoptions{
 cleardoublepage=empty,
 draft=\BAS@opt@draft,
-fontsize=11pt,
+fontsize=\BAS@opt@fontsize,
 footnotes=multiple,
 paper=a4,
 parskip=half,
