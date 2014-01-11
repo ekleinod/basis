@@ -1,4 +1,4 @@
-% \CheckSum{1866}
+% \CheckSum{1877}
 %
 % \iffalse meta-comment
 %
@@ -34,6 +34,7 @@
 % \changes{v0.8}{2014/01/04}{Separater Text für Kopfzeile im Infospaltenlayout}
 % \changes{v0.9}{2014/01/04}{Logo im Brief (Infospaltenlayouts)}
 % \changes{v0.10}{2014/01/10}{Font-Option droid, bugfix Seitennummer}
+% \changes{v0.11}{2014/01/10}{Fontsize-Option}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -51,6 +52,14 @@
 %
 %	\cleardoublepage
 % \section{Versionen}
+%
+%	\subsection{Version 0.11}
+%
+%	Datum: 10.\,01.~2014
+%
+%	\begin{itemize}
+%		\item Fontsize-Option \option{fontsize}
+%	\end{itemize}
 %
 %	\subsection{Version 0.10}
 %
@@ -247,6 +256,17 @@
 }
 %    \end{macrocode}
 %
+% \option{fontsize}-Option, \emph{default=11pt}.
+%    \begin{macrocode}
+\newcommand{\BAS@opt@fontsize}{11pt}
+\DeclareOptionX{fontsize}{
+	\ifthenelse{\equal{\@empty}{#1}}
+		{}
+		{\renewcommand{\BAS@opt@fontsize}{#1}}
+	\typeout{Basis-Option 'fontsize=\BAS@opt@fontsize'}
+}
+%    \end{macrocode}
+%
 % \option{hypercolor}-Option, \emph{default=black}.
 %    \begin{macrocode}
 \newcommand{\BAS@opt@hypercolor}{black}
@@ -403,7 +423,7 @@
 \KOMAoptions{
 	cleardoublepage=empty,
 	draft=\BAS@opt@draft,
-	fontsize=11pt,
+	fontsize=\BAS@opt@fontsize,
 	footnotes=multiple,
 	paper=a4,
 	parskip=half,

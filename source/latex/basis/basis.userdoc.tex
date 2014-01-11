@@ -165,7 +165,7 @@ Die Optionen des \paket{basis}-Pakets werden einzeln erläutert, sie können auc
 		\>\befehl{usepackage[draft, font=charter]\{basis\}}
 \end{nutzung}
 
-Mögliche Optionen: \option{draft}, \option{final}, \option{font}, \option{hypercolor}, \option{hyperdriver}, \option{layout}, \option{nobackaddress}, \option{nofoldmarks}, \option{notitlepage}, \option{oneside}, \option{protokoll}, \option{pagestyle}
+Mögliche Optionen: \option{draft}, \option{final}, \option{font}, \option{fontsize}, \option{hypercolor}, \option{hyperdriver}, \option{layout}, \option{nobackaddress}, \option{nofoldmarks}, \option{notitlepage}, \option{oneside}, \option{protokoll}, \option{pagestyle}
 
 \subsubsection{draft}
 
@@ -197,6 +197,19 @@ Standard: \option{times}
 	\beispiel
 		\>\befehl{usepackage[font=charter]\{basis\}}\\
 		\>\befehl{usepackage[font=times]\{basis\}}
+\end{nutzung}
+
+\subsubsection{fontsize}
+
+Die \option{fontsize}-Option legt die Schriftgröße des Dokuments fest.
+
+Standard: \option{11pt}
+
+\begin{nutzung}
+		\>\befehl{usepackage[fontsize=\meta{Größe}]\{basis\}}\\
+	\beispiel
+		\>\befehl{usepackage[fontsize=10pt]\{basis\}}\\
+		\>\befehl{usepackage[fontsize=1cm]\{basis\}}
 \end{nutzung}
 
 \subsubsection{hypercolor}
