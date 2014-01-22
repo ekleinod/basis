@@ -13,7 +13,7 @@
 %\usepackage[font=times]{basis}
 %\usepackage[font=wrong]{basis}
 
-\usepackage[fontsize=6pt]{basis}
+%\usepackage[fontsize=6pt]{basis}
 
 %\usepackage[hypercolor=green]{basis}
 
@@ -24,7 +24,7 @@
 
 %\usepackage[oneside]{basis}
 
-%\usepackage[protokoll]{basis}
+%\usepackage[protocol]{basis}
 
 %\usepackage[pagestyle=beides]{basis}
 %\usepackage[pagestyle=fuss]{basis}
@@ -33,7 +33,9 @@
 %\usepackage[notitlepage, pagestyle=leer]{basis}
 %\usepackage[pagestyle=wrong]{basis}
 
-%\usepackage[draft|final, font=charter|droid|hfold|mathpazo|original|times, fontsize=<groesse>, hypercolor=<color>, hyperdriver=<driver>, notitlepage, oneside, protokoll, pagestyle=beides|fuss|fussseite|leer]{basis}
+\usepackage[rules]{basis}
+
+%\usepackage[draft|final, font=charter|droid|hfold|mathpazo|original|times, fontsize=<groesse>, hypercolor=<color>, hyperdriver=<driver>, notitlepage, oneside, protocol, pagestyle=beides|fuss|fussseite|leer, rules]{basis}
 
 %\title{Dokumenttitel}
 \title[Kurzform]{Dokumenttitel}
@@ -302,6 +304,52 @@
 
 	\section{section}
 	\lipsum[1-25]
+
+	\section{Regeln 1}
+
+	\begin{enumerate}
+		\item \lipsum[1]
+		\item \lipsum[1]
+		\item abcd
+			\begin{enumerate}
+				\item \lipsum[1]
+				\item \lipsum[1]
+				\item abcd
+					\begin{enumerate}
+						\item \lipsum[1]
+						\item \lipsum[1]
+						\item \lipsum[1]
+						\item \lipsum[1]
+					\end{enumerate}
+				\item \lipsum[1]
+				\item \lipsum[1]
+			\end{enumerate}
+		\item \lipsum[1]
+		\item \lipsum[1]
+	\end{enumerate}
+
+	\section{Regeln 2}
+
+	\begin{enumerate}
+		\item \lipsum[1]
+		\item \lipsum[1]
+		\item abcd
+			\begin{enumerate}
+				\item \lipsum[1]
+				\item \lipsum[1]
+				\item abcd
+					\begin{enumerate}
+						\item \lipsum[1]
+						\item \lipsum[1]
+						\item \lipsum[1]
+						\item \lipsum[1]
+					\end{enumerate}
+				\item \lipsum[1]
+				\item \lipsum[1]
+			\end{enumerate}
+		\item \lipsum[1]
+		\item \lipsum[1]
+	\end{enumerate}
 
 \end{document}
 

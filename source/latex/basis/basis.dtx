@@ -35,6 +35,7 @@
 % \changes{v0.9}{2014/01/04}{Logo im Brief (Infospaltenlayouts)}
 % \changes{v0.10}{2014/01/10}{Font-Option droid, bugfix Seitennummer}
 % \changes{v0.11}{2014/01/11}{Fontsize-Option}
+% \changes{v0.12}{2014/01/22}{Rules-Option}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -53,12 +54,20 @@
 %	\cleardoublepage
 % \section{Versionen}
 %
+%	\subsection{Version 0.12}
+%
+%	Datum: 22.\,01.~2014
+%
+%	\begin{itemize}
+%		\item Regelsatz-Option \option{rules}
+%	\end{itemize}
+%
 %	\subsection{Version 0.11}
 %
 %	Datum: 11.\,01.~2014
 %
 %	\begin{itemize}
-%		\item Fontsize-Option \option{fontsize}
+%		\item Schriftgröße-Option \option{fontsize}
 %	\end{itemize}
 %
 %	\subsection{Version 0.10}
@@ -355,7 +364,7 @@
 %    \begin{macrocode}
 \newboolean{BAS@opt@protocol}
 \setboolean{BAS@opt@protocol}{false}
-\DeclareOptionX{protokoll}{
+\DeclareOptionX{protocol}{
 	\setboolean{BAS@opt@protocol}{true}
 	\typeout{Basis-Option 'protokoll'}
 }
@@ -380,6 +389,16 @@
 				{\PackageWarning{basis}{Seitenstil '#1' unbekannt, nutze '\BAS@opt@pagestyle'}}
 		}
 	\typeout{Basis-Option 'pagestyle=\BAS@opt@pagestyle'}
+}
+%    \end{macrocode}
+%
+% \option{rules}-Option
+%    \begin{macrocode}
+\newboolean{BAS@opt@rules}
+\setboolean{BAS@opt@rules}{false}
+\DeclareOptionX{rules}{
+	\setboolean{BAS@opt@rules}{true}
+	\typeout{Basis-Option 'rules'}
 }
 %    \end{macrocode}
 %
@@ -448,10 +467,13 @@
 		}
 	}
 	{
+		\ifthenelse{\boolean{BAS@opt@rules}}
+			{\newcommand{\BAS@numbers}{endperiod}}
+			{\newcommand{\BAS@numbers}{noendperiod}}
 		\KOMAoptions{
 			captions=nooneline,
 			headings=big,
-			numbers=noendperiod,
+			numbers=\BAS@numbers,
 			titlepage=\BAS@opt@titlepage,
 			toc=flat
 		}
