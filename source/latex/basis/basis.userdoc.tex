@@ -165,7 +165,7 @@ Die Optionen des \paket{basis}-Pakets werden einzeln erläutert, sie können auc
 		\>\befehl{usepackage[draft, font=charter]\{basis\}}
 \end{nutzung}
 
-Mögliche Optionen: \option{draft}, \option{final}, \option{font}, \option{fontsize}, \option{hypercolor}, \option{hyperdriver}, \option{layout}, \option{nobackaddress}, \option{nofoldmarks}, \option{notitlepage}, \option{oneside}, \option{protocol}, \option{pagestyle}
+Mögliche Optionen: \option{draft}, \option{final}, \option{font}, \option{fontsize}, \option{hypercolor}, \option{hyperdriver}, \option{layout}, \option{nobackaddress}, \option{nofoldmarks}, \option{notitlepage}, \option{oneside}, \option{pagestyle}, \option{protocol}, \option{rules}
 
 \subsubsection{draft}
 
@@ -297,6 +297,29 @@ Die \option{oneside}-Option setzt den Text einseitig,
 		\>\befehl{usepackage[oneside]\{basis\}}\\
 \end{nutzung}
 
+\subsubsection{pagestyle}
+
+Die \option{pagestyle}-Option setzt den Seitenstil des Dokuments.
+
+Standard: \option{beides} für Dokumente, \option{fussseite} für Briefe
+
+Mögliche Werte:
+\begin{tabbing}
+	\option{pagestyle=fussseite}mm\=\kill
+
+	\option{pagestyle=beides}\>Kopfzeile mit \emph{section}-Überschriften, Fußzeile mit Titel und Seitenangabe\\
+	\option{pagestyle=fuss}\>Kopfzeile leer, Fußzeile mit Titel und Seitenangabe\\
+	\option{pagestyle=fussseite}\>Kopfzeile leer, Fußzeile mit Seitenangabe\\
+	\option{pagestyle=leer}\>Kopfzeile und Fußzeile leer\\
+\end{tabbing}
+
+\begin{nutzung}
+		\>\befehl{usepackage[pagestyle=\meta{beides|fuss|fussseite|leer}]\{basis\}}\\
+	\beispiel
+		\>\befehl{usepackage[pagestyle=fuss]\{basis\}}\\
+		\>\befehl{usepackage[pagestyle=leer]\{basis\}}
+\end{nutzung}
+
 \subsubsection{protocol}
 
 Die \option{protocol}-Option nimmt Änderungen für Protokolle vor.
@@ -309,6 +332,21 @@ Die Änderungen sind:
 
 \begin{nutzung}
 		\>\befehl{usepackage[protocol]\{basis\}}\\
+\end{nutzung}
+
+\subsubsection{rules}
+
+Die \option{rules}-Option setzt den Text als Regelwerk.
+Die Option wird nur bei Artikeln oder Büchern ausgewertet.
+
+Die Änderungen sind:
+\begin{itemize}
+	\item Überschriften werden mit Punkt nach der Nummer gesetzt
+	\item Numerierte Aufzählungen werden durchnumeriert unter Einbeziehung der Überschrift
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{usepackage[rules]\{basis\}}\\
 \end{nutzung}
 
 

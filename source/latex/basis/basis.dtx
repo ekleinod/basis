@@ -1,4 +1,4 @@
-% \CheckSum{1877}
+% \CheckSum{1914}
 %
 % \iffalse meta-comment
 %
@@ -1055,11 +1055,11 @@
 % Die folgenden Befehle verwenden das \paket{enumitem}-Paket.
 %
 % Zunächst werden globale Einstellungen für alle Listen getroffen.
-% Die Einrücktiefen werden auf jeweils 5~mm festgelegt (geschätzt).
-% Der obere Abstand \befehl{topsep} (zwischen erstem Listenpunkt und vorhergehendem Absatz) und der obere Abstand eines Absatzes \befehl{partopsep} (zusätzlich, wenn die Listenumgebung einen neuen Absatz beginnt) werden auf~0 gesetzt.
 %    \begin{macrocode}
 \RequirePackage{enumitem}
-\setlist{topsep=0mm plus .1pt, partopsep=0mm, leftmargin=5mm, noitemsep}
+\ifthenelse{\boolean{BAS@opt@rules}}
+	{\setlist{topsep=0mm plus .1pt, noitemsep, itemsep=.4ex, labelsep=1em, itemindent=1em, leftmargin=0mm, labelwidth=0mm, labelindent=!, align=left}}
+	{\setlist{topsep=0mm plus .1pt, noitemsep, leftmargin=*, align=left}}
 %    \end{macrocode}
 %
 % Die Gliederungszeichen von \texttt{itemize}-Umgebungen werden so umdefiniert, dass die erste Ebene einen Strich enthält, die zweite einen kleinen Punkt, die dritte einen großen Punkt und die vierte einen Stern.
@@ -1070,14 +1070,25 @@
 \setitemize[4]{label=\ensuremath{\ast}}
 %    \end{macrocode}
 %
-% Die Nummerierung wird so umdefiniert, dass die erste Ebene arabische Zahlen enthält, die zweite kleine römische Buchstaben, die dritte Kleinbuchstaben und die vierte Großbuchstaben.
+% Die Nummerierung wird so umdefiniert, dass die erste Ebene arabische Zahlen enthält, die zweite Kleinbuchstaben, die dritte kleine römische Buchstaben und die vierte Großbuchstaben.
 % Die Referenzierung auf Nummerierungen wird durch Punkte abgesetzt.
 % Alle Angaben sind selbst ausgedacht.
+%
+% Bei Regeln (\option{rules}-Option) werden die Regeln durchnummeriert, dabei werden die Überschriften einbezogen.
 %    \begin{macrocode}
-\setenumerate[1]{label=\arabic*., ref=\arabic*}
-\setenumerate[2]{label=\roman*, ref=\theenumii.\roman*}
-\setenumerate[3]{label=\alph*, ref=\theenumi.\alph*}
-\setenumerate[4]{label=\Alph*, ref=\theenumiii.\Alph*}
+\ifthenelse{\boolean{BAS@opt@rules}}
+	{
+		\setenumerate[1]{label=\thesection.\arabic*, ref=\thesection.\arabic*}
+		\setenumerate[2]{label=\theenumi.\arabic*, ref=\theenumi.\arabic*}
+		\setenumerate[3]{label=\theenumii.\arabic*, ref=\theenumii.\arabic*}
+		\setenumerate[4]{label=\theenumiii.\arabic*, ref=\theenumiii.\arabic*}
+	}
+	{
+		\setenumerate[1]{label=\arabic*., ref=\arabic*}
+		\setenumerate[2]{label=\alph*, ref=\theenumi.\alph*}
+		\setenumerate[3]{label=\roman*, ref=\theenumii.\roman*}
+		\setenumerate[4]{label=\Alph*, ref=\theenumiii.\Alph*}
+	}
 %    \end{macrocode}
 %
 % \subsection{Fußnoten}

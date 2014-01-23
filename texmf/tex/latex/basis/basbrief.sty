@@ -114,7 +114,7 @@
 }
 \newboolean{BAS@opt@protocol}
 \setboolean{BAS@opt@protocol}{false}
-\DeclareOptionX{protokoll}{
+\DeclareOptionX{protocol}{
 \setboolean{BAS@opt@protocol}{true}
 \typeout{Basis-Option 'protokoll'}
 }
@@ -135,6 +135,12 @@
 {\PackageWarning{basis}{Seitenstil '#1' unbekannt, nutze '\BAS@opt@pagestyle'}}
 }
 \typeout{Basis-Option 'pagestyle=\BAS@opt@pagestyle'}
+}
+\newboolean{BAS@opt@rules}
+\setboolean{BAS@opt@rules}{false}
+\DeclareOptionX{rules}{
+\setboolean{BAS@opt@rules}{true}
+\typeout{Basis-Option 'rules'}
 }
 \ProcessOptionsX
 \newlength{\BAS@len@rule}
@@ -157,10 +163,13 @@ foldmarks=\BAS@opt@foldmarks
 }
 }
 {
+\ifthenelse{\boolean{BAS@opt@rules}}
+{\newcommand{\BAS@numbers}{endperiod}}
+{\newcommand{\BAS@numbers}{noendperiod}}
 \KOMAoptions{
 captions=nooneline,
 headings=big,
-numbers=noendperiod,
+numbers=\BAS@numbers,
 titlepage=\BAS@opt@titlepage,
 toc=flat
 }
@@ -477,15 +486,26 @@ colorlinks=true
 {}
 \RequirePackage[xspace]{dhua}
 \RequirePackage{enumitem}
-\setlist{topsep=0mm plus .1pt, partopsep=0mm, leftmargin=5mm, noitemsep}
+\ifthenelse{\boolean{BAS@opt@rules}}
+{\setlist{topsep=0mm plus .1pt, noitemsep, itemsep=.4ex, labelsep=1em, itemindent=1em, leftmargin=0mm, labelwidth=0mm, labelindent=!, align=left}}
+{\setlist{topsep=0mm plus .1pt, noitemsep, leftmargin=*, align=left}}
 \setitemize[1]{label=--}
 \setitemize[2]{label=\ensuremath{\cdot}}
 \setitemize[3]{label=\ensuremath{\bullet}}
 \setitemize[4]{label=\ensuremath{\ast}}
+\ifthenelse{\boolean{BAS@opt@rules}}
+{
+\setenumerate[1]{label=\thesection.\arabic*, ref=\thesection.\arabic*}
+\setenumerate[2]{label=\theenumi.\arabic*, ref=\theenumi.\arabic*}
+\setenumerate[3]{label=\theenumii.\arabic*, ref=\theenumii.\arabic*}
+\setenumerate[4]{label=\theenumiii.\arabic*, ref=\theenumiii.\arabic*}
+}
+{
 \setenumerate[1]{label=\arabic*., ref=\arabic*}
-\setenumerate[2]{label=\roman*, ref=\theenumii.\roman*}
-\setenumerate[3]{label=\alph*, ref=\theenumi.\alph*}
+\setenumerate[2]{label=\alph*, ref=\theenumi.\alph*}
+\setenumerate[3]{label=\roman*, ref=\theenumii.\roman*}
 \setenumerate[4]{label=\Alph*, ref=\theenumiii.\Alph*}
+}
 \deffootnote{1.5em}{1em}{\makebox[1.5em][l]{\textsuperscript\thefootnotemark}}
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
 \@addtoreset{equation}{section}
