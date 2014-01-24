@@ -92,6 +92,12 @@
 }
 \typeout{Basis-Option 'layout=\BAS@opt@layout'}
 }
+\newboolean{BAS@opt@noauthor}
+\setboolean{BAS@opt@noauthor}{false}
+\DeclareOptionX{noauthor}{
+\setboolean{BAS@opt@noauthor}{true}
+\typeout{Basis-Option 'noauthor'}
+}
 \newcommand{\BAS@opt@backaddress}{on}
 \DeclareOptionX{nobackaddress}{
 \renewcommand{\BAS@opt@backaddress}{off}
@@ -558,15 +564,11 @@ colorlinks=true
 {\BAS@version\\}
 \@date\par
 \vskip 2\parskip
-\ifthenelse{\isundefined\@author}
-{}
-{
-\ifthenelse{\equal{\@author}{\@empty}}
+\ifthenelse{\boolean{BAS@opt@noauthor}}
 {}
 {
 \textbf{\@author}\par
 \vskip \parskip
-}
 }
 \ifthenelse{\boolean{BAS@hasaddress}}
 {
@@ -657,20 +659,16 @@ colorlinks=true
 \textbf{\huge\BAS@title}\par
 \ifthenelse{\equal{\@subtitle}{\@empty}}
 {}
-{{\huge\@subtitle}\par}
+{{\LARGE\@subtitle}\par}
 \vskip \parskip
 \ifthenelse{\isundefined\BAS@version}
 {}
 {\BAS@version\\}
 \@date\par
 \vskip \parskip
-\ifthenelse{\isundefined\@author}
-{}
-{
-\ifthenelse{\equal{\@author}{\@empty}}
+\ifthenelse{\boolean{BAS@opt@noauthor}}
 {}
 {\@author\\}
-}
 \ifthenelse{\isundefined\BAS@email}%
 {}%
 {%

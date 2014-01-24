@@ -165,7 +165,7 @@ Die Optionen des \paket{basis}-Pakets werden einzeln erläutert, sie können auc
 		\>\befehl{usepackage[draft, font=charter]\{basis\}}
 \end{nutzung}
 
-Mögliche Optionen: \option{draft}, \option{final}, \option{font}, \option{fontsize}, \option{hypercolor}, \option{hyperdriver}, \option{layout}, \option{nobackaddress}, \option{nofoldmarks}, \option{notitlepage}, \option{oneside}, \option{pagestyle}, \option{protocol}, \option{rules}
+Mögliche Optionen: \option{draft}, \option{final}, \option{font}, \option{fontsize}, \option{hypercolor}, \option{hyperdriver}, \option{layout}, \option{noauthor}, \option{nobackaddress}, \option{nofoldmarks}, \option{notitlepage}, \option{oneside}, \option{pagestyle}, \option{protocol}, \option{rules}
 
 \subsubsection{draft}
 
@@ -260,6 +260,16 @@ Standard: \option{infospalte}
 	\option{infospalte}\>Adressangaben in separater Spalte, Autor oben in Kapitälchen\\
 	\option{infospaltefett}\>wie \option{infospalte}, Autor oben in Fettdruck
 \end{tabbing}
+
+\subsubsection{noauthor}
+
+Die \option{noauthor}-Option verhindert die Anzeige der Autorin auf der Titelseite.
+Die Autorin wird dennoch in den Dokumenteigenschaften gespeichert.
+Die Option wird nur bei Artikeln oder Büchern ausgewertet.
+
+\begin{nutzung}
+		\>\befehl{usepackage[noauthor]\{basis\}}\\
+\end{nutzung}
 
 \subsubsection{nobackaddress}
 

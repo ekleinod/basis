@@ -92,6 +92,12 @@
 }
 \typeout{Basis-Option 'layout=\BAS@opt@layout'}
 }
+\newboolean{BAS@opt@noauthor}
+\setboolean{BAS@opt@noauthor}{false}
+\DeclareOptionX{noauthor}{
+\setboolean{BAS@opt@noauthor}{true}
+\typeout{Basis-Option 'noauthor'}
+}
 \newcommand{\BAS@opt@backaddress}{on}
 \DeclareOptionX{nobackaddress}{
 \renewcommand{\BAS@opt@backaddress}{off}

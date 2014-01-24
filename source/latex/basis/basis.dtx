@@ -1,4 +1,4 @@
-% \CheckSum{1914}
+% \CheckSum{1909}
 %
 % \iffalse meta-comment
 %
@@ -35,7 +35,7 @@
 % \changes{v0.9}{2014/01/04}{Logo im Brief (Infospaltenlayouts)}
 % \changes{v0.10}{2014/01/10}{Font-Option droid, bugfix Seitennummer}
 % \changes{v0.11}{2014/01/11}{Fontsize-Option}
-% \changes{v0.12}{2014/01/22}{Rules-Option}
+% \changes{v0.12}{2014/01/22}{Rules-Option, NoAuthor-Option}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -60,6 +60,7 @@
 %
 %	\begin{itemize}
 %		\item Regelsatz-Option \option{rules}
+%		\item Kein-Author-Option \option{noauthor}
 %	\end{itemize}
 %
 %	\subsection{Version 0.11}
@@ -321,6 +322,16 @@
 				{\PackageWarning{basis}{Layout '#1' unbekannt, nutze '\BAS@opt@layout'}}
 		}
 	\typeout{Basis-Option 'layout=\BAS@opt@layout'}
+}
+%    \end{macrocode}
+%
+% \option{noauthor}-Option
+%    \begin{macrocode}
+\newboolean{BAS@opt@noauthor}
+\setboolean{BAS@opt@noauthor}{false}
+\DeclareOptionX{noauthor}{
+	\setboolean{BAS@opt@noauthor}{true}
+	\typeout{Basis-Option 'noauthor'}
 }
 %    \end{macrocode}
 %
@@ -1261,15 +1272,11 @@
 %
 % Autor\_in.
 %    \begin{macrocode}
-				\ifthenelse{\isundefined\@author}
+				\ifthenelse{\boolean{BAS@opt@noauthor}}
 					{}
 					{
-						\ifthenelse{\equal{\@author}{\@empty}}
-							{}
-							{
-								\textbf{\@author}\par
-								\vskip \parskip
-							}
+						\textbf{\@author}\par
+						\vskip \parskip
 					}
 %    \end{macrocode}
 %
@@ -1412,7 +1419,7 @@
 %    \begin{macrocode}
 			\ifthenelse{\equal{\@subtitle}{\@empty}}
 				{}
-				{{\huge\@subtitle}\par}
+				{{\LARGE\@subtitle}\par}
 			\vskip \parskip
 %    \end{macrocode}
 %
@@ -1431,13 +1438,9 @@
 %
 % Autor\_in.
 %    \begin{macrocode}
-			\ifthenelse{\isundefined\@author}
+			\ifthenelse{\boolean{BAS@opt@noauthor}}
 				{}
-				{
-					\ifthenelse{\equal{\@author}{\@empty}}
-						{}
-						{\@author\\}
-				}
+				{\@author\\}
 %    \end{macrocode}
 %
 % E-Mail.
