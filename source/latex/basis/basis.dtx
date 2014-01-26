@@ -1,4 +1,4 @@
-% \CheckSum{1913}
+% \CheckSum{1921}
 %
 % \iffalse meta-comment
 %
@@ -35,7 +35,7 @@
 % \changes{v0.9}{2014/01/04}{Logo im Brief (Infospaltenlayouts)}
 % \changes{v0.10}{2014/01/10}{Font-Option droid, bugfix Seitennummer}
 % \changes{v0.11}{2014/01/11}{Fontsize-Option}
-% \changes{v0.12}{2014/01/22}{Rules-Option, NoAuthor-Option}
+% \changes{v0.12}{2014/01/22}{Rules-Option, NoAuthor-Option, changes-Paket in mmd}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -62,6 +62,7 @@
 %		\item Regelsatz-Option \option{rules}
 %		\item Kein-Author-Option \option{noauthor}
 %		\item Logo-Positionierung bei \option{notitlepage} verbessert
+%		\item mmd-Datei \paket{changes}-Paket
 %	\end{itemize}
 %
 %	\subsection{Version 0.11}
@@ -2263,6 +2264,17 @@
 			{\cc{\BAScc}}
 	\end{letter}
 %</mmd:endlttr>
+%    \end{macrocode}
+%
+% \subsubsection{Paket: changes}
+%
+%    \begin{macrocode}
+%<*mmd:package:changes>
+\ifx\undefined\mychangesoptions
+	\def\mychangesoptions{}
+\fi
+\usepackage[\mychangesoptions]{changes}
+%</mmd:package:changes>
 %    \end{macrocode}
 %
 %\Finale
