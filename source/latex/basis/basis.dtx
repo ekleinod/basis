@@ -1242,7 +1242,7 @@
 % Die \befehl{mbox} ist nötig, damit der Abstand auch bei fehlendem Logo gesetzt wird.
 %    \begin{macrocode}
 				\mbox{}\vskip 15\parskip
-				\textbf{\Huge\BAS@title}\par
+				{\Huge\textbf{\BAS@title}\par}
 %    \end{macrocode}
 %
 % Der Untertitel.
@@ -1251,8 +1251,7 @@
 					{\vskip 2\parskip}
 					{
 						\vskip \parskip
-						{\huge\@subtitle}
-						\par
+						{\huge\@subtitle\par}
 					}
 				\vskip 2\parskip
 %    \end{macrocode}
@@ -1412,14 +1411,14 @@
 %
 % Der Dokumenttitel.
 %    \begin{macrocode}
-			\textbf{\huge\BAS@title}\par
+			{\huge\textbf{\BAS@title}\par}
 %    \end{macrocode}
 %
 % Der Untertitel.
 %    \begin{macrocode}
 			\ifthenelse{\equal{\@subtitle}{\@empty}}
 				{}
-				{{\LARGE\@subtitle}\par}
+				{{\LARGE\@subtitle\par}}
 			\vskip \parskip
 %    \end{macrocode}
 %
