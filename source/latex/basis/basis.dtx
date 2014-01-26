@@ -1,4 +1,4 @@
-% \CheckSum{1909}
+% \CheckSum{1913}
 %
 % \iffalse meta-comment
 %
@@ -61,6 +61,7 @@
 %	\begin{itemize}
 %		\item Regelsatz-Option \option{rules}
 %		\item Kein-Author-Option \option{noauthor}
+%		\item Logo-Positionierung bei \option{notitlepage} verbessert
 %	\end{itemize}
 %
 %	\subsection{Version 0.11}
@@ -848,15 +849,15 @@
 	{
 		\newcommand{\logo}[1]{
 			\def\BAS@logo{#1}
-			\newlength{\BAS@len@logo}
-			\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+			\newlength{\BAS@len@logow}
+			\settowidth{\BAS@len@logow}{\includegraphics{\BAS@logo}}
 		}
 	}
 	{
 		\renewcommand{\logo}[1]{
 			\def\BAS@logo{#1}
-			\newlength{\BAS@len@logo}
-			\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+			\newlength{\BAS@len@logow}
+			\settowidth{\BAS@len@logow}{\includegraphics{\BAS@logo}}
 		}
 	}
 %    \end{macrocode}
@@ -1230,7 +1231,7 @@
 				\ifthenelse{\isundefined\BAS@logo}%
 					{}%
 					{%
-						\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+						\setlength{\unitlength}{\textwidth - \BAS@len@logow}%
 						\begin{picture}(0,0)(-1,0)%
 							\put(0,0){\includegraphics{\BAS@logo}}%
 						\end{picture}%
@@ -1402,9 +1403,10 @@
 			\ifthenelse{\isundefined\BAS@logo}
 				{}%
 				{%
-					\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+					\setlength{\unitlength}{\textwidth - \BAS@len@logow}%
 					\begin{picture}(0,0)(-1,0)%
-						\put(0,0){\includegraphics{\BAS@logo}}%
+						\setlength{\unitlength}{\baselineskip + \parskip}%
+						\put(0,1){\includegraphics{\BAS@logo}}%
 					\end{picture}%
 				}%
 %    \end{macrocode}
@@ -1676,10 +1678,10 @@
 		{}%
 		{%
 			\setkomavar{fromlogo}{%
-				\ifthenelse{\BAS@len@logo > \infocolwidth}%
-					{\setlength{\BAS@len@logo}{\infocolwidth}}%
+				\ifthenelse{\BAS@len@logow > \infocolwidth}%
+					{\setlength{\BAS@len@logow}{\infocolwidth}}%
 					{}%
-					\includegraphics[width=\BAS@len@logo]{\BAS@logo}%
+					\includegraphics[width=\BAS@len@logow]{\BAS@logo}%
 			}%
 		}%
 	}
@@ -1907,7 +1909,7 @@
 	\ifkomavarempty{fromlogo}%
 		{}%
 		{%
-			\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+			\setlength{\unitlength}{\textwidth - \BAS@len@logow}%
 			\begin{picture}(0,0)(-1,.1)%
 				\put(0,0){\usekomavar{fromlogo}}%
 			\end{picture}%

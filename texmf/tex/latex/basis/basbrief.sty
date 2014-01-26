@@ -338,15 +338,15 @@ colorlinks=true
 {
 \newcommand{\logo}[1]{
 \def\BAS@logo{#1}
-\newlength{\BAS@len@logo}
-\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+\newlength{\BAS@len@logow}
+\settowidth{\BAS@len@logow}{\includegraphics{\BAS@logo}}
 }
 }
 {
 \renewcommand{\logo}[1]{
 \def\BAS@logo{#1}
-\newlength{\BAS@len@logo}
-\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+\newlength{\BAS@len@logow}
+\settowidth{\BAS@len@logow}{\includegraphics{\BAS@logo}}
 }
 }
 \newcommand{\briefkopf}[1]{\def\BAS@briefkopf{#1}}
@@ -537,10 +537,10 @@ colorlinks=true
 {}%
 {%
 \setkomavar{fromlogo}{%
-\ifthenelse{\BAS@len@logo > \infocolwidth}%
-{\setlength{\BAS@len@logo}{\infocolwidth}}%
+\ifthenelse{\BAS@len@logow > \infocolwidth}%
+{\setlength{\BAS@len@logow}{\infocolwidth}}%
 {}%
-\includegraphics[width=\BAS@len@logo]{\BAS@logo}%
+\includegraphics[width=\BAS@len@logow]{\BAS@logo}%
 }%
 }%
 }

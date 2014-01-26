@@ -338,15 +338,15 @@ colorlinks=true
 {
 \newcommand{\logo}[1]{
 \def\BAS@logo{#1}
-\newlength{\BAS@len@logo}
-\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+\newlength{\BAS@len@logow}
+\settowidth{\BAS@len@logow}{\includegraphics{\BAS@logo}}
 }
 }
 {
 \renewcommand{\logo}[1]{
 \def\BAS@logo{#1}
-\newlength{\BAS@len@logo}
-\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+\newlength{\BAS@len@logow}
+\settowidth{\BAS@len@logow}{\includegraphics{\BAS@logo}}
 }
 }
 \AtBeginDocument{
@@ -544,19 +544,18 @@ colorlinks=true
 \ifthenelse{\isundefined\BAS@logo}%
 {}%
 {%
-\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+\setlength{\unitlength}{\textwidth - \BAS@len@logow}%
 \begin{picture}(0,0)(-1,0)%
 \put(0,0){\includegraphics{\BAS@logo}}%
 \end{picture}%
 }%
 \mbox{}\vskip 15\parskip
-\textbf{\Huge\BAS@title}\par
+{\Huge\textbf{\BAS@title}\par}
 \ifthenelse{\equal{\@subtitle}{\@empty}}
 {\vskip 2\parskip}
 {
 \vskip \parskip
-{\huge\@subtitle}
-\par
+{\huge\@subtitle\par}
 }
 \vskip 2\parskip
 \ifthenelse{\isundefined\BAS@version}
@@ -651,15 +650,16 @@ colorlinks=true
 \ifthenelse{\isundefined\BAS@logo}
 {}%
 {%
-\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+\setlength{\unitlength}{\textwidth - \BAS@len@logow}%
 \begin{picture}(0,0)(-1,0)%
-\put(0,0){\includegraphics{\BAS@logo}}%
+\setlength{\unitlength}{\baselineskip + \parskip}%
+\put(0,1){\includegraphics{\BAS@logo}}%
 \end{picture}%
 }%
-\textbf{\huge\BAS@title}\par
+{\huge\textbf{\BAS@title}\par}
 \ifthenelse{\equal{\@subtitle}{\@empty}}
 {}
-{{\LARGE\@subtitle}\par}
+{{\LARGE\@subtitle\par}}
 \vskip \parskip
 \ifthenelse{\isundefined\BAS@version}
 {}

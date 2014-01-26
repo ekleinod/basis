@@ -30,7 +30,7 @@
 \ifkomavarempty{fromlogo}%
 {}%
 {%
-\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+\setlength{\unitlength}{\textwidth - \BAS@len@logow}%
 \begin{picture}(0,0)(-1,.1)%
 \put(0,0){\usekomavar{fromlogo}}%
 \end{picture}%
