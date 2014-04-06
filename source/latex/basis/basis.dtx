@@ -1,4 +1,4 @@
-% \CheckSum{1929}
+% \CheckSum{1940}
 %
 % \iffalse meta-comment
 %
@@ -1936,10 +1936,26 @@
 					{\usekomavar[\textbf]{place}\\}%
 				\usekomavar{date}\\%
 %    \end{macrocode}
-% Name und Adresse.
+% Name.
 %    \begin{macrocode}
 				\vspace{2\baselineskip}%
 				\usekomavar[\textbf]{fromname}\\%
+%    \end{macrocode}
+% Adresszusatz.
+%    \begin{macrocode}
+				\ifthenelse{\isundefined\BAS@adresszusatz}%
+					{}%
+					{%
+						\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}%
+							{}%
+							{%
+								\vspace{.5\baselineskip}%
+								\BAS@adresszusatz\par%
+							}%
+					}%
+%    \end{macrocode}
+% Adresse.
+%    \begin{macrocode}
 				\vspace{.5\baselineskip}%
 				\ifkomavarempty{fromaddress}%
 					{}%

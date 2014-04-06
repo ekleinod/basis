@@ -50,6 +50,16 @@
 \usekomavar{date}\\%
 \vspace{2\baselineskip}%
 \usekomavar[\textbf]{fromname}\\%
+\ifthenelse{\isundefined\BAS@adresszusatz}%
+{}%
+{%
+\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}%
+{}%
+{%
+\vspace{.5\baselineskip}%
+\BAS@adresszusatz\par%
+}%
+}%
 \vspace{.5\baselineskip}%
 \ifkomavarempty{fromaddress}%
 {}%
