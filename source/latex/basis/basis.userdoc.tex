@@ -165,7 +165,7 @@ Die Optionen des \paket{basis}-Pakets werden einzeln erläutert, sie können auc
 		\>\befehl{usepackage[draft, font=charter]\{basis\}}
 \end{nutzung}
 
-Mögliche Optionen: \option{draft}, \option{final}, \option{font}, \option{fontsize}, \option{hypercolor}, \option{hyperdriver}, \option{layout}, \option{nobackaddress}, \option{nofoldmarks}, \option{notitlepage}, \option{oneside}, \option{protokoll}, \option{pagestyle}
+Mögliche Optionen: \option{draft}, \option{final}, \option{font}, \option{fontsize}, \option{hypercolor}, \option{hyperdriver}, \option{layout}, \option{noauthor}, \option{nobackaddress}, \option{nofoldmarks}, \option{notitlepage}, \option{oneside}, \option{pagestyle}, \option{protocol}, \option{rules}
 
 \subsubsection{draft}
 
@@ -261,6 +261,16 @@ Standard: \option{infospalte}
 	\option{infospaltefett}\>wie \option{infospalte}, Autor oben in Fettdruck
 \end{tabbing}
 
+\subsubsection{noauthor}
+
+Die \option{noauthor}-Option verhindert die Anzeige der Autorin auf der Titelseite.
+Die Autorin wird dennoch in den Dokumenteigenschaften gespeichert.
+Die Option wird nur bei Artikeln oder Büchern ausgewertet.
+
+\begin{nutzung}
+		\>\befehl{usepackage[noauthor]\{basis\}}\\
+\end{nutzung}
+
 \subsubsection{nobackaddress}
 
 Die \option{nobackaddress}-Option verhindert die Anzeige der Rücksendeadresse im Adressfeld.
@@ -297,9 +307,32 @@ Die \option{oneside}-Option setzt den Text einseitig,
 		\>\befehl{usepackage[oneside]\{basis\}}\\
 \end{nutzung}
 
-\subsubsection{protokoll}
+\subsubsection{pagestyle}
 
-Die \option{protokoll}-Option nimmt Änderungen für Protokolle vor.
+Die \option{pagestyle}-Option setzt den Seitenstil des Dokuments.
+
+Standard: \option{beides} für Dokumente, \option{fussseite} für Briefe
+
+Mögliche Werte:
+\begin{tabbing}
+	\option{pagestyle=fussseite}mm\=\kill
+
+	\option{pagestyle=beides}\>Kopfzeile mit \emph{section}-Überschriften, Fußzeile mit Titel und Seitenangabe\\
+	\option{pagestyle=fuss}\>Kopfzeile leer, Fußzeile mit Titel und Seitenangabe\\
+	\option{pagestyle=fussseite}\>Kopfzeile leer, Fußzeile mit Seitenangabe\\
+	\option{pagestyle=leer}\>Kopfzeile und Fußzeile leer\\
+\end{tabbing}
+
+\begin{nutzung}
+		\>\befehl{usepackage[pagestyle=\meta{beides|fuss|fussseite|leer}]\{basis\}}\\
+	\beispiel
+		\>\befehl{usepackage[pagestyle=fuss]\{basis\}}\\
+		\>\befehl{usepackage[pagestyle=leer]\{basis\}}
+\end{nutzung}
+
+\subsubsection{protocol}
+
+Die \option{protocol}-Option nimmt Änderungen für Protokolle vor.
 Die Option wird nur bei Artikeln oder Büchern ausgewertet.
 
 Die Änderungen sind:
@@ -308,7 +341,22 @@ Die Änderungen sind:
 \end{itemize}
 
 \begin{nutzung}
-		\>\befehl{usepackage[protokoll]\{basis\}}\\
+		\>\befehl{usepackage[protocol]\{basis\}}\\
+\end{nutzung}
+
+\subsubsection{rules}
+
+Die \option{rules}-Option setzt den Text als Regelwerk.
+Die Option wird nur bei Artikeln oder Büchern ausgewertet.
+
+Die Änderungen sind:
+\begin{itemize}
+	\item Überschriften werden mit Punkt nach der Nummer gesetzt
+	\item Numerierte Aufzählungen werden durchnumeriert unter Einbeziehung der Überschrift
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{usepackage[rules]\{basis\}}\\
 \end{nutzung}
 
 
@@ -557,6 +605,21 @@ Nutzung:
 		\>\befehl{logo\{\meta{Dateiname}\}}\\
 	\beispiel
 		\>\befehl{logo\{testlogo\}}
+\end{nutzung}
+
+\DescribeMacro{\sponsorlogo}
+Angabe eines Sponsor-Logos (Dateiname ohne Endung).
+Das Sponsor-Logo wird auf alle Seiten unten mittig gesetzt.
+
+Nutzung:
+\begin{itemize}
+	\item Alle Seiten (Artikel, Bücher, Briefe)
+\end{itemize}
+
+\begin{nutzung}
+		\>\befehl{sponsorlogo\{\meta{Dateiname}\}}\\
+	\beispiel
+		\>\befehl{sponsorlogo\{testlogo\}}
 \end{nutzung}
 
 

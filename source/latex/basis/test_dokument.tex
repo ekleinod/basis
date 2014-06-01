@@ -13,18 +13,21 @@
 %\usepackage[font=times]{basis}
 %\usepackage[font=wrong]{basis}
 
-\usepackage[fontsize=6pt]{basis}
+%\usepackage[fontsize=6pt]{basis}
 
 %\usepackage[hypercolor=green]{basis}
 
 %\usepackage[hyperdriver=dvips]{basis}
+
+%\usepackage[noauthor]{basis}
+%\usepackage[noauthor, notitlepage]{basis}
 
 %\usepackage[notitlepage]{basis}
 %\usepackage[notitlepage, oneside]{basis}
 
 %\usepackage[oneside]{basis}
 
-%\usepackage[protokoll]{basis}
+%\usepackage[protocol]{basis}
 
 %\usepackage[pagestyle=beides]{basis}
 %\usepackage[pagestyle=fuss]{basis}
@@ -33,10 +36,13 @@
 %\usepackage[notitlepage, pagestyle=leer]{basis}
 %\usepackage[pagestyle=wrong]{basis}
 
-%\usepackage[draft|final, font=charter|droid|hfold|mathpazo|original|times, fontsize=<groesse>, hypercolor=<color>, hyperdriver=<driver>, notitlepage, oneside, protokoll, pagestyle=beides|fuss|fussseite|leer]{basis}
+\usepackage[rules]{basis}
 
+%\usepackage[draft|final, font=charter|droid|hfold|mathpazo|original|times, fontsize=<groesse>, hypercolor=<color>, hyperdriver=<driver>, noauthor, notitlepage, oneside, protocol, pagestyle=beides|fuss|fussseite|leer, rules]{basis}
+
+\title{Langer Dokumenttitel, der über zwei Zeilen geht und damit Probleme beim Logo verursacht}
 %\title{Dokumenttitel}
-\title[Kurzform]{Dokumenttitel}
+%\title[Kurzform]{Dokumenttitel}
 \subtitle{Untertitel}
 
 \version{Version 1.0}
@@ -55,6 +61,8 @@
 
 \titelzusatz{Titelzusatz}
 \logo{testlogo}
+
+\sponsorlogo{andro}
 
 \usepackage{lipsum}
 
@@ -302,6 +310,152 @@
 
 	\section{section}
 	\lipsum[1-25]
+
+	\section{Regeln 1}
+
+	\begin{enumerate}
+		\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+					autoref \autoref{enm:1} oder ref \ref{enm:1}
+		\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.\label{enm:1}
+		\item abcd
+			\begin{enumerate}
+				\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+							autoref \autoref{enm:enm:1} oder ref \ref{enm:enm:1}
+				\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.\label{enm:enm:1}
+				\item abcd
+					\begin{enumerate}
+						\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+									autoref \autoref{enm:enm:enm:1} oder ref \ref{enm:enm:enm:1}
+						\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.\label{enm:enm:enm:1}
+						\item abcd
+							\begin{enumerate}
+								\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+		dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+											autoref \autoref{enm:enm:enm:enm:1} oder ref \ref{enm:enm:enm:enm:1}
+								\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+		dolor lacus, imperdiet non, ornare non, commodo eu, neque.\label{enm:enm:enm:enm:1}
+								\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+		dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+								\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+		dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+								\item Pellentesque interdum sapien sed nulla.
+								\item Pellentesque interdum sapien sed nulla.
+								\item Pellentesque interdum sapien sed nulla.
+								\item Pellentesque interdum sapien sed nulla.
+								\item Pellentesque interdum sapien sed nulla.
+								\item Pellentesque interdum sapien sed nulla.
+								\item Pellentesque interdum sapien sed nulla.
+							\end{enumerate}
+						\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+						\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+						\item Pellentesque interdum sapien sed nulla.
+						\item Pellentesque interdum sapien sed nulla.
+						\item Pellentesque interdum sapien sed nulla.
+						\item Pellentesque interdum sapien sed nulla.
+						\item Pellentesque interdum sapien sed nulla.
+						\item Pellentesque interdum sapien sed nulla.
+						\item Pellentesque interdum sapien sed nulla.
+					\end{enumerate}
+				\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+				\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+				\item Pellentesque interdum sapien sed nulla.
+				\item Pellentesque interdum sapien sed nulla.
+				\item Pellentesque interdum sapien sed nulla.
+				\item Pellentesque interdum sapien sed nulla.
+				\item Pellentesque interdum sapien sed nulla.
+				\item Pellentesque interdum sapien sed nulla.
+				\item Pellentesque interdum sapien sed nulla.
+			\end{enumerate}
+		\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+		\item Pellentesque interdum sapien sed nulla.
+		\item Pellentesque interdum sapien sed nulla.
+		\item Pellentesque interdum sapien sed nulla.
+		\item Pellentesque interdum sapien sed nulla.
+		\item Pellentesque interdum sapien sed nulla.
+		\item Pellentesque interdum sapien sed nulla.
+		\item Pellentesque interdum sapien sed nulla.
+		\item Pellentesque interdum sapien sed nulla.
+	\end{enumerate}
+
+	\section{Regeln 2}
+
+	\begin{enumerate}
+		\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+		\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+		\item abcd
+			\begin{enumerate}
+				\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+				\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+				\item abcd
+					\begin{enumerate}
+						\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+						\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+						\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+						\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+					\end{enumerate}
+				\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+				\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+			\end{enumerate}
+		\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+		\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+	\end{enumerate}
+
+	\section{Aufzählungen}
+
+	\begin{itemize}
+		\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+		\item abcd
+			\begin{itemize}
+				\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+				\item abcd
+					\begin{itemize}
+						\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+						\item abcd
+							\begin{itemize}
+								\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+		dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+								\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+		dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+							\end{itemize}
+						\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+					\end{itemize}
+				\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+				\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+			\end{itemize}
+		\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+		\item Pellentesque interdum sapien sed nulla. Proin tincidunt. Aliquam volutpat est vel massa. Sed
+dolor lacus, imperdiet non, ornare non, commodo eu, neque.
+	\end{itemize}
 
 \end{document}
 

@@ -1,4 +1,4 @@
-% \CheckSum{1877}
+% \CheckSum{1946}
 %
 % \iffalse meta-comment
 %
@@ -35,6 +35,7 @@
 % \changes{v0.9}{2014/01/04}{Logo im Brief (Infospaltenlayouts)}
 % \changes{v0.10}{2014/01/10}{Font-Option droid, bugfix Seitennummer}
 % \changes{v0.11}{2014/01/11}{Fontsize-Option}
+% \changes{v0.12}{2014/01/22}{Rules-Option, NoAuthor-Option, changes-Paket in mmd, Sponsorlogo}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -53,12 +54,24 @@
 %	\cleardoublepage
 % \section{Versionen}
 %
+%	\subsection{Version 0.12}
+%
+%	Datum: 22.\,01.~2014
+%
+%	\begin{itemize}
+%		\item Regelsatz-Option \option{rules}
+%		\item Kein-Author-Option \option{noauthor}
+%		\item Logo-Positionierung bei \option{notitlepage} verbessert
+%		\item mmd-Datei \paket{changes}-Paket
+%		\item Sponsorlogo
+%	\end{itemize}
+%
 %	\subsection{Version 0.11}
 %
 %	Datum: 11.\,01.~2014
 %
 %	\begin{itemize}
-%		\item Fontsize-Option \option{fontsize}
+%		\item Schriftgröße-Option \option{fontsize}
 %	\end{itemize}
 %
 %	\subsection{Version 0.10}
@@ -315,6 +328,16 @@
 }
 %    \end{macrocode}
 %
+% \option{noauthor}-Option
+%    \begin{macrocode}
+\newboolean{BAS@opt@noauthor}
+\setboolean{BAS@opt@noauthor}{false}
+\DeclareOptionX{noauthor}{
+	\setboolean{BAS@opt@noauthor}{true}
+	\typeout{Basis-Option 'noauthor'}
+}
+%    \end{macrocode}
+%
 % \option{nobackaddress}-Option
 %    \begin{macrocode}
 \newcommand{\BAS@opt@backaddress}{on}
@@ -355,7 +378,7 @@
 %    \begin{macrocode}
 \newboolean{BAS@opt@protocol}
 \setboolean{BAS@opt@protocol}{false}
-\DeclareOptionX{protokoll}{
+\DeclareOptionX{protocol}{
 	\setboolean{BAS@opt@protocol}{true}
 	\typeout{Basis-Option 'protokoll'}
 }
@@ -380,6 +403,16 @@
 				{\PackageWarning{basis}{Seitenstil '#1' unbekannt, nutze '\BAS@opt@pagestyle'}}
 		}
 	\typeout{Basis-Option 'pagestyle=\BAS@opt@pagestyle'}
+}
+%    \end{macrocode}
+%
+% \option{rules}-Option
+%    \begin{macrocode}
+\newboolean{BAS@opt@rules}
+\setboolean{BAS@opt@rules}{false}
+\DeclareOptionX{rules}{
+	\setboolean{BAS@opt@rules}{true}
+	\typeout{Basis-Option 'rules'}
 }
 %    \end{macrocode}
 %
@@ -448,10 +481,13 @@
 		}
 	}
 	{
+		\ifthenelse{\boolean{BAS@opt@rules}}
+			{\newcommand{\BAS@numbers}{endperiod}}
+			{\newcommand{\BAS@numbers}{noendperiod}}
 		\KOMAoptions{
 			captions=nooneline,
 			headings=big,
-			numbers=noendperiod,
+			numbers=\BAS@numbers,
 			titlepage=\BAS@opt@titlepage,
 			toc=flat
 		}
@@ -815,17 +851,27 @@
 	{
 		\newcommand{\logo}[1]{
 			\def\BAS@logo{#1}
-			\newlength{\BAS@len@logo}
-			\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+			\newlength{\BAS@len@logow}
+			\settowidth{\BAS@len@logow}{\includegraphics{\BAS@logo}}
 		}
 	}
 	{
 		\renewcommand{\logo}[1]{
 			\def\BAS@logo{#1}
-			\newlength{\BAS@len@logo}
-			\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+			\newlength{\BAS@len@logow}
+			\settowidth{\BAS@len@logow}{\includegraphics{\BAS@logo}}
 		}
 	}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\sponsorlogo}
+% Sponsor: Name des Sponsorlogos, das als Hintergrundbild auf jeder Seite gesetzt wird.
+%    \begin{macrocode}
+\newcommand{\sponsorlogo}[1]{
+	\RequirePackage{background}
+	\backgroundsetup{contents=\includegraphics{#1}, placement=bottom, scale=1, opacity=1, vshift=5mm}
+}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1033,29 +1079,40 @@
 % Die folgenden Befehle verwenden das \paket{enumitem}-Paket.
 %
 % Zunächst werden globale Einstellungen für alle Listen getroffen.
-% Die Einrücktiefen werden auf jeweils 5~mm festgelegt (geschätzt).
-% Der obere Abstand \befehl{topsep} (zwischen erstem Listenpunkt und vorhergehendem Absatz) und der obere Abstand eines Absatzes \befehl{partopsep} (zusätzlich, wenn die Listenumgebung einen neuen Absatz beginnt) werden auf~0 gesetzt.
 %    \begin{macrocode}
 \RequirePackage{enumitem}
-\setlist{topsep=0mm plus .1pt, partopsep=0mm, leftmargin=5mm, noitemsep}
+\ifthenelse{\boolean{BAS@opt@rules}}
+	{\setlist{topsep=0mm plus .1pt, labelsep=1em, itemindent=1em, leftmargin=0mm, labelwidth=0mm, labelindent=!, align=left}}
+	{\setlist{topsep=0mm plus .1pt, noitemsep, leftmargin=*, align=left}}
 %    \end{macrocode}
 %
 % Die Gliederungszeichen von \texttt{itemize}-Umgebungen werden so umdefiniert, dass die erste Ebene einen Strich enthält, die zweite einen kleinen Punkt, die dritte einen großen Punkt und die vierte einen Stern.
 %    \begin{macrocode}
-\setitemize[1]{label=--}
-\setitemize[2]{label=\ensuremath{\cdot}}
-\setitemize[3]{label=\ensuremath{\bullet}}
-\setitemize[4]{label=\ensuremath{\ast}}
+\setlist[itemize,1]{label=--}
+\setlist[itemize,2]{label=\ensuremath{\cdot}}
+\setlist[itemize,3]{label=\ensuremath{\bullet}}
+\setlist[itemize,4]{label=\ensuremath{\ast}}
 %    \end{macrocode}
 %
-% Die Nummerierung wird so umdefiniert, dass die erste Ebene arabische Zahlen enthält, die zweite kleine römische Buchstaben, die dritte Kleinbuchstaben und die vierte Großbuchstaben.
+% Die Nummerierung wird so umdefiniert, dass die erste Ebene arabische Zahlen enthält, die zweite Kleinbuchstaben, die dritte kleine römische Buchstaben und die vierte Großbuchstaben.
 % Die Referenzierung auf Nummerierungen wird durch Punkte abgesetzt.
 % Alle Angaben sind selbst ausgedacht.
+%
+% Bei Regeln (\option{rules}-Option) werden die Regeln durchnummeriert, dabei werden die Überschriften einbezogen.
 %    \begin{macrocode}
-\setenumerate[1]{label=\arabic*., ref=\arabic*}
-\setenumerate[2]{label=\roman*, ref=\theenumii.\roman*}
-\setenumerate[3]{label=\alph*, ref=\theenumi.\alph*}
-\setenumerate[4]{label=\Alph*, ref=\theenumiii.\Alph*}
+\ifthenelse{\boolean{BAS@opt@rules}}
+	{
+		\setlist[enumerate,1]{label=\textbf{\textsf{\thesection.\arabic*}}, ref=\thesection.\arabic*}
+		\setlist[enumerate,2]{label=\textbf{\textsf{\theenumi.\arabic*}}, ref=\theenumi.\arabic*}
+		\setlist[enumerate,3]{label=\textbf{\textsf{\theenumii.\arabic*}}, ref=\theenumii.\arabic*}
+		\setlist[enumerate,4]{label=\textbf{\textsf{\theenumiii.\arabic*}}, ref=\theenumiii.\arabic*}
+	}
+	{
+		\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+		\setlist[enumerate,2]{label=\alph*, ref=\theenumi.\alph*}
+		\setlist[enumerate,3]{label=\roman*, ref=\theenumii.\roman*}
+		\setlist[enumerate,4]{label=\Alph*, ref=\theenumiii.\Alph*}
+	}
 %    \end{macrocode}
 %
 % \subsection{Fußnoten}
@@ -1186,7 +1243,7 @@
 				\ifthenelse{\isundefined\BAS@logo}%
 					{}%
 					{%
-						\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+						\setlength{\unitlength}{\textwidth - \BAS@len@logow}%
 						\begin{picture}(0,0)(-1,0)%
 							\put(0,0){\includegraphics{\BAS@logo}}%
 						\end{picture}%
@@ -1198,7 +1255,7 @@
 % Die \befehl{mbox} ist nötig, damit der Abstand auch bei fehlendem Logo gesetzt wird.
 %    \begin{macrocode}
 				\mbox{}\vskip 15\parskip
-				\textbf{\Huge\BAS@title}\par
+				{\Huge\textbf{\BAS@title}\par}
 %    \end{macrocode}
 %
 % Der Untertitel.
@@ -1207,8 +1264,7 @@
 					{\vskip 2\parskip}
 					{
 						\vskip \parskip
-						{\huge\@subtitle}
-						\par
+						{\huge\@subtitle\par}
 					}
 				\vskip 2\parskip
 %    \end{macrocode}
@@ -1228,15 +1284,11 @@
 %
 % Autor\_in.
 %    \begin{macrocode}
-				\ifthenelse{\isundefined\@author}
+				\ifthenelse{\boolean{BAS@opt@noauthor}}
 					{}
 					{
-						\ifthenelse{\equal{\@author}{\@empty}}
-							{}
-							{
-								\textbf{\@author}\par
-								\vskip \parskip
-							}
+						\textbf{\@author}\par
+						\vskip \parskip
 					}
 %    \end{macrocode}
 %
@@ -1363,23 +1415,24 @@
 			\ifthenelse{\isundefined\BAS@logo}
 				{}%
 				{%
-					\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+					\setlength{\unitlength}{\textwidth - \BAS@len@logow}%
 					\begin{picture}(0,0)(-1,0)%
-						\put(0,0){\includegraphics{\BAS@logo}}%
+						\setlength{\unitlength}{\baselineskip + \parskip}%
+						\put(0,1){\includegraphics{\BAS@logo}}%
 					\end{picture}%
 				}%
 %    \end{macrocode}
 %
 % Der Dokumenttitel.
 %    \begin{macrocode}
-			\textbf{\huge\BAS@title}\par
+			{\huge\textbf{\BAS@title}\par}
 %    \end{macrocode}
 %
 % Der Untertitel.
 %    \begin{macrocode}
 			\ifthenelse{\equal{\@subtitle}{\@empty}}
 				{}
-				{{\huge\@subtitle}\par}
+				{{\LARGE\@subtitle\par}}
 			\vskip \parskip
 %    \end{macrocode}
 %
@@ -1398,13 +1451,9 @@
 %
 % Autor\_in.
 %    \begin{macrocode}
-			\ifthenelse{\isundefined\@author}
+			\ifthenelse{\boolean{BAS@opt@noauthor}}
 				{}
-				{
-					\ifthenelse{\equal{\@author}{\@empty}}
-						{}
-						{\@author\\}
-				}
+				{\@author\\}
 %    \end{macrocode}
 %
 % E-Mail.
@@ -1641,13 +1690,13 @@
 		{}%
 		{%
 			\setkomavar{fromlogo}{%
-				\ifthenelse{\BAS@len@logo > \infocolwidth}%
-					{\setlength{\BAS@len@logo}{\infocolwidth}}%
+				\ifthenelse{\BAS@len@logow > \infocolwidth}%
+					{\setlength{\BAS@len@logow}{\infocolwidth}}%
 					{}%
-					\includegraphics[width=\BAS@len@logo]{\BAS@logo}%
+					\includegraphics[width=\BAS@len@logow]{\BAS@logo}%
 			}%
 		}%
-	}
+}
 \setkomavar{place}{%
 	\ifthenelse{\isundefined{\BAS@ort}}%
 		{}%
@@ -1872,7 +1921,7 @@
 	\ifkomavarempty{fromlogo}%
 		{}%
 		{%
-			\setlength{\unitlength}{\textwidth - \BAS@len@logo}%
+			\setlength{\unitlength}{\textwidth - \BAS@len@logow}%
 			\begin{picture}(0,0)(-1,.1)%
 				\put(0,0){\usekomavar{fromlogo}}%
 			\end{picture}%
@@ -1898,10 +1947,26 @@
 					{\usekomavar[\textbf]{place}\\}%
 				\usekomavar{date}\\%
 %    \end{macrocode}
-% Name und Adresse.
+% Name.
 %    \begin{macrocode}
 				\vspace{2\baselineskip}%
 				\usekomavar[\textbf]{fromname}\\%
+%    \end{macrocode}
+% Adresszusatz.
+%    \begin{macrocode}
+				\ifthenelse{\isundefined\BAS@adresszusatz}%
+					{}%
+					{%
+						\ifthenelse{\equal{\BAS@adresszusatz}{\@empty}}%
+							{}%
+							{%
+								\vspace{.5\baselineskip}%
+								\BAS@adresszusatz\par%
+							}%
+					}%
+%    \end{macrocode}
+% Adresse.
+%    \begin{macrocode}
 				\vspace{.5\baselineskip}%
 				\ifkomavarempty{fromaddress}%
 					{}%
@@ -1928,6 +1993,9 @@
 % Trick von Markus Kohm, damit die Spalte nicht rechts herausragt.
 %    \begin{macrocode}
 	\hspace*{\infocolwidth}%
+%
+% Ende der ersten Kopfzeile
+%    \begin{macrocode}
 }
 %    \end{macrocode}
 %
@@ -2087,6 +2155,11 @@
 		\ifthenelse{\equal{\mylogo}{}}{}
 			{\logo{\mylogo}}
 	}
+\ifthenelse{\isundefined{\mysponsorlogo}}{}
+	{
+		\ifthenelse{\equal{\mysponsorlogo}{}}{}
+			{\sponsorlogo{\mysponsorlogo}}
+	}
 %</mmd:begindoc,mmd:beginlttr>
 %    \end{macrocode}
 %
@@ -2226,6 +2299,17 @@
 			{\cc{\BAScc}}
 	\end{letter}
 %</mmd:endlttr>
+%    \end{macrocode}
+%
+% \subsubsection{Paket: changes}
+%
+%    \begin{macrocode}
+%<*mmd:package:changes>
+\ifx\undefined\mychangesoptions
+	\def\mychangesoptions{}
+\fi
+\usepackage[\mychangesoptions]{changes}
+%</mmd:package:changes>
 %    \end{macrocode}
 %
 %\Finale

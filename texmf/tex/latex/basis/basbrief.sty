@@ -7,7 +7,7 @@
 %% basis.dtx  (with options: `basbrief')
 %% 
 %% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
-%% (c) 2006-2013 Ekkart Kleinod
+%% (c) 2006-2014 Ekkart Kleinod
 %% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
 %% 
 \NeedsTeXFormat{LaTeX2e}
@@ -92,6 +92,12 @@
 }
 \typeout{Basis-Option 'layout=\BAS@opt@layout'}
 }
+\newboolean{BAS@opt@noauthor}
+\setboolean{BAS@opt@noauthor}{false}
+\DeclareOptionX{noauthor}{
+\setboolean{BAS@opt@noauthor}{true}
+\typeout{Basis-Option 'noauthor'}
+}
 \newcommand{\BAS@opt@backaddress}{on}
 \DeclareOptionX{nobackaddress}{
 \renewcommand{\BAS@opt@backaddress}{off}
@@ -114,7 +120,7 @@
 }
 \newboolean{BAS@opt@protocol}
 \setboolean{BAS@opt@protocol}{false}
-\DeclareOptionX{protokoll}{
+\DeclareOptionX{protocol}{
 \setboolean{BAS@opt@protocol}{true}
 \typeout{Basis-Option 'protokoll'}
 }
@@ -135,6 +141,12 @@
 {\PackageWarning{basis}{Seitenstil '#1' unbekannt, nutze '\BAS@opt@pagestyle'}}
 }
 \typeout{Basis-Option 'pagestyle=\BAS@opt@pagestyle'}
+}
+\newboolean{BAS@opt@rules}
+\setboolean{BAS@opt@rules}{false}
+\DeclareOptionX{rules}{
+\setboolean{BAS@opt@rules}{true}
+\typeout{Basis-Option 'rules'}
 }
 \ProcessOptionsX
 \newlength{\BAS@len@rule}
@@ -157,10 +169,13 @@ foldmarks=\BAS@opt@foldmarks
 }
 }
 {
+\ifthenelse{\boolean{BAS@opt@rules}}
+{\newcommand{\BAS@numbers}{endperiod}}
+{\newcommand{\BAS@numbers}{noendperiod}}
 \KOMAoptions{
 captions=nooneline,
 headings=big,
-numbers=noendperiod,
+numbers=\BAS@numbers,
 titlepage=\BAS@opt@titlepage,
 toc=flat
 }
@@ -323,15 +338,15 @@ colorlinks=true
 {
 \newcommand{\logo}[1]{
 \def\BAS@logo{#1}
-\newlength{\BAS@len@logo}
-\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+\newlength{\BAS@len@logow}
+\settowidth{\BAS@len@logow}{\includegraphics{\BAS@logo}}
 }
 }
 {
 \renewcommand{\logo}[1]{
 \def\BAS@logo{#1}
-\newlength{\BAS@len@logo}
-\settowidth{\BAS@len@logo}{\includegraphics{\BAS@logo}}
+\newlength{\BAS@len@logow}
+\settowidth{\BAS@len@logow}{\includegraphics{\BAS@logo}}
 }
 }
 \newcommand{\briefkopf}[1]{\def\BAS@briefkopf{#1}}
@@ -477,15 +492,26 @@ colorlinks=true
 {}
 \RequirePackage[xspace]{dhua}
 \RequirePackage{enumitem}
-\setlist{topsep=0mm plus .1pt, partopsep=0mm, leftmargin=5mm, noitemsep}
-\setitemize[1]{label=--}
-\setitemize[2]{label=\ensuremath{\cdot}}
-\setitemize[3]{label=\ensuremath{\bullet}}
-\setitemize[4]{label=\ensuremath{\ast}}
-\setenumerate[1]{label=\arabic*., ref=\arabic*}
-\setenumerate[2]{label=\roman*, ref=\theenumii.\roman*}
-\setenumerate[3]{label=\alph*, ref=\theenumi.\alph*}
-\setenumerate[4]{label=\Alph*, ref=\theenumiii.\Alph*}
+\ifthenelse{\boolean{BAS@opt@rules}}
+{\setlist{topsep=0mm plus .1pt, labelsep=1em, itemindent=1em, leftmargin=0mm, labelwidth=0mm, labelindent=!, align=left}}
+{\setlist{topsep=0mm plus .1pt, noitemsep, leftmargin=*, align=left}}
+\setlist[itemize,1]{label=--}
+\setlist[itemize,2]{label=\ensuremath{\cdot}}
+\setlist[itemize,3]{label=\ensuremath{\bullet}}
+\setlist[itemize,4]{label=\ensuremath{\ast}}
+\ifthenelse{\boolean{BAS@opt@rules}}
+{
+\setlist[enumerate,1]{label=\textbf{\textsf{\thesection.\arabic*}}, ref=\thesection.\arabic*}
+\setlist[enumerate,2]{label=\textbf{\textsf{\theenumi.\arabic*}}, ref=\theenumi.\arabic*}
+\setlist[enumerate,3]{label=\textbf{\textsf{\theenumii.\arabic*}}, ref=\theenumii.\arabic*}
+\setlist[enumerate,4]{label=\textbf{\textsf{\theenumiii.\arabic*}}, ref=\theenumiii.\arabic*}
+}
+{
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\alph*, ref=\theenumi.\alph*}
+\setlist[enumerate,3]{label=\roman*, ref=\theenumii.\roman*}
+\setlist[enumerate,4]{label=\Alph*, ref=\theenumiii.\Alph*}
+}
 \deffootnote{1.5em}{1em}{\makebox[1.5em][l]{\textsuperscript\thefootnotemark}}
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
 \@addtoreset{equation}{section}
@@ -511,10 +537,10 @@ colorlinks=true
 {}%
 {%
 \setkomavar{fromlogo}{%
-\ifthenelse{\BAS@len@logo > \infocolwidth}%
-{\setlength{\BAS@len@logo}{\infocolwidth}}%
+\ifthenelse{\BAS@len@logow > \infocolwidth}%
+{\setlength{\BAS@len@logow}{\infocolwidth}}%
 {}%
-\includegraphics[width=\BAS@len@logo]{\BAS@logo}%
+\includegraphics[width=\BAS@len@logow]{\BAS@logo}%
 }%
 }%
 }
@@ -578,6 +604,6 @@ colorlinks=true
 \@afterheading
 }
 %% 
-%% (c) 2006-2013 Ekkart Kleinod
+%% (c) 2006-2014 Ekkart Kleinod
 %%
 %% End of file `basbrief.sty'.
