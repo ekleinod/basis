@@ -1,4 +1,4 @@
-% \CheckSum{1940}
+% \CheckSum{1946}
 %
 % \iffalse meta-comment
 %
@@ -35,7 +35,7 @@
 % \changes{v0.9}{2014/01/04}{Logo im Brief (Infospaltenlayouts)}
 % \changes{v0.10}{2014/01/10}{Font-Option droid, bugfix Seitennummer}
 % \changes{v0.11}{2014/01/11}{Fontsize-Option}
-% \changes{v0.12}{2014/01/22}{Rules-Option, NoAuthor-Option, changes-Paket in mmd}
+% \changes{v0.12}{2014/01/22}{Rules-Option, NoAuthor-Option, changes-Paket in mmd, Sponsorlogo}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -63,6 +63,7 @@
 %		\item Kein-Author-Option \option{noauthor}
 %		\item Logo-Positionierung bei \option{notitlepage} verbessert
 %		\item mmd-Datei \paket{changes}-Paket
+%		\item Sponsorlogo
 %	\end{itemize}
 %
 %	\subsection{Version 0.11}
@@ -861,6 +862,16 @@
 			\settowidth{\BAS@len@logow}{\includegraphics{\BAS@logo}}
 		}
 	}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\sponsorlogo}
+% Sponsor: Name des Sponsorlogos, das als Hintergrundbild auf jeder Seite gesetzt wird.
+%    \begin{macrocode}
+\newcommand{\sponsorlogo}[1]{
+	\RequirePackage{background}
+	\backgroundsetup{contents=\includegraphics{#1}, placement=bottom, scale=1, opacity=1, vshift=5mm}
+}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1685,7 +1696,7 @@
 					\includegraphics[width=\BAS@len@logow]{\BAS@logo}%
 			}%
 		}%
-	}
+}
 \setkomavar{place}{%
 	\ifthenelse{\isundefined{\BAS@ort}}%
 		{}%
@@ -1982,6 +1993,9 @@
 % Trick von Markus Kohm, damit die Spalte nicht rechts herausragt.
 %    \begin{macrocode}
 	\hspace*{\infocolwidth}%
+%
+% Ende der ersten Kopfzeile
+%    \begin{macrocode}
 }
 %    \end{macrocode}
 %
@@ -2140,6 +2154,11 @@
 	{
 		\ifthenelse{\equal{\mylogo}{}}{}
 			{\logo{\mylogo}}
+	}
+\ifthenelse{\isundefined{\mysponsorlogo}}{}
+	{
+		\ifthenelse{\equal{\mysponsorlogo}{}}{}
+			{\sponsorlogo{\mysponsorlogo}}
 	}
 %</mmd:begindoc,mmd:beginlttr>
 %    \end{macrocode}
