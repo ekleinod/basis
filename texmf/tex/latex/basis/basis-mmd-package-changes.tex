@@ -1,25 +1,20 @@
 %%
-%% This is file `basis-mmd-end-lttr.tex',
+%% This is file `basis-mmd-package-changes.tex',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
 %%
-%% basis.dtx  (with options: `mmd:endlttr')
+%% basis.dtx  (with options: `mmd:package:changes')
 %% 
 %% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
 %% (c) 2006-2014 Ekkart Kleinod
 %% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
 %% 
-\closing{\BASclosing}
-
-\ifthenelse{\isundefined{\BASps}}{}
-{\ps \BASps}
-\ifthenelse{\isundefined{\BASencl}}{}
-{\encl{\BASencl}}
-\ifthenelse{\isundefined{\BAScc}}{}
-{\cc{\BAScc}}
-\end{letter}
+\ifx\undefined\mychangesoptions
+\def\mychangesoptions{}
+\fi
+\usepackage[\mychangesoptions]{changes}
 %% 
 %% (c) 2006-2014 Ekkart Kleinod
 %%
-%% End of file `basis-mmd-end-lttr.tex'.
+%% End of file `basis-mmd-package-changes.tex'.
