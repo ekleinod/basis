@@ -95,6 +95,11 @@
 \ifthenelse{\equal{\mylogo}{}}{}
 {\logo{\mylogo}}
 }
+\ifthenelse{\isundefined{\mysponsorlogo}}{}
+{
+\ifthenelse{\equal{\mysponsorlogo}{}}{}
+{\sponsorlogo{\mysponsorlogo}}
+}
 \newcommand\BASrecipient{%
 \ifthenelse{\isundefined{\myana}}{--}%
 {%

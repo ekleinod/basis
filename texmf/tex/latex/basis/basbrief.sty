@@ -12,8 +12,8 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{basbrief}
-[2014/01/11 v0.11 Basis-Layout]
-\typeout{*** basis-Stil 2014/01/11 v0.11 ***}
+[2014/06/01 v0.12 Basis-Layout]
+\typeout{*** basis-Stil 2014/06/01 v0.12 ***}
 \RequirePackage{xkeyval}
 \RequirePackage{xifthen}
 \RequirePackage{ifxetex}
@@ -348,6 +348,10 @@ colorlinks=true
 \newlength{\BAS@len@logow}
 \settowidth{\BAS@len@logow}{\includegraphics{\BAS@logo}}
 }
+}
+\newcommand{\sponsorlogo}[1]{
+\RequirePackage{background}
+\backgroundsetup{contents=\includegraphics{#1}, placement=bottom, scale=1, opacity=1, vshift=5mm}
 }
 \newcommand{\briefkopf}[1]{\def\BAS@briefkopf{#1}}
 \AtBeginDocument{
