@@ -95,6 +95,11 @@
 \ifthenelse{\equal{\mylogo}{}}{}
 {\logo{\mylogo}}
 }
+\ifthenelse{\isundefined{\mysponsorlogo}}{}
+{
+\ifthenelse{\equal{\mysponsorlogo}{}}{}
+{\sponsorlogo{\mysponsorlogo}}
+}
 \begin{document}
 %% 
 %% (c) 2006-2014 Ekkart Kleinod
