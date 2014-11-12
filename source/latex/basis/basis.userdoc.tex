@@ -135,7 +135,7 @@ Die Pakete sind (alphabetisch sortiert):
 	\paket{scrpage2}\>selbst definierte Kopf- bzw.\ Fußzeilen\\
 	\paket{tabu}\>Tabellenerweiterung\\
 	\paket{wasysym}\>Sonderzeichen (wenn Paket fehlt, wird eine Warnung ausgegeben)\\
-	\paket{xcolor}\>Textfärbung\\
+	\paket{xcolor}\>Textfärbung (mit Option \option{svgnames})\\
 	\paket{xifthen}\>vereinfachte if-then-Abfragen\\
 	\paket{xkeyval}\>key-value-Optionen
 \end{tabbing}
@@ -216,6 +216,7 @@ Standard: \option{11pt}
 
 Die Option \option{hypercolor} färbt Referenzen in der gewünschten Farbe.
 Die verfügbaren Farbnamen sind in der Dokumentation des Pakets \paket{xcolor} zu finden.
+Bei der Einbindung von \paket{xcolor} wird die Option \option{svgnames} gesetzt, so dass mehr Farbnamen zur Verfügung stehen.
 
 Standard: \option{schwarz}
 
@@ -633,6 +634,30 @@ Das bedeutet, dass spitze Klammern um den schräg gestellten Text geschrieben we
 	\beispiel
 		\>\befehl{meta\{Metatext\}}
 \end{nutzung}
+
+\DescribeMacro{\basBox}
+Der Befehl \befehl{basBox} setzt eine Box.
+Die Box kann leer sein, checked (angehakt) oder crossed (angekreuzt).
+Das Aussehen wird über folgende optionale Parameter gesetzt:
+
+\begin{description}
+	\item[style] Stil der Box (default: empty), Werte: empty (leer), checked (angehakt), crossed (angekreuzt)
+	\item[color] Farbe der Box (default: black)
+	\item[checkcolor] Farbe des Kreuzes bzw. Hakens (default: gleiche Farbe wie \option{color})
+	\item[size] Größe der Box (default: 1.4ex)
+	\item[line] Liniendicke (default: 1pt)
+\end{description}
+
+\begin{nutzung}
+		\>\befehl{basBox[\meta{Optionen}]}\\
+	\beispiel
+		\>\befehl{basBox}\\
+		\>\befehl{basBox[style=crossed]}\\
+		\>\befehl{basBox[style=checked]}\\
+		\>\befehl{basBox[style=crossed, color=Coral]}
+\end{nutzung}
+
+Ergibt: \basBox{} \basBox[style=crossed] \basBox[style=checked] \basBox[style=crossed, color=Coral]
 
 \subsubsection{Vortragsdokumentation}
 
