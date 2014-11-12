@@ -1,4 +1,4 @@
-% \CheckSum{1954}
+% \CheckSum{2013}
 %
 % \iffalse meta-comment
 %
@@ -36,6 +36,7 @@
 % \changes{v0.10}{2014/01/10}{Font-Option droid, bugfix Seitennummer}
 % \changes{v0.11}{2014/01/11}{Fontsize-Option}
 % \changes{v0.12}{2014/06/01}{Rules-Option, NoAuthor-Option, changes-Paket in mmd, Sponsorlogo}
+% \changes{v0.13}{2014/11/13}{xcolor mit svgnames, eigener Box-Befehl}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -53,6 +54,15 @@
 %
 %	\cleardoublepage
 % \section{Versionen}
+%
+%	\subsection{Version 0.13}
+%
+%	Datum: 13.\,11.~2014
+%
+%	\begin{itemize}
+%		\item \paket{xcolor} wird mit Option \option{svgnames} eingebunden
+%		\item eigener Befehl \befehl{basBox} für Boxen: leer, checked und crossed
+%	\end{itemize}
 %
 %	\subsection{Version 0.12}
 %
@@ -200,8 +210,8 @@
 \NeedsTeXFormat{LaTeX2e}
 %<+basis>\ProvidesPackage{basis}
 %<+basbrief>\ProvidesPackage{basbrief}
-[2014/06/01 v0.12 Basis-Layout]
-\typeout{*** basis-Stil 2014/06/01 v0.12 ***}
+[2014/11/13 v0.13 Basis-Layout]
+\typeout{*** basis-Stil 2014/11/13 v0.13 ***}
 %    \end{macrocode}
 %
 % \subsection{Optionen}
@@ -686,11 +696,11 @@
 % Grundlage für die Box-Kommandos mit allen möglichen Parametern.
 % Optionale Parameter:
 % \begin{description}
-% 	\item[style] style of the box (default: empty), values: empty, checked, crossed
-% 	\item[color] color of the box (default: black)
-% 	\item[checkcolor] color of the check/cross, same as \option{color} if not given
-% 	\item[size] size of the box (default: 1.4ex}
-% 	\item[line] thickness of the lines (default: 1pt}
+% 	\item[style] Stil der Box (default: empty), Werte: empty (leer), checked (angehakt), crossed (angekreuzt)
+% 	\item[color] Farbe der Box (default: black)
+% 	\item[checkcolor] Farbe des Kreuzes bzw. Hakens (default: gleiche Farbe wie \option{color})
+% 	\item[size] Größe der Box (default: 1.4ex)
+% 	\item[line] Liniendicke (default: 1pt)
 % \end{description}
 %
 %    \begin{macrocode}
@@ -707,7 +717,7 @@
 		\closepath%
 		\strokepath%
 %    \end{macrocode}
-% Style checked or crossed? First: set color.
+% Angehakt/angekreuzt? Zuerst Farbe setzen.
 %    \begin{macrocode}
 		\ifthenelse{%
 			\equal{\Bas@Box@style}{checked}\or%
@@ -719,7 +729,7 @@
 			}%
 			{}%
 %    \end{macrocode}
-% Style checked or crossed? Second: draw cross or checkmark.
+% Angehakt/angekreuzt? jetzt Kreuz oder Haken.
 %    \begin{macrocode}
 		\ifthenelse{\equal{\Bas@Box@style}{checked}}%
 			{%
