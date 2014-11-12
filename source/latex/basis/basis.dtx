@@ -704,33 +704,38 @@
 		\lineto(0, 1)%
 		\lineto(1, 1)%
 		\lineto(1, 0)%
-		\closepath\strokepath%
-	\end{picture}%
-}
+		\closepath%
+		\strokepath%
 %    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\basBoxCrossed}
-% Eine einfache angekreuzte Box.
-% Optionaler Parameter ist die Farbe der Box.
+% Style checked or crossed? First: set color.
 %    \begin{macrocode}
-\newcommand{\basBoxCrossed}[1][black]{%
-	\setlength{\unitlength}{1.4ex}%
-	\linethickness{1pt}
-	\begin{picture}(1,1)(0,0)%
-		\color{#1}%
-		\moveto(0, 0)%
-		\lineto(0, 1)%
-		\lineto(1, 1)%
-		\lineto(1, 0)%
-		\closepath\strokepath%
-		\Line(0,0)(1,1)%
-		\Line(0,1)(1,0)%
+		\ifthenelse{%
+			\equal{\Bas@Box@style}{checked}\or%
+			\equal{\Bas@Box@style}{crossed}%
+		}%
+			{\ifthenelse{\equal{\@empty}{\Bas@Box@checkcolor}}%
+				{}%
+				{\color{\Bas@Box@checkcolor}}%
+			}%
+			{}%
+%    \end{macrocode}
+% Style checked or crossed? Second: draw cross or checkmark.
+%    \begin{macrocode}
+		\ifthenelse{\equal{\Bas@Box@style}{checked}}%
+			{%
+				\polyline(0,.4)(.4,.05)(1,1)%
+			}%
+			{}%
+		\ifthenelse{\equal{\Bas@Box@style}{crossed}}%
+			{%
+				\Line(0,0)(1,1)%
+				\Line(0,1)(1,0)%
+			}%
+			{}%
 	\end{picture}%
 }
 %    \end{macrocode}
 % \end{macro}
-%
 %
 %
 % \subsection{Grafiken, Farben}
