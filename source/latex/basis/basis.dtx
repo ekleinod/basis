@@ -416,10 +416,32 @@
 }
 %    \end{macrocode}
 %
+% \minisec{basBox}
+%
+% Optionen des Kommandos definieren, Variablen benennen.
+%    \begin{macrocode}
+\DeclareOptionX<basBox>{style}{\def\Bas@Box@style{#1}}
+\DeclareOptionX<basBox>{color}{\def\Bas@Box@color{#1}}
+\DeclareOptionX<basBox>{checkcolor}{\def\Bas@Box@checkcolor{#1}}
+\DeclareOptionX<basBox>{size}{\def\Bas@Box@size{#1}}
+\DeclareOptionX<basBox>{line}{\def\Bas@Box@line{#1}}
+%    \end{macrocode}
+%
+% Default-Werte setzen.
+%    \begin{macrocode}
+\presetkeys{basBox}{
+	style=empty,
+	color=black,
+	checkcolor=\@empty,
+	size=1.4ex,
+	line=1pt
+}{}
+%    \end{macrocode}
+%
 % Ausführung des Optionenbearbeitens.
 % Das muß auch für die Briefklasse erfolgen, da \hologo{LaTeX} sonst einen Fehler meldet.
 %    \begin{macrocode}
-\ProcessOptionsX
+\ProcessOptionsX%*\relax
 %    \end{macrocode}
 %
 % \subsection{Festgelegte Längemaße}
@@ -649,6 +671,73 @@
 }
 %    \end{macrocode}
 %
+% \subsubsection{Eigene Symbole}
+%
+% Manche Symbole fehlen in den Schriften oder sind nicht schön/zu klein, diese werden hier eigendefiniert.
+% Sie bekommen als Präfix "bas", um sie von den in anderen Paketen definierten Symbolen unterscheiden zu können.
+%
+% Die Symbole werden mit Hilfe des \paket{pict2e}-Pakets gezeichnet.
+%    \begin{macrocode}
+\RequirePackage{pict2e}
+%    \end{macrocode}
+%
+% \begin{macro}{\basBox}
+%
+% Grundlage für die Box-Kommandos mit allen möglichen Parametern.
+% Optionale Parameter:
+% \begin{description}
+% 	\item[style] style of the box (default: empty), values: empty, checked, crossed
+% 	\item[color] color of the box (default: black)
+% 	\item[checkcolor] color of the check/cross, same as \option{color} if not given
+% 	\item[size] size of the box (default: 1.4ex}
+% 	\item[line] thickness of the lines (default: 1pt}
+% \end{description}
+%
+%    \begin{macrocode}
+\newcommand{\basBox}[1][\@empty]{%
+	\setkeys{basBox}{#1}%
+	\setlength{\unitlength}{\Bas@Box@size}%
+	\linethickness{\Bas@Box@line}
+	\begin{picture}(1,1)(0,0)%
+		\color{\Bas@Box@color}%
+		\moveto(0, 0)%
+		\lineto(0, 1)%
+		\lineto(1, 1)%
+		\lineto(1, 0)%
+		\closepath%
+		\strokepath%
+%    \end{macrocode}
+% Style checked or crossed? First: set color.
+%    \begin{macrocode}
+		\ifthenelse{%
+			\equal{\Bas@Box@style}{checked}\or%
+			\equal{\Bas@Box@style}{crossed}%
+		}%
+			{\ifthenelse{\equal{\@empty}{\Bas@Box@checkcolor}}%
+				{}%
+				{\color{\Bas@Box@checkcolor}}%
+			}%
+			{}%
+%    \end{macrocode}
+% Style checked or crossed? Second: draw cross or checkmark.
+%    \begin{macrocode}
+		\ifthenelse{\equal{\Bas@Box@style}{checked}}%
+			{%
+				\polyline(0,.4)(.4,.05)(1,1)%
+			}%
+			{}%
+		\ifthenelse{\equal{\Bas@Box@style}{crossed}}%
+			{%
+				\Line(0,0)(1,1)%
+				\Line(0,1)(1,0)%
+			}%
+			{}%
+	\end{picture}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
 % \subsection{Grafiken, Farben}
 %
 % Das Paket \paket{graphicx} ist zur Anzeige von Grafiken notwendig.
@@ -657,9 +746,10 @@
 %    \end{macrocode}
 %
 % Das Paket \paket{xcolor} ist zur Einfärbung von Texten usw.\ gedacht.
+% Die option \option{svgnames} stellt mehr Farbnamen zur Verfügung.
 % Das Paket \paket{pdfcolmk} löst Probleme von farbigen Texten bei Seitenumbruch.
 %    \begin{macrocode}
-\RequirePackage{xcolor}
+\RequirePackage[svgnames]{xcolor}
 \RequirePackage{pdfcolmk}
 %    \end{macrocode}
 %
