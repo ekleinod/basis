@@ -635,6 +635,30 @@ Das bedeutet, dass spitze Klammern um den schräg gestellten Text geschrieben we
 		\>\befehl{meta\{Metatext\}}
 \end{nutzung}
 
+\DescribeMacro{\basBox}
+Der Befehl \befehl{basBox} setzt eine Box.
+Die Box kann leer sein, checked (angehakt) oder crossed (angekreuzt).
+Das Aussehen wird über folgende optionale Parameter gesetzt:
+
+\begin{description}
+	\item[style] Stil der Box (default: empty), Werte: empty (leer), checked (angehakt), crossed (angekreuzt)
+	\item[color] Farbe der Box (default: black)
+	\item[checkcolor] Farbe des Kreuzes bzw. Hakens (default: gleiche Farbe wie \option{color})
+	\item[size] Größe der Box (default: 1.4ex)
+	\item[line] Liniendicke (default: 1pt)
+\end{description}
+
+\begin{nutzung}
+		\>\befehl{basBox[\meta{Optionen}]}\\
+	\beispiel
+		\>\befehl{basBox}\\
+		\>\befehl{basBox[style=crossed]}\\
+		\>\befehl{basBox[style=checked]}\\
+		\>\befehl{basBox[style=crossed, color=Coral]}
+\end{nutzung}
+
+Ergibt: \basBox{} \basBox[style=crossed] \basBox[style=checked] \basBox[style=crossed, color=Coral]
+
 \subsubsection{Vortragsdokumentation}
 
 Diese Befehle sind noch experimentell.
