@@ -12,8 +12,8 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{basbrief}
-[2014/06/01 v0.12 Basis-Layout]
-\typeout{*** basis-Stil 2014/06/01 v0.12 ***}
+[2014/11/13 v0.13 Basis-Layout]
+\typeout{*** basis-Stil 2014/11/13 v0.13 ***}
 \RequirePackage{xkeyval}
 \RequirePackage{xifthen}
 \RequirePackage{ifxetex}
@@ -148,7 +148,19 @@
 \setboolean{BAS@opt@rules}{true}
 \typeout{Basis-Option 'rules'}
 }
-\ProcessOptionsX
+\DeclareOptionX<basBox>{style}{\def\Bas@Box@style{#1}}
+\DeclareOptionX<basBox>{color}{\def\Bas@Box@color{#1}}
+\DeclareOptionX<basBox>{checkcolor}{\def\Bas@Box@checkcolor{#1}}
+\DeclareOptionX<basBox>{size}{\def\Bas@Box@size{#1}}
+\DeclareOptionX<basBox>{line}{\def\Bas@Box@line{#1}}
+\presetkeys{basBox}{
+style=empty,
+color=black,
+checkcolor=\@empty,
+size=1.4ex,
+line=1pt
+}{}
+\ProcessOptionsX%*\relax
 \newlength{\BAS@len@rule}
 \setlength{\BAS@len@rule}{.4pt}
 \KOMAoptions{
@@ -246,6 +258,41 @@ open=right
 \RequirePackage{hologo}
 }{
 \ClassWarning{basis}{hologo.sty nicht vorhanden}
+}
+\RequirePackage{pict2e}
+\newcommand{\basBox}[1][\@empty]{%
+\setkeys{basBox}{#1}%
+\setlength{\unitlength}{\Bas@Box@size}%
+\linethickness{\Bas@Box@line}
+\begin{picture}(1,1)(0,0)%
+\color{\Bas@Box@color}%
+\moveto(0, 0)%
+\lineto(0, 1)%
+\lineto(1, 1)%
+\lineto(1, 0)%
+\closepath%
+\strokepath%
+\ifthenelse{%
+\equal{\Bas@Box@style}{checked}\or%
+\equal{\Bas@Box@style}{crossed}%
+}%
+{\ifthenelse{\equal{\@empty}{\Bas@Box@checkcolor}}%
+{}%
+{\color{\Bas@Box@checkcolor}}%
+}%
+{}%
+\ifthenelse{\equal{\Bas@Box@style}{checked}}%
+{%
+\polyline(0,.4)(.4,.05)(1,1)%
+}%
+{}%
+\ifthenelse{\equal{\Bas@Box@style}{crossed}}%
+{%
+\Line(0,0)(1,1)%
+\Line(0,1)(1,0)%
+}%
+{}%
+\end{picture}%
 }
 \RequirePackage{graphicx}
 \RequirePackage[svgnames]{xcolor}
