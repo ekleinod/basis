@@ -497,10 +497,12 @@
 }
 %    \end{macrocode}
 %
-% Klassenoptionen nicht bzw. nur für \paket{scrlttr2}.
+% Klassenoptionen nur für \paket{scrlttr2}.
 %
 % \begin{description}
-% 	\item[open] Beginn neuer Kapitel, immer auf der rechten Seite (nur für \paket{scrbook} und \paket{scrreprt})
+% 	\item[backaddress] soll Rücksendeadresse gezeigt werden?
+% 	\item[foldmarks] sollen Falzmarkierungen gezeigt werden?
+% 	\item[enlargefirstpage] erste Seite etwas größer setzen
 % \end{description}
 %
 %
@@ -509,9 +511,24 @@
 	{
 		\KOMAoptions{
 			backaddress=\BAS@opt@backaddress,
-			foldmarks=\BAS@opt@foldmarks
+			foldmarks=\BAS@opt@foldmarks,
+			enlargefirstpage=on
 		}
 	}
+%    \end{macrocode}
+%
+% Klassenoptionen für alle Klassen außer \paket{scrlttr2}.
+%
+% \begin{description}
+% 	\item[captions] keine Unterscheidung ein- und mehrzeilige Überschriften (dadurch keine Zentrierung)
+% 	\item[headings] große Überschriften
+% 	\item[numbers] Überschriftennummerierung mit/ohne abschließenden Punkt
+% 	\item[titlepage] Anzeige der Titelseite (ein/aus)
+% 	\item[toc] keine Einrückung im Inhaltsverzeichnis
+% \end{description}
+%
+%
+%    \begin{macrocode}
 	{
 		\ifthenelse{\boolean{BAS@opt@rules}}
 			{\newcommand{\BAS@numbers}{endperiod}}
@@ -529,7 +546,7 @@
 % Klassenoptionen nur für \paket{scrbook} und \paket{scrreprt}.
 %
 % \begin{description}
-% 	\item[open] Beginn neuer Kapitel, immer auf der rechten Seite (nur für \paket{scrbook} und \paket{scrreprt})
+% 	\item[open] Beginn neuer Kapitel, immer auf der rechten Seite
 % \end{description}
 %
 %
