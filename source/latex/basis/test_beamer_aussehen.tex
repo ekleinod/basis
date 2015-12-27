@@ -13,7 +13,7 @@
 \title{Titel}
 \subtitle{Untertitel}
 \author{Autor 1 \and Autor 2 \and Autor 3}
-\date{6. Januar 2016}
+\date{\today}
 
 \begin{document}
 
@@ -21,6 +21,8 @@
 
 	\begin{frame}
 		Nicht vergessen: mit \hologo{XeLaTeX} übersetzen.
+
+		Diese Präsentation dient zur Überprüfung des Aussehens und dessen Definition, nicht als Beispiel.
 	\end{frame}
 
 	\begin{frame}
@@ -75,16 +77,19 @@
 		\includegraphics{testlogo}
 	\end{frame}
 
-	\begin{frame}{Eingebundenes PDF skaliert}
-		\includegraphics[width=\textwidth]{testlogo}
-	\end{frame}
-
-	\section{Sonstiges}
+	\section{Mathematik}
 
 	\begin{frame}{Formeln im Fließtext}
 		\blindmathtrue
 		\Blindtext[1][5]
 		\blindmathfalse
+	\end{frame}
+
+	\begin{frame}{Einzelne Formeln}
+		\begin{align}
+			a^2 + b^2 &= c^2\\
+			(a+b)^2 &= a^2 + 2ab + b^2
+		\end{align}
 	\end{frame}
 
 	\begin{frame}
