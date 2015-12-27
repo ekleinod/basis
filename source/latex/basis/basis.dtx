@@ -2333,11 +2333,13 @@
 %
 % Derzeit werden die Definitionen hauptsächlich übernommen, bis ich mich da eingearbeitet habe.
 %
+% Information
 %    \begin{macrocode}
 \ProvidesPackage{beamerthemebasis}
-
-%{{{ --- Packages ---------------------
-
+%    \end{macrocode}
+%
+% Pakete.
+%    \begin{macrocode}
 \usepackage[no-math]{fontspec}
 \usepackage{etoolbox}
 \usepackage{tikz}
@@ -2345,25 +2347,28 @@
 
 \usetikzlibrary{backgrounds}
 
+\usepackage{microtype}
+\usepackage{babel}
+\usepackage{hologo}
 %    \end{macrocode}
 %
 % Einbindung Farb- und Fontdefinitionen.
 %    \begin{macrocode}
 \usecolortheme{basis}
 \usefonttheme{basis}
-
-%}}}
-%{{{ --- Options ----------------------
-
+%    \end{macrocode}
+%
+% Optionen.
+%    \begin{macrocode}
 \newif\if@useTitleProgressBar
 \@useTitleProgressBarfalse
 \DeclareOption{titleprogressbar}{\@useTitleProgressBartrue}
 
 \ProcessOptions\relax
-
-%}}}
-%{{{ --- Titlepage --------------------
-
+%    \end{macrocode}
+%
+% Titelseite.
+%    \begin{macrocode}
 \def\maketitle{\ifbeamer@inframe\titlepage\else\frame[plain]{\titlepage}\fi}
 
 \def\titlepage{\usebeamertemplate{title page}}
@@ -2401,10 +2406,10 @@
 		\vspace*{5mm}
 	\end{minipage}
 }
-
-%}}}
-%{{{ --- Progressbar ------------------
-
+%    \end{macrocode}
+%
+% Fortschrittsbalken.
+%    \begin{macrocode}
 \makeatletter
 \def\progressbar@sectionprogressbar{}
 \def\progressbar@titleprogressbar{}
@@ -2453,9 +2458,10 @@
 		\end{tikzpicture}
 	}
 \fi
-%}}}
-%{{{ --- Commands ---------------------
-
+%    \end{macrocode}
+%
+% Neue Kommandos.
+%    \begin{macrocode}
 \newcommand{\insertsectionHEAD}{\expandafter\insertsectionHEADaux\insertsectionhead}
 \newcommand{\insertsectionHEADaux}[3]{\textsc{#3}}
 
@@ -2468,10 +2474,10 @@
 	\end{frame}
 	\endgroup
 }
-
-%}}}
-%{{{ --- Itemize ----------------------
-
+%    \end{macrocode}
+%
+% Aufzählungen.
+%    \begin{macrocode}
 \setlength{\leftmargini}{1em}
 
 % Actually one level should be enough but ...
