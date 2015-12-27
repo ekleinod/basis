@@ -2479,22 +2479,19 @@
 % Aufzählungen.
 %    \begin{macrocode}
 \setlength{\leftmargini}{1em}
-
-% Actually one level should be enough but ...
 \setlength{\leftmarginii}{1em}
 \setlength{\leftmarginiii}{1em}
 
-\newcommand{\itemBullet}{-}
+\setbeamertemplate{itemize item}{\textendash}
+\setbeamertemplate{itemize subitem}{\textbullet}
+\setbeamertemplate{itemize subsubitem}{\textperiodcentered}
 
-\setbeamertemplate{itemize item}{\itemBullet}
-\setbeamertemplate{itemize subitem}{\itemBullet}
-\setbeamertemplate{itemize subsubitem}{\itemBullet}
 \setlength{\parskip}{0.5em}
-
-%}}}
-%{{{ --- Sections ---------------------
-
+%    \end{macrocode}
+%
+% Abschnitte.
 % Insert frame with section title at every section start
+%    \begin{macrocode}
 \AtBeginSection[]
 {
 %	\begin{frame}
