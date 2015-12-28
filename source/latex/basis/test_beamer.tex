@@ -1,8 +1,9 @@
-\documentclass[aspectratio=169, ngerman]{beamer}
-%\documentclass[aspectratio=169, handout, ngerman]{beamer}
-%\documentclass[aspectratio=169, handout, notes=show, ngerman]{beamer}
-%\documentclass[aspectratio=169, handout, notes=only, ngerman]{beamer}
+\documentclass[t, aspectratio=169, ngerman]{beamer}
+%\documentclass[t, aspectratio=169, handout, ngerman]{beamer}
+%\documentclass[t, aspectratio=169, handout, notes=show, ngerman]{beamer}
+%\documentclass[t, aspectratio=169, handout, notes=only, ngerman]{beamer}
 
+% t: Texte oben ausgerichtet
 % aspectratio: 169, 1610, 149, 54, 32, 43
 
 \usetheme{basis}
@@ -21,52 +22,115 @@
 
 	\begin{frame}
 		Nicht vergessen: mit \hologo{XeLaTeX} übersetzen.
+
+		Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
 	\end{frame}
+
+	\section*{Agenda}
 
 	\begin{frame}
 		\frametitle{Agenda}
 		\tableofcontents
 	\end{frame}
 
+	\begin{frame}
+		\frametitle{Agenda zum Aufklappen}
+		\tableofcontents[pausesections]
+	\end{frame}
+
 	\section{Normaler Text}
 
 	\begin{frame}{Text}
-		\Blindtext[1][4]
+		Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+		Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+		Vogel Quax zwickt Johnys Pferd Bim.
+		Sylvia wagt quick den Jux bei Pforzheim.
 	\end{frame}
 
 	\begin{frame}{Langer Text}
-		\Blindtext[2][4]
+		Prall vom Whisky flog Quax den Jet zu Bruch.
+		Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.
+		Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.
+		Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+
+		Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+		Vogel Quax zwickt Johnys Pferd Bim.
+		Sylvia wagt quick den Jux bei Pforzheim.
+		Prall vom Whisky flog Quax den Jet zu Bruch.
 	\end{frame}
 
 	\begin{frame}{Text mit Auszeichnungen und Fußnoten}
 		Prall vom \emph{Whisky}\footnote{emph} flog \textbf{Quax}\footnote{textbf} den Jet zu Bruch.
 		Jeder \textit{wackere}\footnote{textit} Bayer \textsl{vertilgt}\footnote{textsl} bequem zwo Pfund Kalbshaxen.
+		Stanleys \alert{Expeditionszug}\footnote{alert} quer durch Afrika wird von jedermann bewundert.
+	\end{frame}
+
+	\begin{frame}{Ein Zitat (quote)}
+		Prall vom Whisky flog Quax den Jet zu Bruch.
+
+		\begin{quote}
+			Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.
+
+			Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.
+			Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+		\end{quote}
+
+		Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+	\end{frame}
+
+	\begin{frame}{Ein Zitat (quotation)}
+		Prall vom Whisky flog Quax den Jet zu Bruch.
+
+		\begin{quotation}
+			Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.
+
+			Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.
+			Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+		\end{quotation}
+
+		Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
 	\end{frame}
 
 	\section{Aufzählungen}
 
-	\begin{frame}{Unnumeriert}
-		\blindlistlist[1]{itemize}[3]
-	\end{frame}
+	\subsection{Aufzählungen ohne Nummern}
 
 	\begin{frame}{Unnumeriert}
-		\blindlistlist[3]{itemize}[3]
+		\begin{itemize}
+			\item Erster Listenpunkt, Stufe 1
+			\item Zweiter Listenpunkt, Stufe 1
+			\item Dritter Listenpunkt, Stufe 1
+		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{Unnumeriert mit langem Text}
-		\Blindlist{itemize}[2]
+	\begin{frame}{Unnumeriert mit Pause}
+		\begin{itemize}
+			\item Erster Listenpunkt, Stufe 1
+				\pause
+			\item Zweiter Listenpunkt, Stufe 1
+				\pause
+			\item Dritter Listenpunkt, Stufe 1
+		\end{itemize}
 	\end{frame}
+
+	\subsection{Aufzählungen mit Nummern}
 
 	\begin{frame}{Numeriert}
-		\blindlistlist[1]{enumerate}[3]
+		\begin{enumerate}
+			\item Erster Listenpunkt, Stufe 1
+			\item Zweiter Listenpunkt, Stufe 1
+			\item Dritter Listenpunkt, Stufe 1
+		\end{enumerate}
 	\end{frame}
 
-	\begin{frame}{Numeriert}
-		\blindlistlist[3]{enumerate}[3]
-	\end{frame}
+	\subsection{Aufzählungen mit Beschreibungstexten}
 
 	\begin{frame}{Beschreibung}
-		\blindlistoptional{description}[3]
+		\begin{description}
+			\item[Erster] Listenpunkt, Stufe 1
+			\item[Zweiter] Listenpunkt, Stufe 1
+			\item[Dritter] Listenpunkt, Stufe 1
+		\end{description}
 	\end{frame}
 
 	\section{Grafiken}
@@ -79,15 +143,73 @@
 		\includegraphics[width=\textwidth]{testlogo}
 	\end{frame}
 
-	\section{Sonstiges}
+	\section{Spezielles}
 
-	\begin{frame}{Formeln im Fließtext}
-		\blindmathtrue
-		\Blindtext[1][5]
-		\blindmathfalse
+	\begin{frame}{Definition und Beispiel}
+		\begin{definition}
+			Hier ist eine Definition.
+		\end{definition}
+		\begin{example}
+			Hier ist ein Beispiel dazu.
+		\end{example}
 	\end{frame}
 
-	\begin{frame}
+	\begin{frame}{Satz und Beweis mit Aufblättern}
+		\begin{theorem}
+			Eine Behauptung.
+		\end{theorem}
+		\begin{proof}
+			\begin{enumerate}
+				\item<1-> Sei es so.
+				\item<2-> Dann folgt dies daraus.
+				\item<1-> Damit gilt das immer.\qedhere
+			\end{enumerate}
+		\end{proof}
+		\uncover<3->{Ui.}
+	\end{frame}
+
+	\begin{frame}{Horizontale Blöcke}
+		\begin{block}{Block 1}
+			Inhalt des ersten Blocks.
+		\end{block}
+		\begin{block}{Block 2}
+			Inhalt des zweiten Blocks.
+
+			Auch Inhalt des zweiten Blocks.
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Vertikale Blöcke (Spalten)}
+		\begin{columns}
+			\column{.3\textwidth}
+				\begin{block}{Block 1}
+					Inhalt des ersten Blocks.
+				\end{block}
+			\column{.7\textwidth}
+				\begin{block}{Block 2}
+					Inhalt des zweiten Blocks.
+
+					Auch Inhalt des zweiten Blocks.
+				\end{block}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}[fragile]{Code und anderer Verbatimtext.}
+		\begin{verbatim}
+			function returnNull() {
+				return null;
+			}
+		\end{verbatim}
+		\begin{uncoverenv}<2>
+			Note the use of \verb|null|.
+		\end{uncoverenv}
+	\end{frame}
+
+	\begin{frame}[label=frame1]{Label und Referenz auf sich selbst}
+		Hallo, ich bin Frame~\autoref{frame1}.
+	\end{frame}
+
+	\begin{frame}[plain]{Ende}
 		\Huge{Ende.}
 	\end{frame}
 
