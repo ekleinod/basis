@@ -2417,7 +2417,7 @@
 	\divide\bas@progbar@width by \inserttotalframenumber
 
 	\begin{tikzpicture}[tight background]
-		\draw[mDarkTeal, fill=mDarkTeal] (0, 0) rectangle (\bas@progbar@width, \bas@progbar@height);
+		\draw[bas@col@progfilled, fill=bas@col@progfilled] (0, 0) rectangle (\bas@progbar@width, \bas@progbar@height);
 	\end{tikzpicture}
 }
 %    \end{macrocode}
@@ -2431,12 +2431,12 @@
 
 	\makebox[\textwidth][c]{
 		\begin{tikzpicture}[tight background]
-			\node[anchor=west, mDarkTeal, inner sep=0pt] at (0pt, 0pt) {\insertsectionHEAD};
+			\node[anchor=west, bas@col@darkblue, inner sep=0pt] at (0pt, 0pt) {\insertsectionHEAD};
 
-			\draw[anchor=west, mDarkTeal!20, fill=mDarkTeal!20, inner sep=0pt]
+			\draw[anchor=west, bas@col@progempty, fill=bas@col@progempty, inner sep=0pt]
 			(2pt, -16pt) rectangle ++ (\bas@progbar@frametitlewidth, \bas@progbar@height);
 
-			\draw[anchor=west, mDarkTeal, fill=mDarkTeal, inner sep=0pt]
+			\draw[anchor=west, bas@col@progfilled, fill=bas@col@progfilled, inner sep=0pt]
 			(2pt, -16pt) rectangle ++ (\bas@progbar@width, \bas@progbar@height);
 		\end{tikzpicture}%
 	}
@@ -2445,11 +2445,16 @@
 %
 % Titelseite.
 %    \begin{macrocode}
-\def\maketitle{\ifbeamer@inframe\titlepage\else\frame[plain]{\titlepage}\fi}
-
+\def\maketitle{
+	\ifbeamer@inframe
+		\titlepage
+	\else
+		\frame[plain]{\titlepage}
+	\fi
+}
 \def\titlepage{\usebeamertemplate{title page}}
-\setbeamertemplate{title page}
-{
+
+\setbeamertemplate{title page}{
 	\begin{minipage}[b][\paperheight]{\textwidth}
 		\vfill
 		\ifx\inserttitle\@empty%
@@ -2491,7 +2496,7 @@
 
 \newcommand{\plain}[2][]{%
 	\begingroup
-	\setbeamercolor{background canvas}{bg=mDarkTeal}
+	\setbeamercolor{background canvas}{bg=bas@col@darkblue}
 	\begin{frame}{#1}
 		\centering
 		\vfill\vspace{1em}\usebeamerfont{section title}\textcolor{white}{\scshape #2}\vfill
@@ -2536,27 +2541,29 @@
 %{{{ --- Captions ---------------------
 
 \setbeamertemplate{caption label separator}{: }
-
-%}}}
-%{{{ --- Footline/footnote ------------
-
-\usenavigationsymbolstemplate{}
-\setbeamertemplate{footline}
-{%
-\begin{beamercolorbox}[wd=\textwidth,ht=3ex,dp=3ex,leftskip=0.3cm,rightskip=0.3cm]{structure}%
-	\hfill\usebeamerfont{page number in head/foot}%
-	\insertframenumber%
-	\ifthenelse{\boolean{BAS@opt@totalnumber}}%
-		{\,|\,\inserttotalframenumber}%
-		{}%
-\end{beamercolorbox}%
+%    \end{macrocode}
+%
+% Fußzeile: Framenummer und auf Wunsch Gesamtzahl.
+% Keine Navigation
+%    \begin{macrocode}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{
+	\begin{beamercolorbox}[wd=\textwidth, ht=3ex, dp=3ex, leftskip=0.03\textwidth, rightskip=0.03\textwidth]{structure}
+		\hfill\usebeamerfont{page number in head/foot}
+		\insertframenumber
+		\ifthenelse{\boolean{BAS@opt@totalnumber}}
+			{\,|\,\inserttotalframenumber}
+			{}
+	\end{beamercolorbox}
 }
-
-\setbeamertemplate{footnote}
-{%
-	\parindent 0em\noindent%
+%    \end{macrocode}
+%
+% Fußnoten.
+%    \begin{macrocode}
+\setbeamertemplate{footnote}{
+	\parindent 0em\noindent
 	\raggedright
-	\usebeamercolor{footnote}\hbox to 0.8em{\hfil\insertfootnotemark}\insertfootnotetext\par%
+	\usebeamercolor{footnote}\hbox to 0.8em{\hfil\insertfootnotemark}\insertfootnotetext\par
 }
 
 %}}}
@@ -2601,17 +2608,27 @@
 % Bereitgestelltes Paket.
 %    \begin{macrocode}
 \ProvidesPackage{beamercolorthemebasis}
+%    \end{macrocode}
+%
+% Benutzte Farben definieren.
+%    \begin{macrocode}
+\definecolor{bas@col@alert}{RGB}{235, 129, 27}
+\definecolor{bas@col@darkblue}{RGB}{35, 55, 59}
+\definecolor{bas@col@mediumbrown}{RGB}{200, 122, 47}
 
-\definecolor{mDarkBrown}{HTML}{604c38}
-\definecolor{mDarkTeal}{HTML}{23373b}
-
-\definecolor{bas@col@alert}{HTML}{EB811B}
-\definecolor{mMediumBrown}{HTML}{C87A2F}
-
-\setbeamercolor{palette primary}{fg=mDarkTeal, bg=black!2}
-\setbeamercolor{palette secondary}{fg=white, bg=mDarkTeal}
-\setbeamercolor{palette tertiary}{fg=white, bg=mMediumBrown}
-\setbeamercolor{palette quaternary}{fg=white, bg=mDarkTeal!20}
+\colorlet{bas@col@text}{black!97}
+\colorlet{bas@col@framebg}{black!2}
+\colorlet{bas@col@progfilled}{bas@col@darkblue}
+\colorlet{bas@col@progempty}{bas@col@darkblue!20}
+\colorlet{bas@col@footnote}{bas@col@darkblue!50}
+%    \end{macrocode}
+%
+% Farben den Einsätzen zuordnen.
+%    \begin{macrocode}
+\setbeamercolor{palette primary}{fg=bas@col@darkblue, bg=bas@col@framebg}
+\setbeamercolor{palette secondary}{fg=white, bg=bas@col@darkblue}
+\setbeamercolor{palette tertiary}{fg=white, bg=bas@col@progempty}
+\setbeamercolor{palette quaternary}{fg=bas@col@darkblue}
 
 \setbeamercolor{title}{parent=palette primary}
 \setbeamercolor{subtitle}{parent=palette primary}
@@ -2621,15 +2638,15 @@
 
 \setbeamercolor{section title}{parent=palette primary}
 \setbeamercolor{frametitle}{parent=palette secondary}
-\setbeamercolor{headline}{parent=palette quaternary}
+\setbeamercolor{headline}{parent=palette tertiary}
 \setbeamercolor{background canvas}{parent=palette primary}
-\setbeamercolor{structure}{fg=mDarkTeal}
+\setbeamercolor{structure}{fg=bas@col@darkblue}
 
-\setbeamercolor{normal text}{fg=black!97}
+\setbeamercolor{normal text}{fg=bas@col@text}
 \setbeamercolor{alerted text}{fg=bas@col@alert}
 
-\setbeamercolor{footnote}{fg=mDarkTeal!50}
-\setbeamercolor{page number in head/foot}{fg=mDarkTeal}
+\setbeamercolor{footnote}{fg=bas@col@footnote}
+\setbeamercolor{page number in head/foot}{fg=bas@col@darkblue}
 
 \mode
 <all>
