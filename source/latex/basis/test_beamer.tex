@@ -6,8 +6,8 @@
 % t: Texte oben ausgerichtet
 % aspectratio: 169, 1610, 149, 54, 32, 43
 
-%\usetheme{basis}
-\usetheme[titleprogressbar]{basis}
+\usetheme{basis}
+%\usetheme[titleprogressbar]{basis}
 %\usetheme[totalnumber]{basis}
 
 \usepackage[pangram]{blindtext}
@@ -28,17 +28,42 @@
 		Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
 	\end{frame}
 
-	\section*{Agenda}
+	\section*{Agendas}
 
-	\begin{frame}
-		\frametitle{Agenda}
+	\begin{frame}{Agenda}
 		\tableofcontents
+
+		Leer, da Parts benutzt wurden.
 	\end{frame}
 
-	\begin{frame}
-		\frametitle{Agenda zum Aufklappen}
-		\tableofcontents[pausesections]
+	\subsection*{Teil 1: der erste Abend}
+
+	\begin{frame}{Agenda Teil 1}
+		\tableofcontents[part=1]
 	\end{frame}
+
+	\subsection*{Teil 2: der zweite Abend}
+
+	\begin{frame}{Agenda Teil 2 zum Aufklappen}
+		\tableofcontents[part=2, pausesections]
+	\end{frame}
+
+	\part{Teil 1: der erste Abend}
+
+	\frame{\partpage}
+
+	\section{Normaler Text}
+
+	\begin{frame}{Text}
+		Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+		Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+		Vogel Quax zwickt Johnys Pferd Bim.
+		Sylvia wagt quick den Jux bei Pforzheim.
+	\end{frame}
+
+	\part{Teil 2: der zweite Abend}
+
+	\frame{\partpage}
 
 	\section{Normaler Text}
 
@@ -95,6 +120,10 @@
 
 	\section{Aufzählungen}
 
+	\begin{frame}{Agenda für diese Section}
+		\tableofcontents[currentsection]
+	\end{frame}
+
 	\subsection{Aufzählungen ohne Nummern}
 
 	\begin{frame}{Unnumeriert}
@@ -112,6 +141,24 @@
 			\item Zweiter Listenpunkt, Stufe 1
 				\pause
 			\item Dritter Listenpunkt, Stufe 1
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Unnumeriert mit hervorgehobenem Aufdecken}
+		\begin{itemize}
+			\item<+-| alert@+> Erster Listenpunkt
+			\item<+-| alert@+> Zweiter Listenpunkt
+			\item<+-| alert@+> Dritter Listenpunkt
+			\item<+-| alert@+> Vierter Listenpunkt
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Unnumeriert mit hervorgehobenem Aufdecken (vereinfacht)}
+		\begin{itemize}[<+-| alert@+>]
+			\item Erster Listenpunkt
+			\item Zweiter Listenpunkt
+			\item Dritter Listenpunkt
+			\item Vierter Listenpunkt
 		\end{itemize}
 	\end{frame}
 
@@ -196,15 +243,15 @@
 		\end{columns}
 	\end{frame}
 
-	\begin{frame}[fragile]{Code und anderer Verbatimtext.}
-		\begin{verbatim}
-			function returnNull() {
-				return null;
-			}
-		\end{verbatim}
-		\begin{uncoverenv}<2>
-			Note the use of \verb|null|.
-		\end{uncoverenv}
+\begin{frame}[fragile]{Code und anderer Verbatimtext.}
+\begin{verbatim}
+function returnNull() {
+return null;
+}
+\end{verbatim}
+\begin{uncoverenv}<2>
+Note the use of \verb|null|.
+\end{uncoverenv}
 \end{frame}
 % wichtig: nicht einrücken, sonst Fehler
 
