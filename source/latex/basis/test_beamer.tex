@@ -6,9 +6,9 @@
 % t: Texte oben ausgerichtet
 % aspectratio: 169, 1610, 149, 54, 32, 43
 
-\usetheme{basis}
+%\usetheme{basis}
 %\usetheme[titleprogressbar]{basis}
-%\usetheme[totalnumber]{basis}
+\usetheme[totalnumber]{basis}
 
 \usepackage[pangram]{blindtext}
 
@@ -18,14 +18,29 @@
 \author{Autor 1 \and Autor 2 \and Autor 3}
 \date{6. Januar 2016}
 
+\AtBeginLecture{\frame{\Large Heute: \insertlecture}}
+
 \begin{document}
+
+	\includeonlylecture{abend2}
+
+
+
 
 	\frame{\titlepage}
 
 	\begin{frame}
 		Nicht vergessen: mit \hologo{XeLaTeX} übersetzen.
+	\end{frame}
 
-		Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
+	\begin{frame}{Kurze Zusammenfassung}
+		\begin{abstract}
+			Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
+			Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
+			Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
+			Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
+			Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
+		\end{abstract}
 	\end{frame}
 
 	\section*{Agendas}
@@ -39,7 +54,7 @@
 	\subsection*{Teil 1: der erste Abend}
 
 	\begin{frame}{Agenda Teil 1}
-		\tableofcontents[part=1]
+		\tableofcontents[part=1, subsectionstyle=hide]
 	\end{frame}
 
 	\subsection*{Teil 2: der zweite Abend}
@@ -47,6 +62,11 @@
 	\begin{frame}{Agenda Teil 2 zum Aufklappen}
 		\tableofcontents[part=2, pausesections]
 	\end{frame}
+
+
+
+	\lecture{Erster Abend: SRaT}{abend1}
+
 
 	\part{Teil 1: der erste Abend}
 
@@ -60,6 +80,12 @@
 		Vogel Quax zwickt Johnys Pferd Bim.
 		Sylvia wagt quick den Jux bei Pforzheim.
 	\end{frame}
+
+
+
+
+	\lecture{Zweiter Abend: OSR}{abend2}
+
 
 	\part{Teil 2: der zweite Abend}
 
@@ -192,6 +218,20 @@
 		\includegraphics[width=\textwidth]{testlogo}
 	\end{frame}
 
+	\begin{frame}{Eingebundenes PDF als Figure (1)}
+		\begin{figure}
+			\includegraphics{testlogo}
+			\caption{Bildunterschrift unter Bild.}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Eingebundenes PDF als Figure (2)}
+		\begin{figure}
+			\caption{Bildunterschrift über Bild.}
+			\includegraphics{testlogo}
+		\end{figure}
+	\end{frame}
+
 	\section{Spezielles}
 
 	\begin{frame}{Definition und Beispiel}
@@ -259,9 +299,51 @@ Note the use of \verb|null|.
 		Hallo, ich bin Frame~\autoref{frame1}.
 	\end{frame}
 
+	\begin{frame}<1>[label=wdh]{Wiederholter Frame.}
+
+		Hier ist Text, der gleich wiederholt wird.
+
+		\begin{overprint}
+			\onslide<1>
+			Hier ist Text, der nur beim ersten Mal angezeigt wird.
+			Und ein Link zur \hyperlink{wdh<2>}{\beamergotobutton{Wiederholung}}
+
+			\onslide<2->
+			Dieser Text wird erst bei der Wiederholung angezeigt!
+		\end{overprint}
+	\end{frame}
+
+	\begin{frame}{Zwischentext.}
+		Text dazwischen. Gleich\dots
+	\end{frame}
+
+	\againframe<2>{wdh}
+
+
+
+
 	\begin{frame}[plain]{Ende}
 		\Huge{Ende.}
 	\end{frame}
+
+
+
+
+	\appendix
+
+	\section{\appendixname}
+
+	\frame{\tableofcontents}
+
+	\subsection{Zusatzmaterial}
+
+	\frame{Details}
+	\frame{Text, der im Hauptteil fehlt.}
+
+	\subsection{Noch mehr Zusatzmaterial}
+
+	\frame{Mehr Details.}
+
 
 \end{document}
 
