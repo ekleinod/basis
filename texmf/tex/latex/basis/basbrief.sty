@@ -160,7 +160,7 @@ checkcolor=\@empty,
 size=1.4ex,
 line=1pt
 }{}
-\ProcessOptionsX%*\relax
+\ProcessOptionsX
 \newlength{\BAS@len@rule}
 \setlength{\BAS@len@rule}{.4pt}
 \KOMAoptions{
@@ -236,8 +236,12 @@ open=right
 \RequirePackage[scaled]{helvet}
 \RequirePackage[scaled]{luximono}
 }{}
+\ifxetex
+\RequirePackage{microtype}
+\else
 \RequirePackage[tracking=true]{microtype}
 \SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
+\fi
 \ifxetex
 \else
 \IfFileExists{marvosym.sty}{

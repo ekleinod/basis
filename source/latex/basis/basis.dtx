@@ -1,4 +1,4 @@
-% \CheckSum{2472}
+% \CheckSum{2452}
 %
 % \iffalse meta-comment
 %
@@ -519,8 +519,12 @@
 %
 % Das Paket \paket{microtype} setzt Text angenehmer und erzeugt optischen Randausgleich.
 %    \begin{macrocode}
-\RequirePackage[tracking=true]{microtype}
-\SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
+\ifxetex
+	\RequirePackage{microtype}
+\else
+	\RequirePackage[tracking=true]{microtype}
+	\SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
+\fi
 %    \end{macrocode}
 %
 % \subsubsection{Symbole}
