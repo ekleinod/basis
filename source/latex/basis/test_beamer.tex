@@ -1,16 +1,23 @@
-\documentclass[t, aspectratio=169, ngerman]{beamer}
-%\documentclass[t, aspectratio=169, handout, ngerman]{beamer}
-%\documentclass[t, aspectratio=169, handout, notes=show, ngerman]{beamer}
-%\documentclass[t, aspectratio=169, handout, notes=only, ngerman]{beamer}
+%\documentclass[t, aspectratio=169, ngerman]{beamer}
+\documentclass[t, aspectratio=169, handout, ngerman]{beamer}
 
 % t: Texte oben ausgerichtet
 % aspectratio: 169, 1610, 149, 54, 32, 43
+
+\setbeameroption{hide notes} % keine Anmerkungen, nur Präsentation; default, muss man nicht angeben
+%\setbeameroption{show notes} % alle Anmerkungen in Präsentation
+%\setbeameroption{show only notes} % nur Anmerkungen, keine Präsentation
 
 %\usetheme{basis}
 %\usetheme[titleprogressbar]{basis}
 \usetheme[totalnumber]{basis}
 
 \usepackage[pangram]{blindtext}
+
+% handouts
+\usepackage{pgfpages}
+\pgfpagesuselayout{4 on 1}[a4paper,landscape,border shrink=5mm]
+
 
 \subject{Thema}
 \title{Titel}
@@ -22,7 +29,7 @@
 
 \begin{document}
 
-	\includeonlylecture{abend2}
+	%\includeonlylecture{abend2}
 
 
 
@@ -33,7 +40,7 @@
 		Nicht vergessen: mit \hologo{XeLaTeX} übersetzen.
 	\end{frame}
 
-	\begin{frame}{Kurze Zusammenfassung}
+	\begin{frame}
 		\begin{abstract}
 			Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
 			Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
@@ -80,6 +87,56 @@
 		Vogel Quax zwickt Johnys Pferd Bim.
 		Sylvia wagt quick den Jux bei Pforzheim.
 	\end{frame}
+
+	\section{Besondere Umgebungen}
+
+	\begin{frame}{Verse}
+		\begin{verse}
+			Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+			Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+
+			Vogel Quax zwickt Johnys Pferd Bim.
+			Sylvia wagt quick den Jux bei Pforzheim.
+
+			Prall vom Whisky flog Quax den Jet zu Bruch.\\
+			Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.\\
+			Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.\\
+		\end{verse}
+	\end{frame}
+
+	\begin{frame}{Quotation}
+		\begin{quotation}
+			Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+			Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+
+			Vogel Quax zwickt Johnys Pferd Bim.
+			Sylvia wagt quick den Jux bei Pforzheim.
+
+			Prall vom Whisky flog Quax den Jet zu Bruch.
+			Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.
+			Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.
+		\end{quotation}
+	\end{frame}
+
+	\begin{frame}{Quote}
+		\begin{quote}
+			Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+			Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+
+			Vogel Quax zwickt Johnys Pferd Bim.
+			Sylvia wagt quick den Jux bei Pforzheim.
+
+			Prall vom Whisky flog Quax den Jet zu Bruch.
+			Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.
+			Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.
+		\end{quote}
+	\end{frame}
+
+	\begin{frame}<1>[plain, label=end]{Ende}
+		\Huge{Ende.}
+	\end{frame}
+
+
 
 
 
@@ -218,11 +275,35 @@
 		\includegraphics[width=\textwidth]{testlogo}
 	\end{frame}
 
+	\AtBeginNote{Anfangsanmerkung für alle Bilder.}
+	\AtEndNote{Endanmerkung für alle Bilder.}
+	\begin{frame}{Eingebundenes PDF aufpoppend mit gemeinsamen Anmerkungen}
+		\includegraphics<1->{testlogo}
+		\note[item]{Eine Anmerkung zum ersten Bild.}
+		\note[item]{Eine zweite Anmerkung zum ersten Bild.}
+		\includegraphics<2->{testlogo}
+		\note[item]{Eine Anmerkung zum zweiten Bild.}
+		\includegraphics<3->{testlogo}
+	\end{frame}
+
+	\begin{frame}{Eingebundenes PDF aufpoppend mit getrennten Anmerkungen}
+		\includegraphics<1->{testlogo}
+		\note[item]<1>{Eine Anmerkung zum ersten Bild.}
+		\note[item]<1>{Eine zweite Anmerkung zum ersten Bild.}
+		\includegraphics<2->{testlogo}
+		\note[item]<2>{Eine Anmerkung zum zweiten Bild.}
+		\includegraphics<3->{testlogo}
+	\end{frame}
+	% wieder ausschalten
+	\AtBeginNote{}
+	\AtEndNote{}
+
 	\begin{frame}{Eingebundenes PDF als Figure (1)}
 		\begin{figure}
 			\includegraphics{testlogo}
 			\caption{Bildunterschrift unter Bild.}
 		\end{figure}
+		\note[item]{Anmerkung dazu.}
 	\end{frame}
 
 	\begin{frame}{Eingebundenes PDF als Figure (2)}
@@ -304,11 +385,11 @@ Note the use of \verb|null|.
 		Hier ist Text, der gleich wiederholt wird.
 
 		\begin{overprint}
-			\onslide<1>
+			\onslide<1|handout:0>
 			Hier ist Text, der nur beim ersten Mal angezeigt wird.
 			Und ein Link zur \hyperlink{wdh<2>}{\beamergotobutton{Wiederholung}}
 
-			\onslide<2->
+			\onslide<2-|handout:0>
 			Dieser Text wird erst bei der Wiederholung angezeigt!
 		\end{overprint}
 	\end{frame}
@@ -319,12 +400,10 @@ Note the use of \verb|null|.
 
 	\againframe<2>{wdh}
 
+	\againframe<2>{end}
 
 
 
-	\begin{frame}[plain]{Ende}
-		\Huge{Ende.}
-	\end{frame}
 
 
 
