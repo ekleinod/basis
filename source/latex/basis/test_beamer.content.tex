@@ -1,40 +1,9 @@
-% Präsentationen oder Handouts
-%\documentclass[t, aspectratio=169, ngerman, ignorenonframetext]{beamer}
-%\documentclass[t, aspectratio=169, ngerman, ignorenonframetext, handout]{beamer}
-
-% t: Texte oben ausgerichtet
-% aspectratio: 169, 1610, 149, 54, 32, 43
-% ignorenonframetext: Text zwischen Frames ignorieren
-
-%\setbeameroption{hide notes} % keine Anmerkungen, nur Präsentation; default, muss man nicht angeben
-%\setbeameroption{show notes} % alle Anmerkungen in Präsentation
-%\setbeameroption{show only notes} % nur Anmerkungen, keine Präsentation
-
-% handouts
-%\usepackage{pgfpages}
-%\pgfpagesuselayout{4 on 1}[a4paper,landscape,border shrink=5mm]
-
-%\usetheme{basis}
-%\usetheme[titleprogressbar]{basis}
-%\usetheme[totalnumber]{basis}
-
-
-
-
-
-% Handout als Artikel
-\documentclass[ngerman]{scrartcl}
-\usepackage[noxcolor]{beamerarticle}
-\usepackage{basis}
-
-
 \usepackage[pangram]{blindtext}
-
 
 \subject{Thema}
 \title{Titel}
 \subtitle{Untertitel}
-\author{Autor 1 \and Autor 2 \and Autor 3}
+%\author{Autor 1 \and Autor 2 \and Autor 3}
 \date{6. Januar 2016}
 
 \AtBeginLecture{\frame{\Large Heute: \insertlecture}}
@@ -45,8 +14,12 @@
 
 
 
-
-	\frame{\titlepage}
+	\mode<presentation>{
+		\frame{\titlepage}
+	}
+	\mode<article>{
+		\maketitle
+	}
 
 	\begin{frame}
 		Nicht vergessen: mit \hologo{XeLaTeX} übersetzen.
@@ -287,8 +260,11 @@
 		\includegraphics[width=\textwidth]{testlogo}
 	\end{frame}
 
-	\AtBeginNote{Anfangsanmerkung für alle Bilder.}
-	\AtEndNote{Endanmerkung für alle Bilder.}
+	% Modus benutzen, da sonst Übersetzungsfehler bei Artikeln
+	\mode<presentation>{
+		\AtBeginNote{Anfangsanmerkung für alle Bilder.}
+		\AtEndNote{Endanmerkung für alle Bilder.}
+	}
 	\begin{frame}{Eingebundenes PDF aufpoppend mit gemeinsamen Anmerkungen}
 		\includegraphics<1->{testlogo}
 		\note[item]{Eine Anmerkung zum ersten Bild.}
@@ -307,8 +283,10 @@
 		\includegraphics<3->{testlogo}
 	\end{frame}
 	% wieder ausschalten
-	\AtBeginNote{}
-	\AtEndNote{}
+	\mode<presentation>{
+		\AtBeginNote{}
+		\AtEndNote{}
+	}
 
 	\begin{frame}{Eingebundenes PDF als Figure (1)}
 		\begin{figure}
@@ -414,6 +392,9 @@ Note the use of \verb|null|.
 
 	\againframe<2>{end}
 
+	\mode<article>{
+		\fbox{\includeslide[type=pdf, ext=.pdf, width=.3\textwidth]{end}}
+	}
 
 
 
