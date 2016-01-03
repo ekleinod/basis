@@ -11,17 +11,12 @@
 %% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
 %% 
 \ProvidesPackage{beamerfontthemebasis}
-
 \mode<presentation>
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[sfdefault]{roboto}
 
-\usepackage[no-math]{fontspec}
 
-\setsansfont[BoldFont={Fira Sans}]{Fira Sans Light}
-\setmonofont{Fira Mono}
-\newfontfamily\ExtraLight{Fira Sans ExtraLight}
-\newfontfamily\Light{Fira Sans Light}
-\newfontfamily\Book{Fira Sans}
-\newfontfamily\Medium{Fira Sans Medium}
 
 \setbeamerfont{normal text}{} % ignored currently
 \setbeamerfont{alerted text}{}
@@ -130,19 +125,8 @@
 \setbeamerfont{note page}{size=\small}
 \setbeamerfont{note title}{parent=note page}
 \setbeamerfont{note date}{size=\footnotesize}
-
 \mode
 <all>
-
-
-
-
-
-
-
-
-
-
 %% 
 %% (c) 2006-2015 Ekkart Kleinod
 %%

@@ -3,7 +3,7 @@
 \subject{Thema}
 \title{Titel}
 \subtitle{Untertitel}
-%\author{Autor 1 \and Autor 2 \and Autor 3}
+\author{Autor 1\and Autor 2\and Autor 3}
 \date{6. Januar 2016}
 
 \AtBeginLecture{\frame{\Large Heute: \insertlecture}}
@@ -22,7 +22,7 @@
 	}
 
 	\begin{frame}
-		Nicht vergessen: mit \hologo{XeLaTeX} übersetzen.
+		Nicht vergessen: mit \hologo{pdfLaTeX} oder \hologo{XeLaTeX} übersetzen.
 	\end{frame}
 
 	\begin{frame}
@@ -393,7 +393,7 @@ Note the use of \verb|null|.
 	\againframe<2>{end}
 
 	\mode<article>{
-		\fbox{\includeslide[type=pdf, ext=.pdf, width=.3\textwidth]{end}}
+		\fbox{\includeslide[width=.3\textwidth]{end}}
 	}
 
 

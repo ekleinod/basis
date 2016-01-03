@@ -1,4 +1,4 @@
-% \CheckSum{2452}
+% \CheckSum{2432}
 %
 % \iffalse meta-comment
 %
@@ -2596,6 +2596,20 @@
 \renewcommand{\titlepage}{\otp\addtocounter{framenumber}{-1}}
 \newcommand{\mreducelistspacing}{\vspace{-\topsep}}
 
+\setbeamertemplate{note page}{
+	\vspace{2em}
+	\begin{columns}[T]
+		\begin{column}{.8\textwidth}
+			\begin{block}{Anmerkungen zu ``\insertframetitle''}
+				\insertnote
+			\end{block}
+		\end{column}
+		\begin{column}{.2\textwidth}
+			\framebox{\insertslideintonotes{0.2}}
+		\end{column}
+	\end{columns}
+}
+
 \linespread{1.15}
 %    \end{macrocode}
 %
@@ -2667,23 +2681,28 @@
 %
 % \subsubsection{Fontdefinitionen}
 %
-% Schriftart Arev als Standard festlegen. (Prüfen, ob Umstieg auf Arev sinnvoll ist.)
-% Arev ist eine Version der \emph{Bitstream Vera Sans}, die für Präsentationen entworfen wurde.
-% Gleichzeitig UTF-8 und T1-Fontencoding durchsetzen.
 % Bereitgestelltes Paket.
+% Definitionen für Präsentationen.
 %    \begin{macrocode}
 \ProvidesPackage{beamerfontthemebasis}
-
 \mode<presentation>
+%    \end{macrocode}
+%
+% Schriftart Roboto als Standard festlegen.
+% Gleichzeitig UTF-8 und T1-Fontencoding einsetzen.
+%    \begin{macrocode}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[sfdefault]{roboto}
 
-\usepackage[no-math]{fontspec}
+%\usepackage[no-math]{fontspec}
 
-\setsansfont[BoldFont={Fira Sans}]{Fira Sans Light}
-\setmonofont{Fira Mono}
-\newfontfamily\ExtraLight{Fira Sans ExtraLight}
-\newfontfamily\Light{Fira Sans Light}
-\newfontfamily\Book{Fira Sans}
-\newfontfamily\Medium{Fira Sans Medium}
+%\setsansfont[BoldFont={Fira Sans}]{Fira Sans Light}
+%\setmonofont{Fira Mono}
+%\newfontfamily\ExtraLight{Fira Sans ExtraLight}
+%\newfontfamily\Light{Fira Sans Light}
+%\newfontfamily\Book{Fira Sans}
+%\newfontfamily\Medium{Fira Sans Medium}
 
 
 \setbeamerfont{normal text}{} % ignored currently
@@ -2794,35 +2813,12 @@
 \setbeamerfont{note page}{size=\small}
 \setbeamerfont{note title}{parent=note page}
 \setbeamerfont{note date}{size=\footnotesize}
-
+%    \end{macrocode}
+%
+% Modus wieder zurückstellen.
+%    \begin{macrocode}
 \mode
 <all>
-
-%\AtBeginEnvironment{tabular}{\setsansfont[BoldFont={Fira Sans}, Numbers={Monospaced}]{Fira Sans Light}}
-
-%\setbeamerfont{item}{family=\Book, size=\normalsize}
-
-%\setbeamerfont{title}{family=\Book, size=\Large}
-%\setbeamerfont{author}{family=\ExtraLight, size=\small}
-%\setbeamerfont{date}{family=\ExtraLight, size=\small}
-
-%\setbeamerfont{section title}{family=\Book, size=\Large}
-
-%\setbeamerfont{block title}{family=\Book, size=\normalsize}
-%\setbeamerfont{block title alerted}{family=\Book,size=\normalsize}
-
-%\setbeamerfont{subtitle}{family=\Light, size=\fontsize{12}{14}}
-%\setbeamerfont{frametitle}{family=\Book, series=\scshape, size=\Large}
-
-%\setbeamerfont{caption}{size=\small}
-%\setbeamerfont{caption name}{family=\Book}
-
-%\setbeamerfont{description item}{family=\Book}
-
-%\setbeamerfont{page number in head/foot}{size=\scriptsize}
-
-
-%\linespread{1.15}
 %    \end{macrocode}
 %
 %    \begin{macrocode}

@@ -3,8 +3,10 @@
 \usepackage[noxcolor]{beamerarticle}
 
 \usepackage{basis}
-%\usepackage{pgfpages}
-\let\pgfimage=\includegraphics
+\usepackage{pgfpages}
+
+% ugly fix tabular problem of komascript
+\renewcommand{\and}{, }
 
 \setjobnamebeamerversion{test_beamer.slides}
 

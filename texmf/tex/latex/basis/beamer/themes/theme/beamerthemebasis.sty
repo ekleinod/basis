@@ -179,6 +179,20 @@
 \renewcommand{\titlepage}{\otp\addtocounter{framenumber}{-1}}
 \newcommand{\mreducelistspacing}{\vspace{-\topsep}}
 
+\setbeamertemplate{note page}{
+\vspace{2em}
+\begin{columns}[T]
+\begin{column}{.8\textwidth}
+\begin{block}{Anmerkungen zu ``\insertframetitle''}
+\insertnote
+\end{block}
+\end{column}
+\begin{column}{.2\textwidth}
+\framebox{\insertslideintonotes{0.2}}
+\end{column}
+\end{columns}
+}
+
 \linespread{1.15}
 %% 
 %% (c) 2006-2015 Ekkart Kleinod
