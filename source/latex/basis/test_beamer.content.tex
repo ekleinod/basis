@@ -366,9 +366,13 @@ Note the use of \verb|null|.
 \end{frame}
 % wichtig: nicht einrücken, sonst Fehler
 
-	\begin{frame}[label=frame1]{Label und Referenz auf sich selbst}
-		Hallo, ich bin Frame~\autoref{frame1}.
+	\begin{frame}[label=mei1]{Label und Referenz auf sich selbst}
+		Hallo, ich bin Frame~\autoref{mei1}.
 	\end{frame}
+
+	\mode<article>{
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
 
 	\begin{frame}<1>[label=wdh]{Wiederholter Frame.}
 
@@ -384,17 +388,25 @@ Note the use of \verb|null|.
 		\end{overprint}
 	\end{frame}
 
+	Hier sind wir kurz hinter Frame \insertframenumber.
+
 	\begin{frame}{Zwischentext.}
 		Text dazwischen. Gleich\dots
 	\end{frame}
 
+	Hier sind wir kurz hinter Frame \insertframenumber.
+
 	\againframe<2>{wdh}
+
+	Hier sind wir kurz hinter Frame \insertframenumber.
 
 	\againframe<2>{end}
 
 	\mode<article>{
 		\fbox{\includeslide[width=.3\textwidth]{end}}
 	}
+
+	Hier sind wir kurz hinter Frame \insertframenumber.
 
 
 
