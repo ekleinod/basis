@@ -1,43 +1,14 @@
-% very ugly hack to suppress frames in articles
-\newcounter{basslide}
-\setcounter{basslide}{1}
-
-\let\origframe=\frame
-\let\origendframe=\endframe
-
-\mode<presentation>{
-	\def\frame{%
-		\origframe%
-		\label{basslide\roman{basslide}}%
-		\addtocounter{basslide}{1}%
-	}
-	\def\endframe{\origendframe}
-}
-
-\mode<article>{
-	\usepackage{verbatim} % Auskommentieren des Frame-Inhalts
-	\def\frame{%
-		\noindent%
-		{%
-			\par \centering%
-			\includeslide[width=.8\textwidth]{basslide\roman{basslide}}%
-			\par%
-		}%
-		\addtocounter{basslide}{1}%
-		\comment%
-	}
-	\def\endframe{\endcomment}
-}
-
-
 \documentclass[aspectratio=169, ngerman]{beamer}
+%\documentclass[aspectratio=169, notes=show, ngerman]{beamer}
 %\documentclass[aspectratio=169, handout, ngerman]{beamer}
 %\documentclass[aspectratio=169, handout, notes=show, ngerman]{beamer}
 %\documentclass[aspectratio=169, handout, notes=only, ngerman]{beamer}
 
 % aspectratio: 169, 1610, 149, 54, 32, 43
 
-\usetheme[titleprogressbar, totalnumber]{basis}
+\usetheme{basis}
+%\usetheme[titleprogressbar]{basis}
+%\usetheme[totalnumber]{basis}
 
 \usepackage[pangram]{blindtext}
 
@@ -51,10 +22,10 @@
 
 \begin{document}
 
-	\frame{\titlepage}
+	\maketitle
 
 	\begin{frame}
-		Nicht vergessen: mit \hologo{XeLaTeX} übersetzen.
+		Nicht vergessen: mit \hologo{pdfLaTeX} oder \hologo{XeLaTeX} übersetzen.
 
 		Diese Präsentation dient zur Überprüfung des Aussehens und dessen Definition, nicht als Beispiel.
 	\end{frame}

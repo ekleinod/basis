@@ -2007,12 +2007,12 @@
 %</lco:infospalte,lco:infospaltefett>
 %    \end{macrocode}
 %
-% \subsection{Multimarkdown}
+% \section{Multimarkdown}
 %
 % Multimarkdown benötigt Dateien, die per \befehl{input} eingebunden werden.
 % Im Wesentlichen werden die Klassen/Pakete eingebunden und dann die von \emph{mmd} gelieferten Informationen benutzt.
 %
-% \subsubsection{Klassen}
+% \subsection{Klassen}
 %
 %    \begin{macrocode}
 %<*mmd:scrartcl>
@@ -2038,7 +2038,7 @@
 %</mmd:scrlttr2>
 %    \end{macrocode}
 %
-% \subsubsection{Stil}
+% \subsection{Stil}
 %
 %    \begin{macrocode}
 %<*mmd:style>
@@ -2054,7 +2054,7 @@
 %</mmd:style>
 %    \end{macrocode}
 %
-% \subsubsection{Beginn des Dokuments/Briefs}
+% \subsection{Beginn des Dokuments/Briefs}
 %
 % Übernahme aller Metadaten in eigene Befehle.
 %    \begin{macrocode}
@@ -2290,7 +2290,7 @@
 %</mmd:endlttr>
 %    \end{macrocode}
 %
-% \subsubsection{Paket: changes}
+% \subsection{Paket: changes}
 %
 %    \begin{macrocode}
 %<*mmd:package:changes>
@@ -2303,9 +2303,9 @@
 %
 %
 %
-% \subsection{Beamer}
+% \section{Beamer}
 %
-% Die Präsentationsklassen sind für die Verwendung von \hologo{XeLaTeX} ausgelegt.
+% Die Präsentationsklassen sind für die Verwendung von \hologo{pdfLaTeX} ausgelegt.
 %
 % \begin{quote}
 % \small
@@ -2318,7 +2318,7 @@
 % you can find at https://github.com/hsrmbeamertheme/hsrmbeamertheme.
 % \end{quote}
 %
-% \subsubsection{Präsentationsthema}
+% \subsection{Präsentationsthema}
 %
 %    \begin{macrocode}
 %<*basis:beamer:theme>
@@ -2331,8 +2331,8 @@
 % \begin{description}
 % 	\item[color theme] benutzte Farben
 % 	\item[font theme] benutzte Fonts
-% 	\item[inner theme] Aussehen aller Inhaltselemente einer Folie
-% 	\item[outer theme] Aussehen aller äußeren Strukturelemente einer Folie
+% 	\item[inner theme] Aussehen aller Inhaltselemente einer Folie (nicht verwendet)
+% 	\item[outer theme] Aussehen aller äußeren Strukturelemente einer Folie (nicht verwendet)
 % \end{description}
 %
 % Derzeit werden die Definitionen hauptsächlich übernommen, bis ich mich da eingearbeitet habe.
@@ -2400,6 +2400,8 @@
 \usefonttheme{basis}
 %    \end{macrocode}
 %
+% \subsubsection{Fortschrittsbalken}
+%
 % Fortschrittsbalken: Dimensionen.
 %    \begin{macrocode}
 \newdimen\bas@progbar@height
@@ -2407,7 +2409,7 @@
 \newdimen\bas@progbar@width
 %    \end{macrocode}
 %
-% Festlegung Breite für Abschittstitel, Höhe für alle Balken.
+% Festlegung Breite für Abschnittstitel, Höhe für alle Balken.
 %    \begin{macrocode}
 \bas@progbar@frametitlewidth=.5\paperwidth
 \bas@progbar@height=0.4pt
@@ -2426,90 +2428,89 @@
 }
 %    \end{macrocode}
 %
-% Fortschrittsbalken: Abschnitte.
+% \subsubsection{Hintergrund}
+%
+% todo: Der Hintergrund ist grundsätzlich weiß mit leichten Gradienten in den Ecken.
 %    \begin{macrocode}
-\def\bas@progressbar@section{
-	\bas@progbar@width=\bas@progbar@frametitlewidth
-	\multiply\bas@progbar@width by \insertframenumber
-	\divide\bas@progbar@width by \inserttotalframenumber
-
-	\makebox[\textwidth][c]{
-		\begin{tikzpicture}[tight background]
-			\node[anchor=west, bas@col@darkblue, inner sep=0pt] at (0pt, 0pt) {\insertsectionHEAD};
-
-			\draw[anchor=west, bas@col@progempty, fill=bas@col@progempty, inner sep=0pt]
-			(2pt, -16pt) rectangle ++ (\bas@progbar@frametitlewidth, \bas@progbar@height);
-
-			\draw[anchor=west, bas@col@progfilled, fill=bas@col@progfilled, inner sep=0pt]
-			(2pt, -16pt) rectangle ++ (\bas@progbar@width, \bas@progbar@height);
-		\end{tikzpicture}%
-	}
+\setbeamertemplate{background canvas}{%
+%	\begin{tikzpicture}[remember picture,overlay]
+%		\shade[top color=gray!85,bottom color=gray!85,middle color=white]
+%			([shift={(0.5cm,-0.5cm)}]current page.north west)
+%				 rectangle
+%			([shift={(-0.5cm,0.5cm)}]current page.south east)
+%			;
+%	\end{tikzpicture}%
 }
 %    \end{macrocode}
 %
-% Titelseite.
+% \subsubsection{Titelseite}
+%
+% \befehl{maketitle} neu definieren.
 %    \begin{macrocode}
+\let\bas@orig@maketitle=\maketitle
 \def\maketitle{
-	\ifbeamer@inframe
+	\mode<article>{
+		\bas@orig@maketitle
+	}
+	\begin{frame}[plain]
 		\titlepage
-	\else
-		\frame[plain]{\titlepage}
-	\fi
+	\end{frame}
 }
-\def\titlepage{\usebeamertemplate{title page}}
-
+%    \end{macrocode}
+%
+% \subsubsection{Titelseite}
+%
+% Die Titelseite nutzt das entsprechende Template, das neu definiert wird.
+%    \begin{macrocode}
 \setbeamertemplate{title page}{
 	\begin{minipage}[b][\paperheight]{\textwidth}
 		\vfill
-		\ifx\inserttitle\@empty%
-		\else%
-		{\raggedright\linespread{1.0}\usebeamerfont{title}\usebeamercolor[fg]{title}\textsc{\inserttitle}\par}%
-		\vspace*{0.5em}
-		\fi%
-		\ifx\insertsubtitle\@empty%
-		\else%
-		{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
-		\vspace*{0.5em}
-		\fi%
-		\begin{tikzpicture}\draw[bas@col@alert] (0, 0) -- (\textwidth, 0);\end{tikzpicture}%
-		\vspace*{1em}
-		\ifx\insertauthor\@empty%
-		\else%
-		{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}%
-		\vspace*{0.25em}
-		\fi%
-		\ifx\insertdate\@empty%
-		\else%
-		{\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}%
-		\fi%
-		\ifx\insertinstitut\@empty%
-		\else%
-		\vspace*{3mm}
-		{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}%
-		\fi%
+		\ifthenelse{\equal{\@empty}{\inserttitle}}
+			{}
+			{
+				{
+					\raggedright
+					\linespread{1.0}
+					\usebeamerfont{title}
+					\usebeamercolor[fg]{title}
+					\inserttitle
+					\par
+				}
+				\vspace*{.3ex}
+			}
+		\ifthenelse{\equal{\@empty}{\insertsubtitle}}
+			{}
+			{
+				{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+				\vspace*{0.5ex}
+			}
+		\begin{tikzpicture}
+			\draw[bas@col@alert] (0, 0) -- (\textwidth, 0);
+		\end{tikzpicture}
+		\vspace*{1ex}
+		\ifx\insertauthor\@empty\else
+			{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
+			\vspace*{0.25ex}
+		\fi
+		\ifthenelse{\equal{\@empty}{\insertdate}}
+			{}
+			{
+				{\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
+				\vspace*{.3ex}
+			}
+		\ifthenelse{\equal{\@empty}{\insertinstitute}}
+			{}
+			{
+				{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}
+			}
 		\vfill
-		\vspace*{5mm}
+		\vspace*{2ex}
 	\end{minipage}
 }
 %    \end{macrocode}
 %
-% Neue Kommandos.
-%    \begin{macrocode}
-\newcommand{\insertsectionHEAD}{\expandafter\insertsectionHEADaux\insertsectionhead}
-\newcommand{\insertsectionHEADaux}[3]{\textsc{#3}}
-
-\newcommand{\plain}[2][]{%
-	\begingroup
-	\setbeamercolor{background canvas}{bg=bas@col@darkblue}
-	\begin{frame}{#1}
-		\centering
-		\vfill\vspace{1em}\usebeamerfont{section title}\textcolor{white}{\scshape #2}\vfill
-	\end{frame}
-	\endgroup
-}
-%    \end{macrocode}
+% \subsubsection{Aufzählungen}
 %
-% Aufzählungen.
 %    \begin{macrocode}
 \setlength{\leftmargini}{1em}
 \setlength{\leftmarginii}{1em}
@@ -2522,22 +2523,42 @@
 \setlength{\parskip}{0.5em}
 %    \end{macrocode}
 %
-% Abschnitte.
-% Insert frame with section title at every section start
+% \subsubsection{Abschnittsfolien}
+%
+% Erst das Template definieren.
+%    \begin{macrocode}
+\setbeamertemplate{section title}{
+	\usebeamerfont{section title}
+
+	\vfill
+
+	\bas@progbar@width=\bas@progbar@frametitlewidth
+	\multiply\bas@progbar@width by \insertframenumber
+	\divide\bas@progbar@width by \inserttotalframenumber
+
+	\makebox[\textwidth][c]{
+		\begin{tikzpicture}[tight background]
+			\node[anchor=west, bas@col@darkblue, inner sep=0pt] at (0pt, 0pt) {\insertsectionhead};
+
+			\draw[anchor=west, bas@col@progempty, fill=bas@col@progempty, inner sep=0pt]
+			(2pt, -16pt) rectangle ++ (\bas@progbar@frametitlewidth, \bas@progbar@height);
+
+			\draw[anchor=west, bas@col@progfilled, fill=bas@col@progfilled, inner sep=0pt]
+			(2pt, -16pt) rectangle ++ (\bas@progbar@width, \bas@progbar@height);
+		\end{tikzpicture}
+	}
+	\vfill
+}
+%    \end{macrocode}
+%
+% Dann das Template automatisch bei jedem Abschnitt benutzen.
 %    \begin{macrocode}
 \AtBeginSection[]
 {
-%	\begin{frame}
-%		\frametitle{Agenda}
-%		\tableofcontents[currentsection]
-%	\end{frame}
-
 	\begingroup
-	\setbeamercolor{background canvas}{bg=black!2}
-	\begin{frame}[plain]
-		\vspace{2em}\usebeamerfont{section title}
-		\bas@progressbar@section%
-	\end{frame}
+		\begin{frame}[plain]
+			\usebeamertemplate{section title}
+		\end{frame}
 	\endgroup
 }
 
@@ -2626,7 +2647,7 @@
 %<*basis:beamer:theme:color>
 %    \end{macrocode}
 %
-% \subsubsection{Farbdefinitionen}
+% \subsection{Farbdefinitionen}
 %
 % Bereitgestelltes Paket.
 %    \begin{macrocode}
@@ -2640,7 +2661,8 @@
 \definecolor{bas@col@mediumbrown}{RGB}{200, 122, 47}
 
 \colorlet{bas@col@text}{black!97}
-\colorlet{bas@col@framebg}{black!2}
+\colorlet{bas@col@framebg}{red!80!black}
+%\colorlet{bas@col@framebg}{black!2}
 \colorlet{bas@col@progfilled}{bas@col@darkblue}
 \colorlet{bas@col@progempty}{bas@col@darkblue!20}
 \colorlet{bas@col@footnote}{bas@col@darkblue!50}
@@ -2662,7 +2684,7 @@
 \setbeamercolor{section title}{parent=palette primary}
 \setbeamercolor{frametitle}{parent=palette secondary}
 \setbeamercolor{headline}{parent=palette tertiary}
-\setbeamercolor{background canvas}{parent=palette primary}
+%\setbeamercolor{background canvas}{parent=palette primary}
 \setbeamercolor{structure}{fg=bas@col@darkblue}
 
 \setbeamercolor{normal text}{fg=bas@col@text}
@@ -2684,7 +2706,7 @@
 %<*basis:beamer:theme:font>
 %    \end{macrocode}
 %
-% \subsubsection{Fontdefinitionen}
+% \subsection{Fontdefinitionen}
 %
 % Bereitgestelltes Paket.
 % Definitionen für Präsentationen.
@@ -2717,11 +2739,11 @@
 \setbeamerfont{structure}{}
 \setbeamerfont{tiny structure}{size=\tiny}
 
-\setbeamerfont{title}{size=\Large,parent=structure}
+\setbeamerfont{title}{size=\Large, shape=\scshape, parent=structure}
 \setbeamerfont{title in head/foot}{}
 \setbeamerfont{title in sidebar}{size=\tiny}
 
-\setbeamerfont{subtitle}{size=\normalsize,parent=title}
+\setbeamerfont{subtitle}{size=\normalsize, shape=\normalfont, parent=title}
 
 \setbeamerfont{author}{}
 \setbeamerfont{author in head/foot}{}
@@ -2739,7 +2761,7 @@
 \setbeamerfont{part title}{size=\LARGE,parent=title}
 
 \setbeamerfont{section name}{size=\Large}
-\setbeamerfont{section title}{size=\Large,parent=title}
+\setbeamerfont{section title}{parent=title}
 
 \setbeamerfont{section in toc}{parent=structure}
 \setbeamerfont{section in toc shaded}{parent=section in toc}
