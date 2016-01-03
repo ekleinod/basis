@@ -13,6 +13,12 @@
 \ProvidesPackage{beamerthemebasis}
 \RequirePackage{xkeyval}
 \RequirePackage{xifthen}
+\newboolean{BAS@opt@nonumber}
+\setboolean{BAS@opt@nonumber}{false}
+\DeclareOptionX{nonumber}{
+\setboolean{BAS@opt@nonumber}{true}
+\typeout{Basis-Option 'nonumber'}
+}
 \newboolean{BAS@opt@titleprogressbar}
 \setboolean{BAS@opt@titleprogressbar}{false}
 \DeclareOptionX{titleprogressbar}{
@@ -47,76 +53,61 @@
 \draw[bas@col@progfilled, fill=bas@col@progfilled] (0, 0) rectangle (\bas@progbar@width, \bas@progbar@height);
 \end{tikzpicture}
 }
-\def\bas@progressbar@section{
-\bas@progbar@width=\bas@progbar@frametitlewidth
-\multiply\bas@progbar@width by \insertframenumber
-\divide\bas@progbar@width by \inserttotalframenumber
-
-\makebox[\textwidth][c]{
-\begin{tikzpicture}[tight background]
-\node[anchor=west, bas@col@darkblue, inner sep=0pt] at (0pt, 0pt) {\insertsectionHEAD};
-
-\draw[anchor=west, bas@col@progempty, fill=bas@col@progempty, inner sep=0pt]
-(2pt, -16pt) rectangle ++ (\bas@progbar@frametitlewidth, \bas@progbar@height);
-
-\draw[anchor=west, bas@col@progfilled, fill=bas@col@progfilled, inner sep=0pt]
-(2pt, -16pt) rectangle ++ (\bas@progbar@width, \bas@progbar@height);
-\end{tikzpicture}%
+\setbeamertemplate{background canvas}{%
 }
-}
+\let\bas@orig@maketitle=\maketitle
 \def\maketitle{
-\ifbeamer@inframe
-\titlepage
-\else
-\frame[plain]{\titlepage}
-\fi
+\mode<article>{
+\bas@orig@maketitle
 }
-\def\titlepage{\usebeamertemplate{title page}}
-
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+}
 \setbeamertemplate{title page}{
 \begin{minipage}[b][\paperheight]{\textwidth}
 \vfill
-\ifx\inserttitle\@empty%
-\else%
-{\raggedright\linespread{1.0}\usebeamerfont{title}\usebeamercolor[fg]{title}\textsc{\inserttitle}\par}%
-\vspace*{0.5em}
-\fi%
-\ifx\insertsubtitle\@empty%
-\else%
-{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
-\vspace*{0.5em}
-\fi%
-\begin{tikzpicture}\draw[bas@col@alert] (0, 0) -- (\textwidth, 0);\end{tikzpicture}%
-\vspace*{1em}
-\ifx\insertauthor\@empty%
-\else%
-{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}%
-\vspace*{0.25em}
-\fi%
-\ifx\insertdate\@empty%
-\else%
-{\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}%
-\fi%
-\ifx\insertinstitut\@empty%
-\else%
-\vspace*{3mm}
-{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}%
-\fi%
-\vfill
-\vspace*{5mm}
-\end{minipage}
+\ifthenelse{\equal{\@empty}{\inserttitle}}
+{}
+{
+{
+\raggedright
+\linespread{1.0}
+\usebeamerfont{title}
+\usebeamercolor[fg]{title}
+\inserttitle
+\par
 }
-\newcommand{\insertsectionHEAD}{\expandafter\insertsectionHEADaux\insertsectionhead}
-\newcommand{\insertsectionHEADaux}[3]{\textsc{#3}}
-
-\newcommand{\plain}[2][]{%
-\begingroup
-\setbeamercolor{background canvas}{bg=bas@col@darkblue}
-\begin{frame}{#1}
-\centering
-\vfill\vspace{1em}\usebeamerfont{section title}\textcolor{white}{\scshape #2}\vfill
-\end{frame}
-\endgroup
+\vspace*{.3ex}
+}
+\ifthenelse{\equal{\@empty}{\insertsubtitle}}
+{}
+{
+{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+\vspace*{0.5ex}
+}
+\begin{tikzpicture}
+\draw[bas@col@alert] (0, 0) -- (\textwidth, 0);
+\end{tikzpicture}
+\vspace*{1ex}
+\ifx\insertauthor\@empty\else
+{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
+\vspace*{0.25ex}
+\fi
+\ifthenelse{\equal{\@empty}{\insertdate}}
+{}
+{
+{\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
+\vspace*{.3ex}
+}
+\ifthenelse{\equal{\@empty}{\insertinstitute}}
+{}
+{
+{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}
+}
+\vfill
+\vspace*{2ex}
+\end{minipage}
 }
 \setlength{\leftmargini}{1em}
 \setlength{\leftmarginii}{1em}
@@ -127,22 +118,41 @@
 \setbeamertemplate{itemize subsubitem}{\textperiodcentered}
 
 \setlength{\parskip}{0.5em}
+\setbeamertemplate{section title}{
+\usebeamerfont{section title}
+
+\vfill
+
+\bas@progbar@width=\bas@progbar@frametitlewidth
+\multiply\bas@progbar@width by \insertframenumber
+\divide\bas@progbar@width by \inserttotalframenumber
+
+\makebox[\textwidth][c]{
+\begin{tikzpicture}[tight background]
+\node[anchor=west, bas@col@darkblue, inner sep=0pt] at (0pt, 0pt) {\insertsectionhead};
+
+\draw[anchor=west, bas@col@progempty, fill=bas@col@progempty, inner sep=0pt]
+(2pt, -16pt) rectangle ++ (\bas@progbar@frametitlewidth, \bas@progbar@height);
+
+\draw[anchor=west, bas@col@progfilled, fill=bas@col@progfilled, inner sep=0pt]
+(2pt, -16pt) rectangle ++ (\bas@progbar@width, \bas@progbar@height);
+\end{tikzpicture}
+}
+\vfill
+}
 \AtBeginSection[]
 {
-
 \begingroup
-\setbeamercolor{background canvas}{bg=black!2}
 \begin{frame}[plain]
-\vspace{2em}\usebeamerfont{section title}
-\bas@progressbar@section%
+\usebeamertemplate{section title}
 \end{frame}
 \endgroup
 }
-
-
-\setbeamertemplate{caption label separator}{: }
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}{
+\ifthenelse{\boolean{BAS@opt@nonumber}}
+{}
+{
 \begin{beamercolorbox}[wd=\textwidth, ht=3ex, dp=3ex, leftskip=0.03\textwidth, rightskip=0.03\textwidth]{structure}
 \hfill\usebeamerfont{page number in head/foot}
 \insertframenumber
@@ -150,6 +160,7 @@
 {\,|\,\inserttotalframenumber}
 {}
 \end{beamercolorbox}
+}
 }
 \setbeamertemplate{footnote}{
 \parindent 0em\noindent
@@ -175,9 +186,14 @@
 \mode
 <all>
 
+\mode<presentation>
+
 \let\otp\titlepage
 \renewcommand{\titlepage}{\otp\addtocounter{framenumber}{-1}}
 \newcommand{\mreducelistspacing}{\vspace{-\topsep}}
+
+\mode
+<all>
 
 \setbeamertemplate{note page}{
 \vspace{2em}

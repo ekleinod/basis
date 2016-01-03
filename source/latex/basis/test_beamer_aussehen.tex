@@ -6,9 +6,10 @@
 
 % aspectratio: 169, 1610, 149, 54, 32, 43
 
-\usetheme{basis}
+%\usetheme{basis}
 %\usetheme[titleprogressbar]{basis}
 %\usetheme[totalnumber]{basis}
+\usetheme[nonumber]{basis}
 
 \usepackage[pangram]{blindtext}
 
@@ -81,6 +82,21 @@
 
 	\begin{frame}{Eingebundenes PDF}
 		\includegraphics{testlogo}
+	\end{frame}
+
+	\begin{frame}{Eingebundenes PDF als Figure (1)}
+		\begin{figure}
+			\includegraphics{testlogo}
+			\caption{Bildunterschrift unter Bild.}
+		\end{figure}
+		\note[item]{Anmerkung dazu.}
+	\end{frame}
+
+	\begin{frame}{Eingebundenes PDF als Figure (2)}
+		\begin{figure}
+			\caption{Bildunterschrift über Bild.}
+			\includegraphics{testlogo}
+		\end{figure}
 	\end{frame}
 
 	\section{Mathematik}

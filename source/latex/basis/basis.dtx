@@ -1,4 +1,4 @@
-% \CheckSum{2432}
+% \CheckSum{2413}
 %
 % \iffalse meta-comment
 %
@@ -2353,6 +2353,16 @@
 \RequirePackage{xifthen}
 %    \end{macrocode}
 %
+% \option{nonumber}-Option.
+%    \begin{macrocode}
+\newboolean{BAS@opt@nonumber}
+\setboolean{BAS@opt@nonumber}{false}
+\DeclareOptionX{nonumber}{
+	\setboolean{BAS@opt@nonumber}{true}
+	\typeout{Basis-Option 'nonumber'}
+}
+%    \end{macrocode}
+%
 % \option{titleprogressbar}-Option.
 %    \begin{macrocode}
 \newboolean{BAS@opt@titleprogressbar}
@@ -2561,11 +2571,6 @@
 		\end{frame}
 	\endgroup
 }
-
-%}}}
-%{{{ --- Captions ---------------------
-
-\setbeamertemplate{caption label separator}{: }
 %    \end{macrocode}
 %
 % Fußzeile: Framenummer und auf Wunsch Gesamtzahl.
@@ -2573,13 +2578,17 @@
 %    \begin{macrocode}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}{
-	\begin{beamercolorbox}[wd=\textwidth, ht=3ex, dp=3ex, leftskip=0.03\textwidth, rightskip=0.03\textwidth]{structure}
-		\hfill\usebeamerfont{page number in head/foot}
-		\insertframenumber
-		\ifthenelse{\boolean{BAS@opt@totalnumber}}
-			{\,|\,\inserttotalframenumber}
-			{}
-	\end{beamercolorbox}
+	\ifthenelse{\boolean{BAS@opt@nonumber}}
+		{}
+		{
+			\begin{beamercolorbox}[wd=\textwidth, ht=3ex, dp=3ex, leftskip=0.03\textwidth, rightskip=0.03\textwidth]{structure}
+				\hfill\usebeamerfont{page number in head/foot}
+				\insertframenumber
+				\ifthenelse{\boolean{BAS@opt@totalnumber}}
+					{\,|\,\inserttotalframenumber}
+					{}
+			\end{beamercolorbox}
+		}
 }
 %    \end{macrocode}
 %

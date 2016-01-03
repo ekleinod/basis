@@ -1,3 +1,30 @@
+%\usetheme{basis}
+%\usetheme[titleprogressbar]{basis}
+%\usetheme[totalnumber]{basis}
+\usetheme[nonumber]{basis}
+
+\mode<presentation> {
+	\setbeameroption{hide notes} % keine Anmerkungen, nur Präsentation; default, muss man nicht angeben
+	%\setbeameroption{show notes} % alle Anmerkungen in Präsentation
+	%\setbeameroption{show only notes} % nur Anmerkungen, keine Präsentation
+}
+
+\mode<handout> {
+	%\usepackage{pgfpages}
+	%\pgfpagesuselayout{2 on 1}[a4paper, border shrink=5mm]
+	%\pgfpagesuselayout{4 on 1}[a4paper, landscape, border shrink=5mm]
+}
+
+\mode<article>{
+	\usepackage{basis}
+	\usepackage{pgfpages}
+
+	% ugly fix tabular problem of komascript
+	\renewcommand{\and}{, }
+}
+
+
+
 \usepackage[pangram]{blindtext}
 
 \subject{Thema}
@@ -17,13 +44,13 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-%		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		%\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		%\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 	\begin{frame}
@@ -32,7 +59,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -48,7 +75,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -62,7 +89,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -74,7 +101,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -86,7 +113,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -110,7 +137,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -132,7 +159,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -152,7 +179,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -172,7 +199,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -182,7 +209,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -209,7 +236,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -227,7 +254,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -239,7 +266,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -258,7 +285,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -277,7 +304,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -289,7 +316,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -305,7 +332,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -321,7 +348,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -336,7 +363,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -351,7 +378,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -367,7 +394,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -383,7 +410,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -395,7 +422,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -405,7 +432,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -425,7 +452,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -440,7 +467,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 	% wieder ausschalten
@@ -459,7 +486,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -472,7 +499,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -489,7 +516,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -509,7 +536,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -526,7 +553,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -547,7 +574,7 @@
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -573,14 +600,14 @@ Note the use of \verb|null|.
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 
@@ -605,7 +632,7 @@ Note the use of \verb|null|.
 	\mode<article>{
 		Frame: \insertframenumber
 
-		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
 	}
 
 \end{document}
