@@ -1,3 +1,4 @@
+
 \usepackage[pangram]{blindtext}
 
 \subject{Thema}
@@ -19,11 +20,30 @@
 	}
 	\mode<article>{
 		\maketitle
+		\frame{\titlepage}
+	}
+
+	\mode<article>{
+		Frame: \insertframenumber
+
+%		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
 	}
 
 	\begin{frame}
 		Nicht vergessen: mit \hologo{pdfLaTeX} oder \hologo{XeLaTeX} übersetzen.
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}
 		\begin{abstract}
@@ -34,6 +54,12 @@
 			Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
 		\end{abstract}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\section*{Agendas}
 
@@ -42,18 +68,36 @@
 
 		Leer, da Parts benutzt wurden.
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\subsection*{Teil 1: der erste Abend}
 
 	\begin{frame}{Agenda Teil 1}
 		\tableofcontents[part=1, subsectionstyle=hide]
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\subsection*{Teil 2: der zweite Abend}
 
 	\begin{frame}{Agenda Teil 2 zum Aufklappen}
 		\tableofcontents[part=2, pausesections]
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 
 
@@ -72,6 +116,12 @@
 		Vogel Quax zwickt Johnys Pferd Bim.
 		Sylvia wagt quick den Jux bei Pforzheim.
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\section{Besondere Umgebungen}
 
@@ -88,6 +138,12 @@
 			Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.\\
 		\end{verse}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Quotation}
 		\begin{quotation}
@@ -102,6 +158,12 @@
 			Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.
 		\end{quotation}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Quote}
 		\begin{quote}
@@ -116,10 +178,22 @@
 			Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.
 		\end{quote}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}<1>[plain, label=end]{Ende}
 		\Huge{Ende.}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 
 
@@ -141,6 +215,12 @@
 		Vogel Quax zwickt Johnys Pferd Bim.
 		Sylvia wagt quick den Jux bei Pforzheim.
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Langer Text}
 		Prall vom Whisky flog Quax den Jet zu Bruch.
@@ -153,12 +233,24 @@
 		Sylvia wagt quick den Jux bei Pforzheim.
 		Prall vom Whisky flog Quax den Jet zu Bruch.
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Text mit Auszeichnungen und Fußnoten}
 		Prall vom \emph{Whisky}\footnote{emph} flog \textbf{Quax}\footnote{textbf} den Jet zu Bruch.
 		Jeder \textit{wackere}\footnote{textit} Bayer \textsl{vertilgt}\footnote{textsl} bequem zwo Pfund Kalbshaxen.
 		Stanleys \alert{Expeditionszug}\footnote{alert} quer durch Afrika wird von jedermann bewundert.
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Ein Zitat (quote)}
 		Prall vom Whisky flog Quax den Jet zu Bruch.
@@ -172,6 +264,12 @@
 
 		Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Ein Zitat (quotation)}
 		Prall vom Whisky flog Quax den Jet zu Bruch.
@@ -185,12 +283,24 @@
 
 		Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\section{Aufzählungen}
 
 	\begin{frame}{Agenda für diese Section}
 		\tableofcontents[currentsection]
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\subsection{Aufzählungen ohne Nummern}
 
@@ -201,6 +311,12 @@
 			\item Dritter Listenpunkt, Stufe 1
 		\end{itemize}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Unnumeriert mit Pause}
 		\begin{itemize}
@@ -211,6 +327,12 @@
 			\item Dritter Listenpunkt, Stufe 1
 		\end{itemize}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Unnumeriert mit hervorgehobenem Aufdecken}
 		\begin{itemize}
@@ -220,6 +342,12 @@
 			\item<+-| alert@+> Vierter Listenpunkt
 		\end{itemize}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Unnumeriert mit hervorgehobenem Aufdecken (vereinfacht)}
 		\begin{itemize}[<+-| alert@+>]
@@ -229,6 +357,12 @@
 			\item Vierter Listenpunkt
 		\end{itemize}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\subsection{Aufzählungen mit Nummern}
 
@@ -239,6 +373,12 @@
 			\item Dritter Listenpunkt, Stufe 1
 		\end{enumerate}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\subsection{Aufzählungen mit Beschreibungstexten}
 
@@ -249,16 +389,34 @@
 			\item[Dritter] Listenpunkt, Stufe 1
 		\end{description}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\section{Grafiken}
 
 	\begin{frame}{Eingebundenes PDF}
 		\includegraphics{testlogo}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Eingebundenes PDF skaliert}
 		\includegraphics[width=\textwidth]{testlogo}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	% Modus benutzen, da sonst Übersetzungsfehler bei Artikeln
 	\mode<presentation>{
@@ -273,6 +431,12 @@
 		\note[item]{Eine Anmerkung zum zweiten Bild.}
 		\includegraphics<3->{testlogo}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Eingebundenes PDF aufpoppend mit getrennten Anmerkungen}
 		\includegraphics<1->{testlogo}
@@ -282,6 +446,12 @@
 		\note[item]<2>{Eine Anmerkung zum zweiten Bild.}
 		\includegraphics<3->{testlogo}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 	% wieder ausschalten
 	\mode<presentation>{
 		\AtBeginNote{}
@@ -295,6 +465,12 @@
 		\end{figure}
 		\note[item]{Anmerkung dazu.}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Eingebundenes PDF als Figure (2)}
 		\begin{figure}
@@ -302,6 +478,12 @@
 			\includegraphics{testlogo}
 		\end{figure}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\section{Spezielles}
 
@@ -313,6 +495,12 @@
 			Hier ist ein Beispiel dazu.
 		\end{example}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Satz und Beweis mit Aufblättern}
 		\begin{theorem}
@@ -327,6 +515,12 @@
 		\end{proof}
 		\uncover<3->{Ui.}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Horizontale Blöcke}
 		\begin{block}{Block 1}
@@ -338,6 +532,12 @@
 			Auch Inhalt des zweiten Blocks.
 		\end{block}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 	\begin{frame}{Vertikale Blöcke (Spalten)}
 		\begin{columns}
@@ -353,6 +553,12 @@
 				\end{block}
 		\end{columns}
 	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
+
 
 \begin{frame}[fragile]{Code und anderer Verbatimtext.}
 \begin{verbatim}
@@ -366,48 +572,25 @@ Note the use of \verb|null|.
 \end{frame}
 % wichtig: nicht einrücken, sonst Fehler
 
-	\begin{frame}[label=mei1]{Label und Referenz auf sich selbst}
-		Hallo, ich bin Frame~\autoref{mei1}.
-	\end{frame}
+	\begin{frame}{Kein wiederholter Frame.}
 
+		Wiederholungen werden schwierig und dem schöneren Artikel geopfert.
+
+		Dafür werden dort keine Frames in den Text integriert, sondern sind einfach als Bild einbindbar.
+
+	\end{frame}
 	\mode<article>{
+		Frame: \insertframenumber
+
 		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
 	}
 
-	\begin{frame}<1>[label=wdh]{Wiederholter Frame.}
-
-		Hier ist Text, der gleich wiederholt wird.
-
-		\begin{overprint}
-			\onslide<1|handout:0>
-			Hier ist Text, der nur beim ersten Mal angezeigt wird.
-			Und ein Link zur \hyperlink{wdh<2>}{\beamergotobutton{Wiederholung}}
-
-			\onslide<2-|handout:0>
-			Dieser Text wird erst bei der Wiederholung angezeigt!
-		\end{overprint}
-	\end{frame}
-
-	Hier sind wir kurz hinter Frame \insertframenumber.
-
-	\begin{frame}{Zwischentext.}
-		Text dazwischen. Gleich\dots
-	\end{frame}
-
-	Hier sind wir kurz hinter Frame \insertframenumber.
-
-	\againframe<2>{wdh}
-
-	Hier sind wir kurz hinter Frame \insertframenumber.
-
-	\againframe<2>{end}
 
 	\mode<article>{
-		\fbox{\includeslide[width=.3\textwidth]{end}}
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
 	}
-
-	Hier sind wir kurz hinter Frame \insertframenumber.
-
 
 
 
@@ -428,6 +611,11 @@ Note the use of \verb|null|.
 
 	\frame{Mehr Details.}
 
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.slides}}
+	}
 
 \end{document}
 

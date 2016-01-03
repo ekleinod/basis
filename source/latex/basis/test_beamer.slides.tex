@@ -1,23 +1,26 @@
-\documentclass[t, aspectratio=169, ngerman, ignorenonframetext]{beamer}
-%\documentclass[t, aspectratio=169, ngerman, ignorenonframetext, handout]{beamer}
+%\documentclass[t, aspectratio=169, ngerman, ignorenonframetext]{beamer}
+\documentclass[t, aspectratio=169, ngerman, ignorenonframetext, handout]{beamer}
 
 % t: Texte oben ausgerichtet
 % aspectratio: 169, 1610, 149, 54, 32, 43
 % ignorenonframetext: Text zwischen Frames ignorieren
 
-%\setbeameroption{hide notes} % keine Anmerkungen, nur Präsentation; default, muss man nicht angeben
-\setbeameroption{show notes} % alle Anmerkungen in Präsentation
+\setbeameroption{hide notes} % keine Anmerkungen, nur Präsentation; default, muss man nicht angeben
+%\setbeameroption{show notes} % alle Anmerkungen in Präsentation
 %\setbeameroption{show only notes} % nur Anmerkungen, keine Präsentation
 
-\usetheme{basis}
+%\usetheme{basis}
 %\usetheme[titleprogressbar]{basis}
-%\usetheme[totalnumber]{basis}
+\usetheme[totalnumber]{basis}
 
 \mode<handout> {
-	\usepackage{pgfpages}
+	%\usepackage{pgfpages}
 	%\pgfpagesuselayout{2 on 1}[a4paper, border shrink=5mm]
-	\pgfpagesuselayout{4 on 1}[a4paper, landscape, border shrink=5mm]
+	%\pgfpagesuselayout{4 on 1}[a4paper, landscape, border shrink=5mm]
 }
+
+
+
 
 \input{test_beamer.content}
 
