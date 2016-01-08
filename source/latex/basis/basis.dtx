@@ -2,7 +2,7 @@
 %
 % \iffalse meta-comment
 %
-%  Copyright (C) 2006-2015
+%  Copyright (C) 2006-2016
 %  Ekkart Kleinod (ekleinod@edgesoft.de)
 % --------------------------------------------------------------------------
 %
@@ -66,10 +66,7 @@
 %
 % \section{Allgemeine Definitionen}
 %
-% Definitionen für Basis- und Briefstil.
-%    \begin{macrocode}
-%<*basis,basbrief>
-%    \end{macrocode}
+%<*basis,basbrief,beamer:theme,beamer:theme:color,beamer:theme:font>
 %
 % Zunächst legen wir die benötigte \hologo{LaTeX}-Version auf \hologo{LaTeXe} fest und geben Name, Datum und Version des Pakets zurück.
 %
@@ -78,11 +75,18 @@
 \NeedsTeXFormat{LaTeX2e}
 %<+basis>\ProvidesPackage{basis}
 %<+basbrief>\ProvidesPackage{basbrief}
+%<+beamer:theme>\ProvidesPackage{beamerthemebasis}
+%<+beamer:theme:color>\ProvidesPackage{beamercolorthemebasis}
+%<+beamer:theme:font>\ProvidesPackage{beamerfontthemebasis}
 [2014/11/13 v0.13 Basis-Layout]
 \typeout{*** basis-Stil 2014/11/13 v0.13 ***}
 %    \end{macrocode}
 %
+%</basis,basbrief,beamer:theme,beamer:theme:color,beamer:theme:font>
+%
 % \subsection{Optionen}
+%
+%<*basis,basbrief>
 %
 % Vor der Optionsdefinition müssen dafür verwendete Pakete geladen werden.
 %
@@ -864,9 +868,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%    \begin{macrocode}
 %<*basbrief>
-%    \end{macrocode}
 %
 % \begin{macro}{\briefkopf}
 % Nur für Briefe: Briefkopfinhalt abweichend vom Autornamen (default).
@@ -875,9 +877,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%    \begin{macrocode}
 %</basbrief>
-%    \end{macrocode}
 %
 % Auswertung einiger Angaben im Vorfeld.
 %    \begin{macrocode}
@@ -1152,16 +1152,13 @@
 %
 % Ende der gemeinsamen Definitionen für Bücher, Artikel und Briefe.
 %
-%    \begin{macrocode}
 %</basis,basbrief>
-%    \end{macrocode}
 %
 % \section{Definitionen für \texttt{scrartcl}, \texttt{scrbook}}
 %
 % Beginn des Basis-Stils, der für Bücher und Artikel zuständig ist.
-%    \begin{macrocode}
+%
 %<*basis>
-%    \end{macrocode}
 %
 % \subsection{Die Titelseite}
 %
@@ -1608,9 +1605,8 @@
 % \end{macro}
 %
 % Ende des Basis-Stils.
-%    \begin{macrocode}
+%
 %</basis>
-%    \end{macrocode}
 %
 %^^A --------------------------------------------------------------------------
 %
@@ -1623,9 +1619,8 @@
 % \subsection{Layoutunabhängige Definitionen}
 %
 % Beginn des Brief-Stils.
-%    \begin{macrocode}
+%
 %<*basbrief>
-%    \end{macrocode}
 %
 % \subsubsection{Allgemein}
 %
@@ -1768,18 +1763,16 @@
 %    \end{macrocode}
 %
 % Ende des Brief-Stils.
-%    \begin{macrocode}
+%
 %</basbrief>
-%    \end{macrocode}
 %
 % \subsection{Layout-Dateien}
 %
 % \subsubsection{Datei \texttt{baskopfzeile.lco}}
 %
 % Beginn der Datei.
-%    \begin{macrocode}
+%
 %<*lco:kopfzeile>
-%    \end{macrocode}
 %
 % Informationen über die Datei.
 %    \begin{macrocode}
@@ -1847,16 +1840,13 @@
 \setkomavar{backaddressseparator}{~\ensuremath{\cdot}~}
 %    \end{macrocode}
 %
-%    \begin{macrocode}
 %</lco:kopfzeile>
-%    \end{macrocode}
 %
 % \subsubsection{Layouts: Infospalte sowie Infospalte fett}
 %
 % Beginn der Layoutdefinition.
-%    \begin{macrocode}
+%
 %<*lco:infospalte,lco:infospaltefett>
-%    \end{macrocode}
 %
 % Informationen über die Datei.
 %    \begin{macrocode}
@@ -2003,9 +1993,7 @@
 \l@addto@macro\@firstheadfootfield{\setkomavar{date}{}}
 %    \end{macrocode}
 %
-%    \begin{macrocode}
 %</lco:infospalte,lco:infospaltefett>
-%    \end{macrocode}
 %
 % \section{Multimarkdown}
 %
@@ -2153,9 +2141,8 @@
 %    \end{macrocode}
 %
 % Nur für Briefe.
-%    \begin{macrocode}
+%
 %<*mmd:beginlttr>
-%    \end{macrocode}
 %
 % Empfänger ist etwas schwieriger: derzeit fünf Zeilen.
 %    \begin{macrocode}
@@ -2320,9 +2307,7 @@
 %
 % \subsection{Präsentationsthema}
 %
-%    \begin{macrocode}
-%<*basis:beamer:theme>
-%    \end{macrocode}
+%<*beamer:theme>
 %
 % Das Präsentationsthema legt das gesamte Aussehen der Präsentation fest.
 %
@@ -2334,15 +2319,6 @@
 % 	\item[inner theme] Aussehen aller Inhaltselemente einer Folie (nicht verwendet)
 % 	\item[outer theme] Aussehen aller äußeren Strukturelemente einer Folie (nicht verwendet)
 % \end{description}
-%
-% Derzeit werden die Definitionen hauptsächlich übernommen, bis ich mich da eingearbeitet habe.
-%
-% Bereitgestelltes Paket.
-%    \begin{macrocode}
-\ProvidesPackage{beamerthemebasis}
-%    \end{macrocode}
-%
-% Vor der Optionsdefinition müssen dafür verwendete Pakete geladen werden.
 %
 % \begin{description}
 % 	\item[xkeyval] Eingabe von Optionen mit Werteübergabe
@@ -2648,20 +2624,11 @@
 \linespread{1.15}
 %    \end{macrocode}
 %
-%    \begin{macrocode}
-%</basis:beamer:theme>
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-%<*basis:beamer:theme:color>
-%    \end{macrocode}
+%</beamer:theme>
 %
 % \subsection{Farbdefinitionen}
 %
-% Bereitgestelltes Paket.
-%    \begin{macrocode}
-\ProvidesPackage{beamercolorthemebasis}
-%    \end{macrocode}
+%<*beamer:theme:color>
 %
 % Benutzte Farben definieren.
 %    \begin{macrocode}
@@ -2706,21 +2673,16 @@
 <all>
 %    \end{macrocode}
 %
-%    \begin{macrocode}
-%</basis:beamer:theme:color>
-%    \end{macrocode}
+%</beamer:theme:color>
 %
 %
-%    \begin{macrocode}
-%<*basis:beamer:theme:font>
-%    \end{macrocode}
+%<*beamer:theme:font>
 %
 % \subsection{Fontdefinitionen}
 %
 % Bereitgestelltes Paket.
 % Definitionen für Präsentationen.
 %    \begin{macrocode}
-\ProvidesPackage{beamerfontthemebasis}
 \mode<presentation>
 %    \end{macrocode}
 %
@@ -2857,9 +2819,7 @@
 <all>
 %    \end{macrocode}
 %
-%    \begin{macrocode}
-%</basis:beamer:theme:font>
-%    \end{macrocode}
+%</beamer:theme:font>
 %
 %
 %\Finale
