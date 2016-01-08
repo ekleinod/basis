@@ -42,6 +42,7 @@
 \equal{#1}{hfold}\or
 \equal{#1}{mathpazo}\or
 \equal{#1}{original}\or
+\equal{#1}{roboto}\or
 \equal{#1}{times}
 }
 {\renewcommand{\BAS@opt@font}{#1}}
@@ -230,6 +231,10 @@ open=right
 }{}
 \ifthenelse{\equal{\BAS@opt@font}{original}}
 {}{}
+\ifthenelse{\equal{\BAS@opt@font}{roboto}}
+{
+\RequirePackage{roboto}
+}{}
 \ifthenelse{\equal{\BAS@opt@font}{times}}
 {
 \RequirePackage{mathptmx}

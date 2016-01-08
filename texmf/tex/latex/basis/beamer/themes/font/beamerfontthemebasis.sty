@@ -14,10 +14,106 @@
 \ProvidesPackage{beamerfontthemebasis}
 [2014/11/13 v0.13 Basis-Layout]
 \typeout{*** basis-Stil 2014/11/13 v0.13 ***}
-\mode<presentation>
+\ifxetex\else
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
-\RequirePackage[sfdefault]{roboto}
+\fi
+\ifthenelse{\equal{\BAS@opt@font}{charter}}
+{
+\RequirePackage{charter}
+\RequirePackage[scaled=.95]{helvet}
+\RequirePackage[scaled]{luximono}
+}{}
+\ifthenelse{\equal{\BAS@opt@font}{droid}}
+{
+\RequirePackage{droid}
+}{}
+\ifthenelse{\equal{\BAS@opt@font}{hfold}}
+{
+\RequirePackage{hfoldsty}
+}
+{}
+\ifthenelse{\equal{\BAS@opt@font}{mathpazo}}
+{
+\RequirePackage[osf, slantedGreek]{mathpazo}
+\RequirePackage[scaled=.95]{helvet}
+\RequirePackage[scaled]{luximono}
+}{}
+\ifthenelse{\equal{\BAS@opt@font}{original}}
+{}{}
+\ifthenelse{\equal{\BAS@opt@font}{roboto}}
+{
+\RequirePackage{roboto}
+}{}
+\ifthenelse{\equal{\BAS@opt@font}{times}}
+{
+\RequirePackage{mathptmx}
+\RequirePackage[scaled]{helvet}
+\RequirePackage[scaled]{luximono}
+}{}
+\ifxetex
+\RequirePackage{microtype}
+\else
+\RequirePackage[tracking=true]{microtype}
+\SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
+\fi
+\ifxetex
+\else
+\IfFileExists{marvosym.sty}{
+\RequirePackage{marvosym}
+\mathchardef\Rightarrow="3229
+}{
+\ClassWarning{basis}{marvosym.sty nicht vorhanden}
+}
+\fi
+\ifxetex
+\else
+\IfFileExists{wasysym.sty}{
+\RequirePackage{wasysym}
+}{
+\ClassWarning{basis}{wasysym.sty nicht vorhanden}
+}
+\fi
+\IfFileExists{hologo.sty}{
+\RequirePackage{hologo}
+}{
+\ClassWarning{basis}{hologo.sty nicht vorhanden}
+}
+\RequirePackage{pict2e}
+\newcommand{\basBox}[1][\@empty]{%
+\setkeys{basBox}{#1}%
+\setlength{\unitlength}{\Bas@Box@size}%
+\linethickness{\Bas@Box@line}
+\begin{picture}(1,1)(0,0)%
+\color{\Bas@Box@color}%
+\moveto(0, 0)%
+\lineto(0, 1)%
+\lineto(1, 1)%
+\lineto(1, 0)%
+\closepath%
+\strokepath%
+\ifthenelse{%
+\equal{\Bas@Box@style}{checked}\or%
+\equal{\Bas@Box@style}{crossed}%
+}%
+{\ifthenelse{\equal{\@empty}{\Bas@Box@checkcolor}}%
+{}%
+{\color{\Bas@Box@checkcolor}}%
+}%
+{}%
+\ifthenelse{\equal{\Bas@Box@style}{checked}}%
+{%
+\polyline(0,.4)(.4,.05)(1,1)%
+}%
+{}%
+\ifthenelse{\equal{\Bas@Box@style}{crossed}}%
+{%
+\Line(0,0)(1,1)%
+\Line(0,1)(1,0)%
+}%
+{}%
+\end{picture}%
+}
 
 
 

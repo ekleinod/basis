@@ -18,6 +18,33 @@
 \RequirePackage{xifthen}
 \RequirePackage{ifxetex}
 \RequirePackage{ifpdf}
+\newcommand{\BAS@opt@font}{times}
+\renewcommand{\BAS@opt@font}{roboto}
+\DeclareOptionX{font}{
+\ifthenelse{\equal{\@empty}{#1}}
+{}
+{
+\ifthenelse{
+\equal{#1}{charter}\or
+\equal{#1}{droid}\or
+\equal{#1}{hfold}\or
+\equal{#1}{mathpazo}\or
+\equal{#1}{original}\or
+\equal{#1}{roboto}\or
+\equal{#1}{times}
+}
+{\renewcommand{\BAS@opt@font}{#1}}
+{\PackageWarning{basis}{Font '#1' unbekannt, nutze '\BAS@opt@font'}}
+}
+\typeout{Basis-Option 'font=\BAS@opt@font'}
+}
+\newcommand{\BAS@opt@fontsize}{11pt}
+\DeclareOptionX{fontsize}{
+\ifthenelse{\equal{\@empty}{#1}}
+{}
+{\renewcommand{\BAS@opt@fontsize}{#1}}
+\typeout{Basis-Option 'fontsize=\BAS@opt@fontsize'}
+}
 \newboolean{BAS@opt@nonumber}
 \setboolean{BAS@opt@nonumber}{false}
 \DeclareOptionX{nonumber}{
@@ -37,6 +64,9 @@
 \typeout{Basis-Option 'totalnumber'}
 }
 \ProcessOptionsX
+\RequirePackage{babel}
+\useshorthands{"}
+\AtEndOfClass{\shorthandon{"}}
 \RequirePackage{tikz}
 \usetikzlibrary{backgrounds}
 \RequirePackage{microtype}

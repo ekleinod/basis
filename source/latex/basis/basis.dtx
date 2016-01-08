@@ -132,9 +132,13 @@
 }
 %    \end{macrocode}
 %
-% \option{font}-Option, \emph{default=times}.
+%</basis,basbrief>
+%<*basis,basbrief,beamer:theme>
+%
+% \option{font}-Option, \emph{default=times}, für Beamer \emph{default=roboto}.
 %    \begin{macrocode}
 \newcommand{\BAS@opt@font}{times}
+%<+beamer:theme>\renewcommand{\BAS@opt@font}{roboto}
 \DeclareOptionX{font}{
 	\ifthenelse{\equal{\@empty}{#1}}
 		{}
@@ -145,6 +149,7 @@
 				\equal{#1}{hfold}\or
 				\equal{#1}{mathpazo}\or
 				\equal{#1}{original}\or
+				\equal{#1}{roboto}\or
 				\equal{#1}{times}
 			}
 				{\renewcommand{\BAS@opt@font}{#1}}
@@ -164,6 +169,9 @@
 	\typeout{Basis-Option 'fontsize=\BAS@opt@fontsize'}
 }
 %    \end{macrocode}
+%
+%</basis,basbrief,beamer:theme>
+%<*basis,basbrief>
 %
 % \option{hypercolor}-Option, \emph{default=black}.
 %    \begin{macrocode}
@@ -479,7 +487,11 @@
 	{}
 %    \end{macrocode}
 %
+%</basis,basbrief>
+%
 % \subsection{Eingabe von Sonderzeichen}
+%
+%<*basis,basbrief,beamer:theme:font>
 %
 % Das Paket \paket{inputenc} ist für die Direkteingabe von Sonderzeichen zuständig, als Kodierung wird \option{utf8} gewählt.
 % Damit werden etliche Editoren (Notepad, TeXnicCenter) in früheren Versionen ausgeschlossen.
@@ -494,7 +506,11 @@
 \fi
 %    \end{macrocode}
 %
+%</basis,basbrief,beamer:theme:font>
+%
 % \subsection{Sprachen}
+%
+%<*basis,basbrief,beamer:theme>
 %
 % Das \paket{babel}-Paket wird zur Spracheinstellung benutzt.
 %    \begin{macrocode}
@@ -512,8 +528,13 @@
 \AtEndOfClass{\shorthandon{"}}
 %    \end{macrocode}
 %
+%</basis,basbrief,beamer:theme>
+%
+%
 %
 % \subsection{Schriftarten}
+%
+%<*basis,basbrief,beamer:theme:font>
 %
 % \option{charter}: Serifenschrift \emph{Charter}, serifenlose Schrift \emph{Helvetica}, Schreibmaschinenschrift \emph{Luxi Mono}
 %    \begin{macrocode}
@@ -556,6 +577,14 @@
 %    \begin{macrocode}
 \ifthenelse{\equal{\BAS@opt@font}{original}}
 	{}{}
+%    \end{macrocode}
+%
+% \option{roboto}: alle Schriften \emph{Roboto}
+%    \begin{macrocode}
+\ifthenelse{\equal{\BAS@opt@font}{roboto}}
+	{
+		\RequirePackage{roboto}
+	}{}
 %    \end{macrocode}
 %
 % \option{times}: Serifenschrift \emph{Times}, serifenlose Schrift \emph{Helvetica}, Schreibmaschinenschrift \emph{Luxi Mono}
@@ -687,8 +716,12 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%</basis,basbrief,beamer:theme:font>
+%
 %
 % \subsection{Grafiken, Farben}
+%
+%<*basis,basbrief>
 %
 % Das Paket \paket{graphicx} ist zur Anzeige von Grafiken notwendig.
 %    \begin{macrocode}
@@ -2683,18 +2716,9 @@
 %
 % \subsection{Fontdefinitionen}
 %
-% Bereitgestelltes Paket.
-% Definitionen für Präsentationen.
-%    \begin{macrocode}
-\mode<presentation>
-%    \end{macrocode}
-%
 % Schriftart Roboto als Standard festlegen.
-% Gleichzeitig UTF-8 und T1-Fontencoding einsetzen.
 %    \begin{macrocode}
-\RequirePackage[utf8]{inputenc}
-\RequirePackage[T1]{fontenc}
-\RequirePackage[sfdefault]{roboto}
+%\RequirePackage[sfdefault]{roboto}
 
 %\usepackage[no-math]{fontspec}
 
