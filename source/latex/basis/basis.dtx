@@ -86,7 +86,7 @@
 %
 % \subsection{Optionen}
 %
-%<*basis,basbrief>
+%<*basis,basbrief,beamer:theme>
 %
 % Vor der Optionsdefinition müssen dafür verwendete Pakete geladen werden.
 %
@@ -102,6 +102,9 @@
 \RequirePackage{ifxetex}
 \RequirePackage{ifpdf}
 %    \end{macrocode}
+%
+%</basis,basbrief,beamer:theme>
+%<*basis,basbrief>
 %
 % Die Beschreibung der Optionen steht in \autoref{sec:userdoc:options}.
 % Die meisten Optionen werden einfach gespeichert, Optionen mit Wertübergabe speichern auch den übergebenen Wert sowie den \emph{default}-Wert.
@@ -320,11 +323,55 @@
 }{}
 %    \end{macrocode}
 %
+%</basis,basbrief>
+%
+% \subsubsection{Optionen ausschließlich für Beamer}
+%
+%<*beamer:theme>
+%
+% \option{nonumber}-Option.
+%    \begin{macrocode}
+\newboolean{BAS@opt@nonumber}
+\setboolean{BAS@opt@nonumber}{false}
+\DeclareOptionX{nonumber}{
+	\setboolean{BAS@opt@nonumber}{true}
+	\typeout{Basis-Option 'nonumber'}
+}
+%    \end{macrocode}
+%
+% \option{titleprogressbar}-Option.
+%    \begin{macrocode}
+\newboolean{BAS@opt@titleprogressbar}
+\setboolean{BAS@opt@titleprogressbar}{false}
+\DeclareOptionX{titleprogressbar}{
+	\setboolean{BAS@opt@titleprogressbar}{true}
+	\typeout{Basis-Option 'titleprogressbar'}
+}
+%    \end{macrocode}
+%
+% \option{totalnumber}-Option.
+%    \begin{macrocode}
+\newboolean{BAS@opt@totalnumber}
+\setboolean{BAS@opt@totalnumber}{false}
+\DeclareOptionX{totalnumber}{
+	\setboolean{BAS@opt@totalnumber}{true}
+	\typeout{Basis-Option 'totalnumber'}
+}
+%    \end{macrocode}
+%
+%</beamer:theme>
+%
+%<*basis,basbrief,beamer:theme>
+%
 % Ausführung des Optionenbearbeitens.
 % Das muß auch für die Briefklasse erfolgen, da \hologo{LaTeX} sonst einen Fehler meldet.
 %    \begin{macrocode}
 \ProcessOptionsX
 %    \end{macrocode}
+%
+%</basis,basbrief,beamer:theme>
+%
+%<*basis,basbrief>
 %
 % \subsection{Festgelegte Längemaße}
 %
@@ -2319,50 +2366,6 @@
 % 	\item[inner theme] Aussehen aller Inhaltselemente einer Folie (nicht verwendet)
 % 	\item[outer theme] Aussehen aller äußeren Strukturelemente einer Folie (nicht verwendet)
 % \end{description}
-%
-% \begin{description}
-% 	\item[xkeyval] Eingabe von Optionen mit Werteübergabe
-% 	\item[xifthen] verbesserte boolsche Operationen und Abfragen
-% \end{description}
-%    \begin{macrocode}
-\RequirePackage{xkeyval}
-\RequirePackage{xifthen}
-%    \end{macrocode}
-%
-% \option{nonumber}-Option.
-%    \begin{macrocode}
-\newboolean{BAS@opt@nonumber}
-\setboolean{BAS@opt@nonumber}{false}
-\DeclareOptionX{nonumber}{
-	\setboolean{BAS@opt@nonumber}{true}
-	\typeout{Basis-Option 'nonumber'}
-}
-%    \end{macrocode}
-%
-% \option{titleprogressbar}-Option.
-%    \begin{macrocode}
-\newboolean{BAS@opt@titleprogressbar}
-\setboolean{BAS@opt@titleprogressbar}{false}
-\DeclareOptionX{titleprogressbar}{
-	\setboolean{BAS@opt@titleprogressbar}{true}
-	\typeout{Basis-Option 'titleprogressbar'}
-}
-%    \end{macrocode}
-%
-% \option{totalnumber}-Option.
-%    \begin{macrocode}
-\newboolean{BAS@opt@totalnumber}
-\setboolean{BAS@opt@totalnumber}{false}
-\DeclareOptionX{totalnumber}{
-	\setboolean{BAS@opt@totalnumber}{true}
-	\typeout{Basis-Option 'totalnumber'}
-}
-%    \end{macrocode}
-%
-% Optionen bearbeiten.
-%    \begin{macrocode}
-\ProcessOptionsX
-%    \end{macrocode}
 %
 % Benötigte Pakete.
 %
