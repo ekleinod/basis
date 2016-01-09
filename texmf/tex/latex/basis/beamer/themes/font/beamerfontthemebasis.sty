@@ -55,7 +55,13 @@
 \RequirePackage{microtype}
 \else
 \RequirePackage[tracking=true]{microtype}
+\ifthenelse{\equal{\BAS@opt@font}{roboto}}
+{
+\SetTracking[no ligatures = f]{encoding = *, shape = sc}{100}
+}
+{
 \SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
+}
 \fi
 \ifxetex
 \else

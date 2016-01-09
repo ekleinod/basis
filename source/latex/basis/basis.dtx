@@ -1,4 +1,4 @@
-% \CheckSum{2415}
+% \CheckSum{2416}
 %
 % \iffalse meta-comment
 %
@@ -598,12 +598,19 @@
 %    \end{macrocode}
 %
 % Das Paket \paket{microtype} setzt Text angenehmer und erzeugt optischen Randausgleich.
+% Mittels Tracking kann de Buchstabenabstand automatisch geändert werden.
 %    \begin{macrocode}
 \ifxetex
 	\RequirePackage{microtype}
 \else
 	\RequirePackage[tracking=true]{microtype}
-	\SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
+	\ifthenelse{\equal{\BAS@opt@font}{roboto}}
+		{
+			\SetTracking[no ligatures = f]{encoding = *, shape = sc}{100}
+		}
+		{
+			\SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
+		}
 \fi
 %    \end{macrocode}
 %
