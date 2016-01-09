@@ -221,6 +221,9 @@
 }
 %    \end{macrocode}
 %
+%</basis,basbrief>
+%<*basis,basbrief,beamer:theme>
+%
 % \option{noauthor}-Option
 %    \begin{macrocode}
 \newboolean{BAS@opt@noauthor}
@@ -230,6 +233,9 @@
 	\typeout{Basis-Option 'noauthor'}
 }
 %    \end{macrocode}
+%
+%</basis,basbrief,beamer:theme>
+%<*basis,basbrief>
 %
 % \option{nobackaddress}-Option
 %    \begin{macrocode}
@@ -2426,7 +2432,7 @@
 \usefonttheme{basis}
 %    \end{macrocode}
 %
-% \subsubsection{Fortschrittsbalken}
+% \subsubsection{Breiten definieren und festlegen}
 %
 % Fortschrittsbalken: Dimensionen.
 %    \begin{macrocode}
@@ -2439,19 +2445,6 @@
 %    \begin{macrocode}
 \bas@progbar@frametitlewidth=.5\paperwidth
 \bas@progbar@height=0.4pt
-%    \end{macrocode}
-%
-% Fortschrittsbalken: Frametitel.
-%    \begin{macrocode}
-\def\bas@progressbar@frametitle{
-	\bas@progbar@width=\paperwidth
-	\multiply\bas@progbar@width by \insertframenumber
-	\divide\bas@progbar@width by \inserttotalframenumber
-
-	\begin{tikzpicture}[tight background]
-		\draw[bas@col@progfilled, fill=bas@col@progfilled] (0, 0) rectangle (\bas@progbar@width, \bas@progbar@height);
-	\end{tikzpicture}
-}
 %    \end{macrocode}
 %
 % \subsubsection{Hintergrund}
@@ -2493,7 +2486,7 @@
 		\vfill
 		\ifthenelse{\equal{\@empty}{\inserttitle}}
 			{}
-			{
+			{%
 				{
 					\raggedright
 					\linespread{1.0}
@@ -2506,7 +2499,7 @@
 			}
 		\ifthenelse{\equal{\@empty}{\insertsubtitle}}
 			{}
-			{
+			{%
 				{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
 				\vspace*{0.5ex}
 			}
@@ -2514,13 +2507,17 @@
 			\draw[bas@col@alert] (0, 0) -- (\textwidth, 0);
 		\end{tikzpicture}
 		\vspace*{1ex}
-		\ifx\insertauthor\@empty\else
-			{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
-			\vspace*{0.25ex}
-		\fi
+		\ifthenelse{\boolean{BAS@opt@noauthor}}
+			{}
+			{%
+				\ifx\insertauthor\@empty\else
+					{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
+					\vspace*{0.25ex}
+				\fi
+			}
 		\ifthenelse{\equal{\@empty}{\insertdate}}
 			{}
-			{
+			{%
 				{\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
 				\vspace*{.3ex}
 			}
@@ -2573,6 +2570,7 @@
 			(2pt, -16pt) rectangle ++ (\bas@progbar@width, \bas@progbar@height);
 		\end{tikzpicture}
 	}
+
 	\vfill
 }
 %    \end{macrocode}
@@ -2625,9 +2623,15 @@
 	\end{beamercolorbox}
 	\ifthenelse{\boolean{BAS@opt@titleprogressbar}}
 		{
+			\bas@progbar@width=\paperwidth
+			\multiply\bas@progbar@width by \insertframenumber
+			\divide\bas@progbar@width by \inserttotalframenumber
+
 			\vspace{-.5em}
 			\begin{beamercolorbox}[wd=\paperwidth,ht=1pt,dp=0pt]{headline}
-				\bas@progressbar@frametitle
+				\begin{tikzpicture}[tight background]
+					\draw[bas@col@progfilled, fill=bas@col@progfilled] (0, 0) rectangle (\bas@progbar@width, \bas@progbar@height);
+				\end{tikzpicture}
 			\end{beamercolorbox}
 		}{}
 	\vspace{2em}
