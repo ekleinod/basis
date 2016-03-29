@@ -1,4 +1,4 @@
-% \CheckSum{2416}
+% \CheckSum{2415}
 %
 % \iffalse meta-comment
 %
@@ -37,6 +37,7 @@
 % \changes{v0.11}{2014/01/11}{Fontsize-Option}
 % \changes{v0.12}{2014/06/01}{Rules-Option, NoAuthor-Option, changes-Paket in mmd, Sponsorlogo}
 % \changes{v0.13}{2014/11/13}{xcolor mit svgnames, eigener Box-Befehl}
+% \changes{v0.14}{2016/03/??}{Briefe große erste Seite, Beamer-Theme, xcolor mit table}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -743,9 +744,10 @@
 %
 % Das Paket \paket{xcolor} ist zur Einfärbung von Texten usw.\ gedacht.
 % Die option \option{svgnames} stellt mehr Farbnamen zur Verfügung.
+% Die option \option{table} lädt das \paket{colortbl}-Paket zur Einfärbung von Tabellen.
 % Das Paket \paket{pdfcolmk} löst Probleme von farbigen Texten bei Seitenumbruch.
 %    \begin{macrocode}
-\RequirePackage[svgnames]{xcolor}
+\RequirePackage[svgnames, table]{xcolor}
 \RequirePackage{pdfcolmk}
 %    \end{macrocode}
 %
