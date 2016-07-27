@@ -154,13 +154,43 @@
 \setbeamertemplate{section title}{
 \usebeamerfont{section title}
 
+\bas@progbar@width=\bas@progbar@frametitlewidth
+\multiply\bas@progbar@width by \insertframenumber
+\divide\bas@progbar@width by \inserttotalframenumber
+
+\vskip .3\paperheight
+\hspace{.2\bas@progbar@frametitlewidth}
+\parbox{\bas@progbar@frametitlewidth}{%
+\insertsectionhead
+
+\begin{tikzpicture}[tight background]
+\draw[anchor=west, bas@col@progempty, fill=bas@col@progempty, inner sep=0pt]
+(0pt, 0pt) rectangle ++ (\bas@progbar@frametitlewidth, \bas@progbar@height);
+
+\draw[anchor=west, bas@col@progfilled, fill=bas@col@progfilled, inner sep=0pt]
+(0pt, 0pt) rectangle ++ (\bas@progbar@width, \bas@progbar@height);
+\end{tikzpicture}
+}
+}
+\AtBeginSection[]
+{
+\begingroup
+\begin{frame}[plain]
+\usebeamertemplate{section title}
+\end{frame}
+\endgroup
+}
+\setbeamertemplate{subsection title}{
+\usebeamerfont{subsection title}
+
 \vfill
 
 \bas@progbar@width=\bas@progbar@frametitlewidth
 \multiply\bas@progbar@width by \insertframenumber
 \divide\bas@progbar@width by \inserttotalframenumber
 
-\makebox[\textwidth][c]{
+\hspace{.2\bas@progbar@frametitlewidth}
+\makebox[\bas@progbar@frametitlewidth][l]{%
 \begin{tikzpicture}[tight background]
 \node[anchor=west, bas@col@darkblue, inner sep=0pt] at (0pt, 0pt) {\insertsectionhead};
 
@@ -169,16 +199,18 @@
 
 \draw[anchor=west, bas@col@progfilled, fill=bas@col@progfilled, inner sep=0pt]
 (2pt, -16pt) rectangle ++ (\bas@progbar@width, \bas@progbar@height);
+
+\node[anchor=west, bas@col@darkblue, inner sep=0pt] at (0pt, -32pt) {\insertsubsectionhead};
 \end{tikzpicture}
 }
 
 \vfill
 }
-\AtBeginSection[]
+\AtBeginSubsection[]
 {
 \begingroup
 \begin{frame}[plain]
-\usebeamertemplate{section title}
+\usebeamertemplate{subsection title}
 \end{frame}
 \endgroup
 }

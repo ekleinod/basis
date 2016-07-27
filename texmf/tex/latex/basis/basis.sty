@@ -119,6 +119,13 @@
 \renewcommand{\BAS@opt@twoside}{off}
 \typeout{Basis-Option 'oneside'}
 }
+\newcommand{\BAS@opt@orientation}{portrait}
+\DeclareOptionX{orientation}{
+\ifthenelse{\isempty{#1}}
+{}
+{\renewcommand{\BAS@opt@orientation}{#1}}
+\typeout{Basis-Option 'orientation=\BAS@opt@orientation'}
+}
 \newboolean{BAS@opt@protocol}
 \setboolean{BAS@opt@protocol}{false}
 \DeclareOptionX{protocol}{
@@ -170,6 +177,7 @@ draft=\BAS@opt@draft,
 fontsize=\BAS@opt@fontsize,
 footnotes=multiple,
 paper=a4,
+paper=\BAS@opt@orientation,
 parskip=half,
 twocolumn=off,
 twoside=\BAS@opt@twoside

@@ -1,4 +1,4 @@
-% \CheckSum{2415}
+% \CheckSum{2460}
 %
 % \iffalse meta-comment
 %
@@ -37,7 +37,7 @@
 % \changes{v0.11}{2014/01/11}{Fontsize-Option}
 % \changes{v0.12}{2014/06/01}{Rules-Option, NoAuthor-Option, changes-Paket in mmd, Sponsorlogo}
 % \changes{v0.13}{2014/11/13}{xcolor mit svgnames, eigener Box-Befehl}
-% \changes{v0.14}{2016/03/??}{Briefe große erste Seite, Beamer-Theme, xcolor mit table}
+% \changes{v0.14}{2016/03/??}{Briefe große erste Seite, Beamer-Theme, xcolor mit table, orientation-Option}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -274,6 +274,17 @@
 }
 %    \end{macrocode}
 %
+% \option{orientation}-Option
+%    \begin{macrocode}
+\newcommand{\BAS@opt@orientation}{portrait}
+\DeclareOptionX{orientation}{
+	\ifthenelse{\isempty{#1}}
+		{}
+		{\renewcommand{\BAS@opt@orientation}{#1}}
+	\typeout{Basis-Option 'orientation=\BAS@opt@orientation'}
+}
+%    \end{macrocode}
+%
 % \option{protocol}-Option
 %    \begin{macrocode}
 \newboolean{BAS@opt@protocol}
@@ -410,7 +421,7 @@
 % 	\item[headings] Größe und Abstand der Überschriften, groß
 % 	\item[headsepline] Linie unter Kopfzeile, ausgeschaltet
 % 	\item[numbers] Nummer nach Numerierungszeichen, keine Nummer
-% 	\item[paper] Papierformat, A4
+% 	\item[paper] Papierformat, A4, Orientierung
 % 	\item[parskip] Abstand zwischen zwei Absätzen, ein halbes \befehl{parskip}
 % 	\item[titlepage] Titelseite, durch Option einstellbar (default = extra Titelseite (on))
 % 	\item[toc] Inhaltsverzeichnis, linksbündig setzen (ohne Einrückung der einzelnen Gliederungsebenen)
@@ -425,6 +436,7 @@
 	fontsize=\BAS@opt@fontsize,
 	footnotes=multiple,
 	paper=a4,
+	paper=\BAS@opt@orientation,
 	parskip=half,
 	twocolumn=off,
 	twoside=\BAS@opt@twoside
