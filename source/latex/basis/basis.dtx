@@ -1,4 +1,4 @@
-% \CheckSum{2460}
+% \CheckSum{2462}
 %
 % \iffalse meta-comment
 %
@@ -37,7 +37,7 @@
 % \changes{v0.11}{2014/01/11}{Fontsize-Option}
 % \changes{v0.12}{2014/06/01}{Rules-Option, NoAuthor-Option, changes-Paket in mmd, Sponsorlogo}
 % \changes{v0.13}{2014/11/13}{xcolor mit svgnames, eigener Box-Befehl}
-% \changes{v0.14}{2016/03/??}{Briefe große erste Seite, Beamer-Theme, xcolor mit table, orientation-Option}
+% \changes{v0.14}{2016/03/??}{Briefe große erste Seite, Beamer-Theme, xcolor mit table, orientation-Option, description-Formatierung}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -1209,6 +1209,11 @@
 		\setlist[enumerate,3]{label=\roman*, ref=\theenumii.\roman*}
 		\setlist[enumerate,4]{label=\Alph*, ref=\theenumiii.\Alph*}
 	}
+%    \end{macrocode}
+%
+% Beschreibungslisten: Text immer in neuer Zeile beginnen, Schriftart normal.
+%    \begin{macrocode}
+\setlist[description]{style=nextline, font=\normalfont}
 %    \end{macrocode}
 %
 % \subsection{Fußnoten}
