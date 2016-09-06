@@ -1,0 +1,53 @@
+%%
+%% This is file `beamercolorthemebasis.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% basis.dtx  (with options: `beamer:theme:color')
+%% 
+%% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
+%% (c) 2006-2016 Ekkart Kleinod
+%% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemebasis}
+[2014/11/13 v0.13 Basis-Layout]
+\typeout{*** basis-Stil 2014/11/13 v0.13 ***}
+\definecolor{bas@col@alert}{RGB}{235, 129, 27}
+\definecolor{bas@col@darkblue}{RGB}{35, 55, 59}
+\definecolor{bas@col@mediumbrown}{RGB}{200, 122, 47}
+
+\colorlet{bas@col@text}{black!97}
+\colorlet{bas@col@framebg}{red!80!black}
+\colorlet{bas@col@progfilled}{bas@col@darkblue}
+\colorlet{bas@col@progempty}{bas@col@darkblue!20}
+\colorlet{bas@col@footnote}{bas@col@darkblue!50}
+\setbeamercolor{palette primary}{fg=bas@col@darkblue, bg=bas@col@framebg}
+\setbeamercolor{palette secondary}{fg=white, bg=bas@col@darkblue}
+\setbeamercolor{palette tertiary}{fg=white, bg=bas@col@progempty}
+\setbeamercolor{palette quaternary}{fg=bas@col@darkblue}
+
+\setbeamercolor{title}{parent=palette primary}
+\setbeamercolor{subtitle}{parent=palette primary}
+\setbeamercolor{author}{parent=palette primary}
+\setbeamercolor{date}{parent=palette primary}
+\setbeamercolor{institute}{parent=palette primary}
+
+\setbeamercolor{section title}{parent=palette primary}
+\setbeamercolor{frametitle}{parent=palette secondary}
+\setbeamercolor{headline}{parent=palette tertiary}
+\setbeamercolor{structure}{fg=bas@col@darkblue}
+
+\setbeamercolor{normal text}{fg=bas@col@text}
+\setbeamercolor{alerted text}{fg=bas@col@alert}
+
+\setbeamercolor{footnote}{fg=bas@col@footnote}
+\setbeamercolor{page number in head/foot}{fg=bas@col@darkblue}
+
+\mode
+<all>
+%% 
+%% (c) 2006-2016 Ekkart Kleinod
+%%
+%% End of file `beamercolorthemebasis.sty'.

@@ -9,15 +9,17 @@
 <!-- hier aktuellen Projektnamen eintragen -->
 <project name="basis" default="all" basedir=".">
 
-	<property name="file:targetname" value="${ant.project.name}" /> <!-- zu generierender Dateiname -->
-	<property name="file:index" value="${file:targetname}.ist" />   <!-- Makeindex-Stildatei -->
-	<property name="file:log" value="build.log" />                  <!-- Log-Datei -->
-	<property name="count:runs" value="1" />                        <!-- LaTeX-Durchlaufzähler -->
+	<property name="file:targetname" value="${ant.project.name}" />
+	<property name="file:log" value="build.log" />
+	<property name="count:runs" value="1" />
 
-	<property name="path:latex:base" value="../../../texmf/" /> <!-- LaTeX-base-Pfad -->
-	<property name="path:latex:doc" value="doc/latex/" /> <!-- LaTeX-doc-Pfad -->
-	<property name="path:latex:tex" value="tex/latex/" /> <!-- LaTeX-tex-Pfad -->
-	<property name="path:latex:makeindex" value="makeindex/latex/" /> <!-- Makeindex-Pfad -->
+	<property name="path:latex:base" value="../../../texmf/" />
+	<property name="path:latex:doc" value="doc/latex/" />
+	<property name="path:latex:tex" value="tex/latex/${file:targetname}/" />
+	<property name="path:latex:beamer" value="${path:latex:tex}beamer/themes/" />
+	<property name="path:color" value="color" />
+	<property name="path:font" value="font" />
+	<property name="path:theme" value="theme" />
 
 	<!-- alle Dateien erstellen -->
 	<target name="all" depends="clearLog">
@@ -59,26 +61,6 @@
 		</exec>
 	</target>
 
-	<!-- Ziel: MakeIndex-Aufruf mit vorherigem Check -->
-	<target name="makeindex">
-		<available file="${file:targetname}.idx" property="vts.makeindex" />
-		<antcall target="makeindex.execute" />
-	</target>
-
-	<!-- Ziel: MakeIndex-Lauf -->
-	<target name="makeindex.execute" if="vts.makeindex">
-		<echo message="MakeIndex-Lauf" />
-		<exec executable="makeindex" output="${file:log}" append="true" resultproperty="vts.result">
-			<!-- Argumente: -l Leerzeichen beim Sortieren nicht berücksichtigen
-							-c führende und schliessende Leerzeichen ignorieren
-							-g deutsche Sortierung (Umlaute)
-							-s Stildatei verwenden (zumindestens Sonderbedeutung von " aufheben, da sonst -g nicht geht -->
-
-			<arg line="-lcgs ${file:index} ${file:targetname}" />
-		</exec>
-		<antcall target="checkResult" />
-	</target>
-
 	<!-- einzelne pdf-Datei -->
 	<target name="pdf">
 		<echo message="${count:runs}. PDF-LaTeX-Lauf -> ${file:targetname}.pdf"/>
@@ -92,8 +74,7 @@
 	<target name="pdf_complete">
 		<antcall target="pdf"><param name="count:runs" value="1" /></antcall>
 		<antcall target="pdf"><param name="count:runs" value="2" /></antcall>
-		<!-- antcall target="bibtex" />
-		<antcall target="makeindex" / -->
+		<!-- antcall target="bibtex" /-->
 		<antcall target="pdf"><param name="count:runs" value="3" /></antcall>
 		<!-- antcall target="pdf"><param name="count:runs" value="4" /></antcall -->
 	</target>
@@ -144,7 +125,17 @@
 	<target name="deploy">
 		<echo message="Verteilung der generierten Dateien" />
 
-		<move todir="${path:latex:base}${path:latex:tex}${file:targetname}/" failonerror="false">
+		<move todir="${path:latex:base}${path:latex:beamer}${path:color}/" failonerror="false">
+			<fileset dir="." includes="beamer${path:color}${path:theme}${file:targetname}.sty" />
+		</move>
+		<move todir="${path:latex:base}${path:latex:beamer}${path:font}/" failonerror="false">
+			<fileset dir="." includes="beamer${path:font}${path:theme}${file:targetname}.sty" />
+		</move>
+		<move todir="${path:latex:base}${path:latex:beamer}${path:theme}/" failonerror="false">
+			<fileset dir="." includes="beamer${path:theme}${file:targetname}.sty" />
+		</move>
+
+		<move todir="${path:latex:base}${path:latex:tex}" failonerror="false">
 			<fileset dir="." includes="*.sty, *.lco, ${file:targetname}-mmd-*.tex" />
 		</move>
 

@@ -1,8 +1,8 @@
-% \CheckSum{2013}
+% \CheckSum{2469}
 %
 % \iffalse meta-comment
 %
-%  Copyright (C) 2006-2014
+%  Copyright (C) 2006-2016
 %  Ekkart Kleinod (ekleinod@edgesoft.de)
 % --------------------------------------------------------------------------
 %
@@ -37,6 +37,7 @@
 % \changes{v0.11}{2014/01/11}{Fontsize-Option}
 % \changes{v0.12}{2014/06/01}{Rules-Option, NoAuthor-Option, changes-Paket in mmd, Sponsorlogo}
 % \changes{v0.13}{2014/11/13}{xcolor mit svgnames, eigener Box-Befehl}
+% \changes{v0.14}{2016/03/??}{Briefe große erste Seite, Beamer-Theme, xcolor mit table, orientation-Option, description-Formatierung, nosponsorlogo-Option}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -52,139 +53,7 @@
 %
 %	\StopEventually{
 %
-%	\cleardoublepage
-% \section{Versionen}
-%
-%	\subsection{Version 0.13}
-%
-%	Datum: 13.\,11.~2014
-%
-%	\begin{itemize}
-%		\item \paket{xcolor} wird mit Option \option{svgnames} eingebunden
-%		\item eigener Befehl \befehl{basBox} für Boxen: leer, checked und crossed
-%	\end{itemize}
-%
-%	\subsection{Version 0.12}
-%
-%	Datum: 01.\,06.~2014
-%
-%	\begin{itemize}
-%		\item Regelsatz-Option \option{rules}
-%		\item Kein-Author-Option \option{noauthor}
-%		\item Logo-Positionierung bei \option{notitlepage} verbessert
-%		\item mmd-Datei \paket{changes}-Paket
-%		\item Sponsorlogo
-%	\end{itemize}
-%
-%	\subsection{Version 0.11}
-%
-%	Datum: 11.\,01.~2014
-%
-%	\begin{itemize}
-%		\item Schriftgröße-Option \option{fontsize}
-%	\end{itemize}
-%
-%	\subsection{Version 0.10}
-%
-%	Datum: 10.\,01.~2014
-%
-%	\begin{itemize}
-%		\item Font-Option \option{droid}
-%		\item Bugfix falsch formatierte Seitennummer
-%	\end{itemize}
-%
-%	\subsection{Version 0.9}
-%
-%	Datum: 04.\,01.~2014
-%
-%	\begin{itemize}
-%		\item Logo im Brief (Infospaltenlayouts)
-%	\end{itemize}
-%
-%	\subsection{Version 0.8}
-%
-%	Datum: 04.\,01.~2014
-%
-%	\begin{itemize}
-%		\item Separater Text für Kopfzeile im Infospaltenlayout
-%	\end{itemize}
-%
-%	\subsection{Version 0.7}
-%
-%	Datum: 04.\,01.~2014
-%
-%	\begin{itemize}
-%		\item Einfache Gliederung für Briefe
-%	\end{itemize}
-%
-%	\subsection{Version 0.6}
-%
-%	Datum: 29.\,12.~2013
-%
-%	\begin{itemize}
-%		\item Multimarkdown-Unterstützung
-%	\end{itemize}
-%
-%	\subsection{Version 0.5}
-%
-%	Datum: 17.\,12.~2013
-%
-%	\begin{itemize}
-%		\item Fußzeile auf geraden Seiten korrekt formatiert
-%	\end{itemize}
-%
-%	\subsection{Version 0.4}
-%
-%	Datum: 16.\,12.~2013
-%
-%	\begin{itemize}
-%		\item Redesign des Programmcodes
-%		\item Entfernen überflüssiger/obsoleter Optionen
-%   \item verbesserte Templates
-%	\end{itemize}
-%
-%	\subsection{Version 0.3}
-%
-%	Datum: 26.\,11.~2013
-%
-%	\begin{itemize}
-%   \item utf8 als Encoding gesetzt
-%   \item PDF-Titel korrigiert (Untertitel wurde nicht korrekt gesetzt)
-%	\end{itemize}
-%
-%	\subsection{Version 0.2}
-%
-%	Datum: 16.\,01.~2007
-%
-%	\begin{itemize}
-%   \item Flattersatz in Briefen
-%		\item Definitionen an \paket{ifthen}-Paket angepasst
-%		\item Befehl \texttt{textsubscript} eingefügt
-%		\item Überschriften von \paket{longtable}-Tabellen angepaßt
-%		\item Optionen \option{nojura}, \option{nohyper}, \option{hypercolor}, \option{hyperdriver}, \option{fixme}
-%		\item Optionen \option{font} zur Fontumschaltung
-%		\item Optionen \option{bewerbung} zur Layoutumschaltung
-%		\item Umstellung auf \paket{xkeyval}
-%		\item Option \option{entwurf} in \option{draft} umbenannt
-%		\item Option \option{ibidem} für \paket{jurabib} ausgeweitet
-%		\item Option \option{onehalfspacing} eingeführt und Seitenlayout nach \paket{setspace}"=Umschaltung neu berechnet
-%		\item Paket \paket{fontenc} mit \option{T1} für T1-Schriften (Umlautbehandlung)
-%		\item \paket{jurabib}-Optionen in Konfigurationsdatei ausgelagert, dafür Vorlage erstellt
-%		\item Paket \paket{microtype} eingebunden
-%		\item Schrift "`Luxi Mono"' als tt-Schrift
-%	\end{itemize}
-%
-%	\subsection{Version 0.1}
-%
-%	Datum: 14.\,05.~2006
-%
-%	\begin{itemize}
-%		\item initiale Version
-%		\item Einbindung der wichtigsten Pakete
-%		\item Schriftarten PostScript, bis auf Marvo-Schrift für Euro-Symbol
-%		\item Vorlagen für Artikel, Bücher und Briefe
-%		\item eigene Indexvorlage
-%	\end{itemize}
+% \input{basis.versions}
 %
 %	}
 %
@@ -198,10 +67,7 @@
 %
 % \section{Allgemeine Definitionen}
 %
-% Definitionen für Basis- und Briefstil.
-%    \begin{macrocode}
-%<*basis,basbrief>
-%    \end{macrocode}
+%<*basis,basbrief,beamer:theme,beamer:theme:color,beamer:theme:font>
 %
 % Zunächst legen wir die benötigte \hologo{LaTeX}-Version auf \hologo{LaTeXe} fest und geben Name, Datum und Version des Pakets zurück.
 %
@@ -210,11 +76,18 @@
 \NeedsTeXFormat{LaTeX2e}
 %<+basis>\ProvidesPackage{basis}
 %<+basbrief>\ProvidesPackage{basbrief}
+%<+beamer:theme>\ProvidesPackage{beamerthemebasis}
+%<+beamer:theme:color>\ProvidesPackage{beamercolorthemebasis}
+%<+beamer:theme:font>\ProvidesPackage{beamerfontthemebasis}
 [2014/11/13 v0.13 Basis-Layout]
 \typeout{*** basis-Stil 2014/11/13 v0.13 ***}
 %    \end{macrocode}
 %
+%</basis,basbrief,beamer:theme,beamer:theme:color,beamer:theme:font>
+%
 % \subsection{Optionen}
+%
+%<*basis,basbrief,beamer:theme>
 %
 % Vor der Optionsdefinition müssen dafür verwendete Pakete geladen werden.
 %
@@ -230,6 +103,9 @@
 \RequirePackage{ifxetex}
 \RequirePackage{ifpdf}
 %    \end{macrocode}
+%
+%</basis,basbrief,beamer:theme>
+%<*basis,basbrief>
 %
 % Die Beschreibung der Optionen steht in \autoref{sec:userdoc:options}.
 % Die meisten Optionen werden einfach gespeichert, Optionen mit Wertübergabe speichern auch den übergebenen Wert sowie den \emph{default}-Wert.
@@ -257,9 +133,13 @@
 }
 %    \end{macrocode}
 %
-% \option{font}-Option, \emph{default=times}.
+%</basis,basbrief>
+%<*basis,basbrief,beamer:theme>
+%
+% \option{font}-Option, \emph{default=times}, für Beamer \emph{default=roboto}.
 %    \begin{macrocode}
 \newcommand{\BAS@opt@font}{times}
+%<+beamer:theme>\renewcommand{\BAS@opt@font}{roboto}
 \DeclareOptionX{font}{
 	\ifthenelse{\equal{\@empty}{#1}}
 		{}
@@ -270,6 +150,7 @@
 				\equal{#1}{hfold}\or
 				\equal{#1}{mathpazo}\or
 				\equal{#1}{original}\or
+				\equal{#1}{roboto}\or
 				\equal{#1}{times}
 			}
 				{\renewcommand{\BAS@opt@font}{#1}}
@@ -289,6 +170,9 @@
 	\typeout{Basis-Option 'fontsize=\BAS@opt@fontsize'}
 }
 %    \end{macrocode}
+%
+%</basis,basbrief,beamer:theme>
+%<*basis,basbrief>
 %
 % \option{hypercolor}-Option, \emph{default=black}.
 %    \begin{macrocode}
@@ -338,6 +222,9 @@
 }
 %    \end{macrocode}
 %
+%</basis,basbrief>
+%<*basis,basbrief,beamer:theme>
+%
 % \option{noauthor}-Option
 %    \begin{macrocode}
 \newboolean{BAS@opt@noauthor}
@@ -347,6 +234,9 @@
 	\typeout{Basis-Option 'noauthor'}
 }
 %    \end{macrocode}
+%
+%</basis,basbrief,beamer:theme>
+%<*basis,basbrief>
 %
 % \option{nobackaddress}-Option
 %    \begin{macrocode}
@@ -366,6 +256,16 @@
 }
 %    \end{macrocode}
 %
+% \option{nosponsorlogo}-Option
+%    \begin{macrocode}
+\newboolean{BAS@opt@nosponsorlogo}
+\setboolean{BAS@opt@nosponsorlogo}{false}
+\DeclareOptionX{nosponsorlogo}{
+	\setboolean{BAS@opt@nosponsorlogo}{true}
+	\typeout{Basis-Option 'nosponsorlogo'}
+}
+%    \end{macrocode}
+%
 % \option{notitlepage}-Option
 %    \begin{macrocode}
 \newcommand{\BAS@opt@titlepage}{on}
@@ -381,6 +281,17 @@
 \DeclareOptionX{oneside}{
 	\renewcommand{\BAS@opt@twoside}{off}
 	\typeout{Basis-Option 'oneside'}
+}
+%    \end{macrocode}
+%
+% \option{orientation}-Option
+%    \begin{macrocode}
+\newcommand{\BAS@opt@orientation}{portrait}
+\DeclareOptionX{orientation}{
+	\ifthenelse{\isempty{#1}}
+		{}
+		{\renewcommand{\BAS@opt@orientation}{#1}}
+	\typeout{Basis-Option 'orientation=\BAS@opt@orientation'}
 }
 %    \end{macrocode}
 %
@@ -448,11 +359,55 @@
 }{}
 %    \end{macrocode}
 %
+%</basis,basbrief>
+%
+% \subsubsection{Optionen ausschließlich für Beamer}
+%
+%<*beamer:theme>
+%
+% \option{nonumber}-Option.
+%    \begin{macrocode}
+\newboolean{BAS@opt@nonumber}
+\setboolean{BAS@opt@nonumber}{false}
+\DeclareOptionX{nonumber}{
+	\setboolean{BAS@opt@nonumber}{true}
+	\typeout{Basis-Option 'nonumber'}
+}
+%    \end{macrocode}
+%
+% \option{titleprogressbar}-Option.
+%    \begin{macrocode}
+\newboolean{BAS@opt@titleprogressbar}
+\setboolean{BAS@opt@titleprogressbar}{false}
+\DeclareOptionX{titleprogressbar}{
+	\setboolean{BAS@opt@titleprogressbar}{true}
+	\typeout{Basis-Option 'titleprogressbar'}
+}
+%    \end{macrocode}
+%
+% \option{totalnumber}-Option.
+%    \begin{macrocode}
+\newboolean{BAS@opt@totalnumber}
+\setboolean{BAS@opt@totalnumber}{false}
+\DeclareOptionX{totalnumber}{
+	\setboolean{BAS@opt@totalnumber}{true}
+	\typeout{Basis-Option 'totalnumber'}
+}
+%    \end{macrocode}
+%
+%</beamer:theme>
+%
+%<*basis,basbrief,beamer:theme>
+%
 % Ausführung des Optionenbearbeitens.
 % Das muß auch für die Briefklasse erfolgen, da \hologo{LaTeX} sonst einen Fehler meldet.
 %    \begin{macrocode}
-\ProcessOptionsX%*\relax
+\ProcessOptionsX
 %    \end{macrocode}
+%
+%</basis,basbrief,beamer:theme>
+%
+%<*basis,basbrief>
 %
 % \subsection{Festgelegte Längemaße}
 %
@@ -476,7 +431,7 @@
 % 	\item[headings] Größe und Abstand der Überschriften, groß
 % 	\item[headsepline] Linie unter Kopfzeile, ausgeschaltet
 % 	\item[numbers] Nummer nach Numerierungszeichen, keine Nummer
-% 	\item[paper] Papierformat, A4
+% 	\item[paper] Papierformat, A4, Orientierung
 % 	\item[parskip] Abstand zwischen zwei Absätzen, ein halbes \befehl{parskip}
 % 	\item[titlepage] Titelseite, durch Option einstellbar (default = extra Titelseite (on))
 % 	\item[toc] Inhaltsverzeichnis, linksbündig setzen (ohne Einrückung der einzelnen Gliederungsebenen)
@@ -491,16 +446,19 @@
 	fontsize=\BAS@opt@fontsize,
 	footnotes=multiple,
 	paper=a4,
+	paper=\BAS@opt@orientation,
 	parskip=half,
 	twocolumn=off,
 	twoside=\BAS@opt@twoside
 }
 %    \end{macrocode}
 %
-% Klassenoptionen nicht bzw. nur für \paket{scrlttr2}.
+% Klassenoptionen nur für \paket{scrlttr2}.
 %
 % \begin{description}
-% 	\item[open] Beginn neuer Kapitel, immer auf der rechten Seite (nur für \paket{scrbook} und \paket{scrreprt})
+% 	\item[backaddress] soll Rücksendeadresse gezeigt werden?
+% 	\item[foldmarks] sollen Falzmarkierungen gezeigt werden?
+% 	\item[enlargefirstpage] erste Seite etwas größer setzen
 % \end{description}
 %
 %
@@ -509,9 +467,24 @@
 	{
 		\KOMAoptions{
 			backaddress=\BAS@opt@backaddress,
-			foldmarks=\BAS@opt@foldmarks
+			foldmarks=\BAS@opt@foldmarks,
+			enlargefirstpage=on
 		}
 	}
+%    \end{macrocode}
+%
+% Klassenoptionen für alle Klassen außer \paket{scrlttr2}.
+%
+% \begin{description}
+% 	\item[captions] keine Unterscheidung ein- und mehrzeilige Überschriften (dadurch keine Zentrierung)
+% 	\item[headings] große Überschriften
+% 	\item[numbers] Überschriftennummerierung mit/ohne abschließenden Punkt
+% 	\item[titlepage] Anzeige der Titelseite (ein/aus)
+% 	\item[toc] keine Einrückung im Inhaltsverzeichnis
+% \end{description}
+%
+%
+%    \begin{macrocode}
 	{
 		\ifthenelse{\boolean{BAS@opt@rules}}
 			{\newcommand{\BAS@numbers}{endperiod}}
@@ -529,7 +502,7 @@
 % Klassenoptionen nur für \paket{scrbook} und \paket{scrreprt}.
 %
 % \begin{description}
-% 	\item[open] Beginn neuer Kapitel, immer auf der rechten Seite (nur für \paket{scrbook} und \paket{scrreprt})
+% 	\item[open] Beginn neuer Kapitel, immer auf der rechten Seite
 % \end{description}
 %
 %
@@ -543,7 +516,11 @@
 	{}
 %    \end{macrocode}
 %
+%</basis,basbrief>
+%
 % \subsection{Eingabe von Sonderzeichen}
+%
+%<*basis,basbrief,beamer:theme:font>
 %
 % Das Paket \paket{inputenc} ist für die Direkteingabe von Sonderzeichen zuständig, als Kodierung wird \option{utf8} gewählt.
 % Damit werden etliche Editoren (Notepad, TeXnicCenter) in früheren Versionen ausgeschlossen.
@@ -558,7 +535,11 @@
 \fi
 %    \end{macrocode}
 %
+%</basis,basbrief,beamer:theme:font>
+%
 % \subsection{Sprachen}
+%
+%<*basis,basbrief,beamer:theme>
 %
 % Das \paket{babel}-Paket wird zur Spracheinstellung benutzt.
 %    \begin{macrocode}
@@ -576,8 +557,13 @@
 \AtEndOfClass{\shorthandon{"}}
 %    \end{macrocode}
 %
+%</basis,basbrief,beamer:theme>
+%
+%
 %
 % \subsection{Schriftarten}
+%
+%<*basis,basbrief,beamer:theme:font>
 %
 % \option{charter}: Serifenschrift \emph{Charter}, serifenlose Schrift \emph{Helvetica}, Schreibmaschinenschrift \emph{Luxi Mono}
 %    \begin{macrocode}
@@ -622,6 +608,14 @@
 	{}{}
 %    \end{macrocode}
 %
+% \option{roboto}: alle Schriften \emph{Roboto}
+%    \begin{macrocode}
+\ifthenelse{\equal{\BAS@opt@font}{roboto}}
+	{
+		\RequirePackage{roboto}
+	}{}
+%    \end{macrocode}
+%
 % \option{times}: Serifenschrift \emph{Times}, serifenlose Schrift \emph{Helvetica}, Schreibmaschinenschrift \emph{Luxi Mono}
 %    \begin{macrocode}
 \ifthenelse{\equal{\BAS@opt@font}{times}}
@@ -633,9 +627,20 @@
 %    \end{macrocode}
 %
 % Das Paket \paket{microtype} setzt Text angenehmer und erzeugt optischen Randausgleich.
+% Mittels Tracking kann de Buchstabenabstand automatisch geändert werden.
 %    \begin{macrocode}
-\RequirePackage[tracking=true]{microtype}
-\SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
+\ifxetex
+	\RequirePackage{microtype}
+\else
+	\RequirePackage[tracking=true]{microtype}
+	\ifthenelse{\equal{\BAS@opt@font}{roboto}}
+		{
+			\SetTracking[no ligatures = f]{encoding = *, shape = sc}{100}
+		}
+		{
+			\SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
+		}
+\fi
 %    \end{macrocode}
 %
 % \subsubsection{Symbole}
@@ -747,8 +752,12 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%</basis,basbrief,beamer:theme:font>
+%
 %
 % \subsection{Grafiken, Farben}
+%
+%<*basis,basbrief>
 %
 % Das Paket \paket{graphicx} ist zur Anzeige von Grafiken notwendig.
 %    \begin{macrocode}
@@ -757,9 +766,10 @@
 %
 % Das Paket \paket{xcolor} ist zur Einfärbung von Texten usw.\ gedacht.
 % Die option \option{svgnames} stellt mehr Farbnamen zur Verfügung.
+% Die option \option{table} lädt das \paket{colortbl}-Paket zur Einfärbung von Tabellen.
 % Das Paket \paket{pdfcolmk} löst Probleme von farbigen Texten bei Seitenumbruch.
 %    \begin{macrocode}
-\RequirePackage[svgnames]{xcolor}
+\RequirePackage[svgnames, table]{xcolor}
 \RequirePackage{pdfcolmk}
 %    \end{macrocode}
 %
@@ -969,15 +979,17 @@
 % Sponsor: Name des Sponsorlogos, das als Hintergrundbild auf jeder Seite gesetzt wird.
 %    \begin{macrocode}
 \newcommand{\sponsorlogo}[1]{
-	\RequirePackage{background}
-	\backgroundsetup{contents=\includegraphics{#1}, placement=bottom, scale=1, opacity=1, vshift=5mm}
+	\ifthenelse{\boolean{BAS@opt@nosponsorlogo}}
+		{}
+		{
+			\RequirePackage{background}
+			\backgroundsetup{contents=\includegraphics{#1}, placement=bottom, scale=1, opacity=1, vshift=5mm}
+		}
 }
 %    \end{macrocode}
 % \end{macro}
 %
-%    \begin{macrocode}
 %<*basbrief>
-%    \end{macrocode}
 %
 % \begin{macro}{\briefkopf}
 % Nur für Briefe: Briefkopfinhalt abweichend vom Autornamen (default).
@@ -986,9 +998,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%    \begin{macrocode}
 %</basbrief>
-%    \end{macrocode}
 %
 % Auswertung einiger Angaben im Vorfeld.
 %    \begin{macrocode}
@@ -1215,6 +1225,11 @@
 	}
 %    \end{macrocode}
 %
+% Beschreibungslisten: Text immer in neuer Zeile beginnen, Schriftart normal.
+%    \begin{macrocode}
+\setlist[description]{style=nextline, font=\normalfont}
+%    \end{macrocode}
+%
 % \subsection{Fußnoten}
 % \label{sec:Fussnoten}
 %
@@ -1263,16 +1278,13 @@
 %
 % Ende der gemeinsamen Definitionen für Bücher, Artikel und Briefe.
 %
-%    \begin{macrocode}
 %</basis,basbrief>
-%    \end{macrocode}
 %
 % \section{Definitionen für \texttt{scrartcl}, \texttt{scrbook}}
 %
 % Beginn des Basis-Stils, der für Bücher und Artikel zuständig ist.
-%    \begin{macrocode}
+%
 %<*basis>
-%    \end{macrocode}
 %
 % \subsection{Die Titelseite}
 %
@@ -1719,9 +1731,8 @@
 % \end{macro}
 %
 % Ende des Basis-Stils.
-%    \begin{macrocode}
+%
 %</basis>
-%    \end{macrocode}
 %
 %^^A --------------------------------------------------------------------------
 %
@@ -1734,9 +1745,8 @@
 % \subsection{Layoutunabhängige Definitionen}
 %
 % Beginn des Brief-Stils.
-%    \begin{macrocode}
+%
 %<*basbrief>
-%    \end{macrocode}
 %
 % \subsubsection{Allgemein}
 %
@@ -1879,18 +1889,16 @@
 %    \end{macrocode}
 %
 % Ende des Brief-Stils.
-%    \begin{macrocode}
+%
 %</basbrief>
-%    \end{macrocode}
 %
 % \subsection{Layout-Dateien}
 %
 % \subsubsection{Datei \texttt{baskopfzeile.lco}}
 %
 % Beginn der Datei.
-%    \begin{macrocode}
+%
 %<*lco:kopfzeile>
-%    \end{macrocode}
 %
 % Informationen über die Datei.
 %    \begin{macrocode}
@@ -1958,16 +1966,13 @@
 \setkomavar{backaddressseparator}{~\ensuremath{\cdot}~}
 %    \end{macrocode}
 %
-%    \begin{macrocode}
 %</lco:kopfzeile>
-%    \end{macrocode}
 %
 % \subsubsection{Layouts: Infospalte sowie Infospalte fett}
 %
 % Beginn der Layoutdefinition.
-%    \begin{macrocode}
+%
 %<*lco:infospalte,lco:infospaltefett>
-%    \end{macrocode}
 %
 % Informationen über die Datei.
 %    \begin{macrocode}
@@ -2114,16 +2119,14 @@
 \l@addto@macro\@firstheadfootfield{\setkomavar{date}{}}
 %    \end{macrocode}
 %
-%    \begin{macrocode}
 %</lco:infospalte,lco:infospaltefett>
-%    \end{macrocode}
 %
-% \subsection{Multimarkdown}
+% \section{Multimarkdown}
 %
 % Multimarkdown benötigt Dateien, die per \befehl{input} eingebunden werden.
 % Im Wesentlichen werden die Klassen/Pakete eingebunden und dann die von \emph{mmd} gelieferten Informationen benutzt.
 %
-% \subsubsection{Klassen}
+% \subsection{Klassen}
 %
 %    \begin{macrocode}
 %<*mmd:scrartcl>
@@ -2149,7 +2152,7 @@
 %</mmd:scrlttr2>
 %    \end{macrocode}
 %
-% \subsubsection{Stil}
+% \subsection{Stil}
 %
 %    \begin{macrocode}
 %<*mmd:style>
@@ -2165,7 +2168,7 @@
 %</mmd:style>
 %    \end{macrocode}
 %
-% \subsubsection{Beginn des Dokuments/Briefs}
+% \subsection{Beginn des Dokuments/Briefs}
 %
 % Übernahme aller Metadaten in eigene Befehle.
 %    \begin{macrocode}
@@ -2264,9 +2267,8 @@
 %    \end{macrocode}
 %
 % Nur für Briefe.
-%    \begin{macrocode}
+%
 %<*mmd:beginlttr>
-%    \end{macrocode}
 %
 % Empfänger ist etwas schwieriger: derzeit fünf Zeilen.
 %    \begin{macrocode}
@@ -2401,7 +2403,7 @@
 %</mmd:endlttr>
 %    \end{macrocode}
 %
-% \subsubsection{Paket: changes}
+% \subsection{Paket: changes}
 %
 %    \begin{macrocode}
 %<*mmd:package:changes>
@@ -2411,6 +2413,522 @@
 \usepackage[\mychangesoptions]{changes}
 %</mmd:package:changes>
 %    \end{macrocode}
+%
+%
+%
+% \section{Beamer}
+%
+% Die Präsentationsklassen sind für die Verwendung von \hologo{pdfLaTeX} ausgelegt.
+%
+% \begin{quote}
+% \small
+% based on Beamer mtheme
+%
+% Copyright 2014 Matthias Vogelgesang
+% Licensed under CC-BY-SA 4.0 International.
+%
+% The initial template comes from the HSRM beamer theme by Benjamin Weiss, which
+% you can find at https://github.com/hsrmbeamertheme/hsrmbeamertheme.
+% \end{quote}
+%
+% \subsection{Präsentationsthema}
+%
+%<*beamer:theme>
+%
+% Das Präsentationsthema legt das gesamte Aussehen der Präsentation fest.
+%
+%	Das Aussehen wird durch die Einbindung von vier definierenden Themen festgelegt.
+% Diese Themen sind:
+% \begin{description}
+% 	\item[color theme] benutzte Farben
+% 	\item[font theme] benutzte Fonts
+% 	\item[inner theme] Aussehen aller Inhaltselemente einer Folie (nicht verwendet)
+% 	\item[outer theme] Aussehen aller äußeren Strukturelemente einer Folie (nicht verwendet)
+% \end{description}
+%
+% Benötigte Pakete.
+%
+% \begin{description}
+% 	\item[tikz] Zeichenmöglichkeiten
+% 	\item[microtype] verbesserter Textsatz
+% 	\item[babel] Sprachen
+% 	\item[hologo] \hologo{LaTeX}-Logos
+% \end{description}
+%    \begin{macrocode}
+\RequirePackage{tikz}
+\usetikzlibrary{backgrounds}
+%    \end{macrocode}
+%
+% Einbindung Farb- und Fontdefinitionen.
+%    \begin{macrocode}
+\usecolortheme{basis}
+\usefonttheme{basis}
+%    \end{macrocode}
+%
+% \subsubsection{Breiten definieren und festlegen}
+%
+% Fortschrittsbalken: Dimensionen.
+%    \begin{macrocode}
+\newdimen\bas@progbar@height
+\newdimen\bas@progbar@frametitlewidth
+\newdimen\bas@progbar@width
+%    \end{macrocode}
+%
+% Festlegung Breite für Abschnittstitel, Höhe für alle Balken.
+%    \begin{macrocode}
+\bas@progbar@frametitlewidth=.5\paperwidth
+\bas@progbar@height=0.4pt
+%    \end{macrocode}
+%
+% \subsubsection{Hintergrund}
+%
+% todo: Der Hintergrund ist grundsätzlich weiß mit leichten Gradienten in den Ecken.
+%    \begin{macrocode}
+\setbeamertemplate{background canvas}{%
+%	\begin{tikzpicture}[remember picture,overlay]
+%		\shade[top color=gray!85,bottom color=gray!85,middle color=white]
+%			([shift={(0.5cm,-0.5cm)}]current page.north west)
+%				 rectangle
+%			([shift={(-0.5cm,0.5cm)}]current page.south east)
+%			;
+%	\end{tikzpicture}%
+}
+%    \end{macrocode}
+%
+% \subsubsection{Titelseite}
+%
+% \befehl{maketitle} neu definieren.
+%    \begin{macrocode}
+\let\bas@orig@maketitle=\maketitle
+\def\maketitle{
+	\mode<article>{
+		\bas@orig@maketitle
+	}
+	\begin{frame}[plain]
+		\titlepage
+	\end{frame}
+}
+%    \end{macrocode}
+%
+% Die Titelseite nutzt das entsprechende Template, das neu definiert wird.
+%    \begin{macrocode}
+\setbeamertemplate{title page}{
+	\begin{minipage}[b][\paperheight]{\textwidth}
+		\vfill
+		\ifthenelse{\equal{\@empty}{\inserttitle}}
+			{}
+			{%
+				{
+					\raggedright
+					\linespread{1.0}
+					\usebeamerfont{title}
+					\usebeamercolor[fg]{title}
+					\inserttitle
+					\par
+				}
+				\vspace*{.3ex}
+			}
+		\ifthenelse{\equal{\@empty}{\insertsubtitle}}
+			{}
+			{%
+				{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+				\vspace*{0.5ex}
+			}
+		\begin{tikzpicture}
+			\draw[bas@col@alert] (0, 0) -- (\textwidth, 0);
+		\end{tikzpicture}
+		\vspace*{1ex}
+		\ifthenelse{\boolean{BAS@opt@noauthor}}
+			{}
+			{%
+				\ifx\insertauthor\@empty\else
+					{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
+					\vspace*{0.25ex}
+				\fi
+			}
+		\ifthenelse{\equal{\@empty}{\insertdate}}
+			{}
+			{%
+				{\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
+				\vspace*{.3ex}
+			}
+		\ifthenelse{\equal{\@empty}{\insertinstitute}}
+			{}
+			{
+				{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}
+			}
+		\vfill
+		\vspace*{2ex}
+	\end{minipage}
+}
+%    \end{macrocode}
+%
+% \subsubsection{Aufzählungen}
+%
+%    \begin{macrocode}
+\setlength{\leftmargini}{1em}
+\setlength{\leftmarginii}{1em}
+\setlength{\leftmarginiii}{1em}
+
+\setbeamertemplate{itemize item}{\textendash}
+\setbeamertemplate{itemize subitem}{\textbullet}
+\setbeamertemplate{itemize subsubitem}{\textperiodcentered}
+
+\setlength{\parskip}{0.5em}
+%    \end{macrocode}
+%
+% \subsubsection{Abschnittsfolien}
+%
+% Erst das Template definieren.
+%    \begin{macrocode}
+\setbeamertemplate{section title}{
+	\usebeamerfont{section title}
+
+	\bas@progbar@width=\bas@progbar@frametitlewidth
+	\multiply\bas@progbar@width by \insertframenumber
+	\divide\bas@progbar@width by \inserttotalframenumber
+
+	\vskip .3\paperheight
+	\hspace{.2\bas@progbar@frametitlewidth}
+	\parbox{\bas@progbar@frametitlewidth}{%
+		\insertsectionhead
+
+		\begin{tikzpicture}[tight background]
+			\draw[anchor=west, bas@col@progempty, fill=bas@col@progempty, inner sep=0pt]
+			(0pt, 0pt) rectangle ++ (\bas@progbar@frametitlewidth, \bas@progbar@height);
+
+			\draw[anchor=west, bas@col@progfilled, fill=bas@col@progfilled, inner sep=0pt]
+			(0pt, 0pt) rectangle ++ (\bas@progbar@width, \bas@progbar@height);
+		\end{tikzpicture}
+	}
+}
+%    \end{macrocode}
+%
+% Dann das Template automatisch bei jedem Abschnitt benutzen.
+%    \begin{macrocode}
+\AtBeginSection[]
+{
+	\begingroup
+		\begin{frame}[plain]
+			\usebeamertemplate{section title}
+		\end{frame}
+	\endgroup
+}
+%    \end{macrocode}
+%
+% \subsubsection{Unterabschnittsfolien}
+%
+% Erst das Template definieren.
+%    \begin{macrocode}
+\setbeamertemplate{subsection title}{
+	\usebeamerfont{subsection title}
+
+	\vfill
+
+	\bas@progbar@width=\bas@progbar@frametitlewidth
+	\multiply\bas@progbar@width by \insertframenumber
+	\divide\bas@progbar@width by \inserttotalframenumber
+
+	\hspace{.2\bas@progbar@frametitlewidth}
+	\makebox[\bas@progbar@frametitlewidth][l]{%
+		\begin{tikzpicture}[tight background]
+			\node[anchor=west, bas@col@darkblue, inner sep=0pt] at (0pt, 0pt) {\insertsectionhead};
+
+			\draw[anchor=west, bas@col@progempty, fill=bas@col@progempty, inner sep=0pt]
+			(2pt, -16pt) rectangle ++ (\bas@progbar@frametitlewidth, \bas@progbar@height);
+
+			\draw[anchor=west, bas@col@progfilled, fill=bas@col@progfilled, inner sep=0pt]
+			(2pt, -16pt) rectangle ++ (\bas@progbar@width, \bas@progbar@height);
+
+			\node[anchor=west, bas@col@darkblue, inner sep=0pt] at (0pt, -32pt) {\insertsubsectionhead};
+		\end{tikzpicture}
+	}
+
+	\vfill
+}
+%    \end{macrocode}
+%
+% Dann das Template automatisch bei jedem Abschnitt benutzen.
+%    \begin{macrocode}
+\AtBeginSubsection[]
+{
+	\begingroup
+		\begin{frame}[plain]
+			\usebeamertemplate{subsection title}
+		\end{frame}
+	\endgroup
+}
+%    \end{macrocode}
+%
+% Fußzeile: Framenummer und auf Wunsch Gesamtzahl.
+% Keine Navigation
+%    \begin{macrocode}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{
+	\ifthenelse{\boolean{BAS@opt@nonumber}}
+		{}
+		{
+			\begin{beamercolorbox}[wd=\textwidth, ht=3ex, dp=3ex, leftskip=0.03\textwidth, rightskip=0.03\textwidth]{structure}
+				\hfill\usebeamerfont{page number in head/foot}
+				\insertframenumber
+				\ifthenelse{\boolean{BAS@opt@totalnumber}}
+					{\,|\,\inserttotalframenumber}
+					{}
+			\end{beamercolorbox}
+		}
+}
+%    \end{macrocode}
+%
+% Fußnoten.
+%    \begin{macrocode}
+\setbeamertemplate{footnote}{
+	\parindent 0em\noindent
+	\raggedright
+	\usebeamercolor{footnote}\hbox to 0.8em{\hfil\insertfootnotemark}\insertfootnotetext\par
+}
+
+%}}}
+%{{{ --- Frametitle -------------------
+\setbeamertemplate{frametitle}{
+	\nointerlineskip
+	\begin{beamercolorbox}[wd=\paperwidth,leftskip=0.3cm,rightskip=0.3cm,ht=2.5ex,dp=1.5ex]{frametitle}
+		\usebeamerfont{frametitle}\insertframetitle
+	\end{beamercolorbox}
+	\ifthenelse{\boolean{BAS@opt@titleprogressbar}}
+		{
+			\bas@progbar@width=\paperwidth
+			\multiply\bas@progbar@width by \insertframenumber
+			\divide\bas@progbar@width by \inserttotalframenumber
+
+			\vspace{-.5em}
+			\begin{beamercolorbox}[wd=\paperwidth,ht=1pt,dp=0pt]{headline}
+				\begin{tikzpicture}[tight background]
+					\draw[bas@col@progfilled, fill=bas@col@progfilled] (0, 0) rectangle (\bas@progbar@width, \bas@progbar@height);
+				\end{tikzpicture}
+			\end{beamercolorbox}
+		}{}
+	\vspace{2em}
+}
+%}}}
+
+\mode
+<all>
+
+% {{{ misc
+\mode<presentation>
+
+\let\otp\titlepage
+\renewcommand{\titlepage}{\otp\addtocounter{framenumber}{-1}}
+\newcommand{\mreducelistspacing}{\vspace{-\topsep}}
+
+\mode
+<all>
+
+\setbeamertemplate{note page}{
+	\vspace{2em}
+	\begin{columns}[T]
+		\begin{column}{.8\textwidth}
+			\begin{block}{Anmerkungen zu ``\insertframetitle''}
+				\insertnote
+			\end{block}
+		\end{column}
+		\begin{column}{.2\textwidth}
+			\framebox{\insertslideintonotes{0.2}}
+		\end{column}
+	\end{columns}
+}
+
+\linespread{1.15}
+%    \end{macrocode}
+%
+%</beamer:theme>
+%
+% \subsection{Farbdefinitionen}
+%
+%<*beamer:theme:color>
+%
+% Benutzte Farben definieren.
+%    \begin{macrocode}
+\definecolor{bas@col@alert}{RGB}{235, 129, 27}
+\definecolor{bas@col@darkblue}{RGB}{35, 55, 59}
+\definecolor{bas@col@mediumbrown}{RGB}{200, 122, 47}
+
+\colorlet{bas@col@text}{black!97}
+\colorlet{bas@col@framebg}{red!80!black}
+%\colorlet{bas@col@framebg}{black!2}
+\colorlet{bas@col@progfilled}{bas@col@darkblue}
+\colorlet{bas@col@progempty}{bas@col@darkblue!20}
+\colorlet{bas@col@footnote}{bas@col@darkblue!50}
+%    \end{macrocode}
+%
+% Farben den Einsätzen zuordnen.
+%    \begin{macrocode}
+\setbeamercolor{palette primary}{fg=bas@col@darkblue, bg=bas@col@framebg}
+\setbeamercolor{palette secondary}{fg=white, bg=bas@col@darkblue}
+\setbeamercolor{palette tertiary}{fg=white, bg=bas@col@progempty}
+\setbeamercolor{palette quaternary}{fg=bas@col@darkblue}
+
+\setbeamercolor{title}{parent=palette primary}
+\setbeamercolor{subtitle}{parent=palette primary}
+\setbeamercolor{author}{parent=palette primary}
+\setbeamercolor{date}{parent=palette primary}
+\setbeamercolor{institute}{parent=palette primary}
+
+\setbeamercolor{section title}{parent=palette primary}
+\setbeamercolor{frametitle}{parent=palette secondary}
+\setbeamercolor{headline}{parent=palette tertiary}
+%\setbeamercolor{background canvas}{parent=palette primary}
+\setbeamercolor{structure}{fg=bas@col@darkblue}
+
+\setbeamercolor{normal text}{fg=bas@col@text}
+\setbeamercolor{alerted text}{fg=bas@col@alert}
+
+\setbeamercolor{footnote}{fg=bas@col@footnote}
+\setbeamercolor{page number in head/foot}{fg=bas@col@darkblue}
+
+\mode
+<all>
+%    \end{macrocode}
+%
+%</beamer:theme:color>
+%
+%
+%<*beamer:theme:font>
+%
+% \subsection{Fontdefinitionen}
+%
+% Schriftart Roboto als Standard festlegen.
+%    \begin{macrocode}
+%\RequirePackage[sfdefault]{roboto}
+
+%\usepackage[no-math]{fontspec}
+
+%\setsansfont[BoldFont={Fira Sans}]{Fira Sans Light}
+%\setmonofont{Fira Mono}
+%\newfontfamily\ExtraLight{Fira Sans ExtraLight}
+%\newfontfamily\Light{Fira Sans Light}
+%\newfontfamily\Book{Fira Sans}
+%\newfontfamily\Medium{Fira Sans Medium}
+
+
+\setbeamerfont{normal text}{} % ignored currently
+\setbeamerfont{alerted text}{}
+\setbeamerfont{example text}{}
+
+\setbeamerfont{structure}{}
+\setbeamerfont{tiny structure}{size=\tiny}
+
+\setbeamerfont{title}{size=\Large, shape=\scshape, parent=structure}
+\setbeamerfont{title in head/foot}{}
+\setbeamerfont{title in sidebar}{size=\tiny}
+
+\setbeamerfont{subtitle}{size=\normalsize, shape=\normalfont, parent=title}
+
+\setbeamerfont{author}{}
+\setbeamerfont{author in head/foot}{}
+\setbeamerfont{author in sidebar}{size=\tiny}
+
+\setbeamerfont{institute}{size=\scriptsize}
+\setbeamerfont{institute in head/foot}{}
+\setbeamerfont{institute in sidebar}{}
+
+\setbeamerfont{date}{}
+\setbeamerfont{date in head/foot}{}
+\setbeamerfont{date in sidebar}{}
+
+\setbeamerfont{part name}{size=\LARGE}
+\setbeamerfont{part title}{size=\LARGE,parent=title}
+
+\setbeamerfont{section name}{size=\Large}
+\setbeamerfont{section title}{parent=title}
+
+\setbeamerfont{section in toc}{parent=structure}
+\setbeamerfont{section in toc shaded}{parent=section in toc}
+\setbeamerfont{section in head/foot}{}
+\setbeamerfont{section in sidebar}{size=\tiny}
+\setbeamerfont{section number projected}{size=\small,parent={section in toc,projected text}}
+
+\setbeamerfont{subsection name}{size=\large}
+\setbeamerfont{subsection title}{size=\large,parent=title}
+
+\setbeamerfont{subsection in toc}{}
+\setbeamerfont{subsection in toc shaded}{parent=subsection in toc}
+\setbeamerfont{subsection in head/foot}{}
+\setbeamerfont{subsection in sidebar}{}
+
+\setbeamerfont{subsubsection in toc}{size=\footnotesize}
+\setbeamerfont{subsubsection in toc shaded}{parent=subsubsection in toc}
+\setbeamerfont{subsubsection in head/foot}{}
+\setbeamerfont{subsubsection in sidebar}{}
+
+\setbeamerfont{headline}{parent={tiny structure}}
+\setbeamerfont{footline}{parent={tiny structure}}
+
+\setbeamerfont{sidebar}{size=\Tiny,parent={tiny structure}}
+\setbeamerfont{sidebar left}{parent=sidebar}
+\setbeamerfont{sidebar right}{parent=sidebar}
+
+\setbeamerfont{frametitle}{parent=structure,size=\Large}
+\setbeamerfont{framesubtitle}{parent=frametitle,size=\footnotesize}
+
+\setbeamerfont{caption}{size=\small}
+\setbeamerfont{caption name}{parent={structure,caption}}
+
+\setbeamerfont{button}{size=\tiny}
+
+\setbeamerfont{block body}{}
+\setbeamerfont{block body alerted}{}
+\setbeamerfont{block body example}{}
+\setbeamerfont{block title}{size=\large,parent={structure,block body}}
+\setbeamerfont{block title alerted}{parent={block title,alerted text}}
+\setbeamerfont{block title example}{parent={block title,example text}}
+
+\setbeamerfont{item}{parent=structure}
+\setbeamerfont{subitem}{parent=item}
+\setbeamerfont{subsubitem}{parent=subitem}
+
+\setbeamerfont{item projected}{size=\tiny,parent={item,projected text}}
+\setbeamerfont{subitem projected}{parent=item projected}
+\setbeamerfont{subsubitem projected}{parent=subitem projected}
+
+\setbeamerfont{itemize item}{parent=item}
+\setbeamerfont{itemize subitem}{parent=subitem}
+\setbeamerfont{itemize subsubitem}{parent=subsubitem}
+
+\setbeamerfont{enumerate item}{parent=item}
+\setbeamerfont{enumerate subitem}{parent=subitem}
+\setbeamerfont{enumerate subsubitem}{parent=subsubitem}
+
+\setbeamerfont{itemize/enumerate body}{}
+\setbeamerfont{itemize/enumerate subbody}{size=\small}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\footnotesize}
+
+
+\setbeamerfont{description item}{parent=item}
+
+\setbeamerfont{projected text}{parent={tiny structure}}
+
+\setbeamerfont{abstract}{size=\small}
+\setbeamerfont{abstract title}{parent={abstract,structure},size=\normalsize}
+
+\setbeamerfont{verse}{family=\rmfamily,shape=\itshape}
+
+\setbeamerfont{quotation}{shape=\itshape}
+\setbeamerfont{quote}{parent=quotation}
+
+\setbeamerfont{note page}{size=\small}
+\setbeamerfont{note title}{parent=note page}
+\setbeamerfont{note date}{size=\footnotesize}
+%    \end{macrocode}
+%
+% Modus wieder zurückstellen.
+%    \begin{macrocode}
+\mode
+<all>
+%    \end{macrocode}
+%
+%</beamer:theme:font>
+%
 %
 %\Finale
 \endinput
