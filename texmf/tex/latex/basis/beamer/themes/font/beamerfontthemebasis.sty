@@ -1,0 +1,238 @@
+%%
+%% This is file `beamerfontthemebasis.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% basis.dtx  (with options: `beamer:theme:font')
+%% 
+%% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
+%% (c) 2006-2016 Ekkart Kleinod
+%% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerfontthemebasis}
+[2016/09/06 v0.14 Basis-Layout]
+\typeout{*** basis-Stil 2016/09/06 v0.14 ***}
+\ifxetex\else
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\fi
+\ifthenelse{\equal{\BAS@opt@font}{charter}}
+{
+\RequirePackage{charter}
+\RequirePackage[scaled=.95]{helvet}
+\RequirePackage[scaled]{luximono}
+}{}
+\ifthenelse{\equal{\BAS@opt@font}{droid}}
+{
+\RequirePackage{droid}
+}{}
+\ifthenelse{\equal{\BAS@opt@font}{hfold}}
+{
+\RequirePackage{hfoldsty}
+}
+{}
+\ifthenelse{\equal{\BAS@opt@font}{mathpazo}}
+{
+\RequirePackage[osf, slantedGreek]{mathpazo}
+\RequirePackage[scaled=.95]{helvet}
+\RequirePackage[scaled]{luximono}
+}{}
+\ifthenelse{\equal{\BAS@opt@font}{original}}
+{}{}
+\ifthenelse{\equal{\BAS@opt@font}{roboto}}
+{
+\RequirePackage{roboto}
+}{}
+\ifthenelse{\equal{\BAS@opt@font}{times}}
+{
+\RequirePackage{mathptmx}
+\RequirePackage[scaled]{helvet}
+\RequirePackage[scaled]{luximono}
+}{}
+\ifxetex
+\RequirePackage{microtype}
+\else
+\RequirePackage[tracking=true]{microtype}
+\ifthenelse{\equal{\BAS@opt@font}{roboto}}
+{
+\SetTracking[no ligatures = f]{encoding = *, shape = sc}{100}
+}
+{
+\SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
+}
+\fi
+\ifxetex
+\else
+\IfFileExists{marvosym.sty}{
+\RequirePackage{marvosym}
+\mathchardef\Rightarrow="3229
+}{
+\ClassWarning{basis}{marvosym.sty nicht vorhanden}
+}
+\fi
+\ifxetex
+\else
+\IfFileExists{wasysym.sty}{
+\RequirePackage{wasysym}
+}{
+\ClassWarning{basis}{wasysym.sty nicht vorhanden}
+}
+\fi
+\IfFileExists{hologo.sty}{
+\RequirePackage{hologo}
+}{
+\ClassWarning{basis}{hologo.sty nicht vorhanden}
+}
+\RequirePackage{pict2e}
+\newcommand{\basBox}[1][\@empty]{%
+\setkeys{basBox}{#1}%
+\setlength{\unitlength}{\Bas@Box@size}%
+\linethickness{\Bas@Box@line}
+\begin{picture}(1,1)(0,0)%
+\color{\Bas@Box@color}%
+\moveto(0, 0)%
+\lineto(0, 1)%
+\lineto(1, 1)%
+\lineto(1, 0)%
+\closepath%
+\strokepath%
+\ifthenelse{%
+\equal{\Bas@Box@style}{checked}\or%
+\equal{\Bas@Box@style}{crossed}%
+}%
+{\ifthenelse{\equal{\@empty}{\Bas@Box@checkcolor}}%
+{}%
+{\color{\Bas@Box@checkcolor}}%
+}%
+{}%
+\ifthenelse{\equal{\Bas@Box@style}{checked}}%
+{%
+\polyline(0,.4)(.4,.05)(1,1)%
+}%
+{}%
+\ifthenelse{\equal{\Bas@Box@style}{crossed}}%
+{%
+\Line(0,0)(1,1)%
+\Line(0,1)(1,0)%
+}%
+{}%
+\end{picture}%
+}
+
+
+
+\setbeamerfont{normal text}{} % ignored currently
+\setbeamerfont{alerted text}{}
+\setbeamerfont{example text}{}
+
+\setbeamerfont{structure}{}
+\setbeamerfont{tiny structure}{size=\tiny}
+
+\setbeamerfont{title}{size=\Large, shape=\scshape, parent=structure}
+\setbeamerfont{title in head/foot}{}
+\setbeamerfont{title in sidebar}{size=\tiny}
+
+\setbeamerfont{subtitle}{size=\normalsize, shape=\normalfont, parent=title}
+
+\setbeamerfont{author}{}
+\setbeamerfont{author in head/foot}{}
+\setbeamerfont{author in sidebar}{size=\tiny}
+
+\setbeamerfont{institute}{size=\scriptsize}
+\setbeamerfont{institute in head/foot}{}
+\setbeamerfont{institute in sidebar}{}
+
+\setbeamerfont{date}{}
+\setbeamerfont{date in head/foot}{}
+\setbeamerfont{date in sidebar}{}
+
+\setbeamerfont{part name}{size=\LARGE}
+\setbeamerfont{part title}{size=\LARGE,parent=title}
+
+\setbeamerfont{section name}{size=\Large}
+\setbeamerfont{section title}{parent=title}
+
+\setbeamerfont{section in toc}{parent=structure}
+\setbeamerfont{section in toc shaded}{parent=section in toc}
+\setbeamerfont{section in head/foot}{}
+\setbeamerfont{section in sidebar}{size=\tiny}
+\setbeamerfont{section number projected}{size=\small,parent={section in toc,projected text}}
+
+\setbeamerfont{subsection name}{size=\large}
+\setbeamerfont{subsection title}{size=\large,parent=title}
+
+\setbeamerfont{subsection in toc}{}
+\setbeamerfont{subsection in toc shaded}{parent=subsection in toc}
+\setbeamerfont{subsection in head/foot}{}
+\setbeamerfont{subsection in sidebar}{}
+
+\setbeamerfont{subsubsection in toc}{size=\footnotesize}
+\setbeamerfont{subsubsection in toc shaded}{parent=subsubsection in toc}
+\setbeamerfont{subsubsection in head/foot}{}
+\setbeamerfont{subsubsection in sidebar}{}
+
+\setbeamerfont{headline}{parent={tiny structure}}
+\setbeamerfont{footline}{parent={tiny structure}}
+
+\setbeamerfont{sidebar}{size=\Tiny,parent={tiny structure}}
+\setbeamerfont{sidebar left}{parent=sidebar}
+\setbeamerfont{sidebar right}{parent=sidebar}
+
+\setbeamerfont{frametitle}{parent=structure,size=\Large}
+\setbeamerfont{framesubtitle}{parent=frametitle,size=\footnotesize}
+
+\setbeamerfont{caption}{size=\small}
+\setbeamerfont{caption name}{parent={structure,caption}}
+
+\setbeamerfont{button}{size=\tiny}
+
+\setbeamerfont{block body}{}
+\setbeamerfont{block body alerted}{}
+\setbeamerfont{block body example}{}
+\setbeamerfont{block title}{size=\large,parent={structure,block body}}
+\setbeamerfont{block title alerted}{parent={block title,alerted text}}
+\setbeamerfont{block title example}{parent={block title,example text}}
+
+\setbeamerfont{item}{parent=structure}
+\setbeamerfont{subitem}{parent=item}
+\setbeamerfont{subsubitem}{parent=subitem}
+
+\setbeamerfont{item projected}{size=\tiny,parent={item,projected text}}
+\setbeamerfont{subitem projected}{parent=item projected}
+\setbeamerfont{subsubitem projected}{parent=subitem projected}
+
+\setbeamerfont{itemize item}{parent=item}
+\setbeamerfont{itemize subitem}{parent=subitem}
+\setbeamerfont{itemize subsubitem}{parent=subsubitem}
+
+\setbeamerfont{enumerate item}{parent=item}
+\setbeamerfont{enumerate subitem}{parent=subitem}
+\setbeamerfont{enumerate subsubitem}{parent=subsubitem}
+
+\setbeamerfont{itemize/enumerate body}{}
+\setbeamerfont{itemize/enumerate subbody}{size=\small}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\footnotesize}
+
+\setbeamerfont{description item}{parent=item}
+
+\setbeamerfont{projected text}{parent={tiny structure}}
+
+\setbeamerfont{abstract}{size=\small}
+\setbeamerfont{abstract title}{parent={abstract,structure},size=\normalsize}
+
+\setbeamerfont{verse}{family=\rmfamily,shape=\itshape}
+
+\setbeamerfont{quotation}{shape=\itshape}
+\setbeamerfont{quote}{parent=quotation}
+
+\setbeamerfont{note page}{size=\small}
+\setbeamerfont{note title}{parent=note page}
+\setbeamerfont{note date}{size=\footnotesize}
+\mode
+<all>
+%% 
+%% (c) 2006-2016 Ekkart Kleinod
+%%
+%% End of file `beamerfontthemebasis.sty'.

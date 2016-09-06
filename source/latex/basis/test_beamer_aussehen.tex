@@ -1,0 +1,125 @@
+\documentclass[t, aspectratio=169, ngerman]{beamer}
+%\documentclass[aspectratio=169, notes=show, ngerman]{beamer}
+%\documentclass[aspectratio=169, handout, ngerman]{beamer}
+%\documentclass[aspectratio=169, handout, notes=show, ngerman]{beamer}
+%\documentclass[aspectratio=169, handout, notes=only, ngerman]{beamer}
+
+% t: Texte oben ausgerichtet
+% aspectratio: 169, 1610, 149, 54, 32, 43
+
+%\usetheme{basis}
+%\usetheme[titleprogressbar]{basis}
+%\usetheme[totalnumber]{basis}
+\usetheme[nonumber]{basis}
+%\usetheme[nonumber,noauthor]{basis}
+
+\usepackage[pangram]{blindtext}
+
+\subject{Thema}
+\title{Titel}
+\subtitle{Untertitel}
+\author{Autor 1 \and Autor 2 \and Autor 3}
+\date{\today}
+
+\logo{\includegraphics[width=5em]{testlogo}}
+
+\begin{document}
+
+	\maketitle
+
+	\begin{frame}
+		Nicht vergessen: mit \hologo{pdfLaTeX} oder \hologo{XeLaTeX} übersetzen.
+
+		Diese Präsentation dient zur Überprüfung des Aussehens und dessen Definition, nicht als Beispiel.
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Agenda}
+		\tableofcontents
+	\end{frame}
+
+	\section{Normaler Text}
+
+	\begin{frame}{Text}
+		\Blindtext[1][4]
+	\end{frame}
+
+	\begin{frame}{Langer Text}
+		\Blindtext[2][4]
+	\end{frame}
+
+	\begin{frame}{Text mit Auszeichnungen und Fußnoten}
+		Prall vom \emph{Whisky}\footnote{emph} flog \textbf{Quax}\footnote{textbf} den Jet zu Bruch.
+		Jeder \textit{wackere}\footnote{textit} Bayer \textsl{vertilgt}\footnote{textsl} bequem zwo Pfund Kalbshaxen.
+		Stanleys \alert{Expeditionszug}\footnote{alert} quer durch Afrika wird von jedermann bewundert.
+		Zwölf Boxkämpfer \texttt{jagen Viktor}\footnote{texttt} quer über den großen Sylter Deich.
+	\end{frame}
+
+	\section{Aufzählungen}
+
+	\begin{frame}{Unnumeriert}
+		\blindlistlist[1]{itemize}[3]
+	\end{frame}
+
+	\begin{frame}{Unnumeriert}
+		\blindlistlist[3]{itemize}[3]
+	\end{frame}
+
+	\begin{frame}{Unnumeriert mit langem Text}
+		\Blindlist{itemize}[2]
+	\end{frame}
+
+	\begin{frame}{Numeriert}
+		\blindlistlist[1]{enumerate}[3]
+	\end{frame}
+
+	\begin{frame}{Numeriert}
+		\blindlistlist[3]{enumerate}[3]
+	\end{frame}
+
+	\begin{frame}{Beschreibung}
+		\blindlistoptional{description}[3]
+	\end{frame}
+
+	\section{Grafiken}
+
+	\begin{frame}{Eingebundenes PDF}
+		\includegraphics{testlogo}
+	\end{frame}
+
+	\begin{frame}{Eingebundenes PDF als Figure (1)}
+		\begin{figure}
+			\includegraphics{testlogo}
+			\caption{Bildunterschrift unter Bild.}
+		\end{figure}
+		\note[item]{Anmerkung dazu.}
+	\end{frame}
+
+	\begin{frame}{Eingebundenes PDF als Figure (2)}
+		\begin{figure}
+			\caption{Bildunterschrift über Bild.}
+			\includegraphics{testlogo}
+		\end{figure}
+	\end{frame}
+
+	\section{Mathematik}
+
+	\begin{frame}{Formeln im Fließtext}
+		\blindmathtrue
+		\Blindtext[1][5]
+		\blindmathfalse
+	\end{frame}
+
+	\begin{frame}{Einzelne Formeln}
+		\begin{align}
+			a^2 + b^2 &= c^2\\
+			(a+b)^2 &= a^2 + 2ab + b^2
+		\end{align}
+	\end{frame}
+
+	\begin{frame}[plain]{Ende}
+		\Huge{Ende.}
+	\end{frame}
+
+\end{document}
+

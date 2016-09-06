@@ -1,0 +1,647 @@
+%\usetheme{basis}
+%\usetheme[titleprogressbar]{basis}
+%\usetheme[totalnumber]{basis}
+\usetheme[nonumber]{basis}
+
+\mode<presentation> {
+	\setbeameroption{hide notes} % keine Anmerkungen, nur Präsentation; default, muss man nicht angeben
+	%\setbeameroption{show notes} % alle Anmerkungen in Präsentation
+	%\setbeameroption{show only notes} % nur Anmerkungen, keine Präsentation
+}
+
+\mode<handout> {
+	%\usepackage{pgfpages}
+	%\pgfpagesuselayout{2 on 1}[a4paper, border shrink=5mm]
+	%\pgfpagesuselayout{4 on 1}[a4paper, landscape, border shrink=5mm]
+}
+
+\mode<article>{
+	\usepackage{basis}
+	\usepackage{pgfpages}
+
+	% ugly fix tabular problem of komascript
+	\renewcommand{\and}{, }
+}
+
+
+
+\usepackage[pangram]{blindtext}
+
+\subject{Thema}
+\title{Titel}
+\subtitle{Untertitel}
+\author{Autor 1\and Autor 2\and Autor 3}
+\date{6. Januar 2016}
+
+\AtBeginLecture{\frame{\Large Heute: \insertlecture}}
+
+\begin{document}
+
+	%\includeonlylecture{abend2}
+
+	\maketitle
+
+	\mode<article>{
+		Frame: \insertframenumber
+
+		%\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+	\mode<article>{
+		Frame: \insertframenumber
+
+		%\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+	\begin{frame}
+		Nicht vergessen: mit \hologo{pdfLaTeX} oder \hologo{XeLaTeX} übersetzen.
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}
+		\begin{abstract}
+			Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
+			Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
+			Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
+			Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
+			Diese Datei zeigt die verschiedenen Möglichkeiten mit Beamer.
+		\end{abstract}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\section*{Agendas}
+
+	\begin{frame}{Agenda}
+		\tableofcontents
+
+		Leer, da Parts benutzt wurden.
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\subsection*{Teil 1: der erste Abend}
+
+	\begin{frame}{Agenda Teil 1}
+		\tableofcontents[part=1, subsectionstyle=hide]
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\subsection*{Teil 2: der zweite Abend}
+
+	\begin{frame}{Agenda Teil 2 zum Aufklappen}
+		\tableofcontents[part=2, pausesections]
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+
+
+	\lecture{Erster Abend: SRaT}{abend1}
+
+
+	\part{Teil 1: der erste Abend}
+
+	\frame{\partpage}
+
+	\section{Normaler Text}
+
+	\begin{frame}{Text}
+		Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+		Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+		Vogel Quax zwickt Johnys Pferd Bim.
+		Sylvia wagt quick den Jux bei Pforzheim.
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+	\subsection{Unterpunkt normaler Text}
+
+	\begin{frame}{Text}
+		Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+		Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+		Vogel Quax zwickt Johnys Pferd Bim.
+		Sylvia wagt quick den Jux bei Pforzheim.
+	\end{frame}
+
+	\section{Besondere Umgebungen}
+
+	\begin{frame}{Verse}
+		\begin{verse}
+			Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+			Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+
+			Vogel Quax zwickt Johnys Pferd Bim.
+			Sylvia wagt quick den Jux bei Pforzheim.
+
+			Prall vom Whisky flog Quax den Jet zu Bruch.\\
+			Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.\\
+			Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.\\
+		\end{verse}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Quotation}
+		\begin{quotation}
+			Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+			Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+
+			Vogel Quax zwickt Johnys Pferd Bim.
+			Sylvia wagt quick den Jux bei Pforzheim.
+
+			Prall vom Whisky flog Quax den Jet zu Bruch.
+			Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.
+			Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.
+		\end{quotation}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Quote}
+		\begin{quote}
+			Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+			Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+
+			Vogel Quax zwickt Johnys Pferd Bim.
+			Sylvia wagt quick den Jux bei Pforzheim.
+
+			Prall vom Whisky flog Quax den Jet zu Bruch.
+			Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.
+			Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.
+		\end{quote}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}<1>[plain, label=end]{Ende}
+		\Huge{Ende.}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+
+
+
+
+
+	\lecture{Zweiter Abend: OSR}{abend2}
+
+
+	\part{Teil 2: der zweite Abend}
+
+	\frame{\partpage}
+
+	\section{Normaler Text}
+
+	\begin{frame}{Text}
+		Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+		Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+		Vogel Quax zwickt Johnys Pferd Bim.
+		Sylvia wagt quick den Jux bei Pforzheim.
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Langer Text}
+		Prall vom Whisky flog Quax den Jet zu Bruch.
+		Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.
+		Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.
+		Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+
+		Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+		Vogel Quax zwickt Johnys Pferd Bim.
+		Sylvia wagt quick den Jux bei Pforzheim.
+		Prall vom Whisky flog Quax den Jet zu Bruch.
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Text mit Auszeichnungen und Fußnoten}
+		Prall vom \emph{Whisky}\footnote{emph} flog \textbf{Quax}\footnote{textbf} den Jet zu Bruch.
+		Jeder \textit{wackere}\footnote{textit} Bayer \textsl{vertilgt}\footnote{textsl} bequem zwo Pfund Kalbshaxen.
+		Stanleys \alert{Expeditionszug}\footnote{alert} quer durch Afrika wird von jedermann bewundert.
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Ein Zitat (quote)}
+		Prall vom Whisky flog Quax den Jet zu Bruch.
+
+		\begin{quote}
+			Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.
+
+			Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.
+			Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+		\end{quote}
+
+		Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Ein Zitat (quotation)}
+		Prall vom Whisky flog Quax den Jet zu Bruch.
+
+		\begin{quotation}
+			Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.
+
+			Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert.
+			Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.
+		\end{quotation}
+
+		Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\section{Aufzählungen}
+
+	\begin{frame}{Agenda für diese Section}
+		\tableofcontents[currentsection]
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\subsection{Aufzählungen ohne Nummern}
+
+	\begin{frame}{Unnumeriert}
+		\begin{itemize}
+			\item Erster Listenpunkt, Stufe 1
+			\item Zweiter Listenpunkt, Stufe 1
+			\item Dritter Listenpunkt, Stufe 1
+		\end{itemize}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Unnumeriert mit Pause}
+		\begin{itemize}
+			\item Erster Listenpunkt, Stufe 1
+				\pause
+			\item Zweiter Listenpunkt, Stufe 1
+				\pause
+			\item Dritter Listenpunkt, Stufe 1
+		\end{itemize}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Unnumeriert mit hervorgehobenem Aufdecken}
+		\begin{itemize}
+			\item<+-| alert@+> Erster Listenpunkt
+			\item<+-| alert@+> Zweiter Listenpunkt
+			\item<+-| alert@+> Dritter Listenpunkt
+			\item<+-| alert@+> Vierter Listenpunkt
+		\end{itemize}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Unnumeriert mit hervorgehobenem Aufdecken (vereinfacht)}
+		\begin{itemize}[<+-| alert@+>]
+			\item Erster Listenpunkt
+			\item Zweiter Listenpunkt
+			\item Dritter Listenpunkt
+			\item Vierter Listenpunkt
+		\end{itemize}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\subsection{Aufzählungen mit Nummern}
+
+	\begin{frame}{Numeriert}
+		\begin{enumerate}
+			\item Erster Listenpunkt, Stufe 1
+			\item Zweiter Listenpunkt, Stufe 1
+			\item Dritter Listenpunkt, Stufe 1
+		\end{enumerate}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\subsection{Aufzählungen mit Beschreibungstexten}
+
+	\begin{frame}{Beschreibung}
+		\begin{description}
+			\item[Erster] Listenpunkt, Stufe 1
+			\item[Zweiter] Listenpunkt, Stufe 1
+			\item[Dritter] Listenpunkt, Stufe 1
+		\end{description}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\section{Grafiken}
+
+	\begin{frame}{Eingebundenes PDF}
+		\includegraphics{testlogo}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Eingebundenes PDF skaliert}
+		\includegraphics[width=\textwidth]{testlogo}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	% Modus benutzen, da sonst Übersetzungsfehler bei Artikeln
+	\mode<presentation>{
+		\AtBeginNote{Anfangsanmerkung für alle Bilder.}
+		\AtEndNote{Endanmerkung für alle Bilder.}
+	}
+	\begin{frame}{Eingebundenes PDF aufpoppend mit gemeinsamen Anmerkungen}
+		\includegraphics<1->{testlogo}
+		\note[item]{Eine Anmerkung zum ersten Bild.}
+		\note[item]{Eine zweite Anmerkung zum ersten Bild.}
+		\includegraphics<2->{testlogo}
+		\note[item]{Eine Anmerkung zum zweiten Bild.}
+		\includegraphics<3->{testlogo}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Eingebundenes PDF aufpoppend mit getrennten Anmerkungen}
+		\includegraphics<1->{testlogo}
+		\note[item]<1>{Eine Anmerkung zum ersten Bild.}
+		\note[item]<1>{Eine zweite Anmerkung zum ersten Bild.}
+		\includegraphics<2->{testlogo}
+		\note[item]<2>{Eine Anmerkung zum zweiten Bild.}
+		\includegraphics<3->{testlogo}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+	% wieder ausschalten
+	\mode<presentation>{
+		\AtBeginNote{}
+		\AtEndNote{}
+	}
+
+	\begin{frame}{Eingebundenes PDF als Figure (1)}
+		\begin{figure}
+			\includegraphics{testlogo}
+			\caption{Bildunterschrift unter Bild.}
+		\end{figure}
+		\note[item]{Anmerkung dazu.}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Eingebundenes PDF als Figure (2)}
+		\begin{figure}
+			\caption{Bildunterschrift über Bild.}
+			\includegraphics{testlogo}
+		\end{figure}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\section{Spezielles}
+
+	\begin{frame}{Definition und Beispiel}
+		\begin{definition}
+			Hier ist eine Definition.
+		\end{definition}
+		\begin{example}
+			Hier ist ein Beispiel dazu.
+		\end{example}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Satz und Beweis mit Aufblättern}
+		\begin{theorem}
+			Eine Behauptung.
+		\end{theorem}
+		\begin{proof}
+			\begin{enumerate}
+				\item<1-> Sei es so.
+				\item<2-> Dann folgt dies daraus.
+				\item<1-> Damit gilt das immer.\qedhere
+			\end{enumerate}
+		\end{proof}
+		\uncover<3->{Ui.}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Horizontale Blöcke}
+		\begin{block}{Block 1}
+			Inhalt des ersten Blocks.
+		\end{block}
+		\begin{block}{Block 2}
+			Inhalt des zweiten Blocks.
+
+			Auch Inhalt des zweiten Blocks.
+		\end{block}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\begin{frame}{Vertikale Blöcke (Spalten)}
+		\begin{columns}
+			\column{.3\textwidth}
+				\begin{block}{Block 1}
+					Inhalt des ersten Blocks.
+				\end{block}
+			\column{.7\textwidth}
+				\begin{block}{Block 2}
+					Inhalt des zweiten Blocks.
+
+					Auch Inhalt des zweiten Blocks.
+				\end{block}
+		\end{columns}
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+\begin{frame}[fragile]{Code und anderer Verbatimtext.}
+\begin{verbatim}
+function returnNull() {
+return null;
+}
+\end{verbatim}
+\begin{uncoverenv}<2>
+Note the use of \verb|null|.
+\end{uncoverenv}
+\end{frame}
+% wichtig: nicht einrücken, sonst Fehler
+
+	\begin{frame}{Kein wiederholter Frame.}
+
+		Wiederholungen werden schwierig und dem schöneren Artikel geopfert.
+
+		Dafür werden dort keine Frames in den Text integriert, sondern sind einfach als Bild einbindbar.
+
+	\end{frame}
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+
+
+
+
+	\appendix
+
+	\section{\appendixname}
+
+	\frame{\tableofcontents}
+
+	\subsection{Zusatzmaterial}
+
+	\frame{Details}
+	\frame{Text, der im Hauptteil fehlt.}
+
+	\subsection{Noch mehr Zusatzmaterial}
+
+	\frame{Mehr Details.}
+
+	\mode<article>{
+		Frame: \insertframenumber
+
+		\fbox{\pgfimage[page=\insertframenumber, width=.5\textwidth]{test_beamer.handout}}
+	}
+
+\end{document}
+

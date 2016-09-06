@@ -7,13 +7,13 @@
 %% basis.dtx  (with options: `basbrief')
 %% 
 %% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
-%% (c) 2006-2014 Ekkart Kleinod
+%% (c) 2006-2016 Ekkart Kleinod
 %% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{basbrief}
-[2014/11/13 v0.13 Basis-Layout]
-\typeout{*** basis-Stil 2014/11/13 v0.13 ***}
+[2016/09/06 v0.14 Basis-Layout]
+\typeout{*** basis-Stil 2016/09/06 v0.14 ***}
 \RequirePackage{xkeyval}
 \RequirePackage{xifthen}
 \RequirePackage{ifxetex}
@@ -42,6 +42,7 @@
 \equal{#1}{hfold}\or
 \equal{#1}{mathpazo}\or
 \equal{#1}{original}\or
+\equal{#1}{roboto}\or
 \equal{#1}{times}
 }
 {\renewcommand{\BAS@opt@font}{#1}}
@@ -108,6 +109,12 @@
 \renewcommand{\BAS@opt@foldmarks}{off}
 \typeout{Basis-Option 'nofoldmarks'}
 }
+\newboolean{BAS@opt@nosponsorlogo}
+\setboolean{BAS@opt@nosponsorlogo}{false}
+\DeclareOptionX{nosponsorlogo}{
+\setboolean{BAS@opt@nosponsorlogo}{true}
+\typeout{Basis-Option 'nosponsorlogo'}
+}
 \newcommand{\BAS@opt@titlepage}{on}
 \DeclareOptionX{notitlepage}{
 \renewcommand{\BAS@opt@titlepage}{off}
@@ -117,6 +124,13 @@
 \DeclareOptionX{oneside}{
 \renewcommand{\BAS@opt@twoside}{off}
 \typeout{Basis-Option 'oneside'}
+}
+\newcommand{\BAS@opt@orientation}{portrait}
+\DeclareOptionX{orientation}{
+\ifthenelse{\isempty{#1}}
+{}
+{\renewcommand{\BAS@opt@orientation}{#1}}
+\typeout{Basis-Option 'orientation=\BAS@opt@orientation'}
 }
 \newboolean{BAS@opt@protocol}
 \setboolean{BAS@opt@protocol}{false}
@@ -160,7 +174,7 @@ checkcolor=\@empty,
 size=1.4ex,
 line=1pt
 }{}
-\ProcessOptionsX%*\relax
+\ProcessOptionsX
 \newlength{\BAS@len@rule}
 \setlength{\BAS@len@rule}{.4pt}
 \KOMAoptions{
@@ -169,6 +183,7 @@ draft=\BAS@opt@draft,
 fontsize=\BAS@opt@fontsize,
 footnotes=multiple,
 paper=a4,
+paper=\BAS@opt@orientation,
 parskip=half,
 twocolumn=off,
 twoside=\BAS@opt@twoside
@@ -177,7 +192,8 @@ twoside=\BAS@opt@twoside
 {
 \KOMAoptions{
 backaddress=\BAS@opt@backaddress,
-foldmarks=\BAS@opt@foldmarks
+foldmarks=\BAS@opt@foldmarks,
+enlargefirstpage=on
 }
 }
 {
@@ -229,14 +245,28 @@ open=right
 }{}
 \ifthenelse{\equal{\BAS@opt@font}{original}}
 {}{}
+\ifthenelse{\equal{\BAS@opt@font}{roboto}}
+{
+\RequirePackage{roboto}
+}{}
 \ifthenelse{\equal{\BAS@opt@font}{times}}
 {
 \RequirePackage{mathptmx}
 \RequirePackage[scaled]{helvet}
 \RequirePackage[scaled]{luximono}
 }{}
+\ifxetex
+\RequirePackage{microtype}
+\else
 \RequirePackage[tracking=true]{microtype}
+\ifthenelse{\equal{\BAS@opt@font}{roboto}}
+{
+\SetTracking[no ligatures = f]{encoding = *, shape = sc}{100}
+}
+{
 \SetTracking[no ligatures = f]{encoding = *, shape = sc}{120}
+}
+\fi
 \ifxetex
 \else
 \IfFileExists{marvosym.sty}{
@@ -295,7 +325,7 @@ open=right
 \end{picture}%
 }
 \RequirePackage{graphicx}
-\RequirePackage[svgnames]{xcolor}
+\RequirePackage[svgnames, table]{xcolor}
 \RequirePackage{pdfcolmk}
 \RequirePackage{longtable}
 \RequirePackage{array}
@@ -397,8 +427,12 @@ colorlinks=true
 }
 }
 \newcommand{\sponsorlogo}[1]{
+\ifthenelse{\boolean{BAS@opt@nosponsorlogo}}
+{}
+{
 \RequirePackage{background}
 \backgroundsetup{contents=\includegraphics{#1}, placement=bottom, scale=1, opacity=1, vshift=5mm}
+}
 }
 \newcommand{\briefkopf}[1]{\def\BAS@briefkopf{#1}}
 \AtBeginDocument{
@@ -563,6 +597,7 @@ colorlinks=true
 \setlist[enumerate,3]{label=\roman*, ref=\theenumii.\roman*}
 \setlist[enumerate,4]{label=\Alph*, ref=\theenumiii.\Alph*}
 }
+\setlist[description]{style=nextline, font=\normalfont}
 \deffootnote{1.5em}{1em}{\makebox[1.5em][l]{\textsuperscript\thefootnotemark}}
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
 \@addtoreset{equation}{section}
@@ -655,6 +690,6 @@ colorlinks=true
 \@afterheading
 }
 %% 
-%% (c) 2006-2014 Ekkart Kleinod
+%% (c) 2006-2016 Ekkart Kleinod
 %%
 %% End of file `basbrief.sty'.

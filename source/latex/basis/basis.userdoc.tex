@@ -52,10 +52,11 @@ Folgende Dateien gehören zum Basis-Stil:
 		basis-mmd-style.tex
 		basis.sty
 		baskopfzeile.lco
+	/tex/latex/basis/beamer/themes/color
 		beamercolorthemebasis.sty
+	/tex/latex/basis/beamer/themes/font
 		beamerfontthemebasis.sty
-		beamerinnerthemebasis.sty
-		beamerouterthemebasis.sty
+	/tex/latex/basis/beamer/themes/theme
 		beamerthemebasis.sty
 \end{verbatim}
 }
@@ -135,7 +136,7 @@ Die Pakete sind (alphabetisch sortiert):
 	\paket{scrpage2}\>selbst definierte Kopf- bzw.\ Fußzeilen\\
 	\paket{tabu}\>Tabellenerweiterung\\
 	\paket{wasysym}\>Sonderzeichen (wenn Paket fehlt, wird eine Warnung ausgegeben)\\
-	\paket{xcolor}\>Textfärbung (mit Option \option{svgnames})\\
+	\paket{xcolor}\>Textfärbung (mit Optionen \option{svgnames} und \option{table})\\
 	\paket{xifthen}\>vereinfachte if-then-Abfragen\\
 	\paket{xkeyval}\>key-value-Optionen
 \end{tabbing}
@@ -165,7 +166,7 @@ Die Optionen des \paket{basis}-Pakets werden einzeln erläutert, sie können auc
 		\>\befehl{usepackage[draft, font=charter]\{basis\}}
 \end{nutzung}
 
-Mögliche Optionen: \option{draft}, \option{final}, \option{font}, \option{fontsize}, \option{hypercolor}, \option{hyperdriver}, \option{layout}, \option{noauthor}, \option{nobackaddress}, \option{nofoldmarks}, \option{notitlepage}, \option{oneside}, \option{pagestyle}, \option{protocol}, \option{rules}
+Mögliche Optionen: \option{draft}, \option{final}, \option{font}, \option{fontsize}, \option{hypercolor}, \option{hyperdriver}, \option{layout}, \option{noauthor}, \option{nobackaddress}, \option{nofoldmarks}, \option{nosponsorlogo}, \option{notitlepage}, \option{oneside}, \option{pagestyle}, \option{protocol}, \option{rules}
 
 \subsubsection{draft}
 
@@ -216,7 +217,7 @@ Standard: \option{11pt}
 
 Die Option \option{hypercolor} färbt Referenzen in der gewünschten Farbe.
 Die verfügbaren Farbnamen sind in der Dokumentation des Pakets \paket{xcolor} zu finden.
-Bei der Einbindung von \paket{xcolor} wird die Option \option{svgnames} gesetzt, so dass mehr Farbnamen zur Verfügung stehen.
+Bei der Einbindung von \paket{xcolor} werden die Optionen \option{svgnames} und \option{table} gesetzt, so dass mehr Farbnamen zur Verfügung stehen und das Paket \paket{colortbl} geladen wird, mit dem Tabellen eingefärbt werden können.
 
 Standard: \option{schwarz}
 
@@ -290,6 +291,25 @@ Die Option wird nur bei Briefen ausgewertet.
 		\>\befehl{usepackage[nofoldmarks]\{basis\}}\\
 \end{nutzung}
 
+
+\subsubsection{nosponsorlogo}
+
+Die \option{nosponsorlogo}-Option unterdrückt die Ausgabe des Sponsorlogos.
+
+\begin{nutzung}
+		\>\befehl{usepackage[nosponsorlogo]\{basis\}}\\
+\end{nutzung}
+
+
+\subsubsection{oneside}
+
+Die \option{oneside}-Option setzt den Text einseitig,
+
+\begin{nutzung}
+		\>\befehl{usepackage[oneside]\{basis\}}\\
+\end{nutzung}
+
+
 \subsubsection{notitlepage}
 
 Die \option{notitlepage}-Option unterdrückt eine separate Titelseite und setzt stattdessen eine laufende Titelseite im Fließtext.
@@ -307,6 +327,23 @@ Die \option{oneside}-Option setzt den Text einseitig,
 \begin{nutzung}
 		\>\befehl{usepackage[oneside]\{basis\}}\\
 \end{nutzung}
+
+
+\subsubsection{orientation}
+
+Die Option \option{orientation} setzt die Seitenorientierung: hoch- oder querkant.
+
+Standard: \option{portrait}
+
+Andere Werte: \option{landscape}, \option{seascape}
+
+\begin{nutzung}
+		\>\befehl{usepackage[orientation=\meta{Orientierung}]\{basis\}}\\
+	\beispiel
+		\>\befehl{usepackage[orientation=landscape]\{basis\}}
+\end{nutzung}
+
+
 
 \subsubsection{pagestyle}
 

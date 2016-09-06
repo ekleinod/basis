@@ -1,0 +1,288 @@
+%%
+%% This is file `beamerthemebasis.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% basis.dtx  (with options: `beamer:theme')
+%% 
+%% Der Basis-Stil steht unter dem Copyright von Ekkart Kleinod.
+%% (c) 2006-2016 Ekkart Kleinod
+%% Lizenz: Creative-Commons-Lizenz Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemebasis}
+[2016/09/06 v0.14 Basis-Layout]
+\typeout{*** basis-Stil 2016/09/06 v0.14 ***}
+\RequirePackage{xkeyval}
+\RequirePackage{xifthen}
+\RequirePackage{ifxetex}
+\RequirePackage{ifpdf}
+\newcommand{\BAS@opt@font}{times}
+\renewcommand{\BAS@opt@font}{roboto}
+\DeclareOptionX{font}{
+\ifthenelse{\equal{\@empty}{#1}}
+{}
+{
+\ifthenelse{
+\equal{#1}{charter}\or
+\equal{#1}{droid}\or
+\equal{#1}{hfold}\or
+\equal{#1}{mathpazo}\or
+\equal{#1}{original}\or
+\equal{#1}{roboto}\or
+\equal{#1}{times}
+}
+{\renewcommand{\BAS@opt@font}{#1}}
+{\PackageWarning{basis}{Font '#1' unbekannt, nutze '\BAS@opt@font'}}
+}
+\typeout{Basis-Option 'font=\BAS@opt@font'}
+}
+\newcommand{\BAS@opt@fontsize}{11pt}
+\DeclareOptionX{fontsize}{
+\ifthenelse{\equal{\@empty}{#1}}
+{}
+{\renewcommand{\BAS@opt@fontsize}{#1}}
+\typeout{Basis-Option 'fontsize=\BAS@opt@fontsize'}
+}
+\newboolean{BAS@opt@noauthor}
+\setboolean{BAS@opt@noauthor}{false}
+\DeclareOptionX{noauthor}{
+\setboolean{BAS@opt@noauthor}{true}
+\typeout{Basis-Option 'noauthor'}
+}
+\newboolean{BAS@opt@nonumber}
+\setboolean{BAS@opt@nonumber}{false}
+\DeclareOptionX{nonumber}{
+\setboolean{BAS@opt@nonumber}{true}
+\typeout{Basis-Option 'nonumber'}
+}
+\newboolean{BAS@opt@titleprogressbar}
+\setboolean{BAS@opt@titleprogressbar}{false}
+\DeclareOptionX{titleprogressbar}{
+\setboolean{BAS@opt@titleprogressbar}{true}
+\typeout{Basis-Option 'titleprogressbar'}
+}
+\newboolean{BAS@opt@totalnumber}
+\setboolean{BAS@opt@totalnumber}{false}
+\DeclareOptionX{totalnumber}{
+\setboolean{BAS@opt@totalnumber}{true}
+\typeout{Basis-Option 'totalnumber'}
+}
+\ProcessOptionsX
+\RequirePackage{babel}
+\useshorthands{"}
+\AtEndOfClass{\shorthandon{"}}
+\RequirePackage{tikz}
+\usetikzlibrary{backgrounds}
+\usecolortheme{basis}
+\usefonttheme{basis}
+\newdimen\bas@progbar@height
+\newdimen\bas@progbar@frametitlewidth
+\newdimen\bas@progbar@width
+\bas@progbar@frametitlewidth=.5\paperwidth
+\bas@progbar@height=0.4pt
+\setbeamertemplate{background canvas}{%
+}
+\let\bas@orig@maketitle=\maketitle
+\def\maketitle{
+\mode<article>{
+\bas@orig@maketitle
+}
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+}
+\setbeamertemplate{title page}{
+\begin{minipage}[b][\paperheight]{\textwidth}
+\vfill
+\ifthenelse{\equal{\@empty}{\inserttitle}}
+{}
+{%
+{
+\raggedright
+\linespread{1.0}
+\usebeamerfont{title}
+\usebeamercolor[fg]{title}
+\inserttitle
+\par
+}
+\vspace*{.3ex}
+}
+\ifthenelse{\equal{\@empty}{\insertsubtitle}}
+{}
+{%
+{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+\vspace*{0.5ex}
+}
+\begin{tikzpicture}
+\draw[bas@col@alert] (0, 0) -- (\textwidth, 0);
+\end{tikzpicture}
+\vspace*{1ex}
+\ifthenelse{\boolean{BAS@opt@noauthor}}
+{}
+{%
+\ifx\insertauthor\@empty\else
+{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
+\vspace*{0.25ex}
+\fi
+}
+\ifthenelse{\equal{\@empty}{\insertdate}}
+{}
+{%
+{\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
+\vspace*{.3ex}
+}
+\ifthenelse{\equal{\@empty}{\insertinstitute}}
+{}
+{
+{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}
+}
+\vfill
+\vspace*{2ex}
+\end{minipage}
+}
+\setlength{\leftmargini}{1em}
+\setlength{\leftmarginii}{1em}
+\setlength{\leftmarginiii}{1em}
+
+\setbeamertemplate{itemize item}{\textendash}
+\setbeamertemplate{itemize subitem}{\textbullet}
+\setbeamertemplate{itemize subsubitem}{\textperiodcentered}
+
+\setlength{\parskip}{0.5em}
+\setbeamertemplate{section title}{
+\usebeamerfont{section title}
+
+\bas@progbar@width=\bas@progbar@frametitlewidth
+\multiply\bas@progbar@width by \insertframenumber
+\divide\bas@progbar@width by \inserttotalframenumber
+
+\vskip .3\paperheight
+\hspace{.2\bas@progbar@frametitlewidth}
+\parbox{\bas@progbar@frametitlewidth}{%
+\insertsectionhead
+
+\begin{tikzpicture}[tight background]
+\draw[anchor=west, bas@col@progempty, fill=bas@col@progempty, inner sep=0pt]
+(0pt, 0pt) rectangle ++ (\bas@progbar@frametitlewidth, \bas@progbar@height);
+
+\draw[anchor=west, bas@col@progfilled, fill=bas@col@progfilled, inner sep=0pt]
+(0pt, 0pt) rectangle ++ (\bas@progbar@width, \bas@progbar@height);
+\end{tikzpicture}
+}
+}
+\AtBeginSection[]
+{
+\begingroup
+\begin{frame}[plain]
+\usebeamertemplate{section title}
+\end{frame}
+\endgroup
+}
+\setbeamertemplate{subsection title}{
+\usebeamerfont{subsection title}
+
+\vfill
+
+\bas@progbar@width=\bas@progbar@frametitlewidth
+\multiply\bas@progbar@width by \insertframenumber
+\divide\bas@progbar@width by \inserttotalframenumber
+
+\hspace{.2\bas@progbar@frametitlewidth}
+\makebox[\bas@progbar@frametitlewidth][l]{%
+\begin{tikzpicture}[tight background]
+\node[anchor=west, bas@col@darkblue, inner sep=0pt] at (0pt, 0pt) {\insertsectionhead};
+
+\draw[anchor=west, bas@col@progempty, fill=bas@col@progempty, inner sep=0pt]
+(2pt, -16pt) rectangle ++ (\bas@progbar@frametitlewidth, \bas@progbar@height);
+
+\draw[anchor=west, bas@col@progfilled, fill=bas@col@progfilled, inner sep=0pt]
+(2pt, -16pt) rectangle ++ (\bas@progbar@width, \bas@progbar@height);
+
+\node[anchor=west, bas@col@darkblue, inner sep=0pt] at (0pt, -32pt) {\insertsubsectionhead};
+\end{tikzpicture}
+}
+
+\vfill
+}
+\AtBeginSubsection[]
+{
+\begingroup
+\begin{frame}[plain]
+\usebeamertemplate{subsection title}
+\end{frame}
+\endgroup
+}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{
+\ifthenelse{\boolean{BAS@opt@nonumber}}
+{}
+{
+\begin{beamercolorbox}[wd=\textwidth, ht=3ex, dp=3ex, leftskip=0.03\textwidth, rightskip=0.03\textwidth]{structure}
+\hfill\usebeamerfont{page number in head/foot}
+\insertframenumber
+\ifthenelse{\boolean{BAS@opt@totalnumber}}
+{\,|\,\inserttotalframenumber}
+{}
+\end{beamercolorbox}
+}
+}
+\setbeamertemplate{footnote}{
+\parindent 0em\noindent
+\raggedright
+\usebeamercolor{footnote}\hbox to 0.8em{\hfil\insertfootnotemark}\insertfootnotetext\par
+}
+
+\setbeamertemplate{frametitle}{
+\nointerlineskip
+\begin{beamercolorbox}[wd=\paperwidth,leftskip=0.3cm,rightskip=0.3cm,ht=2.5ex,dp=1.5ex]{frametitle}
+\usebeamerfont{frametitle}\insertframetitle
+\end{beamercolorbox}
+\ifthenelse{\boolean{BAS@opt@titleprogressbar}}
+{
+\bas@progbar@width=\paperwidth
+\multiply\bas@progbar@width by \insertframenumber
+\divide\bas@progbar@width by \inserttotalframenumber
+
+\vspace{-.5em}
+\begin{beamercolorbox}[wd=\paperwidth,ht=1pt,dp=0pt]{headline}
+\begin{tikzpicture}[tight background]
+\draw[bas@col@progfilled, fill=bas@col@progfilled] (0, 0) rectangle (\bas@progbar@width, \bas@progbar@height);
+\end{tikzpicture}
+\end{beamercolorbox}
+}{}
+\vspace{2em}
+}
+
+\mode
+<all>
+
+\mode<presentation>
+
+\let\otp\titlepage
+\renewcommand{\titlepage}{\otp\addtocounter{framenumber}{-1}}
+\newcommand{\mreducelistspacing}{\vspace{-\topsep}}
+
+\mode
+<all>
+
+\setbeamertemplate{note page}{
+\vspace{2em}
+\begin{columns}[T]
+\begin{column}{.8\textwidth}
+\begin{block}{Anmerkungen zu ``\insertframetitle''}
+\insertnote
+\end{block}
+\end{column}
+\begin{column}{.2\textwidth}
+\framebox{\insertslideintonotes{0.2}}
+\end{column}
+\end{columns}
+}
+
+\linespread{1.15}
+%% 
+%% (c) 2006-2016 Ekkart Kleinod
+%%
+%% End of file `beamerthemebasis.sty'.
