@@ -109,6 +109,12 @@
 \renewcommand{\BAS@opt@foldmarks}{off}
 \typeout{Basis-Option 'nofoldmarks'}
 }
+\newboolean{BAS@opt@nosponsorlogo}
+\setboolean{BAS@opt@nosponsorlogo}{false}
+\DeclareOptionX{nosponsorlogo}{
+\setboolean{BAS@opt@nosponsorlogo}{true}
+\typeout{Basis-Option 'nosponsorlogo'}
+}
 \newcommand{\BAS@opt@titlepage}{on}
 \DeclareOptionX{notitlepage}{
 \renewcommand{\BAS@opt@titlepage}{off}
@@ -421,8 +427,12 @@ colorlinks=true
 }
 }
 \newcommand{\sponsorlogo}[1]{
+\ifthenelse{\boolean{BAS@opt@nosponsorlogo}}
+{}
+{
 \RequirePackage{background}
 \backgroundsetup{contents=\includegraphics{#1}, placement=bottom, scale=1, opacity=1, vshift=5mm}
+}
 }
 \newcommand{\briefkopf}[1]{\def\BAS@briefkopf{#1}}
 \AtBeginDocument{

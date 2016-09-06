@@ -1,4 +1,4 @@
-% \CheckSum{2462}
+% \CheckSum{2469}
 %
 % \iffalse meta-comment
 %
@@ -37,7 +37,7 @@
 % \changes{v0.11}{2014/01/11}{Fontsize-Option}
 % \changes{v0.12}{2014/06/01}{Rules-Option, NoAuthor-Option, changes-Paket in mmd, Sponsorlogo}
 % \changes{v0.13}{2014/11/13}{xcolor mit svgnames, eigener Box-Befehl}
-% \changes{v0.14}{2016/03/??}{Briefe große erste Seite, Beamer-Theme, xcolor mit table, orientation-Option, description-Formatierung}
+% \changes{v0.14}{2016/03/??}{Briefe große erste Seite, Beamer-Theme, xcolor mit table, orientation-Option, description-Formatierung, nosponsorlogo-Option}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -253,6 +253,16 @@
 \DeclareOptionX{nofoldmarks}{
 	\renewcommand{\BAS@opt@foldmarks}{off}
 	\typeout{Basis-Option 'nofoldmarks'}
+}
+%    \end{macrocode}
+%
+% \option{nosponsorlogo}-Option
+%    \begin{macrocode}
+\newboolean{BAS@opt@nosponsorlogo}
+\setboolean{BAS@opt@nosponsorlogo}{false}
+\DeclareOptionX{nosponsorlogo}{
+	\setboolean{BAS@opt@nosponsorlogo}{true}
+	\typeout{Basis-Option 'nosponsorlogo'}
 }
 %    \end{macrocode}
 %
@@ -969,8 +979,12 @@
 % Sponsor: Name des Sponsorlogos, das als Hintergrundbild auf jeder Seite gesetzt wird.
 %    \begin{macrocode}
 \newcommand{\sponsorlogo}[1]{
-	\RequirePackage{background}
-	\backgroundsetup{contents=\includegraphics{#1}, placement=bottom, scale=1, opacity=1, vshift=5mm}
+	\ifthenelse{\boolean{BAS@opt@nosponsorlogo}}
+		{}
+		{
+			\RequirePackage{background}
+			\backgroundsetup{contents=\includegraphics{#1}, placement=bottom, scale=1, opacity=1, vshift=5mm}
+		}
 }
 %    \end{macrocode}
 % \end{macro}
