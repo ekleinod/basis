@@ -1,4 +1,4 @@
-% \CheckSum{2469}
+% \CheckSum{2479}
 %
 % \iffalse meta-comment
 %
@@ -38,7 +38,7 @@
 % \changes{v0.12}{2014/06/01}{Rules-Option, NoAuthor-Option, changes-Paket in mmd, Sponsorlogo}
 % \changes{v0.13}{2014/11/13}{xcolor mit svgnames, eigener Box-Befehl}
 % \changes{v0.14}{2016/09/06}{Briefe große erste Seite, Beamer-Theme, xcolor mit table, orientation-Option, description-Formatierung, nosponsorlogo-Option}
-% \changes{v0.15}{2016/09/??}{...}
+% \changes{v0.15}{2016/09/??}{paper-Option}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -296,6 +296,17 @@
 }
 %    \end{macrocode}
 %
+% \option{paper}-Option
+%    \begin{macrocode}
+\newcommand{\BAS@opt@paper}{a4}
+\DeclareOptionX{paper}{
+	\ifthenelse{\isempty{#1}}
+		{}
+		{\renewcommand{\BAS@opt@paper}{#1}}
+	\typeout{Basis-Option 'paper=\BAS@opt@paper'}
+}
+%    \end{macrocode}
+%
 % \option{protocol}-Option
 %    \begin{macrocode}
 \newboolean{BAS@opt@protocol}
@@ -446,7 +457,7 @@
 	draft=\BAS@opt@draft,
 	fontsize=\BAS@opt@fontsize,
 	footnotes=multiple,
-	paper=a4,
+	paper=\BAS@opt@paper,
 	paper=\BAS@opt@orientation,
 	parskip=half,
 	twocolumn=off,

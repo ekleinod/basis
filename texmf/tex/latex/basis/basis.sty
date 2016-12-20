@@ -12,8 +12,8 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{basis}
-[2016/09/06 v0.14 Basis-Layout]
-\typeout{*** basis-Stil 2016/09/06 v0.14 ***}
+[2016/09/06 v0.15 alpha Basis-Layout]
+\typeout{*** basis-Stil 2016/09/06 v0.15 alpha ***}
 \RequirePackage{xkeyval}
 \RequirePackage{xifthen}
 \RequirePackage{ifxetex}
@@ -132,6 +132,13 @@
 {\renewcommand{\BAS@opt@orientation}{#1}}
 \typeout{Basis-Option 'orientation=\BAS@opt@orientation'}
 }
+\newcommand{\BAS@opt@paper}{a4}
+\DeclareOptionX{paper}{
+\ifthenelse{\isempty{#1}}
+{}
+{\renewcommand{\BAS@opt@paper}{#1}}
+\typeout{Basis-Option 'paper=\BAS@opt@paper'}
+}
 \newboolean{BAS@opt@protocol}
 \setboolean{BAS@opt@protocol}{false}
 \DeclareOptionX{protocol}{
@@ -182,7 +189,7 @@ cleardoublepage=empty,
 draft=\BAS@opt@draft,
 fontsize=\BAS@opt@fontsize,
 footnotes=multiple,
-paper=a4,
+paper=\BAS@opt@paper,
 paper=\BAS@opt@orientation,
 parskip=half,
 twocolumn=off,
