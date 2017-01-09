@@ -1,4 +1,4 @@
-% \CheckSum{2479}
+% \CheckSum{2491}
 %
 % \iffalse meta-comment
 %
@@ -2597,8 +2597,10 @@
 	\usebeamerfont{section title}
 
 	\bas@progbar@width=\bas@progbar@frametitlewidth
+	\divide\bas@progbar@width by 10
 	\multiply\bas@progbar@width by \insertframenumber
 	\divide\bas@progbar@width by \inserttotalframenumber
+	\multiply\bas@progbar@width by 10
 
 	\vskip .3\paperheight
 	\hspace{.2\bas@progbar@frametitlewidth}
@@ -2638,8 +2640,10 @@
 	\vfill
 
 	\bas@progbar@width=\bas@progbar@frametitlewidth
+	\divide\bas@progbar@width by 10
 	\multiply\bas@progbar@width by \insertframenumber
 	\divide\bas@progbar@width by \inserttotalframenumber
+	\multiply\bas@progbar@width by 10
 
 	\hspace{.2\bas@progbar@frametitlewidth}
 	\makebox[\bas@progbar@frametitlewidth][l]{%
@@ -2709,8 +2713,10 @@
 	\ifthenelse{\boolean{BAS@opt@titleprogressbar}}
 		{
 			\bas@progbar@width=\paperwidth
+			\divide\bas@progbar@width by 10
 			\multiply\bas@progbar@width by \insertframenumber
 			\divide\bas@progbar@width by \inserttotalframenumber
+			\multiply\bas@progbar@width by 10
 
 			\vspace{-.5em}
 			\begin{beamercolorbox}[wd=\paperwidth,ht=1pt,dp=0pt]{headline}
