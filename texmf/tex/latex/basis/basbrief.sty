@@ -169,6 +169,12 @@
 \setboolean{BAS@opt@rules}{true}
 \typeout{Basis-Option 'rules'}
 }
+\newboolean{BAS@opt@tabulary}
+\setboolean{BAS@opt@tabulary}{false}
+\DeclareOptionX{tabulary}{
+\setboolean{BAS@opt@tabulary}{true}
+\typeout{Basis-Option 'tabulary'}
+}
 \DeclareOptionX<basBox>{style}{\def\Bas@Box@style{#1}}
 \DeclareOptionX<basBox>{color}{\def\Bas@Box@color{#1}}
 \DeclareOptionX<basBox>{checkcolor}{\def\Bas@Box@checkcolor{#1}}
@@ -338,6 +344,10 @@ open=right
 \RequirePackage{array}
 \RequirePackage{tabu}
 \RequirePackage{booktabs}
+\ifthenelse{\boolean{BAS@opt@tabulary}}
+{
+\RequirePackage{tabulary}
+}{}
 \RequirePackage[
 \BAS@opt@hyperdriver,
 allcolors=\BAS@opt@hypercolor,

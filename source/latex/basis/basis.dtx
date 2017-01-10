@@ -1,4 +1,4 @@
-% \CheckSum{2491}
+% \CheckSum{2499}
 %
 % \iffalse meta-comment
 %
@@ -38,7 +38,7 @@
 % \changes{v0.12}{2014/06/01}{Rules-Option, NoAuthor-Option, changes-Paket in mmd, Sponsorlogo}
 % \changes{v0.13}{2014/11/13}{xcolor mit svgnames, eigener Box-Befehl}
 % \changes{v0.14}{2016/09/06}{Briefe große erste Seite, Beamer-Theme, xcolor mit table, orientation-Option, description-Formatierung, nosponsorlogo-Option}
-% \changes{v0.15}{2016/09/??}{paper-Option}
+% \changes{v0.15}{2017/01/??}{paper-Option, tabulary-Option}
 % \GetFileInfo{basis.dtx}
 % \RecordChanges
 %
@@ -346,6 +346,16 @@
 \DeclareOptionX{rules}{
 	\setboolean{BAS@opt@rules}{true}
 	\typeout{Basis-Option 'rules'}
+}
+%    \end{macrocode}
+%
+% \option{tabulary}-Option
+%    \begin{macrocode}
+\newboolean{BAS@opt@tabulary}
+\setboolean{BAS@opt@tabulary}{false}
+\DeclareOptionX{tabulary}{
+	\setboolean{BAS@opt@tabulary}{true}
+	\typeout{Basis-Option 'tabulary'}
 }
 %    \end{macrocode}
 %
@@ -794,6 +804,14 @@
 \RequirePackage{array}
 \RequirePackage{tabu}
 \RequirePackage{booktabs}
+%    \end{macrocode}
+%
+% Falls die \option{tabulary}-Option gesetzt ist, wird das entsprechende Paket geladen.
+%    \begin{macrocode}
+\ifthenelse{\boolean{BAS@opt@tabulary}}
+	{
+		\RequirePackage{tabulary}
+	}{}
 %    \end{macrocode}
 %
 % \subsection{Verlinkung innerhalb des Dokuments}
