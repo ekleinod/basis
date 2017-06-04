@@ -51,6 +51,12 @@
 \setboolean{BAS@opt@noauthor}{true}
 \typeout{Basis-Option 'noauthor'}
 }
+\newboolean{BAS@opt@noemail}
+\setboolean{BAS@opt@noemail}{false}
+\DeclareOptionX{noemail}{
+\setboolean{BAS@opt@noemail}{true}
+\typeout{Basis-Option 'noemail'}
+}
 \newboolean{BAS@opt@nonumber}
 \setboolean{BAS@opt@nonumber}{false}
 \DeclareOptionX{nonumber}{

@@ -104,6 +104,12 @@
 \renewcommand{\BAS@opt@backaddress}{off}
 \typeout{Basis-Option 'nobackaddress'}
 }
+\newboolean{BAS@opt@noemail}
+\setboolean{BAS@opt@noemail}{false}
+\DeclareOptionX{noemail}{
+\setboolean{BAS@opt@noemail}{true}
+\typeout{Basis-Option 'noemail'}
+}
 \newcommand{\BAS@opt@foldmarks}{on}
 \DeclareOptionX{nofoldmarks}{
 \renewcommand{\BAS@opt@foldmarks}{off}
@@ -463,6 +469,9 @@ colorlinks=true
 \setboolean{BAS@hascityline}{false}
 \newboolean{BAS@hascomm}
 \setboolean{BAS@hascomm}{false}
+\ifthenelse{\boolean{BAS@opt@noemail}}
+{}
+{
 \ifthenelse{\isundefined\BAS@email}
 {}
 {
@@ -471,6 +480,7 @@ colorlinks=true
 {
 \setboolean{BAS@hasaddress}{true}
 \setboolean{BAS@hascomm}{true}
+}
 }
 }
 \ifthenelse{\isundefined\BAS@telefon}
