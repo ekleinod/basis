@@ -10,36 +10,40 @@
 
 	\maketitle
 	\tableofcontents
-	
+
 	\section*{Aufgabenliste}
 	\listoftasks
-	
+
 	\section*{Entscheidungsliste}
 	\listofdecisions
-	
+
 	\section*{Anhangsliste}
 	\listofattachments
-	
+
 	\section*{Kalender}
-	\prepareCal
-	\begin{eventlist}{}{Beispiel}
-		1 dec 2000 to 31 dec 2000
-	\end{eventlist}
-	
+
+	funzt irgendwie nicht.
+
+%	\prepareCal
+%	\begin{eventlist}{}{Beispiel}
+%		1 dec 2000 to 31 dec 2000
+%	\end{eventlist}
+
 	\begin{Minutes}{Protokolltitel}
-	
+
 		\subtitle{Protokolluntertitel}
 		\moderation{Moderatorin}
 		\minutetaker{Protokollant}
 		\participant{
-			Vorname 1 Name 1, 
-			Dr. Vorname 2 Name 2, 
+			Vorname 1 Name 1,
+			Dr. Vorname 2 Name 2,
 			Vorname 3 Name 3
 		}
 		\guest{
-			Vorname 1 Gast 1, 
+			Vorname 1 Gast 1,
 			Prof. Vorname 2 Gast 2
 		}
+		\minutesdate{15. Februar 2018}
 		\starttime{10:00}
 		\endtime{12:40}
 		\location{Berlin, Velodrom}
@@ -47,41 +51,41 @@
 			Vorname 1 CC 1
 		}
 		\missingExcused{
-			Vorname 1 Entschuldigt 1, 
+			Vorname 1 Entschuldigt 1,
 			Prof. Vorname 2 Entschuldigt 2
 		}
 		\missingNoExcuse{
 			Vorname 1 Unentschuldigt 1
 		}
-	
+
 		\maketitle
-		
+
 		\topic{Punkt eins}
-		
+
 		Text dazu.
-		
+
 		\subtopic{Unterpunkt zu Punkt 1}
-		
+
 		Mehr Text wegen Unterpunkt 1.
-		
+
 		\subtopic{Noch ein Unterpunkt zu Punkt 1}
-		
+
 		Mehr Text wegen Unterpunkt 2.
-		
+
 		\topic{Datumse}
-		
+
 		\schedule{2000/12/24}{Weihnachten}
 		\schedule{2000/12/24}[20:00]{Geschenkeverteilung}
 		\schedule*{2000/12/25}{Weihnachten Tag 1 (kein Eintrag in Kalender)}
-		
-		
+
+
 		\topic{Aufgaben}
-		
+
 		\task{Wer}{Aktion}
 		\task*{Aktion ohne Handlerin}
 		\task*[bis Mittwoch]{Aktion ohne Handlerin mit Datum}
 		\task[fertig]{Icke}[gestern]{Ich habe die Aufgabe erledigt}
-		
+
 		\newcols[][1]%because of a Bug
 		\begin{Secret}
 		\topic{Secret Topic}
@@ -93,25 +97,25 @@
 		If this section is printed outside the section "secret", some
 		secret stuff is not printed. Check the option \texttt{Secret}.
 		\newcols
-		
+
 		\addtopic{Additional Topic}
 		\subtopic{subtopic}
-		
+
 		\topic{Attachments}
 		\attachment{Attachment with two pages}{2}
-		
+
 		\anhang[att:en]{Attachment with reference}{2}
-		
+
 		\topic{Decisions and votes}
 		\subtopic{Opinions and Argumentations}
 		\opinion{Herder}{Different Opinion}
-		
+
 		A discussion to the theme:
 		\begin{Opinions}
 		\item[Goethe] One opinion
 		\item[Schiller] Another opinion
 		\end{Opinions}
-		
+
 		Arguments can be discussed with pro and contra
 		\begin{Argumentation}
 		\pro reason for it
@@ -121,26 +125,26 @@
 		\item a comment
 		\result result
 		\end{Argumentation}
-		
+
 		\subtopic{A single vote}
 		\vote{Short voting}{1}{2}{3}
-		
+
 		And a single vote with decision:\par
-		
+
 		\vote{Short voting}{1}{2}{3}[Decision]
-		
+
 		\subtopic{A couple of votes}
 		\begin{Vote}
 		\vote{Vote one}{1}{2}{3}
 		\vote{Vote two}{1}{2}{3}[decision]
 		\vote{Vote three}{1}{2}{3}
 		\end{Vote}
-		
+
 		\subtopic{Decisions}
 		\decisiontheme{Theme}{Theme for a decision}
 		\decision{Theme}{Decision}
 		\decision*{Decision without theme}[Long text for the decision]
-	
+
 	\end{Minutes}
 
 \end{document}
