@@ -2547,11 +2547,9 @@
 %
 % \subsubsection{Hintergrund}
 %
-% todo: Der Hintergrund ist grundsätzlich weiß mit leichten Gradienten in den Ecken.
+% Hintergrund mit vertikalem Gradient.
 %    \begin{macrocode}
-\definecolor{bas@col@top}{RGB}{36, 64, 38}
-\definecolor{bas@col@bottom}{RGB}{22, 38, 23}
-\setbeamertemplate{background canvas}[vertical shading][top=bas@col@top, bottom=bas@col@bottom]%
+\setbeamertemplate{background canvas}[vertical shading][top=palette primary.bg, bottom=palette quaternary.bg]%
 %\setbeamertemplate{background canvas}{%
 %	\begin{tikzpicture}[remember picture,overlay]
 %		\shade[top color=gray!85,bottom color=gray!85,middle color=white]
@@ -2833,14 +2831,17 @@
 \colorlet{bas@col@progfilled}{bas@col@darkblue}
 \colorlet{bas@col@progempty}{bas@col@darkblue!20}
 \colorlet{bas@col@footnote}{bas@col@darkblue!50}
+
+\definecolor{bas@col@base}{RGB}{36, 64, 38}
+\definecolor{bas@col@basedarker}{RGB}{22, 38, 23}
 %    \end{macrocode}
 %
 % Farben den Einsätzen zuordnen.
 %    \begin{macrocode}
-\setbeamercolor{palette primary}{fg=bas@col@darkblue, bg=bas@col@framebg}
+\setbeamercolor{palette primary}{fg=bas@col@darkblue, bg=bas@col@base}
 \setbeamercolor{palette secondary}{fg=white, bg=bas@col@darkblue}
 \setbeamercolor{palette tertiary}{fg=white, bg=bas@col@progempty}
-\setbeamercolor{palette quaternary}{fg=bas@col@darkblue}
+\setbeamercolor{palette quaternary}{fg=bas@col@darkblue, bg=bas@col@base}
 
 \setbeamercolor{title}{parent=palette primary}
 \setbeamercolor{subtitle}{parent=palette primary}
@@ -2871,12 +2872,7 @@
 %
 % \subsection{Fontdefinitionen}
 %
-% Schriftart Roboto als Standard festlegen.
 %    \begin{macrocode}
-%\RequirePackage[sfdefault]{roboto}
-
-%\usepackage[no-math]{fontspec}
-
 %\setsansfont[BoldFont={Fira Sans}]{Fira Sans Light}
 %\setmonofont{Fira Mono}
 %\newfontfamily\ExtraLight{Fira Sans ExtraLight}
