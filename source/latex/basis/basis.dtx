@@ -2549,7 +2549,10 @@
 %
 % todo: Der Hintergrund ist grundsätzlich weiß mit leichten Gradienten in den Ecken.
 %    \begin{macrocode}
-\setbeamertemplate{background canvas}{%
+\definecolor{bas@col@top}{RGB}{36, 64, 38}
+\definecolor{bas@col@bottom}{RGB}{22, 38, 23}
+\setbeamertemplate{background canvas}[vertical shading][top=bas@col@top, bottom=bas@col@bottom]%
+%\setbeamertemplate{background canvas}{%
 %	\begin{tikzpicture}[remember picture,overlay]
 %		\shade[top color=gray!85,bottom color=gray!85,middle color=white]
 %			([shift={(0.5cm,-0.5cm)}]current page.north west)
@@ -2557,7 +2560,7 @@
 %			([shift={(-0.5cm,0.5cm)}]current page.south east)
 %			;
 %	\end{tikzpicture}%
-}
+%}
 %    \end{macrocode}
 %
 % \subsubsection{Titelseite}
