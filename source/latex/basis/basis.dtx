@@ -2549,7 +2549,7 @@
 %
 % Hintergrund mit vertikalem Gradient.
 %    \begin{macrocode}
-\setbeamertemplate{background canvas}[vertical shading][top=palette primary.bg, bottom=palette quaternary.bg]%
+%\setbeamertemplate{background canvas}[vertical shading][top=palette primary.bg, bottom=palette quaternary.bg]%
 %\setbeamertemplate{background canvas}{%
 %	\begin{tikzpicture}[remember picture,overlay]
 %		\shade[top color=gray!85,bottom color=gray!85,middle color=white]
@@ -2819,8 +2819,27 @@
 %
 %<*beamer:theme:color>
 %
-% Benutzte Farben definieren.
+% Theme: darkgreen.
 %    \begin{macrocode}
+\definecolor{bas@col@darkgreen@base}{RGB}{22, 38, 23}
+\definecolor{bas@col@darkgreen@normal}{RGB}{200, 200, 200}
+\definecolor{bas@col@darkgreen@highlight}{RGB}{0, 255, 16}
+\definecolor{bas@col@darkgreen@lowlight}{RGB}{204, 107, 20}
+\definecolor{bas@col@darkgreen@damped}{RGB}{178, 89, 9}
+\definecolor{bas@col@darkgreen@accent}{RGB}{81, 25, 255}
+%    \end{macrocode}
+%
+% Theme: green.
+%    \begin{macrocode}
+\definecolor{bas@col@green@base}{RGB}{36, 64, 38}
+\definecolor{bas@col@green@normal}{RGB}{220, 220, 220}
+\definecolor{bas@col@green@highlight}{RGB}{172, 255, 177}
+\definecolor{bas@col@green@lowlight}{RGB}{140, 104, 72}
+\definecolor{bas@col@green@damped}{RGB}{115, 82, 53}
+\definecolor{bas@col@darkgreen@accent}{RGB}{57, 51, 77}
+
+
+
 \definecolor{bas@col@alert}{RGB}{235, 129, 27}
 \definecolor{bas@col@darkblue}{RGB}{35, 55, 59}
 \definecolor{bas@col@mediumbrown}{RGB}{200, 122, 47}
@@ -2833,16 +2852,19 @@
 \colorlet{bas@col@footnote}{bas@col@darkblue!50}
 
 \definecolor{bas@col@base}{RGB}{36, 64, 38}
-\definecolor{bas@col@basedarker}{RGB}{22, 38, 23}
+%    \end{macrocode}
+%
+% Paletten definieren.
+%    \begin{macrocode}
+\setbeamercolor{palette primary}{fg=bas@col@darkgreen@normal, bg=bas@col@darkgreen@base}
+%\setbeamercolor{palette primary}{fg=bas@col@green@normal, bg=bas@col@green@base}
+\setbeamercolor{palette secondary}{fg=white, bg=bas@col@darkblue}
+\setbeamercolor{palette tertiary}{fg=white, bg=bas@col@progempty}
+\setbeamercolor{palette quaternary}{fg=bas@col@darkblue, bg=bas@col@base}
 %    \end{macrocode}
 %
 % Farben den Einsätzen zuordnen.
 %    \begin{macrocode}
-\setbeamercolor{palette primary}{fg=bas@col@darkblue, bg=bas@col@base}
-\setbeamercolor{palette secondary}{fg=white, bg=bas@col@darkblue}
-\setbeamercolor{palette tertiary}{fg=white, bg=bas@col@progempty}
-\setbeamercolor{palette quaternary}{fg=bas@col@darkblue, bg=bas@col@base}
-
 \setbeamercolor{title}{parent=palette primary}
 \setbeamercolor{subtitle}{parent=palette primary}
 \setbeamercolor{author}{parent=palette primary}
@@ -2855,7 +2877,7 @@
 %\setbeamercolor{background canvas}{parent=palette primary}
 \setbeamercolor{structure}{fg=bas@col@darkblue}
 
-\setbeamercolor{normal text}{fg=bas@col@text}
+\setbeamercolor*{normal text}{parent=palette primary}
 \setbeamercolor{alerted text}{fg=bas@col@alert}
 
 \setbeamercolor{footnote}{fg=bas@col@footnote}
