@@ -2650,6 +2650,35 @@
 \setbeamertemplate{section title}{
 	\usebeamerfont{section title}
 
+	\begin{tikzpicture}
+
+		\newcount\mypercent
+		\mypercent=\insertframenumber
+		\multiply\mypercent by 100
+		\divide\mypercent by \inserttotalframenumber
+
+		\newcount\mypie
+		\mypie=\insertframenumber
+		\multiply\mypie by 360
+		\divide\mypie by \inserttotalframenumber
+
+		\node[align=center]{\the\mypercent\,\%};
+
+		\begin{scope}[line width=2mm,rotate=90]
+			\draw[green!75!black] (0:1cm) arc (0:-\the\mypie:1cm);
+
+			\newcount\mycount
+			\foreach \angle in {0,360,...,3599}
+			{
+				\mycount=\angle\relax
+				\divide\mycount by 10\relax
+				\draw[black!15,thick] (\the\mycount:9mm) -- (\the\mycount:11mm);
+			}
+
+		\end{scope}
+		\draw[gray] (0,0) circle (1.1cm) circle (0.9cm);
+	\end{tikzpicture}
+
 	\bas@progbar@width=\bas@progbar@frametitlewidth
 	\divide\bas@progbar@width by 10
 	\multiply\bas@progbar@width by \insertframenumber
@@ -2773,29 +2802,9 @@
 			\multiply\bas@progbar@width by 10
 
 			\vspace{-.5em}
-			%\begin{beamercolorbox}[wd=\paperwidth,ht=1pt,dp=0pt]{headline}
-			%	\begin{tikzpicture}[tight background]
-			%		\draw[bas@col@progfilled, fill=bas@col@progfilled] (0, 0) rectangle (\bas@progbar@width, \bas@progbar@height);
-			%	\end{tikzpicture}
-			%\end{beamercolorbox}
-
 			\begin{beamercolorbox}[wd=\paperwidth,ht=1pt,dp=0pt]{headline}
-				\begin{tikzpicture}
-					\node[align=center]{\insertframenumber};
-
-					\begin{scope}[line width=4mm,rotate=270]
-						\draw[green!75!black]          (0:1cm) arc (0:270:1cm);
-
-						\newcount\mycount
-						\foreach \angle in {0,360,...,3599}
-						{
-							\mycount=\angle\relax
-							\divide\mycount by 10\relax
-							\draw[black!15,thick] (\the\mycount:8mm) -- (\the\mycount:12mm);
-						}
-
-					\end{scope}
-					\draw[gray] (0,0) circle (1.2cm) circle (0.8cm);
+				\begin{tikzpicture}[tight background]
+					\draw[bas@col@progfilled, fill=bas@col@progfilled] (0, 0) rectangle (\bas@progbar@width, \bas@progbar@height);
 				\end{tikzpicture}
 			\end{beamercolorbox}
 		}{}
